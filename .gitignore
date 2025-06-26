@@ -13,17 +13,22 @@ migrate_working_dir/
 
 # Flutter/Dart/Pub related - Flutter, Dart, Pub 패키지 매니저가 생성하는 파일 및 폴더
 # 이 파일들은 빌드 과정이나 의존성 패키지를 가져올 때 자동으로 생성됩니다.
-.dart_tool/ # Dart 도구가 생성한 파일
-.dart_tool
-.flutter-plugins # 프로젝트에 사용된 플러그인 목록
-.flutter-plugins-dependencies # 플러그인 의존성 목록
-.packages # 패키지들의 로컬 경로를 매핑하는 파일
-.pub-cache/ # 공유 패키지 캐시
+# Dart 도구가 생성한 파일
+.dart_tool/
+# 패키지들의 로컬 경로를 매핑하는 파일
+.packages 
+# 공유 패키지 캐시
+.pub-cache/
 .pub/
 build/
+# 프로젝트에 사용된 플러그인 목록
+.flutter-plugins
+# 플러그인 의존성 목록
+.flutter-plugins-dependencies
 
 # AI 도구 관련
-.claude/ # Claude AI 관련 설정 파일
+# Claude AI 관련 설정 파일
+.claude/
 
 # iOS 빌드 산출물
 /ios/Flutter/App.framework
@@ -31,46 +36,76 @@ build/
 
 # IDEs - 통합 개발 환경(IDE) 설정 파일
 # 이 파일들은 사용자 개인의 개발 환경에 따라 달라지므로 버전 관리에 포함하지 않습니다.
-.idea/ # IntelliJ/Android Studio
-.vscode/ # Visual Studio Code
-*.iml # IntelliJ 모듈 파일
-*.ipr # IntelliJ 프로젝트 파일
-*.iws # IntelliJ 워크스페이스 파일
+# IntelliJ/Android Studio
+.idea/
+# Visual Studio Code
+.vscode/
+# IntelliJ 모듈 파일
+*.iml
+# IntelliJ 프로젝트 파일
+*.ipr
+# IntelliJ 워크스페이스 파일
+*.iws
 
 # Android - 안드로이드 관련 빌드 파일, 자동 생성 파일, 로컬 설정
-/android/app/src/main/assets/flutter_assets # 안드로이드용으로 번들링된 애셋
-/android/.gradle # Gradle 빌드 시스템 캐시
-/android/captures/ # Android Studio 스크린샷 캡처
-/android/gradlew # Unix용 Gradle wrapper 실행 파일 (자동 생성됨)
-/android/gradlew.bat # Windows용 Gradle wrapper 실행 파일 (자동 생성됨)
-/android/local.properties # 로컬 안드로이드 SDK 설정
-/android/key.properties # 서명 키 관련 정보
-/android/**/gradle-wrapper.jar # Gradle wrapper jar 파일
+# 안드로이드용으로 번들링된 애셋
+/android/app/src/main/assets/flutter_assets
+# Gradle 빌드 시스템 캐시
+/android/.gradle
+# Android Studio 스크린샷 캡처
+/android/captures/
+# Unix용 Gradle wrapper 실행 파일 (자동 생성됨)
+/android/gradlew
+# Windows용 Gradle wrapper 실행 파일 (자동 생성됨)
+/android/gradlew.bat
+# 로컬 안드로이드 SDK 설정
+/android/local.properties
+# 서명 키 관련 정보
+/android/key.properties
+# Gradle wrapper jar 파일
+/android/**/gradle-wrapper.jar
 
 # iOS - iOS 관련 빌드 파일, 의존성 관리 파일, 로컬 설정
-/ios/.symlinks/ # Flutter가 생성하는 심볼릭 링크
-/ios/Pods/ # CocoaPods 의존성
-/ios/Podfile # CocoaPods 의존성 관리 파일 (자동 생성됨)
-/ios/Runner.xcworkspace # Xcode 워크스페이스
-/ios/Flutter/ephemeral_plugins/ # iOS용으로 생성된 플러그인 파일
-/ios/Flutter/Debug.xcconfig # Flutter 디버그 설정 (자동 생성됨)
-/ios/Flutter/Release.xcconfig # Flutter 릴리즈 설정 (자동 생성됨)
+# Flutter가 생성하는 심볼릭 링크
+/ios/.symlinks/
+# CocoaPods 의존성
+/ios/Pods/
+# CocoaPods 의존성 관리 파일 (자동 생성됨)
+/ios/Podfile
+# Xcode 워크스페이스
+/ios/Runner.xcworkspace
+# iOS용으로 생성된 플러그인 파일
+/ios/Flutter/ephemeral_plugins/
+# Flutter 디버그 설정 (자동 생성됨)
+/ios/Flutter/Debug.xcconfig
+# Flutter 릴리즈 설정 (자동 생성됨)
+/ios/Flutter/Release.xcconfig
 
 # macOS - macOS 관련 빌드 파일, 로컬 설정
-/macos/Flutter/ephemeral_plugins/ # macOS용으로 생성된 플러그인 파일
-/macos/Flutter/Flutter-Debug.xcconfig # macOS Flutter 디버그 설정 (자동 생성됨)
-/macos/Flutter/Flutter-Release.xcconfig # macOS Flutter 릴리즈 설정 (자동 생성됨)
-/macos/Flutter/GeneratedPluginRegistrant.swift # macOS 플러그인 등록 파일 (자동 생성됨)
-/macos/Pods/ # macOS용 CocoaPods 의존성
-/macos/Podfile # macOS CocoaPods 의존성 관리 파일 (자동 생성됨)
-/macos/.symlinks/ # macOS용으로 Flutter가 생성하는 심볼릭 링크
-**/*.xcworkspace # Xcode 워크스페이스 파일
+# macOS용으로 생성된 플러그인 파일
+/macos/Flutter/ephemeral_plugins/
+# macOS Flutter 디버그 설정 (자동 생성됨)
+/macos/Flutter/Flutter-Debug.xcconfig
+# macOS Flutter 릴리즈 설정 (자동 생성됨)
+/macos/Flutter/Flutter-Release.xcconfig
+# macOS 플러그인 등록 파일 (자동 생성됨)
+/macos/Flutter/GeneratedPluginRegistrant.swift
+# macOS용 CocoaPods 의존성
+/macos/Pods/
+# macOS CocoaPods 의존성 관리 파일 (자동 생성됨)
+/macos/Podfile
+# macOS용으로 Flutter가 생성하는 심볼릭 링크
+/macos/.symlinks/
+# Xcode 워크스페이스 파일
+**/*.xcworkspace
 
 # Linux - 리눅스 관련 자동 생성 파일
-/linux/flutter/ephemeral_plugins/ # 리눅스용으로 생성된 플러그인 파일
+# 리눅스용으로 생성된 플러그인 파일
+/linux/flutter/ephemeral_plugins/ 
 
 # Windows - 윈도우 관련 자동 생성 파일
-/windows/flutter/ephemeral_plugins/ # 윈도우용으로 생성된 플러그인 파일
+# 윈도우용으로 생성된 플러그인 파일
+/windows/flutter/ephemeral_plugins/
 
 # 프로젝트를 진행하면서 작성한 부수적인 기록들
 study/
