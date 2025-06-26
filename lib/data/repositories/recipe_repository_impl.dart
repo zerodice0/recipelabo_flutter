@@ -21,6 +21,21 @@ class RecipeRepositoryImpl implements RecipeRepository {
   }
 
   @override
+  Future<RecipeEntity?> getRecipe(String id) async {
+    final recipeModel = await localDataSource.getRecipe(id);
+    if (recipeModel != null) {
+      return _mapRecipeModelToEntity(recipeModel);
+    }
+    return null;
+  }
+
+  @override
+  Future<List<RecipeVersionEntity>> getRecipeVersions(String recipeId) async {
+    final versionModels = await localDataSource.getRecipeVersions(recipeId);
+    return versionModels.map((model) => _mapRecipeVersionModelToEntity(model)).toList();
+  }
+
+  @override
   Future<RecipeVersionEntity?> getRecipeVersion(String id) async {
     final versionModel = await localDataSource.getRecipeVersion(id);
     if (versionModel != null) {
@@ -42,6 +57,19 @@ class RecipeRepositoryImpl implements RecipeRepository {
   }
 
   // Mappers
+  static RecipeEntity mapRecipeModelToEntity(RecipeModel model) {
+    return RecipeEntity(
+      id: model.id,
+      authorId: model.authorId,
+      latestVersionId: model.latestVersionId,
+      name: model.name,
+      description: model.description,
+      isPublic: model.isPublic,
+      createdAt: model.createdAt,
+      updatedAt: model.updatedAt,
+    );
+  }
+
   RecipeEntity _mapRecipeModelToEntity(RecipeModel model) {
     return RecipeEntity(
       id: model.id,

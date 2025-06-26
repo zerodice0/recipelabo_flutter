@@ -6,6 +6,12 @@ abstract class RecipeRepository {
   /// 모든 레시피 목록을 가져옵니다.
   Future<List<RecipeEntity>> getRecipes();
 
+  /// 특정 ID를 가진 레시피를 가져옵니다.
+  Future<RecipeEntity?> getRecipe(String id);
+
+  /// 특정 레시피의 모든 버전을 가져옵니다.
+  Future<List<RecipeVersionEntity>> getRecipeVersions(String recipeId);
+
   /// 특정 ID를 가진 레시피 버전을 가져옵니다.
   Future<RecipeVersionEntity?> getRecipeVersion(String id);
 

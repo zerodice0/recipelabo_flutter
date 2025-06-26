@@ -22,6 +22,11 @@ mixin _$RecipeEditState {
   List<IngredientEntity> get ingredients => throw _privateConstructorUsedError;
   List<StepEntity> get steps => throw _privateConstructorUsedError;
   AsyncValue<void> get saveState => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
+  bool get isEditMode => throw _privateConstructorUsedError;
+  String? get recipeId => throw _privateConstructorUsedError;
+  String? get recipeVersionId => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
 
   /// Create a copy of RecipeEditState
   /// with the given fields replaced by the non-null parameter values.
@@ -43,6 +48,11 @@ abstract class $RecipeEditStateCopyWith<$Res> {
     List<IngredientEntity> ingredients,
     List<StepEntity> steps,
     AsyncValue<void> saveState,
+    bool isLoading,
+    bool isEditMode,
+    String? recipeId,
+    String? recipeVersionId,
+    String? error,
   });
 }
 
@@ -66,6 +76,11 @@ class _$RecipeEditStateCopyWithImpl<$Res, $Val extends RecipeEditState>
     Object? ingredients = null,
     Object? steps = null,
     Object? saveState = null,
+    Object? isLoading = null,
+    Object? isEditMode = null,
+    Object? recipeId = freezed,
+    Object? recipeVersionId = freezed,
+    Object? error = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -94,6 +109,31 @@ class _$RecipeEditStateCopyWithImpl<$Res, $Val extends RecipeEditState>
                     ? _value.saveState
                     : saveState // ignore: cast_nullable_to_non_nullable
                         as AsyncValue<void>,
+            isLoading:
+                null == isLoading
+                    ? _value.isLoading
+                    : isLoading // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            isEditMode:
+                null == isEditMode
+                    ? _value.isEditMode
+                    : isEditMode // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            recipeId:
+                freezed == recipeId
+                    ? _value.recipeId
+                    : recipeId // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            recipeVersionId:
+                freezed == recipeVersionId
+                    ? _value.recipeVersionId
+                    : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            error:
+                freezed == error
+                    ? _value.error
+                    : error // ignore: cast_nullable_to_non_nullable
+                        as String?,
           )
           as $Val,
     );
@@ -115,6 +155,11 @@ abstract class _$$RecipeEditStateImplCopyWith<$Res>
     List<IngredientEntity> ingredients,
     List<StepEntity> steps,
     AsyncValue<void> saveState,
+    bool isLoading,
+    bool isEditMode,
+    String? recipeId,
+    String? recipeVersionId,
+    String? error,
   });
 }
 
@@ -137,6 +182,11 @@ class __$$RecipeEditStateImplCopyWithImpl<$Res>
     Object? ingredients = null,
     Object? steps = null,
     Object? saveState = null,
+    Object? isLoading = null,
+    Object? isEditMode = null,
+    Object? recipeId = freezed,
+    Object? recipeVersionId = freezed,
+    Object? error = freezed,
   }) {
     return _then(
       _$RecipeEditStateImpl(
@@ -165,6 +215,31 @@ class __$$RecipeEditStateImplCopyWithImpl<$Res>
                 ? _value.saveState
                 : saveState // ignore: cast_nullable_to_non_nullable
                     as AsyncValue<void>,
+        isLoading:
+            null == isLoading
+                ? _value.isLoading
+                : isLoading // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        isEditMode:
+            null == isEditMode
+                ? _value.isEditMode
+                : isEditMode // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        recipeId:
+            freezed == recipeId
+                ? _value.recipeId
+                : recipeId // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        recipeVersionId:
+            freezed == recipeVersionId
+                ? _value.recipeVersionId
+                : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        error:
+            freezed == error
+                ? _value.error
+                : error // ignore: cast_nullable_to_non_nullable
+                    as String?,
       ),
     );
   }
@@ -181,6 +256,11 @@ class _$RecipeEditStateImpl
     final List<IngredientEntity> ingredients = const [],
     final List<StepEntity> steps = const [],
     this.saveState = const AsyncValue.data(null),
+    this.isLoading = false,
+    this.isEditMode = false,
+    this.recipeId,
+    this.recipeVersionId,
+    this.error,
   }) : _ingredients = ingredients,
        _steps = steps;
 
@@ -211,10 +291,22 @@ class _$RecipeEditStateImpl
   @override
   @JsonKey()
   final AsyncValue<void> saveState;
+  @override
+  @JsonKey()
+  final bool isLoading;
+  @override
+  @JsonKey()
+  final bool isEditMode;
+  @override
+  final String? recipeId;
+  @override
+  final String? recipeVersionId;
+  @override
+  final String? error;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RecipeEditState(name: $name, description: $description, ingredients: $ingredients, steps: $steps, saveState: $saveState)';
+    return 'RecipeEditState(name: $name, description: $description, ingredients: $ingredients, steps: $steps, saveState: $saveState, isLoading: $isLoading, isEditMode: $isEditMode, recipeId: $recipeId, recipeVersionId: $recipeVersionId, error: $error)';
   }
 
   @override
@@ -226,7 +318,12 @@ class _$RecipeEditStateImpl
       ..add(DiagnosticsProperty('description', description))
       ..add(DiagnosticsProperty('ingredients', ingredients))
       ..add(DiagnosticsProperty('steps', steps))
-      ..add(DiagnosticsProperty('saveState', saveState));
+      ..add(DiagnosticsProperty('saveState', saveState))
+      ..add(DiagnosticsProperty('isLoading', isLoading))
+      ..add(DiagnosticsProperty('isEditMode', isEditMode))
+      ..add(DiagnosticsProperty('recipeId', recipeId))
+      ..add(DiagnosticsProperty('recipeVersionId', recipeVersionId))
+      ..add(DiagnosticsProperty('error', error));
   }
 
   @override
@@ -243,7 +340,16 @@ class _$RecipeEditStateImpl
             ) &&
             const DeepCollectionEquality().equals(other._steps, _steps) &&
             (identical(other.saveState, saveState) ||
-                other.saveState == saveState));
+                other.saveState == saveState) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
+            (identical(other.isEditMode, isEditMode) ||
+                other.isEditMode == isEditMode) &&
+            (identical(other.recipeId, recipeId) ||
+                other.recipeId == recipeId) &&
+            (identical(other.recipeVersionId, recipeVersionId) ||
+                other.recipeVersionId == recipeVersionId) &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
@@ -254,6 +360,11 @@ class _$RecipeEditStateImpl
     const DeepCollectionEquality().hash(_ingredients),
     const DeepCollectionEquality().hash(_steps),
     saveState,
+    isLoading,
+    isEditMode,
+    recipeId,
+    recipeVersionId,
+    error,
   );
 
   /// Create a copy of RecipeEditState
@@ -275,6 +386,11 @@ abstract class _RecipeEditState implements RecipeEditState {
     final List<IngredientEntity> ingredients,
     final List<StepEntity> steps,
     final AsyncValue<void> saveState,
+    final bool isLoading,
+    final bool isEditMode,
+    final String? recipeId,
+    final String? recipeVersionId,
+    final String? error,
   }) = _$RecipeEditStateImpl;
 
   @override
@@ -287,6 +403,16 @@ abstract class _RecipeEditState implements RecipeEditState {
   List<StepEntity> get steps;
   @override
   AsyncValue<void> get saveState;
+  @override
+  bool get isLoading;
+  @override
+  bool get isEditMode;
+  @override
+  String? get recipeId;
+  @override
+  String? get recipeVersionId;
+  @override
+  String? get error;
 
   /// Create a copy of RecipeEditState
   /// with the given fields replaced by the non-null parameter values.

@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:saucerer_flutter/presentation/recipe/list/viewmodel/recipe_list_viewmodel.dart';
-import 'package:saucerer_flutter/presentation/recipe/edit/view/recipe_edit_screen.dart';
+import 'package:saucerer_flutter/core/routes/app_router.dart';
 
 class RecipeListScreen extends ConsumerWidget {
-  const RecipeListScreen({super.key});
+  final bool showAppBar;
+  
+  const RecipeListScreen({
+    super.key,
+    this.showAppBar = true,
+  });
 
   String _formatDate(DateTime dateTime) {
     return '${dateTime.year}.${dateTime.month.toString().padLeft(2, '0')}.${dateTime.day.toString().padLeft(2, '0')}';
@@ -15,9 +21,18 @@ class RecipeListScreen extends ConsumerWidget {
     final recipeListState = ref.watch(recipeListViewModelProvider);
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: showAppBar ? AppBar(
         title: const Text('나의 레시피'),
-      ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              context.push(AppRoutes.search);
+            },
+            tooltip: '재료로 검색',
+          ),
+        ],
+      ) : null,
       body: RefreshIndicator(
         onRefresh: () => ref.read(recipeListViewModelProvider.notifier).refresh(),
         child: recipeListState.when(
@@ -45,6 +60,14 @@ class RecipeListScreen extends ConsumerWidget {
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
+                    ),
+                    const SizedBox(height: 16),
+                    OutlinedButton.icon(
+                      onPressed: () {
+                        context.push(AppRoutes.search);
+                      },
+                      icon: const Icon(Icons.search),
+                      label: const Text('재료로 검색해보기'),
                     ),
                   ],
                 ),
@@ -85,7 +108,7 @@ class RecipeListScreen extends ConsumerWidget {
                     ),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
-                      // TODO: Navigate to recipe detail screen
+                      context.push('/recipes/${recipe.id}');
                     },
                   ),
                 );
@@ -114,12 +137,7 @@ class RecipeListScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const RecipeEditScreen(),
-            ),
-          );
+          context.push(AppRoutes.recipeCreate);
         },
         child: const Icon(Icons.add),
       ),

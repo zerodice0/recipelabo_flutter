@@ -19,7 +19,7 @@ class DatabaseHelper {
     final path = join(dbPath, 'saucerer.db');
     return await openDatabase(
       path,
-      version: 2,
+      version: 7,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -94,6 +94,35 @@ class DatabaseHelper {
         FOREIGN KEY (recipeVersionId) REFERENCES recipe_versions(id)
       )
     ''');
+
+    await db.execute('''
+      CREATE TABLE cooking_logs(
+        id TEXT PRIMARY KEY,
+        recipeVersionId TEXT NOT NULL,
+        authorId TEXT NOT NULL,
+        title TEXT NOT NULL,
+        memo TEXT,
+        imageUrl TEXT,
+        cookedAt TEXT NOT NULL,
+        createdAt TEXT NOT NULL,
+        updatedAt TEXT NOT NULL,
+        isDeleted INTEGER NOT NULL DEFAULT 0,
+        FOREIGN KEY (recipeVersionId) REFERENCES recipe_versions(id),
+        FOREIGN KEY (authorId) REFERENCES users(id)
+      )
+    ''');
+
+    await db.execute('''
+      CREATE TABLE seasonings(
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL UNIQUE,
+        category TEXT,
+        description TEXT,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        usage_count INTEGER NOT NULL DEFAULT 0
+      )
+    ''');
   }
 
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
@@ -107,6 +136,73 @@ class DatabaseHelper {
       
       // Recreate tables with new schema
       await _onCreate(db, newVersion);
+    }
+    
+    if (oldVersion < 3) {
+      // Add cooking_logs table
+      await db.execute('''
+        CREATE TABLE cooking_logs(
+          id TEXT PRIMARY KEY,
+          recipeVersionId TEXT NOT NULL,
+          authorId TEXT NOT NULL,
+          title TEXT NOT NULL,
+          memo TEXT,
+          imageUrl TEXT,
+          cookedAt TEXT NOT NULL,
+          createdAt TEXT NOT NULL,
+          updatedAt TEXT NOT NULL,
+          isDeleted INTEGER NOT NULL DEFAULT 0,
+          FOREIGN KEY (recipeVersionId) REFERENCES recipe_versions(id),
+          FOREIGN KEY (authorId) REFERENCES users(id)
+        )
+      ''');
+    }
+    
+    if (oldVersion < 4) {
+      // Add seasonings table
+      await db.execute('''
+        CREATE TABLE seasonings(
+          id TEXT PRIMARY KEY,
+          name TEXT NOT NULL UNIQUE,
+          category TEXT,
+          description TEXT,
+          created_at TEXT NOT NULL,
+          updated_at TEXT NOT NULL,
+          usage_count INTEGER NOT NULL DEFAULT 0
+        )
+      ''');
+    }
+    
+    if (oldVersion < 7) {
+      // Add default units to seasonings table
+      final now = DateTime.now().toIso8601String();
+      final defaultUnits = [
+        // 무게 단위
+        'g', 'kg', '그램', '킬로그램',
+        // 부피 단위
+        'mL', 'L', '밀리리터', '리터',
+        '컵', '큰술', '작은술', 'T', 't',
+        // 개수 단위
+        '개', '마리', '알', '쪽', '장', '봉지', '캔', '병',
+        // 기타 단위
+        '꼬집', '조금', '적당량', '한줌',
+      ];
+      
+      for (final unit in defaultUnits) {
+        await db.execute('''
+          INSERT OR IGNORE INTO seasonings (
+            id, name, category, description, created_at, updated_at, usage_count
+          ) VALUES (?, ?, ?, ?, ?, ?, ?)
+        ''', [
+          '${unit}_unit_${DateTime.now().millisecondsSinceEpoch}',
+          unit,
+          '단위',
+          '기본 제공 단위',
+          now,
+          now,
+          0,
+        ]);
+      }
     }
   }
 }

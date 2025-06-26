@@ -7,6 +7,8 @@ import './database_helper.dart';
 
 abstract class RecipeLocalDataSource {
   Future<List<RecipeModel>> getRecipes();
+  Future<RecipeModel?> getRecipe(String id);
+  Future<List<RecipeVersionModel>> getRecipeVersions(String recipeId);
   Future<RecipeVersionModel?> getRecipeVersion(String id);
   Future<void> saveRecipe(RecipeModel recipe, RecipeVersionModel version);
   Future<void> deleteRecipe(String id);
@@ -22,6 +24,41 @@ class RecipeLocalDataSourceImpl implements RecipeLocalDataSource {
     final db = await _dbHelper.database;
     final maps = await db.query('recipes', where: 'isDeleted = ?', whereArgs: [0]);
     return maps.map((map) => RecipeModelExtension.fromMap(map)).toList();
+  }
+
+  @override
+  Future<RecipeModel?> getRecipe(String id) async {
+    final db = await _dbHelper.database;
+    final maps = await db.query('recipes', where: 'id = ? AND isDeleted = ?', whereArgs: [id, 0]);
+    
+    if (maps.isNotEmpty) {
+      return RecipeModelExtension.fromMap(maps.first);
+    }
+    return null;
+  }
+
+  @override
+  Future<List<RecipeVersionModel>> getRecipeVersions(String recipeId) async {
+    final db = await _dbHelper.database;
+    final maps = await db.query('recipe_versions', 
+        where: 'recipeId = ? AND isDeleted = ?', 
+        whereArgs: [recipeId, 0],
+        orderBy: 'versionNumber DESC');
+
+    List<RecipeVersionModel> versions = [];
+    for (final versionMap in maps) {
+      final versionId = versionMap['id'] as String;
+      final ingredients = await _getIngredientsForVersion(db, versionId);
+      final steps = await _getStepsForVersion(db, versionId);
+
+      var version = RecipeVersionModelExtension.fromMap(versionMap);
+      version = version.copyWith(
+        ingredients: ingredients,
+        steps: steps,
+      );
+      versions.add(version);
+    }
+    return versions;
   }
 
   @override
