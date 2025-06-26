@@ -20,7 +20,7 @@ migrate_working_dir/
 .packages # 패키지들의 로컬 경로를 매핑하는 파일
 .pub-cache/ # 공유 패키지 캐시
 .pub/
-build/ # 빌드 결과물이 저장되는 폴더
+build/
 
 # AI 도구 관련
 .claude/ # Claude AI 관련 설정 파일
