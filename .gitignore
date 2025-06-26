@@ -14,6 +14,7 @@ migrate_working_dir/
 # Flutter/Dart/Pub related - Flutter, Dart, Pub 패키지 매니저가 생성하는 파일 및 폴더
 # 이 파일들은 빌드 과정이나 의존성 패키지를 가져올 때 자동으로 생성됩니다.
 .dart_tool/ # Dart 도구가 생성한 파일
+.dart_tool
 .flutter-plugins # 프로젝트에 사용된 플러그인 목록
 .flutter-plugins-dependencies # 플러그인 의존성 목록
 .packages # 패키지들의 로컬 경로를 매핑하는 파일
@@ -59,4 +60,4 @@ build/ # 빌드 결과물이 저장되는 폴더
 /linux/flutter/ephemeral_plugins/ # 리눅스용으로 생성된 플러그인 파일
 
 # Windows - 윈도우 관련 자동 생성 파일
-/windows/flutter/ephemeral_plugins/ # 윈도우용으로 생성된 플러그인 파일 .dart_tool
+/windows/flutter/ephemeral_plugins/ # 윈도우용으로 생성된 플러그인 파일
