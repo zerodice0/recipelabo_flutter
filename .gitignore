@@ -22,6 +22,9 @@ migrate_working_dir/
 .pub/
 build/ # 빌드 결과물이 저장되는 폴더
 
+# AI 도구 관련
+.claude/ # Claude AI 관련 설정 파일
+
 # iOS 빌드 산출물
 /ios/Flutter/App.framework
 /ios/Flutter/flutter_assets
@@ -47,12 +50,19 @@ build/ # 빌드 결과물이 저장되는 폴더
 # iOS - iOS 관련 빌드 파일, 의존성 관리 파일, 로컬 설정
 /ios/.symlinks/ # Flutter가 생성하는 심볼릭 링크
 /ios/Pods/ # CocoaPods 의존성
+/ios/Podfile # CocoaPods 의존성 관리 파일 (자동 생성됨)
 /ios/Runner.xcworkspace # Xcode 워크스페이스
 /ios/Flutter/ephemeral_plugins/ # iOS용으로 생성된 플러그인 파일
+/ios/Flutter/Debug.xcconfig # Flutter 디버그 설정 (자동 생성됨)
+/ios/Flutter/Release.xcconfig # Flutter 릴리즈 설정 (자동 생성됨)
 
 # macOS - macOS 관련 빌드 파일, 로컬 설정
 /macos/Flutter/ephemeral_plugins/ # macOS용으로 생성된 플러그인 파일
+/macos/Flutter/Flutter-Debug.xcconfig # macOS Flutter 디버그 설정 (자동 생성됨)
+/macos/Flutter/Flutter-Release.xcconfig # macOS Flutter 릴리즈 설정 (자동 생성됨)
+/macos/Flutter/GeneratedPluginRegistrant.swift # macOS 플러그인 등록 파일 (자동 생성됨)
 /macos/Pods/ # macOS용 CocoaPods 의존성
+/macos/Podfile # macOS CocoaPods 의존성 관리 파일 (자동 생성됨)
 /macos/.symlinks/ # macOS용으로 Flutter가 생성하는 심볼릭 링크
 **/*.xcworkspace # Xcode 워크스페이스 파일
 
@@ -61,3 +71,6 @@ build/ # 빌드 결과물이 저장되는 폴더
 
 # Windows - 윈도우 관련 자동 생성 파일
 /windows/flutter/ephemeral_plugins/ # 윈도우용으로 생성된 플러그인 파일
+
+# 프로젝트를 진행하면서 작성한 부수적인 기록들
+study/
