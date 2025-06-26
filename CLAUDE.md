@@ -23,7 +23,7 @@ Saucerer is a Flutter cross-platform mobile application for creating, sharing, a
 
 ## Architecture
 
-The project follows Clean Architecture with these key layers:
+The project follows Clean Architecture with these key layers, as detailed in [ARCHITECTURE.md](./ARCHITECTURE.md):
 
 ### Core Layer (`lib/core/`)
 - **config/**: App configuration including themes
