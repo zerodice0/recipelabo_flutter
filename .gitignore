@@ -80,6 +80,7 @@ build/
 /ios/Flutter/Debug.xcconfig
 # Flutter 릴리즈 설정 (자동 생성됨)
 /ios/Flutter/Release.xcconfig
+/macos/Flutter/GeneratedPluginRegistrant.swift
 
 # macOS - macOS 관련 빌드 파일, 로컬 설정
 # macOS용으로 생성된 플러그인 파일
@@ -102,10 +103,14 @@ build/
 # Linux - 리눅스 관련 자동 생성 파일
 # 리눅스용으로 생성된 플러그인 파일
 /linux/flutter/ephemeral_plugins/ 
+/linux/flutter/generated_plugin_registrant.cc
+/linux/flutter/generated_plugins.cmake
 
 # Windows - 윈도우 관련 자동 생성 파일
 # 윈도우용으로 생성된 플러그인 파일
 /windows/flutter/ephemeral_plugins/
+/windows/flutter/generated_plugin_registrant.cc
+/windows/flutter/generated_plugins.cmake
 
 # 프로젝트를 진행하면서 작성한 부수적인 기록들
 study/
