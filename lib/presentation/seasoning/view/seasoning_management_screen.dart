@@ -8,10 +8,12 @@ class SeasoningManagementScreen extends ConsumerStatefulWidget {
   const SeasoningManagementScreen({super.key});
 
   @override
-  ConsumerState<SeasoningManagementScreen> createState() => _SeasoningManagementScreenState();
+  ConsumerState<SeasoningManagementScreen> createState() =>
+      _SeasoningManagementScreenState();
 }
 
-class _SeasoningManagementScreenState extends ConsumerState<SeasoningManagementScreen> {
+class _SeasoningManagementScreenState
+    extends ConsumerState<SeasoningManagementScreen> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
 
@@ -28,23 +30,23 @@ class _SeasoningManagementScreenState extends ConsumerState<SeasoningManagementS
     final viewModel = ref.read(seasoningManagementViewModelProvider.notifier);
 
     // 에러 처리
-    ref.listen<SeasoningManagementState>(
-      seasoningManagementViewModelProvider,
-      (previous, next) {
-        if (next.error != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(next.error!),
-              backgroundColor: Theme.of(context).colorScheme.error,
-              action: SnackBarAction(
-                label: '확인',
-                onPressed: () => viewModel.clearError(),
-              ),
+    ref.listen<SeasoningManagementState>(seasoningManagementViewModelProvider, (
+      previous,
+      next,
+    ) {
+      if (next.error != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(next.error!),
+            backgroundColor: Theme.of(context).colorScheme.error,
+            action: SnackBarAction(
+              label: '확인',
+              onPressed: () => viewModel.clearError(),
             ),
-          );
-        }
-      },
-    );
+          ),
+        );
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -60,20 +62,21 @@ class _SeasoningManagementScreenState extends ConsumerState<SeasoningManagementS
       body: Column(
         children: [
           _buildSearchAndFilter(viewModel, state),
-          Expanded(
-            child: _buildSeasoningList(context, state, viewModel),
-          ),
+          Expanded(child: _buildSeasoningList(context, state, viewModel)),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showCreateDialog(context, viewModel),
-        child: const Icon(Icons.add),
         tooltip: '조미료 추가',
+        child: const Icon(Icons.add),
       ),
     );
   }
 
-  Widget _buildSearchAndFilter(SeasoningManagementViewModel viewModel, SeasoningManagementState state) {
+  Widget _buildSearchAndFilter(
+    SeasoningManagementViewModel viewModel,
+    SeasoningManagementState state,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -102,16 +105,16 @@ class _SeasoningManagementScreenState extends ConsumerState<SeasoningManagementS
               _searchFocusNode.unfocus();
             },
           ),
-          
+
           const SizedBox(height: 12),
-          
+
           // 카테고리 필터
           if (state.categories.isNotEmpty) ...[
             Text(
               '카테고리',
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             SingleChildScrollView(
@@ -143,7 +146,11 @@ class _SeasoningManagementScreenState extends ConsumerState<SeasoningManagementS
     );
   }
 
-  Widget _buildSeasoningList(BuildContext context, SeasoningManagementState state, SeasoningManagementViewModel viewModel) {
+  Widget _buildSeasoningList(
+    BuildContext context,
+    SeasoningManagementState state,
+    SeasoningManagementViewModel viewModel,
+  ) {
     if (state.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
@@ -160,9 +167,7 @@ class _SeasoningManagementScreenState extends ConsumerState<SeasoningManagementS
             ),
             const SizedBox(height: 16),
             Text(
-              state.searchQuery.isNotEmpty
-                  ? '검색 결과가 없습니다'
-                  : '등록된 조미료가 없습니다',
+              state.searchQuery.isNotEmpty ? '검색 결과가 없습니다' : '등록된 조미료가 없습니다',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
@@ -191,7 +196,11 @@ class _SeasoningManagementScreenState extends ConsumerState<SeasoningManagementS
     );
   }
 
-  Widget _buildSeasoningCard(BuildContext context, SeasoningEntity seasoning, SeasoningManagementViewModel viewModel) {
+  Widget _buildSeasoningCard(
+    BuildContext context,
+    SeasoningEntity seasoning,
+    SeasoningManagementViewModel viewModel,
+  ) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: ListTile(
@@ -207,9 +216,9 @@ class _SeasoningManagementScreenState extends ConsumerState<SeasoningManagementS
         ),
         title: Text(
           seasoning.name,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -257,45 +266,55 @@ class _SeasoningManagementScreenState extends ConsumerState<SeasoningManagementS
     );
   }
 
-  void _showCreateDialog(BuildContext context, SeasoningManagementViewModel viewModel) {
+  void _showCreateDialog(
+    BuildContext context,
+    SeasoningManagementViewModel viewModel,
+  ) {
     showDialog(
       context: context,
-      builder: (context) => SeasoningCreateDialog(
-        categories: ref.read(seasoningManagementViewModelProvider).categories,
-        onSave: (name, category, description) {
-          viewModel.createSeasoning(
-            name: name,
-            category: category,
-            description: description,
-          );
-        },
-      ),
+      builder:
+          (context) => SeasoningCreateDialog(
+            categories:
+                ref.read(seasoningManagementViewModelProvider).categories,
+            onSave: (name, category, description) {
+              viewModel.createSeasoning(
+                name: name,
+                category: category,
+                description: description,
+              );
+            },
+          ),
     );
   }
 
-  void _showDeleteDialog(BuildContext context, SeasoningEntity seasoning, SeasoningManagementViewModel viewModel) {
+  void _showDeleteDialog(
+    BuildContext context,
+    SeasoningEntity seasoning,
+    SeasoningManagementViewModel viewModel,
+  ) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('조미료 삭제'),
-        content: Text('${seasoning.name}을(를) 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('취소'),
+      builder:
+          (context) => AlertDialog(
+            title: const Text('조미료 삭제'),
+            content: Text('${seasoning.name}을(를) 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('취소'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  viewModel.deleteSeasoning(seasoning.id);
+                },
+                style: TextButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.error,
+                ),
+                child: const Text('삭제'),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              viewModel.deleteSeasoning(seasoning.id);
-            },
-            style: TextButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.error,
-            ),
-            child: const Text('삭제'),
-          ),
-        ],
-      ),
     );
   }
 }

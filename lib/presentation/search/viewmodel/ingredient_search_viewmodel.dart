@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:saucerer_flutter/domain/entities/recipe_entity.dart';
@@ -34,26 +33,25 @@ class IngredientSearchViewModel extends _$IngredientSearchViewModel {
 
   Future<void> _loadInitialData() async {
     state = state.copyWith(isLoading: true, error: null);
-    
+
     try {
-      final popularIngredientsUseCase = ref.read(getPopularIngredientsUseCaseProvider);
+      final popularIngredientsUseCase = ref.read(
+        getPopularIngredientsUseCaseProvider,
+      );
       final popularIngredients = await popularIngredientsUseCase(limit: 30);
-      
+
       state = state.copyWith(
         availableIngredients: popularIngredients,
         isLoading: false,
       );
     } catch (error) {
-      state = state.copyWith(
-        isLoading: false,
-        error: error.toString(),
-      );
+      state = state.copyWith(isLoading: false, error: error.toString());
     }
   }
 
   Future<void> searchIngredients(String query) async {
     state = state.copyWith(searchQuery: query);
-    
+
     if (query.trim().isEmpty) {
       // 검색어가 비어있으면 인기 재료들을 다시 로드
       await _loadInitialData();
@@ -61,34 +59,31 @@ class IngredientSearchViewModel extends _$IngredientSearchViewModel {
     }
 
     state = state.copyWith(isLoading: true, error: null);
-    
+
     try {
       final searchUseCase = ref.read(searchIngredientsUseCaseProvider);
       final searchResults = await searchUseCase(query.trim());
-      
+
       state = state.copyWith(
         availableIngredients: searchResults,
         isLoading: false,
       );
     } catch (error) {
-      state = state.copyWith(
-        isLoading: false,
-        error: error.toString(),
-      );
+      state = state.copyWith(isLoading: false, error: error.toString());
     }
   }
 
   void toggleIngredientSelection(String ingredient) {
     final currentSelected = List<String>.from(state.selectedIngredients);
-    
+
     if (currentSelected.contains(ingredient)) {
       currentSelected.remove(ingredient);
     } else {
       currentSelected.add(ingredient);
     }
-    
+
     state = state.copyWith(selectedIngredients: currentSelected);
-    
+
     // 선택된 재료가 있으면 자동으로 레시피 검색
     if (currentSelected.isNotEmpty) {
       _searchRecipesByIngredients();
@@ -100,9 +95,9 @@ class IngredientSearchViewModel extends _$IngredientSearchViewModel {
   void removeSelectedIngredient(String ingredient) {
     final currentSelected = List<String>.from(state.selectedIngredients);
     currentSelected.remove(ingredient);
-    
+
     state = state.copyWith(selectedIngredients: currentSelected);
-    
+
     if (currentSelected.isNotEmpty) {
       _searchRecipesByIngredients();
     } else {
@@ -111,10 +106,7 @@ class IngredientSearchViewModel extends _$IngredientSearchViewModel {
   }
 
   void clearAllSelectedIngredients() {
-    state = state.copyWith(
-      selectedIngredients: [],
-      filteredRecipes: [],
-    );
+    state = state.copyWith(selectedIngredients: [], filteredRecipes: []);
   }
 
   Future<void> _searchRecipesByIngredients() async {
@@ -124,11 +116,11 @@ class IngredientSearchViewModel extends _$IngredientSearchViewModel {
     }
 
     state = state.copyWith(isSearchingRecipes: true, error: null);
-    
+
     try {
       final searchUseCase = ref.read(getRecipesByIngredientsUseCaseProvider);
       final recipes = await searchUseCase(state.selectedIngredients);
-      
+
       state = state.copyWith(
         filteredRecipes: recipes,
         isSearchingRecipes: false,
@@ -143,21 +135,18 @@ class IngredientSearchViewModel extends _$IngredientSearchViewModel {
 
   Future<void> loadAllIngredients() async {
     state = state.copyWith(isLoading: true, error: null);
-    
+
     try {
       final allIngredientsUseCase = ref.read(getAllIngredientsUseCaseProvider);
       final allIngredients = await allIngredientsUseCase();
-      
+
       state = state.copyWith(
         availableIngredients: allIngredients,
         isLoading: false,
         searchQuery: '',
       );
     } catch (error) {
-      state = state.copyWith(
-        isLoading: false,
-        error: error.toString(),
-      );
+      state = state.copyWith(isLoading: false, error: error.toString());
     }
   }
 

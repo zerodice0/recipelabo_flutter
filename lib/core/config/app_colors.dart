@@ -19,7 +19,7 @@ class AppColors {
   static const Color lightCream = Color(0xFFF5F2ED); // 밝은 크림
   static const Color softOrange = Color(0xFFF5C99B); // 부드러운 오렌지
   static const Color deepBrown = Color(0xFF3C2415); // 깊은 브라운
-  
+
   // 상태 색상
   static const Color success = Color(0xFF6C9E4F); // 성공 (올리브 그린)
   static const Color warning = Color(0xFFED6E3A); // 경고 (주요 오렌지)
@@ -40,14 +40,14 @@ class AppColors {
   );
 
   // 투명도 변형
-  static Color primaryWithOpacity(double opacity) => 
-      primaryOrange.withOpacity(opacity);
-  
-  static Color accentWithOpacity(double opacity) => 
-      accent.withOpacity(opacity);
-  
-  static Color backgroundWithOpacity(double opacity) => 
-      backgroundCream.withOpacity(opacity);
+  static Color primaryWithOpacity(double opacity) =>
+      primaryOrange.withValues(alpha: opacity);
+
+  static Color accentWithOpacity(double opacity) =>
+      accent.withValues(alpha: opacity);
+
+  static Color backgroundWithOpacity(double opacity) =>
+      backgroundCream.withValues(alpha: opacity);
 
   // Material Design 3 호환 색상 매핑
   static const Map<String, Color> materialColors = {

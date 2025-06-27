@@ -178,5 +178,123 @@ final seasoningRepositoryProvider = Provider<SeasoningRepository>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef SeasoningRepositoryRef = ProviderRef<SeasoningRepository>;
+String _$timerPresetDatasourceHash() =>
+    r'e38946e490b8eed684b8f784753e013daa87d4a4';
+
+/// See also [timerPresetDatasource].
+@ProviderFor(timerPresetDatasource)
+final timerPresetDatasourceProvider = Provider<TimerPresetDatasource>.internal(
+  timerPresetDatasource,
+  name: r'timerPresetDatasourceProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$timerPresetDatasourceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef TimerPresetDatasourceRef = ProviderRef<TimerPresetDatasource>;
+String _$timerPresetRepositoryHash() =>
+    r'656725435ff035b487eade410e357c7e6bbcae6e';
+
+/// See also [timerPresetRepository].
+@ProviderFor(timerPresetRepository)
+final timerPresetRepositoryProvider = Provider<TimerPresetRepository>.internal(
+  timerPresetRepository,
+  name: r'timerPresetRepositoryProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$timerPresetRepositoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef TimerPresetRepositoryRef = ProviderRef<TimerPresetRepository>;
+String _$getAllPresetsUsecaseHash() =>
+    r'12caf1ff30cd05c6dac118a63c9ecb3237cf815b';
+
+/// See also [getAllPresetsUsecase].
+@ProviderFor(getAllPresetsUsecase)
+final getAllPresetsUsecaseProvider = Provider<GetAllPresetsUsecase>.internal(
+  getAllPresetsUsecase,
+  name: r'getAllPresetsUsecaseProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$getAllPresetsUsecaseHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef GetAllPresetsUsecaseRef = ProviderRef<GetAllPresetsUsecase>;
+String _$saveCustomPresetUsecaseHash() =>
+    r'95b4e9d415670076f41f8ba21517841c79f4a3b5';
+
+/// See also [saveCustomPresetUsecase].
+@ProviderFor(saveCustomPresetUsecase)
+final saveCustomPresetUsecaseProvider =
+    Provider<SaveCustomPresetUsecase>.internal(
+      saveCustomPresetUsecase,
+      name: r'saveCustomPresetUsecaseProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$saveCustomPresetUsecaseHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef SaveCustomPresetUsecaseRef = ProviderRef<SaveCustomPresetUsecase>;
+String _$deleteCustomPresetUsecaseHash() =>
+    r'f15dc78d332064ea49991435bc7d9992309a79c2';
+
+/// See also [deleteCustomPresetUsecase].
+@ProviderFor(deleteCustomPresetUsecase)
+final deleteCustomPresetUsecaseProvider =
+    Provider<DeleteCustomPresetUsecase>.internal(
+      deleteCustomPresetUsecase,
+      name: r'deleteCustomPresetUsecaseProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$deleteCustomPresetUsecaseHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef DeleteCustomPresetUsecaseRef = ProviderRef<DeleteCustomPresetUsecase>;
+String _$incrementPresetUsageUsecaseHash() =>
+    r'928f33214897ea2cde29bc9a21f36ae382b1735d';
+
+/// See also [incrementPresetUsageUsecase].
+@ProviderFor(incrementPresetUsageUsecase)
+final incrementPresetUsageUsecaseProvider =
+    Provider<IncrementPresetUsageUsecase>.internal(
+      incrementPresetUsageUsecase,
+      name: r'incrementPresetUsageUsecaseProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$incrementPresetUsageUsecaseHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef IncrementPresetUsageUsecaseRef =
+    ProviderRef<IncrementPresetUsageUsecase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

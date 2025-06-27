@@ -17,10 +17,12 @@ class CookingLogCreateScreen extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<CookingLogCreateScreen> createState() => _CookingLogCreateScreenState();
+  ConsumerState<CookingLogCreateScreen> createState() =>
+      _CookingLogCreateScreenState();
 }
 
-class _CookingLogCreateScreenState extends ConsumerState<CookingLogCreateScreen> {
+class _CookingLogCreateScreenState
+    extends ConsumerState<CookingLogCreateScreen> {
   final _titleController = TextEditingController();
   final _memoController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -51,7 +53,7 @@ class _CookingLogCreateScreenState extends ConsumerState<CookingLogCreateScreen>
       lastDate: DateTime.now(),
     );
 
-    if (date != null) {
+    if (date != null && mounted) {
       final time = await showTimePicker(
         context: context,
         initialTime: TimeOfDay.fromDateTime(currentDate),
@@ -65,7 +67,9 @@ class _CookingLogCreateScreenState extends ConsumerState<CookingLogCreateScreen>
           time.hour,
           time.minute,
         );
-        ref.read(cookingLogCreateViewModelProvider.notifier).updateCookedAt(dateTime);
+        ref
+            .read(cookingLogCreateViewModelProvider.notifier)
+            .updateCookedAt(dateTime);
       }
     }
   }
@@ -75,16 +79,16 @@ class _CookingLogCreateScreenState extends ConsumerState<CookingLogCreateScreen>
     final state = ref.watch(cookingLogCreateViewModelProvider);
     final viewModel = ref.read(cookingLogCreateViewModelProvider.notifier);
 
-    ref.listen<CookingLogCreateState>(cookingLogCreateViewModelProvider, (previous, next) {
+    ref.listen<CookingLogCreateState>(cookingLogCreateViewModelProvider, (
+      previous,
+      next,
+    ) {
       if (next.isSaved) {
         context.pop(true);
       }
       if (next.error != null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(next.error!),
-            backgroundColor: Colors.red,
-          ),
+          SnackBar(content: Text(next.error!), backgroundColor: Colors.red),
         );
       }
     });
@@ -152,9 +156,9 @@ class _CookingLogCreateScreenState extends ConsumerState<CookingLogCreateScreen>
           children: [
             Text(
               '레시피 정보',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
@@ -180,9 +184,9 @@ class _CookingLogCreateScreenState extends ConsumerState<CookingLogCreateScreen>
       children: [
         Text(
           '제목 *',
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         TextFormField(
@@ -208,9 +212,9 @@ class _CookingLogCreateScreenState extends ConsumerState<CookingLogCreateScreen>
       children: [
         Text(
           '요리한 날짜 및 시간 *',
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         InkWell(
@@ -249,15 +253,18 @@ class _CookingLogCreateScreenState extends ConsumerState<CookingLogCreateScreen>
     );
   }
 
-  Widget _buildImageSection(CookingLogCreateState state, CookingLogCreateViewModel viewModel) {
+  Widget _buildImageSection(
+    CookingLogCreateState state,
+    CookingLogCreateViewModel viewModel,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           '사진',
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         Container(
@@ -270,15 +277,19 @@ class _CookingLogCreateScreenState extends ConsumerState<CookingLogCreateScreen>
             ),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: state.imageUrl != null
-              ? _buildSelectedImage(state.imageUrl!, viewModel)
-              : _buildImagePlaceholder(viewModel),
+          child:
+              state.imageUrl != null
+                  ? _buildSelectedImage(state.imageUrl!, viewModel)
+                  : _buildImagePlaceholder(viewModel),
         ),
       ],
     );
   }
 
-  Widget _buildSelectedImage(String imagePath, CookingLogCreateViewModel viewModel) {
+  Widget _buildSelectedImage(
+    String imagePath,
+    CookingLogCreateViewModel viewModel,
+  ) {
     return Stack(
       children: [
         ClipRRect(
@@ -288,14 +299,15 @@ class _CookingLogCreateScreenState extends ConsumerState<CookingLogCreateScreen>
             width: double.infinity,
             height: double.infinity,
             fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) => Container(
-              color: Theme.of(context).colorScheme.surfaceVariant,
-              child: Icon(
-                Icons.broken_image,
-                size: 48,
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-            ),
+            errorBuilder:
+                (context, error, stackTrace) => Container(
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                  child: Icon(
+                    Icons.broken_image,
+                    size: 48,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
           ),
         ),
         Positioned(
@@ -310,10 +322,7 @@ class _CookingLogCreateScreenState extends ConsumerState<CookingLogCreateScreen>
               icon: const Icon(Icons.close, color: Colors.white),
               onPressed: () => viewModel.removeImage(),
               padding: const EdgeInsets.all(4),
-              constraints: const BoxConstraints(
-                minWidth: 32,
-                minHeight: 32,
-              ),
+              constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
             ),
           ),
         ),
@@ -329,10 +338,7 @@ class _CookingLogCreateScreenState extends ConsumerState<CookingLogCreateScreen>
               icon: const Icon(Icons.edit, color: Colors.white),
               onPressed: () => _showImageSourceDialog(viewModel),
               padding: const EdgeInsets.all(4),
-              constraints: const BoxConstraints(
-                minWidth: 32,
-                minHeight: 32,
-              ),
+              constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
             ),
           ),
         ),
@@ -401,9 +407,9 @@ class _CookingLogCreateScreenState extends ConsumerState<CookingLogCreateScreen>
       children: [
         Text(
           '메모',
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         TextFormField(

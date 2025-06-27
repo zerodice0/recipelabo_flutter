@@ -22,6 +22,9 @@ mixin _$StepEntity {
   int get stepNumber => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
+  int? get timerMinutes => throw _privateConstructorUsedError; // 타이머 시간 (분)
+  int? get timerSeconds => throw _privateConstructorUsedError; // 타이머 시간 (초)
+  String? get timerName => throw _privateConstructorUsedError;
 
   /// Create a copy of StepEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -43,6 +46,9 @@ abstract class $StepEntityCopyWith<$Res> {
     int stepNumber,
     String description,
     String? imageUrl,
+    int? timerMinutes,
+    int? timerSeconds,
+    String? timerName,
   });
 }
 
@@ -66,6 +72,9 @@ class _$StepEntityCopyWithImpl<$Res, $Val extends StepEntity>
     Object? stepNumber = null,
     Object? description = null,
     Object? imageUrl = freezed,
+    Object? timerMinutes = freezed,
+    Object? timerSeconds = freezed,
+    Object? timerName = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -94,6 +103,21 @@ class _$StepEntityCopyWithImpl<$Res, $Val extends StepEntity>
                     ? _value.imageUrl
                     : imageUrl // ignore: cast_nullable_to_non_nullable
                         as String?,
+            timerMinutes:
+                freezed == timerMinutes
+                    ? _value.timerMinutes
+                    : timerMinutes // ignore: cast_nullable_to_non_nullable
+                        as int?,
+            timerSeconds:
+                freezed == timerSeconds
+                    ? _value.timerSeconds
+                    : timerSeconds // ignore: cast_nullable_to_non_nullable
+                        as int?,
+            timerName:
+                freezed == timerName
+                    ? _value.timerName
+                    : timerName // ignore: cast_nullable_to_non_nullable
+                        as String?,
           )
           as $Val,
     );
@@ -115,6 +139,9 @@ abstract class _$$StepEntityImplCopyWith<$Res>
     int stepNumber,
     String description,
     String? imageUrl,
+    int? timerMinutes,
+    int? timerSeconds,
+    String? timerName,
   });
 }
 
@@ -137,6 +164,9 @@ class __$$StepEntityImplCopyWithImpl<$Res>
     Object? stepNumber = null,
     Object? description = null,
     Object? imageUrl = freezed,
+    Object? timerMinutes = freezed,
+    Object? timerSeconds = freezed,
+    Object? timerName = freezed,
   }) {
     return _then(
       _$StepEntityImpl(
@@ -165,6 +195,21 @@ class __$$StepEntityImplCopyWithImpl<$Res>
                 ? _value.imageUrl
                 : imageUrl // ignore: cast_nullable_to_non_nullable
                     as String?,
+        timerMinutes:
+            freezed == timerMinutes
+                ? _value.timerMinutes
+                : timerMinutes // ignore: cast_nullable_to_non_nullable
+                    as int?,
+        timerSeconds:
+            freezed == timerSeconds
+                ? _value.timerSeconds
+                : timerSeconds // ignore: cast_nullable_to_non_nullable
+                    as int?,
+        timerName:
+            freezed == timerName
+                ? _value.timerName
+                : timerName // ignore: cast_nullable_to_non_nullable
+                    as String?,
       ),
     );
   }
@@ -179,6 +224,9 @@ class _$StepEntityImpl implements _StepEntity {
     required this.stepNumber,
     required this.description,
     this.imageUrl,
+    this.timerMinutes,
+    this.timerSeconds,
+    this.timerName,
   });
 
   @override
@@ -191,10 +239,18 @@ class _$StepEntityImpl implements _StepEntity {
   final String description;
   @override
   final String? imageUrl;
+  @override
+  final int? timerMinutes;
+  // 타이머 시간 (분)
+  @override
+  final int? timerSeconds;
+  // 타이머 시간 (초)
+  @override
+  final String? timerName;
 
   @override
   String toString() {
-    return 'StepEntity(id: $id, recipeVersionId: $recipeVersionId, stepNumber: $stepNumber, description: $description, imageUrl: $imageUrl)';
+    return 'StepEntity(id: $id, recipeVersionId: $recipeVersionId, stepNumber: $stepNumber, description: $description, imageUrl: $imageUrl, timerMinutes: $timerMinutes, timerSeconds: $timerSeconds, timerName: $timerName)';
   }
 
   @override
@@ -210,7 +266,13 @@ class _$StepEntityImpl implements _StepEntity {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+                other.imageUrl == imageUrl) &&
+            (identical(other.timerMinutes, timerMinutes) ||
+                other.timerMinutes == timerMinutes) &&
+            (identical(other.timerSeconds, timerSeconds) ||
+                other.timerSeconds == timerSeconds) &&
+            (identical(other.timerName, timerName) ||
+                other.timerName == timerName));
   }
 
   @override
@@ -221,6 +283,9 @@ class _$StepEntityImpl implements _StepEntity {
     stepNumber,
     description,
     imageUrl,
+    timerMinutes,
+    timerSeconds,
+    timerName,
   );
 
   /// Create a copy of StepEntity
@@ -239,6 +304,9 @@ abstract class _StepEntity implements StepEntity {
     required final int stepNumber,
     required final String description,
     final String? imageUrl,
+    final int? timerMinutes,
+    final int? timerSeconds,
+    final String? timerName,
   }) = _$StepEntityImpl;
 
   @override
@@ -251,6 +319,12 @@ abstract class _StepEntity implements StepEntity {
   String get description;
   @override
   String? get imageUrl;
+  @override
+  int? get timerMinutes; // 타이머 시간 (분)
+  @override
+  int? get timerSeconds; // 타이머 시간 (초)
+  @override
+  String? get timerName;
 
   /// Create a copy of StepEntity
   /// with the given fields replaced by the non-null parameter values.

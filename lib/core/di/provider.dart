@@ -5,14 +5,21 @@ import 'package:saucerer_flutter/data/datasources/local/recipe_local_data_source
 import 'package:saucerer_flutter/data/datasources/local/cooking_log_local_data_source.dart';
 import 'package:saucerer_flutter/data/datasources/local/ingredient_local_data_source.dart';
 import 'package:saucerer_flutter/data/datasources/local/seasoning_local_data_source.dart';
+import 'package:saucerer_flutter/data/datasources/local/timer_preset_datasource.dart';
 import 'package:saucerer_flutter/data/repositories/recipe_repository_impl.dart';
 import 'package:saucerer_flutter/data/repositories/cooking_log_repository_impl.dart';
 import 'package:saucerer_flutter/data/repositories/ingredient_repository_impl.dart';
 import 'package:saucerer_flutter/data/repositories/seasoning_repository_impl.dart';
+import 'package:saucerer_flutter/data/repositories/timer_preset_repository_impl.dart';
 import 'package:saucerer_flutter/domain/repositories/recipe_repository.dart';
 import 'package:saucerer_flutter/domain/repositories/cooking_log_repository.dart';
 import 'package:saucerer_flutter/domain/repositories/ingredient_repository.dart';
 import 'package:saucerer_flutter/domain/repositories/seasoning_repository.dart';
+import 'package:saucerer_flutter/domain/repositories/timer_preset_repository.dart';
+import 'package:saucerer_flutter/domain/usecases/timer_preset/get_all_presets_usecase.dart';
+import 'package:saucerer_flutter/domain/usecases/timer_preset/save_custom_preset_usecase.dart';
+import 'package:saucerer_flutter/domain/usecases/timer_preset/delete_custom_preset_usecase.dart';
+import 'package:saucerer_flutter/domain/usecases/timer_preset/increment_preset_usage_usecase.dart';
 
 part 'provider.g.dart';
 
@@ -59,4 +66,35 @@ SeasoningLocalDataSource seasoningLocalDataSource(Ref ref) {
 @Riverpod(keepAlive: true)
 SeasoningRepository seasoningRepository(Ref ref) {
   return SeasoningRepositoryImpl(localDataSource: ref.watch(seasoningLocalDataSourceProvider));
+}
+
+// Timer Preset providers
+@Riverpod(keepAlive: true)
+TimerPresetDatasource timerPresetDatasource(Ref ref) {
+  return TimerPresetDatasource();
+}
+
+@Riverpod(keepAlive: true)
+TimerPresetRepository timerPresetRepository(Ref ref) {
+  return TimerPresetRepositoryImpl(ref.watch(timerPresetDatasourceProvider));
+}
+
+@Riverpod(keepAlive: true)
+GetAllPresetsUsecase getAllPresetsUsecase(Ref ref) {
+  return GetAllPresetsUsecase(ref.watch(timerPresetRepositoryProvider));
+}
+
+@Riverpod(keepAlive: true)
+SaveCustomPresetUsecase saveCustomPresetUsecase(Ref ref) {
+  return SaveCustomPresetUsecase(ref.watch(timerPresetRepositoryProvider));
+}
+
+@Riverpod(keepAlive: true)
+DeleteCustomPresetUsecase deleteCustomPresetUsecase(Ref ref) {
+  return DeleteCustomPresetUsecase(ref.watch(timerPresetRepositoryProvider));
+}
+
+@Riverpod(keepAlive: true)
+IncrementPresetUsageUsecase incrementPresetUsageUsecase(Ref ref) {
+  return IncrementPresetUsageUsecase(ref.watch(timerPresetRepositoryProvider));
 }

@@ -8,17 +8,17 @@ part 'recipe_detail_viewmodel.g.dart';
 
 @riverpod
 Future<(RecipeEntity, List<RecipeVersionEntity>)> recipeDetailViewModel(
-  RecipeDetailViewModelRef ref,
+  Ref ref,
   String recipeId,
 ) async {
   final useCase = ref.watch(getRecipeWithVersionsUseCaseProvider);
   final result = await useCase(recipeId);
   final recipe = result.$1;
   final versions = result.$2;
-  
+
   if (recipe == null) {
     throw Exception('레시피를 찾을 수 없습니다.');
   }
-  
+
   return (recipe, versions);
 }

@@ -11,5 +11,8 @@ class StepEntity with _$StepEntity {
     required int stepNumber,
     required String description,
     String? imageUrl,
+    int? timerMinutes, // 타이머 시간 (분)
+    int? timerSeconds, // 타이머 시간 (초)
+    String? timerName, // 타이머 이름
   }) = _StepEntity;
 }

@@ -25,7 +25,7 @@ class RecipeCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Hero(
@@ -33,7 +33,7 @@ class RecipeCardWidget extends StatelessWidget {
         child: Material(
           elevation: 3,
           borderRadius: BorderRadius.circular(20),
-          shadowColor: AppColors.primaryOrange.withOpacity(0.2),
+          shadowColor: AppColors.primaryOrange.withValues(alpha: 0.2),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
@@ -42,11 +42,11 @@ class RecipeCardWidget extends StatelessWidget {
                 end: Alignment.bottomRight,
                 colors: [
                   theme.colorScheme.surface,
-                  AppColors.lightCream.withOpacity(0.3),
+                  AppColors.lightCream.withValues(alpha: 0.3),
                 ],
               ),
               border: Border.all(
-                color: AppColors.accent.withOpacity(0.2),
+                color: AppColors.accent.withValues(alpha: 0.2),
                 width: 1,
               ),
             ),
@@ -69,7 +69,9 @@ class RecipeCardWidget extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
-                                color: AppColors.primaryOrange.withOpacity(0.3),
+                                color: AppColors.primaryOrange.withValues(
+                                  alpha: 0.3,
+                                ),
                                 blurRadius: 8,
                                 offset: const Offset(0, 2),
                               ),
@@ -82,7 +84,7 @@ class RecipeCardWidget extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 16),
-                        
+
                         // 제목
                         Expanded(
                           child: Text(
@@ -96,12 +98,14 @@ class RecipeCardWidget extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        
+
                         // 삭제 버튼
                         if (onDelete != null)
                           Container(
                             decoration: BoxDecoration(
-                              color: theme.colorScheme.error.withOpacity(0.1),
+                              color: theme.colorScheme.error.withValues(
+                                alpha: 0.1,
+                              ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: IconButton(
@@ -121,25 +125,26 @@ class RecipeCardWidget extends StatelessWidget {
                           ),
                       ],
                     ),
-                    
+
                     const SizedBox(height: 16),
-                    
+
                     // 설명
-                    if (recipe.description != null && recipe.description!.isNotEmpty)
+                    if (recipe.description != null &&
+                        recipe.description!.isNotEmpty)
                       Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: AppColors.softOrange.withOpacity(0.2),
+                          color: AppColors.softOrange.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: AppColors.accent.withOpacity(0.3),
+                            color: AppColors.accent.withValues(alpha: 0.3),
                             width: 1,
                           ),
                         ),
                         child: Text(
                           recipe.description!,
                           style: theme.textTheme.bodyMedium?.copyWith(
-                            color: AppColors.textBrown.withOpacity(0.8),
+                            color: AppColors.textBrown.withValues(alpha: 0.8),
                             height: 1.4,
                           ),
                           maxLines: 3,
@@ -150,36 +155,47 @@ class RecipeCardWidget extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+                          color: theme.colorScheme.surfaceContainerHighest
+                              .withValues(alpha: 0.3),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: theme.colorScheme.outline.withOpacity(0.2),
+                            color: theme.colorScheme.outline.withValues(
+                              alpha: 0.2,
+                            ),
                             width: 1,
                           ),
                         ),
                         child: Text(
                           '설명이 없습니다',
                           style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.onSurfaceVariant.withOpacity(0.6),
+                            color: theme.colorScheme.onSurfaceVariant
+                                .withValues(alpha: 0.6),
                             fontStyle: FontStyle.italic,
                           ),
                         ),
                       ),
-                    
+
                     const SizedBox(height: 16),
-                    
+
                     // 하단 정보 행
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // 업데이트 날짜
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
                           decoration: BoxDecoration(
-                            color: AppColors.supportGreen.withOpacity(0.1),
+                            color: AppColors.supportGreen.withValues(
+                              alpha: 0.1,
+                            ),
                             borderRadius: BorderRadius.circular(16),
                             border: Border.all(
-                              color: AppColors.supportGreen.withOpacity(0.3),
+                              color: AppColors.supportGreen.withValues(
+                                alpha: 0.3,
+                              ),
                               width: 1,
                             ),
                           ),
@@ -202,12 +218,14 @@ class RecipeCardWidget extends StatelessWidget {
                             ],
                           ),
                         ),
-                        
+
                         // 화살표 아이콘
                         Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: AppColors.primaryOrange.withOpacity(0.1),
+                            color: AppColors.primaryOrange.withValues(
+                              alpha: 0.1,
+                            ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Icon(

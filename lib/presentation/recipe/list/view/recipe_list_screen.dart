@@ -12,7 +12,6 @@ class RecipeListScreen extends ConsumerWidget {
 
   const RecipeListScreen({super.key, this.showAppBar = true});
 
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final recipeListState = ref.watch(recipeListViewModelProvider);
@@ -48,13 +47,13 @@ class RecipeListScreen extends ConsumerWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        AppColors.lightCream.withOpacity(0.3),
-                        AppColors.accent.withOpacity(0.1),
+                        AppColors.lightCream.withValues(alpha: 0.3),
+                        AppColors.accent.withValues(alpha: 0.1),
                       ],
                     ),
                     borderRadius: BorderRadius.circular(24),
                     border: Border.all(
-                      color: AppColors.accent.withOpacity(0.3),
+                      color: AppColors.accent.withValues(alpha: 0.3),
                       width: 2,
                     ),
                   ),
@@ -73,7 +72,9 @@ class RecipeListScreen extends ConsumerWidget {
                               shape: BoxShape.circle,
                               boxShadow: [
                                 BoxShadow(
-                                  color: AppColors.accent.withOpacity(0.3),
+                                  color: AppColors.accent.withValues(
+                                    alpha: 0.3,
+                                  ),
                                   blurRadius: 20,
                                   offset: const Offset(0, 10),
                                 ),
@@ -88,27 +89,29 @@ class RecipeListScreen extends ConsumerWidget {
                         ],
                       ),
                       const SizedBox(height: 24),
-                      
+
                       Text(
                         '아직 레시피가 없습니다',
-                        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        style: Theme.of(
+                          context,
+                        ).textTheme.headlineSmall?.copyWith(
                           color: AppColors.textBrown,
                           fontWeight: FontWeight.bold,
                         ),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 12),
-                      
+
                       Text(
                         '나만의 특별한 소스 레시피를\n만들어보세요!',
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: AppColors.textBrown.withOpacity(0.7),
+                          color: AppColors.textBrown.withValues(alpha: 0.7),
                           height: 1.5,
                         ),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 32),
-                      
+
                       // 버튼들
                       Row(
                         mainAxisSize: MainAxisSize.min,
@@ -156,11 +159,8 @@ class RecipeListScreen extends ConsumerWidget {
                   onTap: () {
                     context.push('/recipes/${recipe.id}');
                   },
-                  onDelete: () => _showDeleteConfirmDialog(
-                    context,
-                    ref,
-                    recipe,
-                  ),
+                  onDelete:
+                      () => _showDeleteConfirmDialog(context, ref, recipe),
                   heroTag: 'recipe_card_${recipe.id}',
                 );
               },
@@ -192,7 +192,7 @@ class RecipeListScreen extends ConsumerWidget {
           gradient: AppColors.primaryGradient,
           boxShadow: [
             BoxShadow(
-              color: AppColors.primaryOrange.withOpacity(0.4),
+              color: AppColors.primaryOrange.withValues(alpha: 0.4),
               blurRadius: 12,
               offset: const Offset(0, 6),
             ),
@@ -204,12 +204,8 @@ class RecipeListScreen extends ConsumerWidget {
           },
           backgroundColor: Colors.transparent,
           elevation: 0,
-          splashColor: AppColors.warmWhite.withOpacity(0.2),
-          icon: const Icon(
-            Icons.add,
-            color: AppColors.warmWhite,
-            size: 24,
-          ),
+          splashColor: AppColors.warmWhite.withValues(alpha: 0.2),
+          icon: const Icon(Icons.add, color: AppColors.warmWhite, size: 24),
           label: const Text(
             '레시피 추가',
             style: TextStyle(

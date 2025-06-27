@@ -23,7 +23,6 @@ class UnitSelectorWidget extends ConsumerStatefulWidget {
 class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
   final TextEditingController _controller = TextEditingController();
   List<SeasoningEntity> _availableUnits = [];
-  bool _isLoading = false;
 
   @override
   void initState() {
@@ -47,27 +46,20 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
   }
 
   Future<void> _loadUnits() async {
-    setState(() => _isLoading = true);
-    
-    try {
-      final getAllUseCase = ref.read(getAllSeasoningsUseCaseProvider);
-      final allData = await getAllUseCase();
-      
-      // 단위 카테고리만 필터링하고 사용 빈도순으로 정렬
-      final units = allData
-          .where((item) => item.category == MasterDataCategory.unit)
-          .toList()
-        ..sort((a, b) => b.usageCount.compareTo(a.usageCount));
-      
-      setState(() {
-        _availableUnits = units;
-        _isLoading = false;
-      });
-    } catch (error) {
-      setState(() => _isLoading = false);
-    }
-  }
+    final getAllUseCase = ref.read(getAllSeasoningsUseCaseProvider);
+    final allData = await getAllUseCase();
 
+    // 단위 카테고리만 필터링하고 사용 빈도순으로 정렬
+    final units =
+        allData
+            .where((item) => item.category == MasterDataCategory.unit)
+            .toList()
+          ..sort((a, b) => b.usageCount.compareTo(a.usageCount));
+
+    setState(() {
+      _availableUnits = units;
+    });
+  }
 
   Future<void> _createNewUnit(String name) async {
     try {
@@ -77,20 +69,20 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
         category: MasterDataCategory.unit,
         description: '사용자 추가 단위',
       );
-      
+
       // 단위 목록 새로고침
       await _loadUnits();
-      
+
       // 새로 생성된 단위 선택
       widget.onUnitChanged(name);
       _controller.text = name;
-      
+
       // 성공적으로 추가됨
-      
+
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('새 단위 "$name"이(가) 추가되었습니다')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('새 단위 "$name"이(가) 추가되었습니다')));
       }
     } catch (error) {
       if (mounted) {
@@ -112,18 +104,19 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
   Future<void> _showUnitBottomSheet() async {
     // 키보드 숨기기
     FocusScope.of(context).unfocus();
-    
+
     final result = await showModalBottomSheet<String>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => _UnitBottomSheet(
-        availableUnits: _availableUnits,
-        selectedUnit: widget.selectedUnit,
-        onCreateNewUnit: _createNewUnit,
-      ),
+      builder:
+          (context) => _UnitBottomSheet(
+            availableUnits: _availableUnits,
+            selectedUnit: widget.selectedUnit,
+            onCreateNewUnit: _createNewUnit,
+          ),
     );
-    
+
     if (result != null) {
       _selectUnit(result);
     }
@@ -136,11 +129,13 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
       child: AbsorbPointer(
         child: TextField(
           controller: _controller,
-          decoration: widget.decoration ?? InputDecoration(
-            labelText: '단위',
-            suffixIcon: const Icon(Icons.arrow_drop_down),
-            border: const OutlineInputBorder(),
-          ),
+          decoration:
+              widget.decoration ??
+              InputDecoration(
+                labelText: '단위',
+                suffixIcon: const Icon(Icons.arrow_drop_down),
+                border: const OutlineInputBorder(),
+              ),
         ),
       ),
     );
@@ -165,7 +160,7 @@ class _UnitBottomSheet extends StatefulWidget {
 class _UnitBottomSheetState extends State<_UnitBottomSheet> {
   final TextEditingController _searchController = TextEditingController();
   List<SeasoningEntity> _filteredUnits = [];
-  
+
   @override
   void initState() {
     super.initState();
@@ -183,17 +178,24 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
       if (query.isEmpty) {
         _filteredUnits = widget.availableUnits;
       } else {
-        _filteredUnits = widget.availableUnits
-            .where((unit) => 
-                unit.name.toLowerCase().contains(query.toLowerCase()))
-            .toList();
+        _filteredUnits =
+            widget.availableUnits
+                .where(
+                  (unit) =>
+                      unit.name.toLowerCase().contains(query.toLowerCase()),
+                )
+                .toList();
       }
     });
   }
 
-  Widget _buildUnitGroup(String title, List<SeasoningEntity> units, {IconData? icon}) {
+  Widget _buildUnitGroup(
+    String title,
+    List<SeasoningEntity> units, {
+    IconData? icon,
+  }) {
     if (units.isEmpty) return const SizedBox.shrink();
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -202,7 +204,11 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
           child: Row(
             children: [
               if (icon != null) ...[
-                Icon(icon, size: 18, color: Theme.of(context).colorScheme.primary),
+                Icon(
+                  icon,
+                  size: 18,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 const SizedBox(width: 8),
               ],
               Text(
@@ -215,23 +221,26 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
             ],
           ),
         ),
-        ...units.map((unit) => ListTile(
-          leading: Icon(
-            Icons.straighten,
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
+        ...units.map(
+          (unit) => ListTile(
+            leading: Icon(
+              Icons.straighten,
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+            title: Text(unit.name),
+            trailing:
+                unit.usageCount > 0
+                    ? Text(
+                      '${unit.usageCount}회',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                    )
+                    : null,
+            selected: unit.name == widget.selectedUnit,
+            onTap: () => Navigator.of(context).pop(unit.name),
           ),
-          title: Text(unit.name),
-          trailing: unit.usageCount > 0
-              ? Text(
-                  '${unit.usageCount}회',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                )
-              : null,
-          selected: unit.name == widget.selectedUnit,
-          onTap: () => Navigator.of(context).pop(unit.name),
-        )),
+        ),
       ],
     );
   }
@@ -239,23 +248,50 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
   @override
   Widget build(BuildContext context) {
     // 단위들을 그룹별로 분류
-    final frequentUnits = _filteredUnits.where((u) => u.usageCount > 0).toList()
-      ..sort((a, b) => b.usageCount.compareTo(a.usageCount));
-    
-    final weightUnits = _filteredUnits.where((u) => 
-      ['g', 'kg', '그램', '킬로그램'].contains(u.name)).toList();
-    
-    final volumeUnits = _filteredUnits.where((u) => 
-      ['mL', 'L', '밀리리터', '리터', '컵', '큰술', '작은술', 'T', 't'].contains(u.name)).toList();
-    
-    final countUnits = _filteredUnits.where((u) => 
-      ['개', '마리', '알', '쪽', '장', '봉지', '캔', '병'].contains(u.name)).toList();
-    
-    final otherUnits = _filteredUnits.where((u) => 
-      !frequentUnits.contains(u) && 
-      !weightUnits.contains(u) && 
-      !volumeUnits.contains(u) && 
-      !countUnits.contains(u)).toList();
+    final frequentUnits =
+        _filteredUnits.where((u) => u.usageCount > 0).toList()
+          ..sort((a, b) => b.usageCount.compareTo(a.usageCount));
+
+    final weightUnits =
+        _filteredUnits
+            .where((u) => ['g', 'kg', '그램', '킬로그램'].contains(u.name))
+            .toList();
+
+    final volumeUnits =
+        _filteredUnits
+            .where(
+              (u) => [
+                'mL',
+                'L',
+                '밀리리터',
+                '리터',
+                '컵',
+                '큰술',
+                '작은술',
+                'T',
+                't',
+              ].contains(u.name),
+            )
+            .toList();
+
+    final countUnits =
+        _filteredUnits
+            .where(
+              (u) =>
+                  ['개', '마리', '알', '쪽', '장', '봉지', '캔', '병'].contains(u.name),
+            )
+            .toList();
+
+    final otherUnits =
+        _filteredUnits
+            .where(
+              (u) =>
+                  !frequentUnits.contains(u) &&
+                  !weightUnits.contains(u) &&
+                  !volumeUnits.contains(u) &&
+                  !countUnits.contains(u),
+            )
+            .toList();
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.75,
@@ -271,7 +307,9 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.outline.withValues(alpha: 0.3),
                 ),
               ),
             ),
@@ -314,30 +352,38 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     filled: true,
-                    fillColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                    fillColor:
+                        Theme.of(context).colorScheme.surfaceContainerHighest,
                   ),
                   onChanged: _filterUnits,
                 ),
               ],
             ),
           ),
-          
+
           // 단위 목록
           Expanded(
             child: ListView(
               children: [
                 if (frequentUnits.isNotEmpty)
-                  _buildUnitGroup('자주 사용하는 단위', frequentUnits.take(5).toList(), icon: Icons.star),
-                
+                  _buildUnitGroup(
+                    '자주 사용하는 단위',
+                    frequentUnits.take(5).toList(),
+                    icon: Icons.star,
+                  ),
+
                 _buildUnitGroup('무게', weightUnits, icon: Icons.monitor_weight),
                 _buildUnitGroup('부피', volumeUnits, icon: Icons.local_drink),
                 _buildUnitGroup('개수', countUnits, icon: Icons.numbers),
                 _buildUnitGroup('기타', otherUnits, icon: Icons.more_horiz),
-                
+
                 // 새 단위 추가 옵션
-                if (_searchController.text.trim().isNotEmpty && 
-                    !_filteredUnits.any((u) => 
-                        u.name.toLowerCase() == _searchController.text.trim().toLowerCase())) ...[
+                if (_searchController.text.trim().isNotEmpty &&
+                    !_filteredUnits.any(
+                      (u) =>
+                          u.name.toLowerCase() ==
+                          _searchController.text.trim().toLowerCase(),
+                    )) ...[
                   const Divider(),
                   ListTile(
                     leading: Icon(
@@ -347,14 +393,18 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
                     title: Text('새 단위 추가: "${_searchController.text.trim()}"'),
                     subtitle: const Text('새로운 단위를 추가합니다'),
                     onTap: () async {
-                      await widget.onCreateNewUnit(_searchController.text.trim());
-                      if (mounted) {
-                        Navigator.of(context).pop(_searchController.text.trim());
+                      await widget.onCreateNewUnit(
+                        _searchController.text.trim(),
+                      );
+                      if (mounted && context.mounted) {
+                        Navigator.of(
+                          context,
+                        ).pop(_searchController.text.trim());
                       }
                     },
                   ),
                 ],
-                
+
                 const SizedBox(height: 100), // 하단 여백
               ],
             ),

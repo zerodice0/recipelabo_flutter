@@ -1,5 +1,4 @@
 import 'package:saucerer_flutter/data/datasources/local/ingredient_local_data_source.dart';
-import 'package:saucerer_flutter/domain/entities/ingredient_entity.dart';
 import 'package:saucerer_flutter/domain/entities/recipe_entity.dart';
 import 'package:saucerer_flutter/domain/repositories/ingredient_repository.dart';
 import 'package:saucerer_flutter/data/repositories/recipe_repository_impl.dart';
@@ -16,20 +15,30 @@ class IngredientRepositoryImpl implements IngredientRepository {
   }
 
   @override
-  Future<List<RecipeEntity>> getRecipesByIngredients(List<String> ingredientNames) async {
-    final recipeModels = await localDataSource.getRecipesByIngredients(ingredientNames);
-    return recipeModels.map((model) => RecipeRepositoryImpl.mapRecipeModelToEntity(model)).toList();
+  Future<List<RecipeEntity>> getRecipesByIngredients(
+    List<String> ingredientNames,
+  ) async {
+    final recipeModels = await localDataSource.getRecipesByIngredients(
+      ingredientNames,
+    );
+    return recipeModels
+        .map((model) => RecipeRepositoryImpl.mapRecipeModelToEntity(model))
+        .toList();
   }
 
   @override
   Future<List<String>> searchIngredientsByName(String query) async {
-    final ingredientNames = await localDataSource.searchIngredientsByName(query);
+    final ingredientNames = await localDataSource.searchIngredientsByName(
+      query,
+    );
     return ingredientNames;
   }
 
   @override
   Future<List<String>> getPopularIngredients({int limit = 20}) async {
-    final popularIngredients = await localDataSource.getPopularIngredients(limit: limit);
+    final popularIngredients = await localDataSource.getPopularIngredients(
+      limit: limit,
+    );
     return popularIngredients;
   }
 }

@@ -10,11 +10,8 @@ import 'package:saucerer_flutter/presentation/recipe/detail/viewmodel/cooking_lo
 
 class RecipeDetailScreen extends ConsumerStatefulWidget {
   final String recipeId;
-  
-  const RecipeDetailScreen({
-    super.key,
-    required this.recipeId,
-  });
+
+  const RecipeDetailScreen({super.key, required this.recipeId});
 
   @override
   ConsumerState<RecipeDetailScreen> createState() => _RecipeDetailScreenState();
@@ -29,7 +26,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final recipeDetailState = ref.watch(recipeDetailViewModelProvider(widget.recipeId));
+    final recipeDetailState = ref.watch(
+      recipeDetailViewModelProvider(widget.recipeId),
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +37,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () async {
-              final result = await context.push<bool>('/recipes/${widget.recipeId}/edit');
+              final result = await context.push<bool>(
+                '/recipes/${widget.recipeId}/edit',
+              );
               if (result == true) {
                 // 편집 후 돌아온 경우 데이터 새로고침
                 ref.invalidate(recipeDetailViewModelProvider(widget.recipeId));
@@ -49,37 +50,46 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
       ),
       body: recipeDetailState.when(
         data: (data) => _buildContent(context, data.$1, data.$2),
-        error: (error, stackTrace) => Center(
-          child: SelectableText.rich(
-            TextSpan(
-              children: [
-                const TextSpan(
-                  text: '오류가 발생했습니다:\n\n',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+        error:
+            (error, stackTrace) => Center(
+              child: SelectableText.rich(
+                TextSpan(
+                  children: [
+                    const TextSpan(
+                      text: '오류가 발생했습니다:\n\n',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(text: error.toString()),
+                  ],
                 ),
-                TextSpan(text: error.toString()),
-              ],
+                style: const TextStyle(color: Colors.red),
+              ),
             ),
-            style: const TextStyle(color: Colors.red),
-          ),
-        ),
         loading: () => const Center(child: CircularProgressIndicator()),
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context, RecipeEntity recipe, List<RecipeVersionEntity> versions) {
+  Widget _buildContent(
+    BuildContext context,
+    RecipeEntity recipe,
+    List<RecipeVersionEntity> versions,
+  ) {
     // 선택된 버전이 없으면 첫 번째 버전을 선택
     if (_selectedVersionId == null && versions.isNotEmpty) {
       _selectedVersionId = versions.first.id;
     }
-    
+
     // 선택된 버전 찾기
     final selectedVersion = versions.firstWhere(
       (v) => v.id == _selectedVersionId,
-      orElse: () => versions.isNotEmpty ? versions.first : throw Exception('버전이 없습니다'),
+      orElse:
+          () =>
+              versions.isNotEmpty
+                  ? versions.first
+                  : throw Exception('버전이 없습니다'),
     );
-    
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -112,9 +122,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
           children: [
             Text(
               recipe.name,
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             if (recipe.description != null) ...[
@@ -163,7 +173,10 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
     );
   }
 
-  Widget _buildVersionSelector(BuildContext context, List<RecipeVersionEntity> versions) {
+  Widget _buildVersionSelector(
+    BuildContext context,
+    List<RecipeVersionEntity> versions,
+  ) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -172,9 +185,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
           children: [
             Text(
               '버전 선택',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             if (versions.isEmpty)
@@ -188,23 +201,29 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               DropdownButtonFormField<String>(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                 ),
                 value: _selectedVersionId ?? versions.first.id,
-                items: versions.map((version) {
-                  String displayText = 'v${version.versionNumber} - ${version.name}';
-                  if (version.changeLog != null && version.changeLog!.isNotEmpty) {
-                    displayText += ' (${version.changeLog})';
-                  }
-                  return DropdownMenuItem<String>(
-                    value: version.id,
-                    child: Text(
-                      displayText,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  );
-                }).toList(),
+                items:
+                    versions.map((version) {
+                      String displayText =
+                          'v${version.versionNumber} - ${version.name}';
+                      if (version.changeLog != null &&
+                          version.changeLog!.isNotEmpty) {
+                        displayText += ' (${version.changeLog})';
+                      }
+                      return DropdownMenuItem<String>(
+                        value: version.id,
+                        child: Text(
+                          displayText,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      );
+                    }).toList(),
                 onChanged: (value) {
                   if (value != null) {
                     setState(() {
@@ -246,7 +265,10 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.primaryContainer,
                     borderRadius: BorderRadius.circular(12),
@@ -293,10 +315,12 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: Theme.of(context).colorScheme.outline.withOpacity(0.3),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.outline.withValues(alpha: 0.3),
                   ),
                 ),
                 child: Column(
@@ -312,8 +336,11 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                         const SizedBox(width: 4),
                         Text(
                           '변경사항',
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodySmall?.copyWith(
+                            color:
+                                Theme.of(context).colorScheme.onSurfaceVariant,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -335,10 +362,14 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.outline.withValues(alpha: 0.2),
                   ),
                 ),
                 child: Row(
@@ -366,7 +397,10 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
     );
   }
 
-  Widget _buildIngredientsList(BuildContext context, RecipeVersionEntity version) {
+  Widget _buildIngredientsList(
+    BuildContext context,
+    RecipeVersionEntity version,
+  ) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -375,9 +409,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
           children: [
             Text(
               '재료',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             if (version.ingredients.isEmpty)
@@ -408,7 +442,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                         ),
                         Text(
                           '${ingredient.quantity} ${ingredient.unit}',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.w500,
                             color: Theme.of(context).colorScheme.primary,
                           ),
@@ -424,7 +460,6 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
     );
   }
 
-
   Widget _buildStepsList(BuildContext context, RecipeVersionEntity version) {
     return Card(
       child: Padding(
@@ -434,9 +469,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
           children: [
             Text(
               '조리 순서',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             if (version.steps.isEmpty)
@@ -451,7 +486,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: version.steps.length,
-                separatorBuilder: (context, index) => const SizedBox(height: 16),
+                separatorBuilder:
+                    (context, index) => const SizedBox(height: 16),
                 itemBuilder: (context, index) {
                   final step = version.steps[index];
                   return Row(
@@ -467,7 +503,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                         child: Center(
                           child: Text(
                             '${step.stepNumber}',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.copyWith(
                               color: Theme.of(context).colorScheme.onPrimary,
                               fontWeight: FontWeight.bold,
                             ),
@@ -491,12 +529,11 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
-                                    color: Theme.of(context).colorScheme.outline,
+                                    color:
+                                        Theme.of(context).colorScheme.outline,
                                   ),
                                 ),
-                                child: const Center(
-                                  child: Icon(Icons.image),
-                                ),
+                                child: const Center(child: Icon(Icons.image)),
                               ),
                             ],
                           ],
@@ -512,11 +549,17 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
     );
   }
 
-  Widget _buildCookingLogsSection(BuildContext context, RecipeEntity recipe, RecipeVersionEntity version) {
+  Widget _buildCookingLogsSection(
+    BuildContext context,
+    RecipeEntity recipe,
+    RecipeVersionEntity version,
+  ) {
     return Consumer(
       builder: (context, ref, child) {
-        final cookingLogsAsync = ref.watch(cookingLogViewModelProvider(version.id));
-        
+        final cookingLogsAsync = ref.watch(
+          cookingLogViewModelProvider(version.id),
+        );
+
         return Card(
           child: Padding(
             padding: const EdgeInsets.all(16),
@@ -539,42 +582,50 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                           extra: {
                             'recipeVersionId': version.id,
                             'recipeName': recipe.name,
-                            'versionName': 'v${version.versionNumber} - ${version.name}',
+                            'versionName':
+                                'v${version.versionNumber} - ${version.name}',
                           },
                         );
-                        
+
                         if (result == true) {
                           // 쿠킹 로그가 추가되었으므로 새로고침
-                          ref.invalidate(cookingLogViewModelProvider(version.id));
+                          ref.invalidate(
+                            cookingLogViewModelProvider(version.id),
+                          );
                         }
                       },
                       icon: const Icon(Icons.add),
                       label: const Text('로그 추가'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.primary,
-                        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 12),
                 cookingLogsAsync.when(
-                  data: (cookingLogs) => _buildCookingLogsList(context, cookingLogs),
-                  loading: () => const Center(child: CircularProgressIndicator()),
-                  error: (error, stackTrace) => Center(
-                    child: SelectableText.rich(
-                      TextSpan(
-                        children: [
-                          const TextSpan(
-                            text: '쿠킹 로그를 불러오는 중 오류가 발생했습니다:\n\n',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                  data:
+                      (cookingLogs) =>
+                          _buildCookingLogsList(context, cookingLogs),
+                  loading:
+                      () => const Center(child: CircularProgressIndicator()),
+                  error:
+                      (error, stackTrace) => Center(
+                        child: SelectableText.rich(
+                          TextSpan(
+                            children: [
+                              const TextSpan(
+                                text: '쿠킹 로그를 불러오는 중 오류가 발생했습니다:\n\n',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              TextSpan(text: error.toString()),
+                            ],
                           ),
-                          TextSpan(text: error.toString()),
-                        ],
+                          style: const TextStyle(color: Colors.red),
+                        ),
                       ),
-                      style: const TextStyle(color: Colors.red),
-                    ),
-                  ),
                 ),
               ],
             ),
@@ -584,7 +635,10 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
     );
   }
 
-  Widget _buildCookingLogsList(BuildContext context, List<CookingLogEntity> cookingLogs) {
+  Widget _buildCookingLogsList(
+    BuildContext context,
+    List<CookingLogEntity> cookingLogs,
+  ) {
     if (cookingLogs.isEmpty) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 32),
@@ -628,7 +682,10 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
     );
   }
 
-  Widget _buildCookingLogItem(BuildContext context, CookingLogEntity cookingLog) {
+  Widget _buildCookingLogItem(
+    BuildContext context,
+    CookingLogEntity cookingLog,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Row(
@@ -638,28 +695,31 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
             width: 60,
             height: 60,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surfaceVariant,
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: Theme.of(context).colorScheme.outline,
-              ),
+              border: Border.all(color: Theme.of(context).colorScheme.outline),
             ),
-            child: cookingLog.imageUrl != null
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(7),
-                    child: Image.file(
-                      File(cookingLog.imageUrl!),
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => Icon(
-                        Icons.broken_image,
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+            child:
+                cookingLog.imageUrl != null
+                    ? ClipRRect(
+                      borderRadius: BorderRadius.circular(7),
+                      child: Image.file(
+                        File(cookingLog.imageUrl!),
+                        fit: BoxFit.cover,
+                        errorBuilder:
+                            (context, error, stackTrace) => Icon(
+                              Icons.broken_image,
+                              color:
+                                  Theme.of(
+                                    context,
+                                  ).colorScheme.onSurfaceVariant,
+                            ),
                       ),
+                    )
+                    : Icon(
+                      Icons.restaurant,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
-                  )
-                : Icon(
-                    Icons.restaurant,
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -668,9 +728,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               children: [
                 Text(
                   cookingLog.title,
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 4),
                 if (cookingLog.memo != null) ...[

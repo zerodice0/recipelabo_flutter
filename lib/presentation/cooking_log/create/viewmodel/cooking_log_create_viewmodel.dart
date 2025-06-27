@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:saucerer_flutter/domain/entities/cooking_log_entity.dart';
@@ -46,39 +45,27 @@ class CookingLogCreateViewModel extends _$CookingLogCreateViewModel {
 
   Future<void> pickImageFromCamera() async {
     state = state.copyWith(isLoading: true, error: null);
-    
+
     try {
       final useCase = ref.read(pickImageUseCaseProvider);
       final imagePath = await useCase(ImageSourceType.camera);
-      
-      state = state.copyWith(
-        imageUrl: imagePath,
-        isLoading: false,
-      );
+
+      state = state.copyWith(imageUrl: imagePath, isLoading: false);
     } catch (error) {
-      state = state.copyWith(
-        isLoading: false,
-        error: error.toString(),
-      );
+      state = state.copyWith(isLoading: false, error: error.toString());
     }
   }
 
   Future<void> pickImageFromGallery() async {
     state = state.copyWith(isLoading: true, error: null);
-    
+
     try {
       final useCase = ref.read(pickImageUseCaseProvider);
       final imagePath = await useCase(ImageSourceType.gallery);
-      
-      state = state.copyWith(
-        imageUrl: imagePath,
-        isLoading: false,
-      );
+
+      state = state.copyWith(imageUrl: imagePath, isLoading: false);
     } catch (error) {
-      state = state.copyWith(
-        isLoading: false,
-        error: error.toString(),
-      );
+      state = state.copyWith(isLoading: false, error: error.toString());
     }
   }
 
@@ -114,15 +101,9 @@ class CookingLogCreateViewModel extends _$CookingLogCreateViewModel {
       final useCase = ref.read(saveCookingLogUseCaseProvider);
       await useCase(cookingLog);
 
-      state = state.copyWith(
-        isLoading: false,
-        isSaved: true,
-      );
+      state = state.copyWith(isLoading: false, isSaved: true);
     } catch (error) {
-      state = state.copyWith(
-        isLoading: false,
-        error: error.toString(),
-      );
+      state = state.copyWith(isLoading: false, error: error.toString());
     }
   }
 

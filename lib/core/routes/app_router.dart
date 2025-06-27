@@ -5,6 +5,7 @@ import 'package:saucerer_flutter/presentation/search/view/ingredient_search_scre
 import 'package:saucerer_flutter/presentation/cooking_log/create/view/cooking_log_create_screen.dart';
 import 'package:saucerer_flutter/presentation/main/view/main_navigation_screen.dart';
 import 'package:saucerer_flutter/presentation/seasoning/view/seasoning_management_screen.dart';
+import 'package:saucerer_flutter/presentation/timer/view/timer_screen.dart';
 
 // 라우트 경로 상수
 class AppRoutes {
@@ -16,6 +17,7 @@ class AppRoutes {
   static const search = '/search';
   static const cookingLogCreate = '/recipes/:id/cooking-log';
   static const seasoningManagement = '/settings/seasonings';
+  static const timer = '/timer';
 }
 
 final GoRouter appRouter = GoRouter(
@@ -75,6 +77,12 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.seasoningManagement,
       builder: (context, state) => const SeasoningManagementScreen(),
+    ),
+    
+    // 타이머 화면
+    GoRoute(
+      path: AppRoutes.timer,
+      builder: (context, state) => const TimerScreen(),
     ),
   ],
 );
