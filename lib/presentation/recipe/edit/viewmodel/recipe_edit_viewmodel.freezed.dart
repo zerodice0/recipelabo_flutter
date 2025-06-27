@@ -27,6 +27,12 @@ mixin _$RecipeEditState {
   String? get recipeId => throw _privateConstructorUsedError;
   String? get recipeVersionId => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
+  bool get showSaveOptions => throw _privateConstructorUsedError;
+  bool get createNewVersion => throw _privateConstructorUsedError;
+  String get changeLog => throw _privateConstructorUsedError;
+  RecipeEntity? get originalRecipe => throw _privateConstructorUsedError;
+  List<RecipeVersionEntity>? get allVersions =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of RecipeEditState
   /// with the given fields replaced by the non-null parameter values.
@@ -53,7 +59,14 @@ abstract class $RecipeEditStateCopyWith<$Res> {
     String? recipeId,
     String? recipeVersionId,
     String? error,
+    bool showSaveOptions,
+    bool createNewVersion,
+    String changeLog,
+    RecipeEntity? originalRecipe,
+    List<RecipeVersionEntity>? allVersions,
   });
+
+  $RecipeEntityCopyWith<$Res>? get originalRecipe;
 }
 
 /// @nodoc
@@ -81,6 +94,11 @@ class _$RecipeEditStateCopyWithImpl<$Res, $Val extends RecipeEditState>
     Object? recipeId = freezed,
     Object? recipeVersionId = freezed,
     Object? error = freezed,
+    Object? showSaveOptions = null,
+    Object? createNewVersion = null,
+    Object? changeLog = null,
+    Object? originalRecipe = freezed,
+    Object? allVersions = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -134,9 +152,48 @@ class _$RecipeEditStateCopyWithImpl<$Res, $Val extends RecipeEditState>
                     ? _value.error
                     : error // ignore: cast_nullable_to_non_nullable
                         as String?,
+            showSaveOptions:
+                null == showSaveOptions
+                    ? _value.showSaveOptions
+                    : showSaveOptions // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            createNewVersion:
+                null == createNewVersion
+                    ? _value.createNewVersion
+                    : createNewVersion // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            changeLog:
+                null == changeLog
+                    ? _value.changeLog
+                    : changeLog // ignore: cast_nullable_to_non_nullable
+                        as String,
+            originalRecipe:
+                freezed == originalRecipe
+                    ? _value.originalRecipe
+                    : originalRecipe // ignore: cast_nullable_to_non_nullable
+                        as RecipeEntity?,
+            allVersions:
+                freezed == allVersions
+                    ? _value.allVersions
+                    : allVersions // ignore: cast_nullable_to_non_nullable
+                        as List<RecipeVersionEntity>?,
           )
           as $Val,
     );
+  }
+
+  /// Create a copy of RecipeEditState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $RecipeEntityCopyWith<$Res>? get originalRecipe {
+    if (_value.originalRecipe == null) {
+      return null;
+    }
+
+    return $RecipeEntityCopyWith<$Res>(_value.originalRecipe!, (value) {
+      return _then(_value.copyWith(originalRecipe: value) as $Val);
+    });
   }
 }
 
@@ -160,7 +217,15 @@ abstract class _$$RecipeEditStateImplCopyWith<$Res>
     String? recipeId,
     String? recipeVersionId,
     String? error,
+    bool showSaveOptions,
+    bool createNewVersion,
+    String changeLog,
+    RecipeEntity? originalRecipe,
+    List<RecipeVersionEntity>? allVersions,
   });
+
+  @override
+  $RecipeEntityCopyWith<$Res>? get originalRecipe;
 }
 
 /// @nodoc
@@ -187,6 +252,11 @@ class __$$RecipeEditStateImplCopyWithImpl<$Res>
     Object? recipeId = freezed,
     Object? recipeVersionId = freezed,
     Object? error = freezed,
+    Object? showSaveOptions = null,
+    Object? createNewVersion = null,
+    Object? changeLog = null,
+    Object? originalRecipe = freezed,
+    Object? allVersions = freezed,
   }) {
     return _then(
       _$RecipeEditStateImpl(
@@ -240,6 +310,31 @@ class __$$RecipeEditStateImplCopyWithImpl<$Res>
                 ? _value.error
                 : error // ignore: cast_nullable_to_non_nullable
                     as String?,
+        showSaveOptions:
+            null == showSaveOptions
+                ? _value.showSaveOptions
+                : showSaveOptions // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        createNewVersion:
+            null == createNewVersion
+                ? _value.createNewVersion
+                : createNewVersion // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        changeLog:
+            null == changeLog
+                ? _value.changeLog
+                : changeLog // ignore: cast_nullable_to_non_nullable
+                    as String,
+        originalRecipe:
+            freezed == originalRecipe
+                ? _value.originalRecipe
+                : originalRecipe // ignore: cast_nullable_to_non_nullable
+                    as RecipeEntity?,
+        allVersions:
+            freezed == allVersions
+                ? _value._allVersions
+                : allVersions // ignore: cast_nullable_to_non_nullable
+                    as List<RecipeVersionEntity>?,
       ),
     );
   }
@@ -261,8 +356,14 @@ class _$RecipeEditStateImpl
     this.recipeId,
     this.recipeVersionId,
     this.error,
+    this.showSaveOptions = false,
+    this.createNewVersion = true,
+    this.changeLog = '',
+    this.originalRecipe,
+    final List<RecipeVersionEntity>? allVersions,
   }) : _ingredients = ingredients,
-       _steps = steps;
+       _steps = steps,
+       _allVersions = allVersions;
 
   @override
   @JsonKey()
@@ -303,10 +404,30 @@ class _$RecipeEditStateImpl
   final String? recipeVersionId;
   @override
   final String? error;
+  @override
+  @JsonKey()
+  final bool showSaveOptions;
+  @override
+  @JsonKey()
+  final bool createNewVersion;
+  @override
+  @JsonKey()
+  final String changeLog;
+  @override
+  final RecipeEntity? originalRecipe;
+  final List<RecipeVersionEntity>? _allVersions;
+  @override
+  List<RecipeVersionEntity>? get allVersions {
+    final value = _allVersions;
+    if (value == null) return null;
+    if (_allVersions is EqualUnmodifiableListView) return _allVersions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RecipeEditState(name: $name, description: $description, ingredients: $ingredients, steps: $steps, saveState: $saveState, isLoading: $isLoading, isEditMode: $isEditMode, recipeId: $recipeId, recipeVersionId: $recipeVersionId, error: $error)';
+    return 'RecipeEditState(name: $name, description: $description, ingredients: $ingredients, steps: $steps, saveState: $saveState, isLoading: $isLoading, isEditMode: $isEditMode, recipeId: $recipeId, recipeVersionId: $recipeVersionId, error: $error, showSaveOptions: $showSaveOptions, createNewVersion: $createNewVersion, changeLog: $changeLog, originalRecipe: $originalRecipe, allVersions: $allVersions)';
   }
 
   @override
@@ -323,7 +444,12 @@ class _$RecipeEditStateImpl
       ..add(DiagnosticsProperty('isEditMode', isEditMode))
       ..add(DiagnosticsProperty('recipeId', recipeId))
       ..add(DiagnosticsProperty('recipeVersionId', recipeVersionId))
-      ..add(DiagnosticsProperty('error', error));
+      ..add(DiagnosticsProperty('error', error))
+      ..add(DiagnosticsProperty('showSaveOptions', showSaveOptions))
+      ..add(DiagnosticsProperty('createNewVersion', createNewVersion))
+      ..add(DiagnosticsProperty('changeLog', changeLog))
+      ..add(DiagnosticsProperty('originalRecipe', originalRecipe))
+      ..add(DiagnosticsProperty('allVersions', allVersions));
   }
 
   @override
@@ -349,7 +475,19 @@ class _$RecipeEditStateImpl
                 other.recipeId == recipeId) &&
             (identical(other.recipeVersionId, recipeVersionId) ||
                 other.recipeVersionId == recipeVersionId) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.showSaveOptions, showSaveOptions) ||
+                other.showSaveOptions == showSaveOptions) &&
+            (identical(other.createNewVersion, createNewVersion) ||
+                other.createNewVersion == createNewVersion) &&
+            (identical(other.changeLog, changeLog) ||
+                other.changeLog == changeLog) &&
+            (identical(other.originalRecipe, originalRecipe) ||
+                other.originalRecipe == originalRecipe) &&
+            const DeepCollectionEquality().equals(
+              other._allVersions,
+              _allVersions,
+            ));
   }
 
   @override
@@ -365,6 +503,11 @@ class _$RecipeEditStateImpl
     recipeId,
     recipeVersionId,
     error,
+    showSaveOptions,
+    createNewVersion,
+    changeLog,
+    originalRecipe,
+    const DeepCollectionEquality().hash(_allVersions),
   );
 
   /// Create a copy of RecipeEditState
@@ -391,6 +534,11 @@ abstract class _RecipeEditState implements RecipeEditState {
     final String? recipeId,
     final String? recipeVersionId,
     final String? error,
+    final bool showSaveOptions,
+    final bool createNewVersion,
+    final String changeLog,
+    final RecipeEntity? originalRecipe,
+    final List<RecipeVersionEntity>? allVersions,
   }) = _$RecipeEditStateImpl;
 
   @override
@@ -413,6 +561,16 @@ abstract class _RecipeEditState implements RecipeEditState {
   String? get recipeVersionId;
   @override
   String? get error;
+  @override
+  bool get showSaveOptions;
+  @override
+  bool get createNewVersion;
+  @override
+  String get changeLog;
+  @override
+  RecipeEntity? get originalRecipe;
+  @override
+  List<RecipeVersionEntity>? get allVersions;
 
   /// Create a copy of RecipeEditState
   /// with the given fields replaced by the non-null parameter values.

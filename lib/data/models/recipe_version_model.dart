@@ -20,6 +20,7 @@ class RecipeVersionModel with _$RecipeVersionModel {
     required DateTime createdAt,
     required DateTime updatedAt,
     @Default(false) bool isDeleted,
+    String? changeLog,
   }) = _RecipeVersionModel;
 
   factory RecipeVersionModel.fromJson(Map<String, dynamic> json) =>
@@ -40,6 +41,7 @@ extension RecipeVersionModelExtension on RecipeVersionModel {
       'authorId': authorId,
       'createdAt': createdAt.toIso8601String(),
       'isDeleted': isDeleted ? 1 : 0,
+      'changeLog': changeLog,
     };
   }
 
@@ -57,6 +59,7 @@ extension RecipeVersionModelExtension on RecipeVersionModel {
       createdAt: DateTime.parse(map['createdAt']),
       updatedAt: DateTime.now(), // 임시
       isDeleted: map['isDeleted'] == 1,
+      changeLog: map['changeLog'],
     );
   }
 }

@@ -26,6 +26,7 @@ _$RecipeVersionModelImpl _$$RecipeVersionModelImplFromJson(
   createdAt: DateTime.parse(json['createdAt'] as String),
   updatedAt: DateTime.parse(json['updatedAt'] as String),
   isDeleted: json['isDeleted'] as bool? ?? false,
+  changeLog: json['changeLog'] as String?,
 );
 
 Map<String, dynamic> _$$RecipeVersionModelImplToJson(
@@ -42,4 +43,5 @@ Map<String, dynamic> _$$RecipeVersionModelImplToJson(
   'createdAt': instance.createdAt.toIso8601String(),
   'updatedAt': instance.updatedAt.toIso8601String(),
   'isDeleted': instance.isDeleted,
+  'changeLog': instance.changeLog,
 };

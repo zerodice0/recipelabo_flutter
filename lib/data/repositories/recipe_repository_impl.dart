@@ -107,6 +107,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
       steps: model.steps.map((e) => _mapStepModelToEntity(e)).toList(),
       authorId: model.authorId,
       createdAt: model.createdAt,
+      changeLog: model.changeLog,
     );
   }
 
@@ -122,6 +123,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
       authorId: entity.authorId,
       createdAt: entity.createdAt,
       updatedAt: DateTime.now(), // Should be handled properly
+      changeLog: entity.changeLog,
     );
   }
 

@@ -26,7 +26,7 @@ class RecipeEditScreen extends ConsumerWidget {
           data: (_) {
             // On success, refresh the list and pop the screen
             ref.read(recipeListViewModelProvider.notifier).refresh();
-            context.pop();
+            context.pop(true);
           },
           error: (err, stack) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -35,6 +35,16 @@ class RecipeEditScreen extends ConsumerWidget {
           },
           loading: () {},
         );
+      },
+    );
+
+    // 저장 옵션 다이얼로그 표시 리스너
+    ref.listen<bool>(
+      recipeEditViewModelProvider(recipeId).select((state) => state.showSaveOptions),
+      (previous, showSaveOptions) {
+        if (showSaveOptions) {
+          _showSaveOptionsDialog(context, ref, recipeId);
+        }
       },
     );
 
@@ -164,5 +174,84 @@ class RecipeEditScreen extends ConsumerWidget {
         ],
       );
     });
+  }
+
+  void _showSaveOptionsDialog(BuildContext context, WidgetRef ref, String? recipeId) {
+    final notifier = ref.read(recipeEditViewModelProvider(recipeId).notifier);
+    final viewModel = ref.read(recipeEditViewModelProvider(recipeId));
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('저장 옵션'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('어떻게 저장하시겠습니까?'),
+            const SizedBox(height: 16),
+            Consumer(
+              builder: (context, ref, child) {
+                final currentState = ref.watch(recipeEditViewModelProvider(recipeId));
+                return Column(
+                  children: [
+                    RadioListTile<bool>(
+                      title: const Text('새 버전으로 저장'),
+                      subtitle: const Text('기존 버전은 유지하고 새 버전을 생성합니다'),
+                      value: true,
+                      groupValue: currentState.createNewVersion,
+                      onChanged: (value) {
+                        if (value != null) {
+                          notifier.toggleCreateNewVersion(value);
+                        }
+                      },
+                    ),
+                    RadioListTile<bool>(
+                      title: const Text('기존 버전 덮어쓰기'),
+                      subtitle: const Text('현재 버전을 업데이트합니다'),
+                      value: false,
+                      groupValue: currentState.createNewVersion,
+                      onChanged: (value) {
+                        if (value != null) {
+                          notifier.toggleCreateNewVersion(value);
+                        }
+                      },
+                    ),
+                    if (currentState.createNewVersion) ...[
+                      const SizedBox(height: 16),
+                      TextField(
+                        decoration: const InputDecoration(
+                          labelText: '변경사항 (선택사항)',
+                          hintText: '예: 설탕량 줄임, 야채 추가',
+                          border: OutlineInputBorder(),
+                        ),
+                        maxLines: 2,
+                        onChanged: notifier.updateChangeLog,
+                      ),
+                    ],
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              notifier.hideSaveOptions();
+              Navigator.of(context).pop();
+            },
+            child: const Text('취소'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              notifier.performSave();
+            },
+            child: const Text('저장'),
+          ),
+        ],
+      ),
+    );
   }
 }

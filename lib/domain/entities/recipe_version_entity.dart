@@ -17,5 +17,6 @@ class RecipeVersionEntity with _$RecipeVersionEntity {
     required List<StepEntity> steps,
     required String authorId,
     required DateTime createdAt,
+    String? changeLog,
   }) = _RecipeVersionEntity;
 }

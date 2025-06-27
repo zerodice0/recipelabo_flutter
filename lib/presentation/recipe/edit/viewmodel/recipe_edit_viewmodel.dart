@@ -6,7 +6,7 @@ import 'package:saucerer_flutter/domain/entities/recipe_entity.dart';
 import 'package:saucerer_flutter/domain/entities/recipe_version_entity.dart';
 import 'package:saucerer_flutter/domain/entities/step_entity.dart';
 import 'package:saucerer_flutter/domain/usecases/save_recipe_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/get_recipe_usecase.dart';
+import 'package:saucerer_flutter/domain/usecases/get_recipe_with_versions_usecase.dart';
 import 'package:uuid/uuid.dart';
 
 part 'recipe_edit_viewmodel.freezed.dart';
@@ -25,6 +25,11 @@ class RecipeEditState with _$RecipeEditState {
     String? recipeId,
     String? recipeVersionId,
     String? error,
+    @Default(false) bool showSaveOptions,
+    @Default(true) bool createNewVersion,
+    @Default('') String changeLog,
+    RecipeEntity? originalRecipe,
+    List<RecipeVersionEntity>? allVersions,
   }) = _RecipeEditState;
 }
 
@@ -50,11 +55,14 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
     try {
       state = state.copyWith(isLoading: true, error: null);
       
-      final getRecipeUseCase = ref.read(getRecipeUseCaseProvider);
-      final result = await getRecipeUseCase(recipeId);
+      final getRecipeWithVersionsUseCase = ref.read(getRecipeWithVersionsUseCaseProvider);
+      final result = await getRecipeWithVersionsUseCase(recipeId);
       
       final recipe = result.$1;
-      final latestVersion = result.$2;
+      final allVersions = result.$2;
+      final latestVersion = allVersions.isNotEmpty ? allVersions.first : throw Exception('버전이 없습니다');
+      
+      if (recipe == null) throw Exception('레시피를 찾을 수 없습니다');
       
       state = state.copyWith(
         name: recipe.name,
@@ -62,6 +70,8 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
         ingredients: latestVersion.ingredients,
         steps: latestVersion.steps,
         recipeVersionId: latestVersion.id,
+        originalRecipe: recipe,
+        allVersions: allVersions,
         isLoading: false,
       );
     } catch (error) {
@@ -132,7 +142,34 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
   }
 
 
+  void showSaveOptions() {
+    state = state.copyWith(showSaveOptions: true);
+  }
+
+  void hideSaveOptions() {
+    state = state.copyWith(showSaveOptions: false);
+  }
+
+  void toggleCreateNewVersion(bool createNew) {
+    state = state.copyWith(createNewVersion: createNew);
+  }
+
+  void updateChangeLog(String changeLog) {
+    state = state.copyWith(changeLog: changeLog);
+  }
+
   Future<void> saveRecipe() async {
+    if (state.isEditMode) {
+      // 편집 모드일 때는 저장 옵션 다이얼로그 표시
+      showSaveOptions();
+      return;
+    }
+    
+    // 새 레시피 생성 모드일 때는 바로 저장
+    await performSave();
+  }
+
+  Future<void> performSave() async {
     // 로딩 상태로 설정
     state = state.copyWith(saveState: const AsyncValue.loading());
 
@@ -140,37 +177,58 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
       final now = DateTime.now();
       const uuid = Uuid();
       
-      if (state.isEditMode && state.recipeId != null) {
-        // 기존 레시피 수정 - 새 버전 생성
-        final newVersionId = uuid.v4();
-        
-        // 기존 레시피 정보 업데이트
-        final updatedRecipe = RecipeEntity(
-          id: state.recipeId!,
-          authorId: 'user-1', // TODO: Replace with actual user ID
-          latestVersionId: newVersionId,
-          name: state.name,
-          description: state.description,
-          isPublic: true,
-          createdAt: now, // 원래 생성일자는 별도로 관리해야 함
-          updatedAt: now,
-        );
+      if (state.isEditMode && state.recipeId != null && state.originalRecipe != null) {
+        if (state.createNewVersion) {
+          // 새 버전 생성
+          final newVersionId = uuid.v4();
+          final maxVersionNumber = state.allVersions?.map((v) => v.versionNumber).reduce((a, b) => a > b ? a : b) ?? 1;
+          final newVersionNumber = maxVersionNumber + 1;
+          
+          // 기존 레시피 정보 유지하면서 업데이트
+          final updatedRecipe = state.originalRecipe!.copyWith(
+            latestVersionId: newVersionId,
+            name: state.name,
+            description: state.description,
+            updatedAt: now,
+          );
 
-        // 새 버전 생성 (기존 버전 번호 + 1)
-        final newVersion = RecipeVersionEntity(
-          id: newVersionId,
-          recipeId: state.recipeId!,
-          versionNumber: 2, // TODO: 기존 최대 버전 번호 + 1로 계산
-          name: state.name,
-          description: state.description,
-          ingredients: state.ingredients,
-          steps: state.steps,
-          authorId: 'user-1', // TODO: Replace with actual user ID
-          createdAt: now,
-        );
+          // 새 버전 생성
+          final newVersion = RecipeVersionEntity(
+            id: newVersionId,
+            recipeId: state.recipeId!,
+            versionNumber: newVersionNumber,
+            name: state.name,
+            description: state.description,
+            ingredients: state.ingredients,
+            steps: state.steps,
+            authorId: state.originalRecipe!.authorId,
+            createdAt: now,
+            changeLog: state.changeLog.isEmpty ? null : state.changeLog,
+          );
 
-        final saveRecipeUseCase = ref.read(saveRecipeUseCaseProvider);
-        await saveRecipeUseCase(updatedRecipe, newVersion);
+          final saveRecipeUseCase = ref.read(saveRecipeUseCaseProvider);
+          await saveRecipeUseCase(updatedRecipe, newVersion);
+        } else {
+          // 기존 버전 덮어쓰기
+          final currentVersion = state.allVersions?.firstWhere((v) => v.id == state.recipeVersionId);
+          if (currentVersion == null) throw Exception('현재 버전을 찾을 수 없습니다');
+          
+          final updatedRecipe = state.originalRecipe!.copyWith(
+            name: state.name,
+            description: state.description,
+            updatedAt: now,
+          );
+
+          final updatedVersion = currentVersion.copyWith(
+            name: state.name,
+            description: state.description,
+            ingredients: state.ingredients,
+            steps: state.steps,
+          );
+
+          final saveRecipeUseCase = ref.read(saveRecipeUseCaseProvider);
+          await saveRecipeUseCase(updatedRecipe, updatedVersion);
+        }
       } else {
         // 새 레시피 생성
         final recipeId = uuid.v4();

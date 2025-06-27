@@ -8,7 +8,7 @@ import 'package:saucerer_flutter/domain/entities/cooking_log_entity.dart';
 import 'package:saucerer_flutter/presentation/recipe/detail/viewmodel/recipe_detail_viewmodel.dart';
 import 'package:saucerer_flutter/presentation/recipe/detail/viewmodel/cooking_log_viewmodel.dart';
 
-class RecipeDetailScreen extends ConsumerWidget {
+class RecipeDetailScreen extends ConsumerStatefulWidget {
   final String recipeId;
   
   const RecipeDetailScreen({
@@ -16,13 +16,20 @@ class RecipeDetailScreen extends ConsumerWidget {
     required this.recipeId,
   });
 
+  @override
+  ConsumerState<RecipeDetailScreen> createState() => _RecipeDetailScreenState();
+}
+
+class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
+  String? _selectedVersionId;
+
   String _formatDate(DateTime dateTime) {
     return '${dateTime.year}.${dateTime.month.toString().padLeft(2, '0')}.${dateTime.day.toString().padLeft(2, '0')}';
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final recipeDetailState = ref.watch(recipeDetailViewModelProvider(recipeId));
+  Widget build(BuildContext context) {
+    final recipeDetailState = ref.watch(recipeDetailViewModelProvider(widget.recipeId));
 
     return Scaffold(
       appBar: AppBar(
@@ -30,8 +37,12 @@ class RecipeDetailScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
-            onPressed: () {
-              context.push('/recipes/$recipeId/edit');
+            onPressed: () async {
+              final result = await context.push<bool>('/recipes/${widget.recipeId}/edit');
+              if (result == true) {
+                // 편집 후 돌아온 경우 데이터 새로고침
+                ref.invalidate(recipeDetailViewModelProvider(widget.recipeId));
+              }
             },
           ),
         ],
@@ -58,6 +69,17 @@ class RecipeDetailScreen extends ConsumerWidget {
   }
 
   Widget _buildContent(BuildContext context, RecipeEntity recipe, List<RecipeVersionEntity> versions) {
+    // 선택된 버전이 없으면 첫 번째 버전을 선택
+    if (_selectedVersionId == null && versions.isNotEmpty) {
+      _selectedVersionId = versions.first.id;
+    }
+    
+    // 선택된 버전 찾기
+    final selectedVersion = versions.firstWhere(
+      (v) => v.id == _selectedVersionId,
+      orElse: () => versions.isNotEmpty ? versions.first : throw Exception('버전이 없습니다'),
+    );
+    
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -66,13 +88,15 @@ class RecipeDetailScreen extends ConsumerWidget {
           _buildRecipeHeader(context, recipe),
           const SizedBox(height: 24),
           _buildVersionSelector(context, versions),
-          const SizedBox(height: 24),
+          const SizedBox(height: 16),
           if (versions.isNotEmpty) ...[
-            _buildIngredientsList(context, versions.first),
+            _buildVersionInfo(context, selectedVersion),
             const SizedBox(height: 24),
-            _buildStepsList(context, versions.first),
+            _buildIngredientsList(context, selectedVersion),
             const SizedBox(height: 24),
-            _buildCookingLogsSection(context, recipe, versions.first),
+            _buildStepsList(context, selectedVersion),
+            const SizedBox(height: 24),
+            _buildCookingLogsSection(context, recipe, selectedVersion),
           ],
         ],
       ),
@@ -166,17 +190,176 @@ class RecipeDetailScreen extends ConsumerWidget {
                   border: OutlineInputBorder(),
                   contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 ),
-                value: versions.first.id,
+                value: _selectedVersionId ?? versions.first.id,
                 items: versions.map((version) {
+                  String displayText = 'v${version.versionNumber} - ${version.name}';
+                  if (version.changeLog != null && version.changeLog!.isNotEmpty) {
+                    displayText += ' (${version.changeLog})';
+                  }
                   return DropdownMenuItem<String>(
                     value: version.id,
-                    child: Text('v${version.versionNumber} - ${version.name}'),
+                    child: Text(
+                      displayText,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   );
                 }).toList(),
                 onChanged: (value) {
-                  // TODO: Handle version change
+                  if (value != null) {
+                    setState(() {
+                      _selectedVersionId = value;
+                    });
+                  }
                 },
               ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildVersionInfo(BuildContext context, RecipeVersionEntity version) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.info_outline,
+                  size: 20,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  '버전 정보',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    'v${version.versionNumber}',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    version.name,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Icon(
+                  Icons.schedule,
+                  size: 16,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  '생성일: ${_formatDate(version.createdAt)}',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ),
+            if (version.changeLog != null && version.changeLog!.isNotEmpty) ...[
+              const SizedBox(height: 16),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.outline.withOpacity(0.3),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.edit_note,
+                          size: 16,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          '변경사항',
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      version.changeLog!,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ] else if (version.versionNumber == 1) ...[
+              const SizedBox(height: 16),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.star_outline,
+                      size: 16,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      '최초 버전',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ],
         ),
       ),

@@ -19,7 +19,7 @@ class DatabaseHelper {
     final path = join(dbPath, 'saucerer.db');
     return await openDatabase(
       path,
-      version: 7,
+      version: 8,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -62,6 +62,7 @@ class DatabaseHelper {
         authorId TEXT NOT NULL,
         createdAt TEXT NOT NULL,
         isDeleted INTEGER NOT NULL DEFAULT 0,
+        changeLog TEXT,
         FOREIGN KEY (recipeId) REFERENCES recipes(id),
         FOREIGN KEY (authorId) REFERENCES users(id)
       )
@@ -203,6 +204,13 @@ class DatabaseHelper {
           0,
         ]);
       }
+    }
+    
+    if (oldVersion < 8) {
+      // Add changeLog column to recipe_versions table
+      await db.execute('''
+        ALTER TABLE recipe_versions ADD COLUMN changeLog TEXT
+      ''');
     }
   }
 }

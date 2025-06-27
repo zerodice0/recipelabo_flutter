@@ -26,6 +26,7 @@ mixin _$RecipeVersionEntity {
   List<StepEntity> get steps => throw _privateConstructorUsedError;
   String get authorId => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  String? get changeLog => throw _privateConstructorUsedError;
 
   /// Create a copy of RecipeVersionEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -51,6 +52,7 @@ abstract class $RecipeVersionEntityCopyWith<$Res> {
     List<StepEntity> steps,
     String authorId,
     DateTime createdAt,
+    String? changeLog,
   });
 }
 
@@ -78,6 +80,7 @@ class _$RecipeVersionEntityCopyWithImpl<$Res, $Val extends RecipeVersionEntity>
     Object? steps = null,
     Object? authorId = null,
     Object? createdAt = null,
+    Object? changeLog = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -126,6 +129,11 @@ class _$RecipeVersionEntityCopyWithImpl<$Res, $Val extends RecipeVersionEntity>
                     ? _value.createdAt
                     : createdAt // ignore: cast_nullable_to_non_nullable
                         as DateTime,
+            changeLog:
+                freezed == changeLog
+                    ? _value.changeLog
+                    : changeLog // ignore: cast_nullable_to_non_nullable
+                        as String?,
           )
           as $Val,
     );
@@ -151,6 +159,7 @@ abstract class _$$RecipeVersionEntityImplCopyWith<$Res>
     List<StepEntity> steps,
     String authorId,
     DateTime createdAt,
+    String? changeLog,
   });
 }
 
@@ -177,6 +186,7 @@ class __$$RecipeVersionEntityImplCopyWithImpl<$Res>
     Object? steps = null,
     Object? authorId = null,
     Object? createdAt = null,
+    Object? changeLog = freezed,
   }) {
     return _then(
       _$RecipeVersionEntityImpl(
@@ -225,6 +235,11 @@ class __$$RecipeVersionEntityImplCopyWithImpl<$Res>
                 ? _value.createdAt
                 : createdAt // ignore: cast_nullable_to_non_nullable
                     as DateTime,
+        changeLog:
+            freezed == changeLog
+                ? _value.changeLog
+                : changeLog // ignore: cast_nullable_to_non_nullable
+                    as String?,
       ),
     );
   }
@@ -243,6 +258,7 @@ class _$RecipeVersionEntityImpl implements _RecipeVersionEntity {
     required final List<StepEntity> steps,
     required this.authorId,
     required this.createdAt,
+    this.changeLog,
   }) : _ingredients = ingredients,
        _steps = steps;
 
@@ -276,10 +292,12 @@ class _$RecipeVersionEntityImpl implements _RecipeVersionEntity {
   final String authorId;
   @override
   final DateTime createdAt;
+  @override
+  final String? changeLog;
 
   @override
   String toString() {
-    return 'RecipeVersionEntity(id: $id, recipeId: $recipeId, versionNumber: $versionNumber, name: $name, description: $description, ingredients: $ingredients, steps: $steps, authorId: $authorId, createdAt: $createdAt)';
+    return 'RecipeVersionEntity(id: $id, recipeId: $recipeId, versionNumber: $versionNumber, name: $name, description: $description, ingredients: $ingredients, steps: $steps, authorId: $authorId, createdAt: $createdAt, changeLog: $changeLog)';
   }
 
   @override
@@ -303,7 +321,9 @@ class _$RecipeVersionEntityImpl implements _RecipeVersionEntity {
             (identical(other.authorId, authorId) ||
                 other.authorId == authorId) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.changeLog, changeLog) ||
+                other.changeLog == changeLog));
   }
 
   @override
@@ -318,6 +338,7 @@ class _$RecipeVersionEntityImpl implements _RecipeVersionEntity {
     const DeepCollectionEquality().hash(_steps),
     authorId,
     createdAt,
+    changeLog,
   );
 
   /// Create a copy of RecipeVersionEntity
@@ -343,6 +364,7 @@ abstract class _RecipeVersionEntity implements RecipeVersionEntity {
     required final List<StepEntity> steps,
     required final String authorId,
     required final DateTime createdAt,
+    final String? changeLog,
   }) = _$RecipeVersionEntityImpl;
 
   @override
@@ -363,6 +385,8 @@ abstract class _RecipeVersionEntity implements RecipeVersionEntity {
   String get authorId;
   @override
   DateTime get createdAt;
+  @override
+  String? get changeLog;
 
   /// Create a copy of RecipeVersionEntity
   /// with the given fields replaced by the non-null parameter values.

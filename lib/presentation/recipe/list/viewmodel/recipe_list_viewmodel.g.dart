@@ -7,7 +7,7 @@ part of 'recipe_list_viewmodel.dart';
 // **************************************************************************
 
 String _$recipeListViewModelHash() =>
-    r'ba397813c4ce01973112e21813d221192e4331dd';
+    r'07502c37aebd3fbb488b46c0442cf6fd1c310bf8';
 
 /// See also [RecipeListViewModel].
 @ProviderFor(RecipeListViewModel)
