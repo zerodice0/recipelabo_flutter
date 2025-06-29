@@ -32,7 +32,9 @@ class RecipeRepositoryImpl implements RecipeRepository {
   @override
   Future<List<RecipeVersionEntity>> getRecipeVersions(String recipeId) async {
     final versionModels = await localDataSource.getRecipeVersions(recipeId);
-    return versionModels.map((model) => _mapRecipeVersionModelToEntity(model)).toList();
+    return versionModels
+        .map((model) => _mapRecipeVersionModelToEntity(model))
+        .toList();
   }
 
   @override
@@ -45,24 +47,36 @@ class RecipeRepositoryImpl implements RecipeRepository {
   }
 
   @override
-  Future<void> saveRecipe(RecipeEntity recipe, RecipeVersionEntity version) async {
+  Future<void> saveRecipe(
+    RecipeEntity recipe,
+    RecipeVersionEntity version,
+  ) async {
     final recipeModel = _mapRecipeEntityToModel(recipe);
     final versionModel = _mapRecipeVersionEntityToModel(version);
     await localDataSource.saveRecipe(recipeModel, versionModel);
   }
 
   @override
-  Future<bool> isVersionNameExists(String recipeId, String versionName, {String? excludeVersionId}) async {
+  Future<bool> isVersionNameExists(
+    String recipeId,
+    String versionName, {
+    String? excludeVersionId,
+  }) async {
     final versions = await localDataSource.getRecipeVersions(recipeId);
-    return versions.any((version) => 
-        version.versionName == versionName && 
-        version.id != excludeVersionId
+    return versions.any(
+      (version) =>
+          version.versionName == versionName && version.id != excludeVersionId,
     );
   }
 
   @override
   Future<void> deleteRecipe(String id) async {
     await localDataSource.deleteRecipe(id);
+  }
+
+  @override
+  Future<void> deleteRecipeVersion(String versionId) async {
+    await localDataSource.deleteRecipeVersion(versionId);
   }
 
   // Mappers
@@ -113,7 +127,8 @@ class RecipeRepositoryImpl implements RecipeRepository {
       name: model.name,
       versionName: model.versionName,
       description: model.description,
-      ingredients: model.ingredients.map((e) => _mapIngredientModelToEntity(e)).toList(),
+      ingredients:
+          model.ingredients.map((e) => _mapIngredientModelToEntity(e)).toList(),
       steps: model.steps.map((e) => _mapStepModelToEntity(e)).toList(),
       authorId: model.authorId,
       createdAt: model.createdAt,
@@ -121,7 +136,9 @@ class RecipeRepositoryImpl implements RecipeRepository {
     );
   }
 
-  RecipeVersionModel _mapRecipeVersionEntityToModel(RecipeVersionEntity entity) {
+  RecipeVersionModel _mapRecipeVersionEntityToModel(
+    RecipeVersionEntity entity,
+  ) {
     return RecipeVersionModel(
       id: entity.id,
       recipeId: entity.recipeId,
@@ -129,8 +146,12 @@ class RecipeRepositoryImpl implements RecipeRepository {
       name: entity.name,
       versionName: entity.versionName,
       description: entity.description,
-      ingredients: entity.ingredients.map((e) => _mapIngredientEntityToModel(e, entity.id)).toList(),
-      steps: entity.steps.map((e) => _mapStepEntityToModel(e, entity.id)).toList(),
+      ingredients:
+          entity.ingredients
+              .map((e) => _mapIngredientEntityToModel(e, entity.id))
+              .toList(),
+      steps:
+          entity.steps.map((e) => _mapStepEntityToModel(e, entity.id)).toList(),
       authorId: entity.authorId,
       createdAt: entity.createdAt,
       updatedAt: DateTime.now(), // Should be handled properly
@@ -148,7 +169,10 @@ class RecipeRepositoryImpl implements RecipeRepository {
     );
   }
 
-  IngredientModel _mapIngredientEntityToModel(IngredientEntity entity, String recipeVersionId) {
+  IngredientModel _mapIngredientEntityToModel(
+    IngredientEntity entity,
+    String recipeVersionId,
+  ) {
     return IngredientModel(
       id: entity.id,
       recipeVersionId: recipeVersionId,

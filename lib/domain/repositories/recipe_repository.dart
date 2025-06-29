@@ -16,11 +16,18 @@ abstract class RecipeRepository {
   Future<RecipeVersionEntity?> getRecipeVersion(String id);
 
   /// 특정 레시피에서 버전명이 중복되는지 확인합니다.
-  Future<bool> isVersionNameExists(String recipeId, String versionName, {String? excludeVersionId});
+  Future<bool> isVersionNameExists(
+    String recipeId,
+    String versionName, {
+    String? excludeVersionId,
+  });
 
   /// 새로운 레시피와 첫 번째 버전을 저장합니다.
   Future<void> saveRecipe(RecipeEntity recipe, RecipeVersionEntity version);
 
   /// 특정 ID를 가진 레시피를 삭제합니다.
   Future<void> deleteRecipe(String id);
+
+  /// 특정 ID를 가진 레시피 버전을 삭제합니다.
+  Future<void> deleteRecipeVersion(String versionId);
 }

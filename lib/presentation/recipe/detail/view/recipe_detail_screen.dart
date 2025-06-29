@@ -7,6 +7,7 @@ import 'package:saucerer_flutter/domain/entities/recipe_version_entity.dart';
 import 'package:saucerer_flutter/domain/entities/cooking_log_entity.dart';
 import 'package:saucerer_flutter/presentation/recipe/detail/viewmodel/recipe_detail_viewmodel.dart';
 import 'package:saucerer_flutter/presentation/recipe/detail/viewmodel/cooking_log_viewmodel.dart';
+import 'package:saucerer_flutter/domain/usecases/delete_recipe_version_usecase.dart';
 
 class RecipeDetailScreen extends ConsumerStatefulWidget {
   final String recipeId;
@@ -22,6 +23,132 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
 
   String _formatDate(DateTime dateTime) {
     return '${dateTime.year}.${dateTime.month.toString().padLeft(2, '0')}.${dateTime.day.toString().padLeft(2, '0')}';
+  }
+
+  Future<void> _showDeleteVersionDialog(
+    BuildContext context,
+    RecipeVersionEntity version,
+    List<RecipeVersionEntity> allVersions,
+  ) async {
+    if (allVersions.length <= 1) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('레시피에는 최소 하나의 버전이 있어야 합니다.'),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder:
+          (context) => AlertDialog(
+            title: const Text('버전 삭제'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('정말로 이 버전을 삭제하시겠습니까?'),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.errorContainer,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${version.versionName ?? 'v${version.versionNumber}'} - ${version.name}',
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.onErrorContainer,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        '생성일: ${_formatDate(version.createdAt)}',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context).colorScheme.onErrorContainer,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  '⚠️ 이 작업은 되돌릴 수 없습니다.',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.error,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('취소'),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.error,
+                  foregroundColor: Theme.of(context).colorScheme.onError,
+                ),
+                child: const Text('삭제'),
+              ),
+            ],
+          ),
+    );
+
+    if (confirmed == true) {
+      await _deleteVersion(context, version, allVersions);
+    }
+  }
+
+  Future<void> _deleteVersion(
+    BuildContext context,
+    RecipeVersionEntity version,
+    List<RecipeVersionEntity> allVersions,
+  ) async {
+    try {
+      final deleteUseCase = ref.read(deleteRecipeVersionUseCaseProvider);
+      await deleteUseCase(version.id);
+
+      // 현재 선택된 버전이 삭제되었다면 다른 버전을 선택
+      if (_selectedVersionId == version.id) {
+        final remainingVersions =
+            allVersions.where((v) => v.id != version.id).toList();
+        if (remainingVersions.isNotEmpty) {
+          setState(() {
+            _selectedVersionId = remainingVersions.first.id;
+          });
+        }
+      }
+
+      // 데이터 새로고침
+      ref.invalidate(recipeDetailViewModelProvider(widget.recipeId));
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            '버전 "${version.versionName ?? 'v${version.versionNumber}'}"이 삭제되었습니다.',
+          ),
+          backgroundColor: Colors.green,
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('버전 삭제 중 오류가 발생했습니다: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override
@@ -260,22 +387,41 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                             12,
                                           ),
                                         ),
-                                        child: Text(
-                                          version.versionName ??
-                                              'v${version.versionNumber}',
-                                          style: Theme.of(
-                                            context,
-                                          ).textTheme.bodySmall?.copyWith(
-                                            color:
-                                                isSelected
-                                                    ? Theme.of(
-                                                      context,
-                                                    ).colorScheme.onPrimary
-                                                    : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            if (isSelected)
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                  right: 4,
+                                                ),
+                                                child: Icon(
+                                                  Icons.check,
+                                                  color:
+                                                      Theme.of(
+                                                        context,
+                                                      ).colorScheme.onPrimary,
+                                                  size: 14,
+                                                ),
+                                              ),
+                                            Text(
+                                              version.versionName ??
+                                                  'v${version.versionNumber}',
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.bodySmall?.copyWith(
+                                                color:
+                                                    isSelected
+                                                        ? Theme.of(
+                                                          context,
+                                                        ).colorScheme.onPrimary
+                                                        : Theme.of(context)
+                                                            .colorScheme
+                                                            .onSecondaryContainer,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                       const SizedBox(width: 8),
@@ -295,14 +441,28 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                           ),
                                         ),
                                       ),
-                                      if (isSelected)
-                                        Icon(
-                                          Icons.check_circle,
-                                          color:
-                                              Theme.of(
+                                      if (versions.length > 1)
+                                        IconButton(
+                                          onPressed:
+                                              () => _showDeleteVersionDialog(
                                                 context,
-                                              ).colorScheme.primary,
-                                          size: 20,
+                                                version,
+                                                versions,
+                                              ),
+                                          icon: Icon(
+                                            Icons.delete_outline,
+                                            color:
+                                                Theme.of(
+                                                  context,
+                                                ).colorScheme.error,
+                                            size: 20,
+                                          ),
+                                          tooltip: '버전 삭제',
+                                          constraints: const BoxConstraints(
+                                            minWidth: 32,
+                                            minHeight: 32,
+                                          ),
+                                          padding: const EdgeInsets.all(4),
                                         ),
                                     ],
                                   ),
