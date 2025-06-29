@@ -7,6 +7,7 @@ import 'package:saucerer_flutter/domain/entities/recipe_version_entity.dart';
 import 'package:saucerer_flutter/domain/entities/step_entity.dart';
 import 'package:saucerer_flutter/domain/usecases/save_recipe_usecase.dart';
 import 'package:saucerer_flutter/domain/usecases/get_recipe_with_versions_usecase.dart';
+import 'package:saucerer_flutter/domain/usecases/check_version_name_exists_usecase.dart';
 import 'package:uuid/uuid.dart';
 
 part 'recipe_edit_viewmodel.freezed.dart';
@@ -28,6 +29,7 @@ class RecipeEditState with _$RecipeEditState {
     @Default(false) bool showSaveOptions,
     @Default(true) bool createNewVersion,
     @Default('') String changeLog,
+    @Default('') String versionName, // 사용자 정의 버전명
     RecipeEntity? originalRecipe,
     List<RecipeVersionEntity>? allVersions,
   }) = _RecipeEditState;
@@ -158,6 +160,14 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
     state = state.copyWith(changeLog: changeLog);
   }
 
+  void updateVersionName(String versionName) {
+    state = state.copyWith(versionName: versionName);
+  }
+
+  void clearSaveError() {
+    state = state.copyWith(saveState: const AsyncValue.data(null));
+  }
+
   Future<void> saveRecipe() async {
     if (state.isEditMode) {
       // 편집 모드일 때는 저장 옵션 다이얼로그 표시
@@ -170,6 +180,27 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
   }
 
   Future<void> performSave() async {
+    // 새 버전 생성 시 버전명 중복 검사
+    if (state.isEditMode && state.createNewVersion && 
+        state.versionName.isNotEmpty && state.recipeId != null) {
+      final checkVersionNameUseCase = ref.read(checkVersionNameExistsUseCaseProvider);
+      final exists = await checkVersionNameUseCase(
+        recipeId: state.recipeId!, 
+        versionName: state.versionName
+      );
+      
+      if (exists) {
+        // 중복 버전명 에러 처리 - UI에서 다이얼로그로 처리
+        state = state.copyWith(
+          saveState: AsyncValue.error(
+            'VERSION_NAME_CONFLICT:${state.versionName}', 
+            StackTrace.current
+          )
+        );
+        return;
+      }
+    }
+
     // 로딩 상태로 설정
     state = state.copyWith(saveState: const AsyncValue.loading());
 
@@ -198,6 +229,7 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
             recipeId: state.recipeId!,
             versionNumber: newVersionNumber,
             name: state.name,
+            versionName: state.versionName.isEmpty ? null : state.versionName,
             description: state.description,
             ingredients: state.ingredients,
             steps: state.steps,

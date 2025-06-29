@@ -198,39 +198,173 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 ),
               )
             else
-              DropdownButtonFormField<String>(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 8,
-                  ),
-                ),
-                value: _selectedVersionId ?? versions.first.id,
-                items:
+              Column(
+                children:
                     versions.map((version) {
-                      String displayText =
-                          'v${version.versionNumber} - ${version.name}';
-                      if (version.changeLog != null &&
-                          version.changeLog!.isNotEmpty) {
-                        displayText += ' (${version.changeLog})';
-                      }
-                      return DropdownMenuItem<String>(
-                        value: version.id,
-                        child: Text(
-                          displayText,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                          overflow: TextOverflow.ellipsis,
+                      final isSelected = _selectedVersionId == version.id;
+                      return Container(
+                        margin: const EdgeInsets.only(bottom: 8),
+                        child: Material(
+                          color:
+                              isSelected
+                                  ? Theme.of(
+                                    context,
+                                  ).colorScheme.primaryContainer
+                                  : Theme.of(context).colorScheme.surface,
+                          borderRadius: BorderRadius.circular(12),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(12),
+                            onTap: () {
+                              setState(() {
+                                _selectedVersionId = version.id;
+                              });
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color:
+                                      isSelected
+                                          ? Theme.of(
+                                            context,
+                                          ).colorScheme.primary
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .outline
+                                              .withValues(alpha: 0.3),
+                                  width: isSelected ? 2 : 1,
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                          vertical: 4,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color:
+                                              isSelected
+                                                  ? Theme.of(
+                                                    context,
+                                                  ).colorScheme.primary
+                                                  : Theme.of(context)
+                                                      .colorScheme
+                                                      .secondaryContainer,
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          version.versionName ??
+                                              'v${version.versionNumber}',
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodySmall?.copyWith(
+                                            color:
+                                                isSelected
+                                                    ? Theme.of(
+                                                      context,
+                                                    ).colorScheme.onPrimary
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .onSecondaryContainer,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Expanded(
+                                        child: Text(
+                                          version.name,
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodyMedium?.copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            color:
+                                                isSelected
+                                                    ? Theme.of(context)
+                                                        .colorScheme
+                                                        .onPrimaryContainer
+                                                    : null,
+                                          ),
+                                        ),
+                                      ),
+                                      if (isSelected)
+                                        Icon(
+                                          Icons.check_circle,
+                                          color:
+                                              Theme.of(
+                                                context,
+                                              ).colorScheme.primary,
+                                          size: 20,
+                                        ),
+                                    ],
+                                  ),
+                                  if (version.changeLog != null &&
+                                      version.changeLog!.isNotEmpty) ...[
+                                    const SizedBox(height: 8),
+                                    Container(
+                                      width: double.infinity,
+                                      padding: const EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        color: (isSelected
+                                                ? Theme.of(
+                                                  context,
+                                                ).colorScheme.primary
+                                                : Theme.of(context)
+                                                    .colorScheme
+                                                    .surfaceContainerHighest)
+                                            .withValues(alpha: 0.1),
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      child: Text(
+                                        version.changeLog!,
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.bodySmall?.copyWith(
+                                          color:
+                                              isSelected
+                                                  ? Theme.of(context)
+                                                      .colorScheme
+                                                      .onPrimaryContainer
+                                                  : Theme.of(context)
+                                                      .colorScheme
+                                                      .onSurfaceVariant,
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    '생성일: ${_formatDate(version.createdAt)}',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodySmall?.copyWith(
+                                      color:
+                                          isSelected
+                                              ? Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimaryContainer
+                                                  .withValues(alpha: 0.8)
+                                              : Theme.of(
+                                                context,
+                                              ).colorScheme.onSurfaceVariant,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       );
                     }).toList(),
-                onChanged: (value) {
-                  if (value != null) {
-                    setState(() {
-                      _selectedVersionId = value;
-                    });
-                  }
-                },
               ),
           ],
         ),

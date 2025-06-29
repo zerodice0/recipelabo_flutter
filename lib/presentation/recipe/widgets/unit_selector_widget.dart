@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:saucerer_flutter/domain/entities/seasoning_entity.dart';
 import 'package:saucerer_flutter/domain/entities/category_entity.dart';
 import 'package:saucerer_flutter/domain/usecases/create_seasoning_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/get_all_seasonings_usecase.dart';
+import 'package:saucerer_flutter/presentation/recipe/providers/units_provider.dart';
+import 'package:saucerer_flutter/presentation/recipe/widgets/unit_category_dialog.dart';
 
 class UnitSelectorWidget extends ConsumerStatefulWidget {
   final String selectedUnit;
@@ -23,13 +24,11 @@ class UnitSelectorWidget extends ConsumerStatefulWidget {
 
 class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
   final TextEditingController _controller = TextEditingController();
-  List<SeasoningEntity> _availableUnits = [];
 
   @override
   void initState() {
     super.initState();
     _controller.text = widget.selectedUnit;
-    _loadUnits();
   }
 
   @override
@@ -46,44 +45,35 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
     super.dispose();
   }
 
-  Future<void> _loadUnits() async {
-    final getAllUseCase = ref.read(getAllSeasoningsUseCaseProvider);
-    final allData = await getAllUseCase();
-
-    // 단위 카테고리만 필터링하고 사용 빈도순으로 정렬
-    final units =
-        allData
-            .where((item) => item.categoryId == PredefinedCategories.unit.id)
-            .toList()
-          ..sort((a, b) => b.usageCount.compareTo(a.usageCount));
-
-    setState(() {
-      _availableUnits = units;
-    });
-  }
-
   Future<void> _createNewUnit(String name) async {
+    // 카테고리 선택 다이얼로그 표시
+    final selectedCategory = await UnitCategoryDialogs.show(
+      context,
+      unitName: name,
+    );
+
+    if (selectedCategory == null) return; // 사용자가 취소한 경우
+
     try {
       final createUseCase = ref.read(createSeasoningUseCaseProvider);
       await createUseCase(
         name: name,
         categoryId: PredefinedCategories.unit.id,
+        subCategory: selectedCategory,
         description: '사용자 추가 단위',
       );
 
-      // 단위 목록 새로고침
-      await _loadUnits();
+      // 단위 목록 새로고침 - Provider를 통해
+      ref.read(availableUnitsProvider.notifier).refresh();
 
       // 새로 생성된 단위 선택
       widget.onUnitChanged(name);
       _controller.text = name;
 
-      // 성공적으로 추가됨
-
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('새 단위 "$name"이(가) 추가되었습니다')));
+        ).showSnackBar(SnackBar(content: Text('새 단위 "$name"이(가) $selectedCategory 카테고리에 추가되었습니다')));
       }
     } catch (error) {
       if (mounted) {
@@ -110,12 +100,58 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder:
-          (context) => _UnitBottomSheet(
-            availableUnits: _availableUnits,
-            selectedUnit: widget.selectedUnit,
-            onCreateNewUnit: _createNewUnit,
-          ),
+      builder: (context) => Consumer(
+        builder: (context, ref, child) {
+          final availableUnitsAsync = ref.watch(availableUnitsProvider);
+          
+          return availableUnitsAsync.when(
+            data: (availableUnits) => _UnitBottomSheet(
+              availableUnits: availableUnits,
+              selectedUnit: widget.selectedUnit,
+              onCreateNewUnit: _createNewUnit,
+            ),
+            loading: () => Container(
+              height: MediaQuery.of(context).size.height * 0.75,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              child: const Center(child: CircularProgressIndicator()),
+            ),
+            error: (error, stack) => Container(
+              height: MediaQuery.of(context).size.height * 0.75,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 48,
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      '단위를 불러오는 중 오류가 발생했습니다',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    ElevatedButton(
+                      onPressed: () {
+                        ref.read(availableUnitsProvider.notifier).refresh();
+                      },
+                      child: const Text('다시 시도'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
     );
 
     if (result != null) {
@@ -248,51 +284,26 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    // 단위들을 그룹별로 분류
+    // 단위들을 세부 카테고리별로 그룹화
     final frequentUnits =
         _filteredUnits.where((u) => u.usageCount > 0).toList()
           ..sort((a, b) => b.usageCount.compareTo(a.usageCount));
 
     final weightUnits =
-        _filteredUnits
-            .where((u) => ['g', 'kg', '그램', '킬로그램'].contains(u.name))
-            .toList();
+        _filteredUnits.where((u) => u.subCategory == '무게').toList()
+          ..sort((a, b) => a.name.compareTo(b.name));
 
     final volumeUnits =
-        _filteredUnits
-            .where(
-              (u) => [
-                'mL',
-                'L',
-                '밀리리터',
-                '리터',
-                '컵',
-                '큰술',
-                '작은술',
-                'T',
-                't',
-              ].contains(u.name),
-            )
-            .toList();
+        _filteredUnits.where((u) => u.subCategory == '부피').toList()
+          ..sort((a, b) => a.name.compareTo(b.name));
 
     final countUnits =
-        _filteredUnits
-            .where(
-              (u) =>
-                  ['개', '마리', '알', '쪽', '장', '봉지', '캔', '병'].contains(u.name),
-            )
-            .toList();
+        _filteredUnits.where((u) => u.subCategory == '개수').toList()
+          ..sort((a, b) => a.name.compareTo(b.name));
 
     final otherUnits =
-        _filteredUnits
-            .where(
-              (u) =>
-                  !frequentUnits.contains(u) &&
-                  !weightUnits.contains(u) &&
-                  !volumeUnits.contains(u) &&
-                  !countUnits.contains(u),
-            )
-            .toList();
+        _filteredUnits.where((u) => u.subCategory == '기타' || u.subCategory == null).toList()
+          ..sort((a, b) => a.name.compareTo(b.name));
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.75,

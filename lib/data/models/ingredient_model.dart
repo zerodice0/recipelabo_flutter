@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:saucerer_flutter/domain/entities/ingredient_entity.dart';
 
 part 'ingredient_model.freezed.dart';
 part 'ingredient_model.g.dart';
@@ -51,6 +52,33 @@ extension IngredientModelExtension on IngredientModel {
       createdAt: DateTime.parse(map['createdAt'] as String),
       updatedAt: DateTime.parse(map['updatedAt'] as String),
       isDeleted: (map['isDeleted'] as int) == 1,
+    );
+  }
+
+  /// Entity로 변환
+  IngredientEntity toEntity() {
+    return IngredientEntity(
+      id: id,
+      name: name,
+      quantity: quantity,
+      unit: unit,
+    );
+  }
+
+}
+
+/// IngredientModel Entity 변환 확장
+extension IngredientModelEntityExtension on IngredientModel {
+  /// Entity에서 변환
+  static IngredientModel fromEntity(IngredientEntity entity) {
+    final now = DateTime.now();
+    return IngredientModel(
+      id: entity.id,
+      name: entity.name,
+      quantity: entity.quantity,
+      unit: entity.unit,
+      createdAt: now,
+      updatedAt: now,
     );
   }
 }

@@ -11,6 +11,7 @@ class SeasoningModel with _$SeasoningModel {
     required String name,
     required String categoryId,
     String? category, // 마이그레이션 기간 동안 임시 유지
+    String? subCategory, // 세부 카테고리
     String? description,
     required String createdAt,
     required String updatedAt,
@@ -26,6 +27,7 @@ extension SeasoningModelX on SeasoningModel {
       id: id,
       name: name,
       categoryId: categoryId,
+      subCategory: subCategory,
       description: description,
       createdAt: DateTime.parse(createdAt),
       updatedAt: DateTime.parse(updatedAt),
@@ -38,6 +40,7 @@ extension SeasoningModelX on SeasoningModel {
       id: entity.id,
       name: entity.name,
       categoryId: entity.categoryId,
+      subCategory: entity.subCategory,
       description: entity.description,
       createdAt: entity.createdAt.toIso8601String(),
       updatedAt: entity.updatedAt.toIso8601String(),
@@ -51,6 +54,7 @@ extension SeasoningModelX on SeasoningModel {
       'name': name,
       'category_id': categoryId,
       'category': category, // 임시 유지
+      'sub_category': subCategory,
       'description': description,
       'created_at': createdAt,
       'updated_at': updatedAt,
@@ -68,6 +72,7 @@ extension SeasoningModelX on SeasoningModel {
       name: map['name'] as String,
       categoryId: categoryId,
       category: map['category'] as String?,
+      subCategory: map['sub_category'] as String?,
       description: map['description'] as String?,
       createdAt: map['created_at'] as String,
       updatedAt: map['updated_at'] as String,

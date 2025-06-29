@@ -30,6 +30,7 @@ mixin _$RecipeEditState {
   bool get showSaveOptions => throw _privateConstructorUsedError;
   bool get createNewVersion => throw _privateConstructorUsedError;
   String get changeLog => throw _privateConstructorUsedError;
+  String get versionName => throw _privateConstructorUsedError; // 사용자 정의 버전명
   RecipeEntity? get originalRecipe => throw _privateConstructorUsedError;
   List<RecipeVersionEntity>? get allVersions =>
       throw _privateConstructorUsedError;
@@ -62,6 +63,7 @@ abstract class $RecipeEditStateCopyWith<$Res> {
     bool showSaveOptions,
     bool createNewVersion,
     String changeLog,
+    String versionName,
     RecipeEntity? originalRecipe,
     List<RecipeVersionEntity>? allVersions,
   });
@@ -97,6 +99,7 @@ class _$RecipeEditStateCopyWithImpl<$Res, $Val extends RecipeEditState>
     Object? showSaveOptions = null,
     Object? createNewVersion = null,
     Object? changeLog = null,
+    Object? versionName = null,
     Object? originalRecipe = freezed,
     Object? allVersions = freezed,
   }) {
@@ -167,6 +170,11 @@ class _$RecipeEditStateCopyWithImpl<$Res, $Val extends RecipeEditState>
                     ? _value.changeLog
                     : changeLog // ignore: cast_nullable_to_non_nullable
                         as String,
+            versionName:
+                null == versionName
+                    ? _value.versionName
+                    : versionName // ignore: cast_nullable_to_non_nullable
+                        as String,
             originalRecipe:
                 freezed == originalRecipe
                     ? _value.originalRecipe
@@ -220,6 +228,7 @@ abstract class _$$RecipeEditStateImplCopyWith<$Res>
     bool showSaveOptions,
     bool createNewVersion,
     String changeLog,
+    String versionName,
     RecipeEntity? originalRecipe,
     List<RecipeVersionEntity>? allVersions,
   });
@@ -255,6 +264,7 @@ class __$$RecipeEditStateImplCopyWithImpl<$Res>
     Object? showSaveOptions = null,
     Object? createNewVersion = null,
     Object? changeLog = null,
+    Object? versionName = null,
     Object? originalRecipe = freezed,
     Object? allVersions = freezed,
   }) {
@@ -325,6 +335,11 @@ class __$$RecipeEditStateImplCopyWithImpl<$Res>
                 ? _value.changeLog
                 : changeLog // ignore: cast_nullable_to_non_nullable
                     as String,
+        versionName:
+            null == versionName
+                ? _value.versionName
+                : versionName // ignore: cast_nullable_to_non_nullable
+                    as String,
         originalRecipe:
             freezed == originalRecipe
                 ? _value.originalRecipe
@@ -359,6 +374,7 @@ class _$RecipeEditStateImpl
     this.showSaveOptions = false,
     this.createNewVersion = true,
     this.changeLog = '',
+    this.versionName = '',
     this.originalRecipe,
     final List<RecipeVersionEntity>? allVersions,
   }) : _ingredients = ingredients,
@@ -414,6 +430,10 @@ class _$RecipeEditStateImpl
   @JsonKey()
   final String changeLog;
   @override
+  @JsonKey()
+  final String versionName;
+  // 사용자 정의 버전명
+  @override
   final RecipeEntity? originalRecipe;
   final List<RecipeVersionEntity>? _allVersions;
   @override
@@ -427,7 +447,7 @@ class _$RecipeEditStateImpl
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RecipeEditState(name: $name, description: $description, ingredients: $ingredients, steps: $steps, saveState: $saveState, isLoading: $isLoading, isEditMode: $isEditMode, recipeId: $recipeId, recipeVersionId: $recipeVersionId, error: $error, showSaveOptions: $showSaveOptions, createNewVersion: $createNewVersion, changeLog: $changeLog, originalRecipe: $originalRecipe, allVersions: $allVersions)';
+    return 'RecipeEditState(name: $name, description: $description, ingredients: $ingredients, steps: $steps, saveState: $saveState, isLoading: $isLoading, isEditMode: $isEditMode, recipeId: $recipeId, recipeVersionId: $recipeVersionId, error: $error, showSaveOptions: $showSaveOptions, createNewVersion: $createNewVersion, changeLog: $changeLog, versionName: $versionName, originalRecipe: $originalRecipe, allVersions: $allVersions)';
   }
 
   @override
@@ -448,6 +468,7 @@ class _$RecipeEditStateImpl
       ..add(DiagnosticsProperty('showSaveOptions', showSaveOptions))
       ..add(DiagnosticsProperty('createNewVersion', createNewVersion))
       ..add(DiagnosticsProperty('changeLog', changeLog))
+      ..add(DiagnosticsProperty('versionName', versionName))
       ..add(DiagnosticsProperty('originalRecipe', originalRecipe))
       ..add(DiagnosticsProperty('allVersions', allVersions));
   }
@@ -482,6 +503,8 @@ class _$RecipeEditStateImpl
                 other.createNewVersion == createNewVersion) &&
             (identical(other.changeLog, changeLog) ||
                 other.changeLog == changeLog) &&
+            (identical(other.versionName, versionName) ||
+                other.versionName == versionName) &&
             (identical(other.originalRecipe, originalRecipe) ||
                 other.originalRecipe == originalRecipe) &&
             const DeepCollectionEquality().equals(
@@ -506,6 +529,7 @@ class _$RecipeEditStateImpl
     showSaveOptions,
     createNewVersion,
     changeLog,
+    versionName,
     originalRecipe,
     const DeepCollectionEquality().hash(_allVersions),
   );
@@ -537,6 +561,7 @@ abstract class _RecipeEditState implements RecipeEditState {
     final bool showSaveOptions,
     final bool createNewVersion,
     final String changeLog,
+    final String versionName,
     final RecipeEntity? originalRecipe,
     final List<RecipeVersionEntity>? allVersions,
   }) = _$RecipeEditStateImpl;
@@ -567,6 +592,8 @@ abstract class _RecipeEditState implements RecipeEditState {
   bool get createNewVersion;
   @override
   String get changeLog;
+  @override
+  String get versionName; // 사용자 정의 버전명
   @override
   RecipeEntity? get originalRecipe;
   @override

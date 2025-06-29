@@ -21,6 +21,8 @@ mixin _$SeasoningEntity {
   String get name => throw _privateConstructorUsedError;
   String get categoryId =>
       throw _privateConstructorUsedError; // CategoryEntity의 ID 참조
+  String? get subCategory =>
+      throw _privateConstructorUsedError; // 세부 카테고리 (예: 단위의 경우 '무게', '부피', '개수', '기타')
   String? get description => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
@@ -44,6 +46,7 @@ abstract class $SeasoningEntityCopyWith<$Res> {
     String id,
     String name,
     String categoryId,
+    String? subCategory,
     String? description,
     DateTime createdAt,
     DateTime updatedAt,
@@ -69,6 +72,7 @@ class _$SeasoningEntityCopyWithImpl<$Res, $Val extends SeasoningEntity>
     Object? id = null,
     Object? name = null,
     Object? categoryId = null,
+    Object? subCategory = freezed,
     Object? description = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
@@ -91,6 +95,11 @@ class _$SeasoningEntityCopyWithImpl<$Res, $Val extends SeasoningEntity>
                     ? _value.categoryId
                     : categoryId // ignore: cast_nullable_to_non_nullable
                         as String,
+            subCategory:
+                freezed == subCategory
+                    ? _value.subCategory
+                    : subCategory // ignore: cast_nullable_to_non_nullable
+                        as String?,
             description:
                 freezed == description
                     ? _value.description
@@ -130,6 +139,7 @@ abstract class _$$SeasoningEntityImplCopyWith<$Res>
     String id,
     String name,
     String categoryId,
+    String? subCategory,
     String? description,
     DateTime createdAt,
     DateTime updatedAt,
@@ -154,6 +164,7 @@ class __$$SeasoningEntityImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? categoryId = null,
+    Object? subCategory = freezed,
     Object? description = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
@@ -176,6 +187,11 @@ class __$$SeasoningEntityImplCopyWithImpl<$Res>
                 ? _value.categoryId
                 : categoryId // ignore: cast_nullable_to_non_nullable
                     as String,
+        subCategory:
+            freezed == subCategory
+                ? _value.subCategory
+                : subCategory // ignore: cast_nullable_to_non_nullable
+                    as String?,
         description:
             freezed == description
                 ? _value.description
@@ -208,6 +224,7 @@ class _$SeasoningEntityImpl extends _SeasoningEntity {
     required this.id,
     required this.name,
     required this.categoryId,
+    this.subCategory,
     this.description,
     required this.createdAt,
     required this.updatedAt,
@@ -222,6 +239,9 @@ class _$SeasoningEntityImpl extends _SeasoningEntity {
   final String categoryId;
   // CategoryEntity의 ID 참조
   @override
+  final String? subCategory;
+  // 세부 카테고리 (예: 단위의 경우 '무게', '부피', '개수', '기타')
+  @override
   final String? description;
   @override
   final DateTime createdAt;
@@ -233,7 +253,7 @@ class _$SeasoningEntityImpl extends _SeasoningEntity {
 
   @override
   String toString() {
-    return 'SeasoningEntity(id: $id, name: $name, categoryId: $categoryId, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, usageCount: $usageCount)';
+    return 'SeasoningEntity(id: $id, name: $name, categoryId: $categoryId, subCategory: $subCategory, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, usageCount: $usageCount)';
   }
 
   @override
@@ -245,6 +265,8 @@ class _$SeasoningEntityImpl extends _SeasoningEntity {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.categoryId, categoryId) ||
                 other.categoryId == categoryId) &&
+            (identical(other.subCategory, subCategory) ||
+                other.subCategory == subCategory) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.createdAt, createdAt) ||
@@ -261,6 +283,7 @@ class _$SeasoningEntityImpl extends _SeasoningEntity {
     id,
     name,
     categoryId,
+    subCategory,
     description,
     createdAt,
     updatedAt,
@@ -284,6 +307,7 @@ abstract class _SeasoningEntity extends SeasoningEntity {
     required final String id,
     required final String name,
     required final String categoryId,
+    final String? subCategory,
     final String? description,
     required final DateTime createdAt,
     required final DateTime updatedAt,
@@ -297,6 +321,8 @@ abstract class _SeasoningEntity extends SeasoningEntity {
   String get name;
   @override
   String get categoryId; // CategoryEntity의 ID 참조
+  @override
+  String? get subCategory; // 세부 카테고리 (예: 단위의 경우 '무게', '부피', '개수', '기타')
   @override
   String? get description;
   @override

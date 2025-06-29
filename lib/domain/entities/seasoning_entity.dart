@@ -10,6 +10,7 @@ class SeasoningEntity with _$SeasoningEntity {
     required String id,
     required String name,
     required String categoryId, // CategoryEntity의 ID 참조
+    String? subCategory, // 세부 카테고리 (예: 단위의 경우 '무게', '부피', '개수', '기타')
     String? description,
     required DateTime createdAt,
     required DateTime updatedAt,

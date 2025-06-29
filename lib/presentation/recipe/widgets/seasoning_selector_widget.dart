@@ -4,7 +4,7 @@ import 'package:saucerer_flutter/domain/entities/seasoning_entity.dart';
 import 'package:saucerer_flutter/domain/entities/ingredient_entity.dart';
 import 'package:saucerer_flutter/domain/entities/category_entity.dart';
 import 'package:saucerer_flutter/domain/usecases/create_seasoning_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/get_all_seasonings_usecase.dart';
+import 'package:saucerer_flutter/presentation/recipe/providers/ingredients_provider.dart';
 import 'package:saucerer_flutter/presentation/recipe/widgets/unit_selector_widget.dart';
 import 'package:uuid/uuid.dart';
 
@@ -27,16 +27,8 @@ class IngredientSelectorWidget extends ConsumerStatefulWidget {
 class _IngredientSelectorWidgetState extends ConsumerState<IngredientSelectorWidget> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
-  List<SeasoningEntity> _availableSeasonings = [];
   List<SeasoningEntity> _filteredSeasonings = [];
-  bool _isLoading = false;
   bool _showDropdown = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadSeasonings();
-  }
 
   @override
   void dispose() {
@@ -45,35 +37,12 @@ class _IngredientSelectorWidgetState extends ConsumerState<IngredientSelectorWid
     super.dispose();
   }
 
-  Future<void> _loadSeasonings() async {
-    setState(() => _isLoading = true);
-    
-    try {
-      final getAllUseCase = ref.read(getAllSeasoningsUseCaseProvider);
-      final allData = await getAllUseCase();
-      
-      // 재료 카테고리만 필터링하고 사용 빈도순으로 정렬
-      final ingredients = allData
-          .where((item) => item.categoryId == PredefinedCategories.ingredient.id)
-          .toList()
-        ..sort((a, b) => b.usageCount.compareTo(a.usageCount));
-      
-      setState(() {
-        _availableSeasonings = ingredients;
-        _filteredSeasonings = ingredients;
-        _isLoading = false;
-      });
-    } catch (error) {
-      setState(() => _isLoading = false);
-    }
-  }
-
-  void _filterSeasonings(String query) {
+  void _filterSeasonings(String query, List<SeasoningEntity> availableSeasonings) {
     setState(() {
       if (query.isEmpty) {
-        _filteredSeasonings = _availableSeasonings;
+        _filteredSeasonings = availableSeasonings;
       } else {
-        _filteredSeasonings = _availableSeasonings
+        _filteredSeasonings = availableSeasonings
             .where((seasoning) => 
                 seasoning.name.toLowerCase().contains(query.toLowerCase()))
             .toList();
@@ -121,15 +90,14 @@ class _IngredientSelectorWidgetState extends ConsumerState<IngredientSelectorWid
         description: '사용자 추가 재료',
       );
       
-      // 재료 목록 새로고침
-      await _loadSeasonings();
+      // 재료 목록 새로고침 - Provider를 통해
+      ref.read(availableIngredientsProvider.notifier).refresh();
       
       // 새로 생성된 재료를 선택된 목록에 추가
       _addIngredient(name);
       
       // 검색창 초기화
       _searchController.clear();
-      _filterSeasonings('');
       setState(() => _showDropdown = false);
       
       if (mounted) {
@@ -151,6 +119,8 @@ class _IngredientSelectorWidgetState extends ConsumerState<IngredientSelectorWid
 
   @override
   Widget build(BuildContext context) {
+    final availableIngredientsAsync = ref.watch(availableIngredientsProvider);
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -246,7 +216,9 @@ class _IngredientSelectorWidgetState extends ConsumerState<IngredientSelectorWid
                         icon: const Icon(Icons.clear),
                         onPressed: () {
                           _searchController.clear();
-                          _filterSeasonings('');
+                          availableIngredientsAsync.whenData((availableSeasonings) {
+                            _filterSeasonings('', availableSeasonings);
+                          });
                           setState(() => _showDropdown = false);
                         },
                       )
@@ -254,7 +226,9 @@ class _IngredientSelectorWidgetState extends ConsumerState<IngredientSelectorWid
                 border: const OutlineInputBorder(),
               ),
               onChanged: (query) {
-                _filterSeasonings(query);
+                availableIngredientsAsync.whenData((availableSeasonings) {
+                  _filterSeasonings(query, availableSeasonings);
+                });
                 setState(() => _showDropdown = query.isNotEmpty);
               },
               onTap: () {
@@ -274,14 +248,8 @@ class _IngredientSelectorWidgetState extends ConsumerState<IngredientSelectorWid
                   borderRadius: BorderRadius.circular(8),
                   color: Theme.of(context).colorScheme.surface,
                 ),
-                child: _isLoading
-                    ? const Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(16),
-                          child: CircularProgressIndicator(),
-                        ),
-                      )
-                    : ListView(
+                child: availableIngredientsAsync.when(
+                  data: (availableSeasonings) => ListView(
                         shrinkWrap: true,
                         children: [
                           // 검색된 기존 재료들
@@ -311,7 +279,7 @@ class _IngredientSelectorWidgetState extends ConsumerState<IngredientSelectorWid
                                   _addIngredient(seasoning.name);
                                 }
                                 _searchController.clear();
-                                _filterSeasonings('');
+                                _filterSeasonings('', availableSeasonings);
                                 setState(() => _showDropdown = false);
                               },
                             );
@@ -346,6 +314,39 @@ class _IngredientSelectorWidgetState extends ConsumerState<IngredientSelectorWid
                           ],
                         ],
                       ),
+                  loading: () => const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(16),
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                  error: (error, stack) => Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.error_outline,
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            '재료를 불러오는 중 오류가 발생했습니다',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                          const SizedBox(height: 8),
+                          TextButton(
+                            onPressed: () {
+                              ref.read(availableIngredientsProvider.notifier).refresh();
+                            },
+                            child: const Text('다시 시도'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ],

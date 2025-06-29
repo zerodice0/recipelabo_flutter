@@ -14,6 +14,7 @@ class CreateSeasoningUseCase {
   Future<String> call({
     required String name,
     required String categoryId,
+    String? subCategory,
     String? description,
   }) async {
     // 중복 체크
@@ -27,6 +28,7 @@ class CreateSeasoningUseCase {
       id: '', // 데이터소스에서 생성
       name: name.trim(),
       categoryId: categoryId,
+      subCategory: subCategory?.trim(),
       description: description?.trim(),
       createdAt: now,
       updatedAt: now,

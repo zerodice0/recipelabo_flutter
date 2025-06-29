@@ -13,6 +13,7 @@ _$RecipeVersionModelImpl _$$RecipeVersionModelImplFromJson(
   recipeId: json['recipeId'] as String,
   versionNumber: (json['versionNumber'] as num).toInt(),
   name: json['name'] as String,
+  versionName: json['versionName'] as String?,
   description: json['description'] as String,
   ingredients:
       (json['ingredients'] as List<dynamic>)
@@ -36,6 +37,7 @@ Map<String, dynamic> _$$RecipeVersionModelImplToJson(
   'recipeId': instance.recipeId,
   'versionNumber': instance.versionNumber,
   'name': instance.name,
+  'versionName': instance.versionName,
   'description': instance.description,
   'ingredients': instance.ingredients,
   'steps': instance.steps,

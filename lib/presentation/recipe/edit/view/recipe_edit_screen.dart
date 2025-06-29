@@ -5,6 +5,7 @@ import 'package:saucerer_flutter/domain/entities/step_entity.dart';
 import 'package:saucerer_flutter/presentation/recipe/edit/viewmodel/recipe_edit_viewmodel.dart';
 import 'package:saucerer_flutter/presentation/recipe/list/viewmodel/recipe_list_viewmodel.dart';
 import 'package:saucerer_flutter/presentation/recipe/widgets/seasoning_selector_widget.dart';
+import 'package:saucerer_flutter/presentation/recipe/widgets/version_name_conflict_dialog.dart';
 
 class RecipeEditScreen extends ConsumerWidget {
   final String? recipeId;
@@ -26,9 +27,16 @@ class RecipeEditScreen extends ConsumerWidget {
             context.pop(true);
           },
           error: (err, stack) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text('저장 실패: $err')));
+            final errorMessage = err.toString();
+            if (errorMessage.startsWith('VERSION_NAME_CONFLICT:')) {
+              // 버전명 충돌 다이얼로그 표시
+              final conflictingName = errorMessage.split(':')[1];
+              _showVersionNameConflictDialog(context, ref, recipeId, conflictingName);
+            } else {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text('저장 실패: $err')));
+            }
           },
           loading: () {},
         );
@@ -235,6 +243,15 @@ class RecipeEditScreen extends ConsumerWidget {
                           const SizedBox(height: 16),
                           TextField(
                             decoration: const InputDecoration(
+                              labelText: '버전명 (선택사항)',
+                              hintText: '예: 라볶이, 설탕 대체제, 매운맛',
+                              border: OutlineInputBorder(),
+                            ),
+                            onChanged: notifier.updateVersionName,
+                          ),
+                          const SizedBox(height: 12),
+                          TextField(
+                            decoration: const InputDecoration(
                               labelText: '변경사항 (선택사항)',
                               hintText: '예: 설탕량 줄임, 야채 추가',
                               border: OutlineInputBorder(),
@@ -266,6 +283,34 @@ class RecipeEditScreen extends ConsumerWidget {
               ),
             ],
           ),
+    );
+  }
+
+  void _showVersionNameConflictDialog(
+    BuildContext context,
+    WidgetRef ref,
+    String? recipeId,
+    String conflictingName,
+  ) {
+    final notifier = ref.read(recipeEditViewModelProvider(recipeId).notifier);
+
+    VersionNameConflictDialogs.show(
+      context,
+      conflictingVersionName: conflictingName,
+      onOverwrite: () {
+        // 기존 버전을 덮어쓰기로 변경하고 다시 저장
+        notifier.toggleCreateNewVersion(false);
+        notifier.performSave();
+      },
+      onRename: (newVersionName) {
+        // 새로운 버전명으로 설정하고 다시 저장
+        notifier.updateVersionName(newVersionName);
+        notifier.performSave();
+      },
+      onCancel: () {
+        // 저장 상태 초기화 - 에러 상태 클리어
+        notifier.clearSaveError();
+      },
     );
   }
 }

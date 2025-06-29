@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:saucerer_flutter/domain/entities/step_entity.dart';
 
 part 'step_model.freezed.dart';
 part 'step_model.g.dart';
@@ -51,6 +52,33 @@ extension StepModelExtension on StepModel {
       createdAt: DateTime.parse(map['createdAt'] as String),
       updatedAt: DateTime.parse(map['updatedAt'] as String),
       isDeleted: (map['isDeleted'] as int) == 1,
+    );
+  }
+
+  /// Entity로 변환
+  StepEntity toEntity() {
+    return StepEntity(
+      id: id,
+      stepNumber: stepNumber,
+      description: description,
+      imageUrl: imageUrl,
+    );
+  }
+
+}
+
+/// StepModel Entity 변환 확장
+extension StepModelEntityExtension on StepModel {
+  /// Entity에서 변환
+  static StepModel fromEntity(StepEntity entity) {
+    final now = DateTime.now();
+    return StepModel(
+      id: entity.id,
+      stepNumber: entity.stepNumber,
+      description: entity.description,
+      imageUrl: entity.imageUrl,
+      createdAt: now,
+      updatedAt: now,
     );
   }
 }

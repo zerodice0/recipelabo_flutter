@@ -20,7 +20,9 @@ mixin _$RecipeVersionEntity {
   String get id => throw _privateConstructorUsedError;
   String get recipeId => throw _privateConstructorUsedError;
   int get versionNumber => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError; // 레시피 이름 (모든 버전에서 동일)
+  String? get versionName =>
+      throw _privateConstructorUsedError; // 사용자 정의 버전명 (예: "라볶이", "설탕 대체제")
   String get description => throw _privateConstructorUsedError;
   List<IngredientEntity> get ingredients => throw _privateConstructorUsedError;
   List<StepEntity> get steps => throw _privateConstructorUsedError;
@@ -47,6 +49,7 @@ abstract class $RecipeVersionEntityCopyWith<$Res> {
     String recipeId,
     int versionNumber,
     String name,
+    String? versionName,
     String description,
     List<IngredientEntity> ingredients,
     List<StepEntity> steps,
@@ -75,6 +78,7 @@ class _$RecipeVersionEntityCopyWithImpl<$Res, $Val extends RecipeVersionEntity>
     Object? recipeId = null,
     Object? versionNumber = null,
     Object? name = null,
+    Object? versionName = freezed,
     Object? description = null,
     Object? ingredients = null,
     Object? steps = null,
@@ -104,6 +108,11 @@ class _$RecipeVersionEntityCopyWithImpl<$Res, $Val extends RecipeVersionEntity>
                     ? _value.name
                     : name // ignore: cast_nullable_to_non_nullable
                         as String,
+            versionName:
+                freezed == versionName
+                    ? _value.versionName
+                    : versionName // ignore: cast_nullable_to_non_nullable
+                        as String?,
             description:
                 null == description
                     ? _value.description
@@ -154,6 +163,7 @@ abstract class _$$RecipeVersionEntityImplCopyWith<$Res>
     String recipeId,
     int versionNumber,
     String name,
+    String? versionName,
     String description,
     List<IngredientEntity> ingredients,
     List<StepEntity> steps,
@@ -181,6 +191,7 @@ class __$$RecipeVersionEntityImplCopyWithImpl<$Res>
     Object? recipeId = null,
     Object? versionNumber = null,
     Object? name = null,
+    Object? versionName = freezed,
     Object? description = null,
     Object? ingredients = null,
     Object? steps = null,
@@ -210,6 +221,11 @@ class __$$RecipeVersionEntityImplCopyWithImpl<$Res>
                 ? _value.name
                 : name // ignore: cast_nullable_to_non_nullable
                     as String,
+        versionName:
+            freezed == versionName
+                ? _value.versionName
+                : versionName // ignore: cast_nullable_to_non_nullable
+                    as String?,
         description:
             null == description
                 ? _value.description
@@ -247,12 +263,13 @@ class __$$RecipeVersionEntityImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$RecipeVersionEntityImpl implements _RecipeVersionEntity {
+class _$RecipeVersionEntityImpl extends _RecipeVersionEntity {
   const _$RecipeVersionEntityImpl({
     required this.id,
     required this.recipeId,
     required this.versionNumber,
     required this.name,
+    this.versionName,
     required this.description,
     required final List<IngredientEntity> ingredients,
     required final List<StepEntity> steps,
@@ -260,7 +277,8 @@ class _$RecipeVersionEntityImpl implements _RecipeVersionEntity {
     required this.createdAt,
     this.changeLog,
   }) : _ingredients = ingredients,
-       _steps = steps;
+       _steps = steps,
+       super._();
 
   @override
   final String id;
@@ -270,6 +288,10 @@ class _$RecipeVersionEntityImpl implements _RecipeVersionEntity {
   final int versionNumber;
   @override
   final String name;
+  // 레시피 이름 (모든 버전에서 동일)
+  @override
+  final String? versionName;
+  // 사용자 정의 버전명 (예: "라볶이", "설탕 대체제")
   @override
   final String description;
   final List<IngredientEntity> _ingredients;
@@ -297,7 +319,7 @@ class _$RecipeVersionEntityImpl implements _RecipeVersionEntity {
 
   @override
   String toString() {
-    return 'RecipeVersionEntity(id: $id, recipeId: $recipeId, versionNumber: $versionNumber, name: $name, description: $description, ingredients: $ingredients, steps: $steps, authorId: $authorId, createdAt: $createdAt, changeLog: $changeLog)';
+    return 'RecipeVersionEntity(id: $id, recipeId: $recipeId, versionNumber: $versionNumber, name: $name, versionName: $versionName, description: $description, ingredients: $ingredients, steps: $steps, authorId: $authorId, createdAt: $createdAt, changeLog: $changeLog)';
   }
 
   @override
@@ -311,6 +333,8 @@ class _$RecipeVersionEntityImpl implements _RecipeVersionEntity {
             (identical(other.versionNumber, versionNumber) ||
                 other.versionNumber == versionNumber) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.versionName, versionName) ||
+                other.versionName == versionName) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality().equals(
@@ -333,6 +357,7 @@ class _$RecipeVersionEntityImpl implements _RecipeVersionEntity {
     recipeId,
     versionNumber,
     name,
+    versionName,
     description,
     const DeepCollectionEquality().hash(_ingredients),
     const DeepCollectionEquality().hash(_steps),
@@ -353,12 +378,13 @@ class _$RecipeVersionEntityImpl implements _RecipeVersionEntity {
       );
 }
 
-abstract class _RecipeVersionEntity implements RecipeVersionEntity {
+abstract class _RecipeVersionEntity extends RecipeVersionEntity {
   const factory _RecipeVersionEntity({
     required final String id,
     required final String recipeId,
     required final int versionNumber,
     required final String name,
+    final String? versionName,
     required final String description,
     required final List<IngredientEntity> ingredients,
     required final List<StepEntity> steps,
@@ -366,6 +392,7 @@ abstract class _RecipeVersionEntity implements RecipeVersionEntity {
     required final DateTime createdAt,
     final String? changeLog,
   }) = _$RecipeVersionEntityImpl;
+  const _RecipeVersionEntity._() : super._();
 
   @override
   String get id;
@@ -374,7 +401,9 @@ abstract class _RecipeVersionEntity implements RecipeVersionEntity {
   @override
   int get versionNumber;
   @override
-  String get name;
+  String get name; // 레시피 이름 (모든 버전에서 동일)
+  @override
+  String? get versionName; // 사용자 정의 버전명 (예: "라볶이", "설탕 대체제")
   @override
   String get description;
   @override

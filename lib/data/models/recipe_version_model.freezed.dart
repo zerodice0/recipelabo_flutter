@@ -25,6 +25,7 @@ mixin _$RecipeVersionModel {
   String get recipeId => throw _privateConstructorUsedError;
   int get versionNumber => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String? get versionName => throw _privateConstructorUsedError; // 사용자 정의 버전명
   String get description => throw _privateConstructorUsedError;
   List<IngredientModel> get ingredients => throw _privateConstructorUsedError;
   List<StepModel> get steps => throw _privateConstructorUsedError;
@@ -56,6 +57,7 @@ abstract class $RecipeVersionModelCopyWith<$Res> {
     String recipeId,
     int versionNumber,
     String name,
+    String? versionName,
     String description,
     List<IngredientModel> ingredients,
     List<StepModel> steps,
@@ -86,6 +88,7 @@ class _$RecipeVersionModelCopyWithImpl<$Res, $Val extends RecipeVersionModel>
     Object? recipeId = null,
     Object? versionNumber = null,
     Object? name = null,
+    Object? versionName = freezed,
     Object? description = null,
     Object? ingredients = null,
     Object? steps = null,
@@ -117,6 +120,11 @@ class _$RecipeVersionModelCopyWithImpl<$Res, $Val extends RecipeVersionModel>
                     ? _value.name
                     : name // ignore: cast_nullable_to_non_nullable
                         as String,
+            versionName:
+                freezed == versionName
+                    ? _value.versionName
+                    : versionName // ignore: cast_nullable_to_non_nullable
+                        as String?,
             description:
                 null == description
                     ? _value.description
@@ -177,6 +185,7 @@ abstract class _$$RecipeVersionModelImplCopyWith<$Res>
     String recipeId,
     int versionNumber,
     String name,
+    String? versionName,
     String description,
     List<IngredientModel> ingredients,
     List<StepModel> steps,
@@ -206,6 +215,7 @@ class __$$RecipeVersionModelImplCopyWithImpl<$Res>
     Object? recipeId = null,
     Object? versionNumber = null,
     Object? name = null,
+    Object? versionName = freezed,
     Object? description = null,
     Object? ingredients = null,
     Object? steps = null,
@@ -237,6 +247,11 @@ class __$$RecipeVersionModelImplCopyWithImpl<$Res>
                 ? _value.name
                 : name // ignore: cast_nullable_to_non_nullable
                     as String,
+        versionName:
+            freezed == versionName
+                ? _value.versionName
+                : versionName // ignore: cast_nullable_to_non_nullable
+                    as String?,
         description:
             null == description
                 ? _value.description
@@ -290,6 +305,7 @@ class _$RecipeVersionModelImpl implements _RecipeVersionModel {
     required this.recipeId,
     required this.versionNumber,
     required this.name,
+    this.versionName,
     required this.description,
     required final List<IngredientModel> ingredients,
     required final List<StepModel> steps,
@@ -312,6 +328,9 @@ class _$RecipeVersionModelImpl implements _RecipeVersionModel {
   final int versionNumber;
   @override
   final String name;
+  @override
+  final String? versionName;
+  // 사용자 정의 버전명
   @override
   final String description;
   final List<IngredientModel> _ingredients;
@@ -344,7 +363,7 @@ class _$RecipeVersionModelImpl implements _RecipeVersionModel {
 
   @override
   String toString() {
-    return 'RecipeVersionModel(id: $id, recipeId: $recipeId, versionNumber: $versionNumber, name: $name, description: $description, ingredients: $ingredients, steps: $steps, authorId: $authorId, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted, changeLog: $changeLog)';
+    return 'RecipeVersionModel(id: $id, recipeId: $recipeId, versionNumber: $versionNumber, name: $name, versionName: $versionName, description: $description, ingredients: $ingredients, steps: $steps, authorId: $authorId, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted, changeLog: $changeLog)';
   }
 
   @override
@@ -358,6 +377,8 @@ class _$RecipeVersionModelImpl implements _RecipeVersionModel {
             (identical(other.versionNumber, versionNumber) ||
                 other.versionNumber == versionNumber) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.versionName, versionName) ||
+                other.versionName == versionName) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             const DeepCollectionEquality().equals(
@@ -385,6 +406,7 @@ class _$RecipeVersionModelImpl implements _RecipeVersionModel {
     recipeId,
     versionNumber,
     name,
+    versionName,
     description,
     const DeepCollectionEquality().hash(_ingredients),
     const DeepCollectionEquality().hash(_steps),
@@ -418,6 +440,7 @@ abstract class _RecipeVersionModel implements RecipeVersionModel {
     required final String recipeId,
     required final int versionNumber,
     required final String name,
+    final String? versionName,
     required final String description,
     required final List<IngredientModel> ingredients,
     required final List<StepModel> steps,
@@ -439,6 +462,8 @@ abstract class _RecipeVersionModel implements RecipeVersionModel {
   int get versionNumber;
   @override
   String get name;
+  @override
+  String? get versionName; // 사용자 정의 버전명
   @override
   String get description;
   @override

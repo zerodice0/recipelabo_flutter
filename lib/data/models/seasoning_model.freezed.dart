@@ -26,6 +26,7 @@ mixin _$SeasoningModel {
   String get categoryId => throw _privateConstructorUsedError;
   String? get category =>
       throw _privateConstructorUsedError; // 마이그레이션 기간 동안 임시 유지
+  String? get subCategory => throw _privateConstructorUsedError; // 세부 카테고리
   String? get description => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
   String get updatedAt => throw _privateConstructorUsedError;
@@ -53,6 +54,7 @@ abstract class $SeasoningModelCopyWith<$Res> {
     String name,
     String categoryId,
     String? category,
+    String? subCategory,
     String? description,
     String createdAt,
     String updatedAt,
@@ -79,6 +81,7 @@ class _$SeasoningModelCopyWithImpl<$Res, $Val extends SeasoningModel>
     Object? name = null,
     Object? categoryId = null,
     Object? category = freezed,
+    Object? subCategory = freezed,
     Object? description = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
@@ -105,6 +108,11 @@ class _$SeasoningModelCopyWithImpl<$Res, $Val extends SeasoningModel>
                 freezed == category
                     ? _value.category
                     : category // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            subCategory:
+                freezed == subCategory
+                    ? _value.subCategory
+                    : subCategory // ignore: cast_nullable_to_non_nullable
                         as String?,
             description:
                 freezed == description
@@ -146,6 +154,7 @@ abstract class _$$SeasoningModelImplCopyWith<$Res>
     String name,
     String categoryId,
     String? category,
+    String? subCategory,
     String? description,
     String createdAt,
     String updatedAt,
@@ -171,6 +180,7 @@ class __$$SeasoningModelImplCopyWithImpl<$Res>
     Object? name = null,
     Object? categoryId = null,
     Object? category = freezed,
+    Object? subCategory = freezed,
     Object? description = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
@@ -197,6 +207,11 @@ class __$$SeasoningModelImplCopyWithImpl<$Res>
             freezed == category
                 ? _value.category
                 : category // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        subCategory:
+            freezed == subCategory
+                ? _value.subCategory
+                : subCategory // ignore: cast_nullable_to_non_nullable
                     as String?,
         description:
             freezed == description
@@ -231,6 +246,7 @@ class _$SeasoningModelImpl implements _SeasoningModel {
     required this.name,
     required this.categoryId,
     this.category,
+    this.subCategory,
     this.description,
     required this.createdAt,
     required this.updatedAt,
@@ -250,6 +266,9 @@ class _$SeasoningModelImpl implements _SeasoningModel {
   final String? category;
   // 마이그레이션 기간 동안 임시 유지
   @override
+  final String? subCategory;
+  // 세부 카테고리
+  @override
   final String? description;
   @override
   final String createdAt;
@@ -261,7 +280,7 @@ class _$SeasoningModelImpl implements _SeasoningModel {
 
   @override
   String toString() {
-    return 'SeasoningModel(id: $id, name: $name, categoryId: $categoryId, category: $category, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, usageCount: $usageCount)';
+    return 'SeasoningModel(id: $id, name: $name, categoryId: $categoryId, category: $category, subCategory: $subCategory, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, usageCount: $usageCount)';
   }
 
   @override
@@ -275,6 +294,8 @@ class _$SeasoningModelImpl implements _SeasoningModel {
                 other.categoryId == categoryId) &&
             (identical(other.category, category) ||
                 other.category == category) &&
+            (identical(other.subCategory, subCategory) ||
+                other.subCategory == subCategory) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.createdAt, createdAt) ||
@@ -293,6 +314,7 @@ class _$SeasoningModelImpl implements _SeasoningModel {
     name,
     categoryId,
     category,
+    subCategory,
     description,
     createdAt,
     updatedAt,
@@ -322,6 +344,7 @@ abstract class _SeasoningModel implements SeasoningModel {
     required final String name,
     required final String categoryId,
     final String? category,
+    final String? subCategory,
     final String? description,
     required final String createdAt,
     required final String updatedAt,
@@ -339,6 +362,8 @@ abstract class _SeasoningModel implements SeasoningModel {
   String get categoryId;
   @override
   String? get category; // 마이그레이션 기간 동안 임시 유지
+  @override
+  String? get subCategory; // 세부 카테고리
   @override
   String? get description;
   @override

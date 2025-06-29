@@ -52,6 +52,15 @@ class RecipeRepositoryImpl implements RecipeRepository {
   }
 
   @override
+  Future<bool> isVersionNameExists(String recipeId, String versionName, {String? excludeVersionId}) async {
+    final versions = await localDataSource.getRecipeVersions(recipeId);
+    return versions.any((version) => 
+        version.versionName == versionName && 
+        version.id != excludeVersionId
+    );
+  }
+
+  @override
   Future<void> deleteRecipe(String id) async {
     await localDataSource.deleteRecipe(id);
   }
@@ -102,6 +111,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
       recipeId: model.recipeId,
       versionNumber: model.versionNumber,
       name: model.name,
+      versionName: model.versionName,
       description: model.description,
       ingredients: model.ingredients.map((e) => _mapIngredientModelToEntity(e)).toList(),
       steps: model.steps.map((e) => _mapStepModelToEntity(e)).toList(),
@@ -117,6 +127,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
       recipeId: entity.recipeId,
       versionNumber: entity.versionNumber,
       name: entity.name,
+      versionName: entity.versionName,
       description: entity.description,
       ingredients: entity.ingredients.map((e) => _mapIngredientEntityToModel(e, entity.id)).toList(),
       steps: entity.steps.map((e) => _mapStepEntityToModel(e, entity.id)).toList(),

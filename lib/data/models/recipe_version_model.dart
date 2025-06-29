@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:saucerer_flutter/data/models/ingredient_model.dart';
 import 'package:saucerer_flutter/data/models/step_model.dart';
+import 'package:saucerer_flutter/domain/entities/recipe_version_entity.dart';
 
 part 'recipe_version_model.freezed.dart';
 part 'recipe_version_model.g.dart';
@@ -13,6 +14,7 @@ class RecipeVersionModel with _$RecipeVersionModel {
     required String recipeId,
     required int versionNumber,
     required String name,
+    String? versionName, // 사용자 정의 버전명
     required String description,
     required List<IngredientModel> ingredients,
     required List<StepModel> steps,
@@ -37,6 +39,7 @@ extension RecipeVersionModelExtension on RecipeVersionModel {
       'recipeId': recipeId,
       'versionNumber': versionNumber,
       'name': name,
+      'versionName': versionName, // 사용자 정의 버전명 추가
       'description': description,
       'authorId': authorId,
       'createdAt': createdAt.toIso8601String(),
@@ -52,6 +55,7 @@ extension RecipeVersionModelExtension on RecipeVersionModel {
       recipeId: map['recipeId'],
       versionNumber: map['versionNumber'],
       name: map['name'],
+      versionName: map['versionName'], // 사용자 정의 버전명 추가
       description: map['description'],
       ingredients: [], // 별도로 로드
       steps: [], // 별도로 로드
@@ -60,6 +64,41 @@ extension RecipeVersionModelExtension on RecipeVersionModel {
       updatedAt: DateTime.now(), // 임시
       isDeleted: map['isDeleted'] == 1,
       changeLog: map['changeLog'],
+    );
+  }
+
+  /// Entity로 변환
+  RecipeVersionEntity toEntity() {
+    return RecipeVersionEntity(
+      id: id,
+      recipeId: recipeId,
+      versionNumber: versionNumber,
+      name: name,
+      versionName: versionName,
+      description: description,
+      ingredients: ingredients.map((e) => e.toEntity()).toList(),
+      steps: steps.map((e) => e.toEntity()).toList(),
+      authorId: authorId,
+      createdAt: createdAt,
+      changeLog: changeLog,
+    );
+  }
+
+  /// Entity에서 변환
+  static RecipeVersionModel fromEntity(RecipeVersionEntity entity, DateTime updatedAt) {
+    return RecipeVersionModel(
+      id: entity.id,
+      recipeId: entity.recipeId,
+      versionNumber: entity.versionNumber,
+      name: entity.name,
+      versionName: entity.versionName,
+      description: entity.description,
+      ingredients: entity.ingredients.map((e) => IngredientModelEntityExtension.fromEntity(e)).toList(),
+      steps: entity.steps.map((e) => StepModelEntityExtension.fromEntity(e)).toList(),
+      authorId: entity.authorId,
+      createdAt: entity.createdAt,
+      updatedAt: updatedAt,
+      changeLog: entity.changeLog,
     );
   }
 }
