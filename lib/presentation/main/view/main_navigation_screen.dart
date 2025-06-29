@@ -21,8 +21,8 @@ class MainNavigationScreen extends ConsumerWidget {
       body: IndexedStack(
         index: currentIndex,
         children: const [
-          RecipeListScreen(showAppBar: false),
-          IngredientSearchScreen(showAppBar: false),
+          RecipeListScreen(),
+          IngredientSearchScreen(),
           TimerScreen(),
           ProfileScreen(),
         ],
