@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:saucerer_flutter/domain/entities/recipe_version_entity.dart';
 import 'package:saucerer_flutter/domain/entities/step_entity.dart';
 import 'package:saucerer_flutter/presentation/recipe/edit/viewmodel/recipe_edit_viewmodel.dart';
 import 'package:saucerer_flutter/presentation/recipe/list/viewmodel/recipe_list_viewmodel.dart';
@@ -9,13 +10,22 @@ import 'package:saucerer_flutter/presentation/recipe/widgets/version_name_confli
 
 class RecipeEditScreen extends ConsumerWidget {
   final String? recipeId;
+  final String? versionId;
 
-  const RecipeEditScreen({super.key, this.recipeId});
+  const RecipeEditScreen({super.key, this.recipeId, this.versionId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(recipeEditViewModelProvider(recipeId));
     final notifier = ref.read(recipeEditViewModelProvider(recipeId).notifier);
+
+    // versionId가 있고 아직 설정되지 않았다면 설정
+    if (versionId != null &&
+        versionId!.isNotEmpty &&
+        viewModel.initialVersionId != versionId) {
+      // 다음 프레임에서 실행하여 빌드 중에 상태 변경을 방지
+      Future.microtask(() => notifier.setInitialVersionId(versionId!));
+    }
 
     ref.listen<AsyncValue<void>>(
       recipeEditViewModelProvider(recipeId).select((state) => state.saveState),
@@ -31,7 +41,12 @@ class RecipeEditScreen extends ConsumerWidget {
             if (errorMessage.startsWith('VERSION_NAME_CONFLICT:')) {
               // 버전명 충돌 다이얼로그 표시
               final conflictingName = errorMessage.split(':')[1];
-              _showVersionNameConflictDialog(context, ref, recipeId, conflictingName);
+              _showVersionNameConflictDialog(
+                context,
+                ref,
+                recipeId,
+                conflictingName,
+              );
             } else {
               ScaffoldMessenger.of(
                 context,
@@ -57,7 +72,37 @@ class RecipeEditScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(viewModel.isEditMode ? '레시피 편집' : '새 레시피'),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(viewModel.isEditMode ? '레시피 편집' : '새 레시피'),
+            if (viewModel.isEditMode &&
+                viewModel.allVersions != null &&
+                viewModel.allVersions!.isNotEmpty) ...[
+              Builder(
+                builder: (context) {
+                  RecipeVersionEntity? currentVersion;
+                  try {
+                    currentVersion = viewModel.allVersions!.firstWhere(
+                      (version) => version.id == viewModel.recipeVersionId,
+                    );
+                  } catch (e) {
+                    currentVersion = viewModel.allVersions!.first;
+                  }
+                  return Text(
+                    currentVersion.fullDisplayName,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.7),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ],
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.save),
@@ -215,11 +260,72 @@ class RecipeEditScreen extends ConsumerWidget {
                     final currentState = ref.watch(
                       recipeEditViewModelProvider(recipeId),
                     );
+
+                    // 현재 편집 중인 버전 찾기
+                    RecipeVersionEntity? currentVersion;
+                    if (currentState.allVersions != null &&
+                        currentState.allVersions!.isNotEmpty) {
+                      try {
+                        currentVersion = currentState.allVersions!.firstWhere(
+                          (version) =>
+                              version.id == currentState.recipeVersionId,
+                        );
+                      } catch (e) {
+                        // 현재 버전 ID가 없으면 첫 번째 버전 사용
+                        currentVersion = currentState.allVersions!.first;
+                      }
+                    }
+
                     return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // 현재 편집 중인 버전 정보 표시
+                        if (currentVersion != null) ...[
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color:
+                                  Theme.of(
+                                    context,
+                                  ).colorScheme.surfaceContainerHighest,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.edit,
+                                  size: 16,
+                                  color:
+                                      Theme.of(
+                                        context,
+                                      ).colorScheme.onSurfaceVariant,
+                                ),
+                                const SizedBox(width: 8),
+                                Text(
+                                  '편집 중: ${currentVersion.fullDisplayName}',
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.bodyMedium?.copyWith(
+                                    color:
+                                        Theme.of(
+                                          context,
+                                        ).colorScheme.onSurfaceVariant,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                        ],
+
                         RadioListTile<bool>(
                           title: const Text('새 버전으로 저장'),
-                          subtitle: const Text('기존 버전은 유지하고 새 버전을 생성합니다'),
+                          subtitle:
+                              currentVersion != null
+                                  ? Text(
+                                    '${currentVersion.fullDisplayName}에서 파생된 새 버전을 생성합니다',
+                                  )
+                                  : const Text('기존 버전은 유지하고 새 버전을 생성합니다'),
                           value: true,
                           groupValue: currentState.createNewVersion,
                           onChanged: (value) {
@@ -230,7 +336,12 @@ class RecipeEditScreen extends ConsumerWidget {
                         ),
                         RadioListTile<bool>(
                           title: const Text('기존 버전 덮어쓰기'),
-                          subtitle: const Text('현재 버전을 업데이트합니다'),
+                          subtitle:
+                              currentVersion != null
+                                  ? Text(
+                                    '${currentVersion.fullDisplayName}을(를) 업데이트합니다',
+                                  )
+                                  : const Text('현재 버전을 업데이트합니다'),
                           value: false,
                           groupValue: currentState.createNewVersion,
                           onChanged: (value) {
@@ -241,6 +352,44 @@ class RecipeEditScreen extends ConsumerWidget {
                         ),
                         if (currentState.createNewVersion) ...[
                           const SizedBox(height: 16),
+                          // 기반 버전 정보 표시
+                          if (currentVersion != null) ...[
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color:
+                                    Theme.of(
+                                      context,
+                                    ).colorScheme.primaryContainer,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.fork_right,
+                                    size: 16,
+                                    color:
+                                        Theme.of(
+                                          context,
+                                        ).colorScheme.onPrimaryContainer,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    '기반 버전: ${currentVersion.fullDisplayName}',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodySmall?.copyWith(
+                                      color:
+                                          Theme.of(
+                                            context,
+                                          ).colorScheme.onPrimaryContainer,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                          ],
                           TextField(
                             decoration: const InputDecoration(
                               labelText: '버전명 (선택사항)',

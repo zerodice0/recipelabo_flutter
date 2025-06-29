@@ -26,6 +26,8 @@ mixin _$RecipeEditState {
   bool get isEditMode => throw _privateConstructorUsedError;
   String? get recipeId => throw _privateConstructorUsedError;
   String? get recipeVersionId => throw _privateConstructorUsedError;
+  String? get initialVersionId =>
+      throw _privateConstructorUsedError; // 편집할 특정 버전 ID
   String? get error => throw _privateConstructorUsedError;
   bool get showSaveOptions => throw _privateConstructorUsedError;
   bool get createNewVersion => throw _privateConstructorUsedError;
@@ -59,6 +61,7 @@ abstract class $RecipeEditStateCopyWith<$Res> {
     bool isEditMode,
     String? recipeId,
     String? recipeVersionId,
+    String? initialVersionId,
     String? error,
     bool showSaveOptions,
     bool createNewVersion,
@@ -95,6 +98,7 @@ class _$RecipeEditStateCopyWithImpl<$Res, $Val extends RecipeEditState>
     Object? isEditMode = null,
     Object? recipeId = freezed,
     Object? recipeVersionId = freezed,
+    Object? initialVersionId = freezed,
     Object? error = freezed,
     Object? showSaveOptions = null,
     Object? createNewVersion = null,
@@ -149,6 +153,11 @@ class _$RecipeEditStateCopyWithImpl<$Res, $Val extends RecipeEditState>
                 freezed == recipeVersionId
                     ? _value.recipeVersionId
                     : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            initialVersionId:
+                freezed == initialVersionId
+                    ? _value.initialVersionId
+                    : initialVersionId // ignore: cast_nullable_to_non_nullable
                         as String?,
             error:
                 freezed == error
@@ -224,6 +233,7 @@ abstract class _$$RecipeEditStateImplCopyWith<$Res>
     bool isEditMode,
     String? recipeId,
     String? recipeVersionId,
+    String? initialVersionId,
     String? error,
     bool showSaveOptions,
     bool createNewVersion,
@@ -260,6 +270,7 @@ class __$$RecipeEditStateImplCopyWithImpl<$Res>
     Object? isEditMode = null,
     Object? recipeId = freezed,
     Object? recipeVersionId = freezed,
+    Object? initialVersionId = freezed,
     Object? error = freezed,
     Object? showSaveOptions = null,
     Object? createNewVersion = null,
@@ -314,6 +325,11 @@ class __$$RecipeEditStateImplCopyWithImpl<$Res>
             freezed == recipeVersionId
                 ? _value.recipeVersionId
                 : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        initialVersionId:
+            freezed == initialVersionId
+                ? _value.initialVersionId
+                : initialVersionId // ignore: cast_nullable_to_non_nullable
                     as String?,
         error:
             freezed == error
@@ -370,6 +386,7 @@ class _$RecipeEditStateImpl
     this.isEditMode = false,
     this.recipeId,
     this.recipeVersionId,
+    this.initialVersionId,
     this.error,
     this.showSaveOptions = false,
     this.createNewVersion = true,
@@ -419,6 +436,9 @@ class _$RecipeEditStateImpl
   @override
   final String? recipeVersionId;
   @override
+  final String? initialVersionId;
+  // 편집할 특정 버전 ID
+  @override
   final String? error;
   @override
   @JsonKey()
@@ -447,7 +467,7 @@ class _$RecipeEditStateImpl
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'RecipeEditState(name: $name, description: $description, ingredients: $ingredients, steps: $steps, saveState: $saveState, isLoading: $isLoading, isEditMode: $isEditMode, recipeId: $recipeId, recipeVersionId: $recipeVersionId, error: $error, showSaveOptions: $showSaveOptions, createNewVersion: $createNewVersion, changeLog: $changeLog, versionName: $versionName, originalRecipe: $originalRecipe, allVersions: $allVersions)';
+    return 'RecipeEditState(name: $name, description: $description, ingredients: $ingredients, steps: $steps, saveState: $saveState, isLoading: $isLoading, isEditMode: $isEditMode, recipeId: $recipeId, recipeVersionId: $recipeVersionId, initialVersionId: $initialVersionId, error: $error, showSaveOptions: $showSaveOptions, createNewVersion: $createNewVersion, changeLog: $changeLog, versionName: $versionName, originalRecipe: $originalRecipe, allVersions: $allVersions)';
   }
 
   @override
@@ -464,6 +484,7 @@ class _$RecipeEditStateImpl
       ..add(DiagnosticsProperty('isEditMode', isEditMode))
       ..add(DiagnosticsProperty('recipeId', recipeId))
       ..add(DiagnosticsProperty('recipeVersionId', recipeVersionId))
+      ..add(DiagnosticsProperty('initialVersionId', initialVersionId))
       ..add(DiagnosticsProperty('error', error))
       ..add(DiagnosticsProperty('showSaveOptions', showSaveOptions))
       ..add(DiagnosticsProperty('createNewVersion', createNewVersion))
@@ -496,6 +517,8 @@ class _$RecipeEditStateImpl
                 other.recipeId == recipeId) &&
             (identical(other.recipeVersionId, recipeVersionId) ||
                 other.recipeVersionId == recipeVersionId) &&
+            (identical(other.initialVersionId, initialVersionId) ||
+                other.initialVersionId == initialVersionId) &&
             (identical(other.error, error) || other.error == error) &&
             (identical(other.showSaveOptions, showSaveOptions) ||
                 other.showSaveOptions == showSaveOptions) &&
@@ -525,6 +548,7 @@ class _$RecipeEditStateImpl
     isEditMode,
     recipeId,
     recipeVersionId,
+    initialVersionId,
     error,
     showSaveOptions,
     createNewVersion,
@@ -557,6 +581,7 @@ abstract class _RecipeEditState implements RecipeEditState {
     final bool isEditMode,
     final String? recipeId,
     final String? recipeVersionId,
+    final String? initialVersionId,
     final String? error,
     final bool showSaveOptions,
     final bool createNewVersion,
@@ -584,6 +609,8 @@ abstract class _RecipeEditState implements RecipeEditState {
   String? get recipeId;
   @override
   String? get recipeVersionId;
+  @override
+  String? get initialVersionId; // 편집할 특정 버전 ID
   @override
   String? get error;
   @override

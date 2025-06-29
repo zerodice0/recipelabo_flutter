@@ -28,13 +28,13 @@ final GoRouter appRouter = GoRouter(
       path: AppRoutes.main,
       builder: (context, state) => const MainNavigationScreen(),
     ),
-    
+
     // 레시피 생성 화면 (더 구체적인 경로를 먼저 선언)
     GoRoute(
       path: AppRoutes.recipeCreate,
       builder: (context, state) => const RecipeEditScreen(),
     ),
-    
+
     // 레시피 상세 화면
     GoRoute(
       path: AppRoutes.recipeDetail,
@@ -43,22 +43,23 @@ final GoRouter appRouter = GoRouter(
         return RecipeDetailScreen(recipeId: recipeId);
       },
     ),
-    
+
     // 레시피 편집 화면
     GoRoute(
       path: AppRoutes.recipeEdit,
       builder: (context, state) {
         final recipeId = state.pathParameters['id']!;
-        return RecipeEditScreen(recipeId: recipeId);
+        final versionId = state.uri.queryParameters['versionId'];
+        return RecipeEditScreen(recipeId: recipeId, versionId: versionId);
       },
     ),
-    
+
     // 쿠킹 로그 생성 화면
     GoRoute(
       path: AppRoutes.cookingLogCreate,
       builder: (context, state) {
         final extra = state.extra as Map<String, dynamic>?;
-        
+
         return CookingLogCreateScreen(
           recipeVersionId: extra?['recipeVersionId'] ?? '',
           recipeName: extra?['recipeName'] ?? '',
@@ -66,19 +67,19 @@ final GoRouter appRouter = GoRouter(
         );
       },
     ),
-    
+
     // 재료 검색 화면
     GoRoute(
       path: AppRoutes.search,
       builder: (context, state) => const IngredientSearchScreen(),
     ),
-    
+
     // 조미료 관리 화면
     GoRoute(
       path: AppRoutes.seasoningManagement,
       builder: (context, state) => const SeasoningManagementScreen(),
     ),
-    
+
     // 타이머 화면
     GoRoute(
       path: AppRoutes.timer,

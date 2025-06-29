@@ -25,6 +25,7 @@ class RecipeEditState with _$RecipeEditState {
     @Default(false) bool isEditMode,
     String? recipeId,
     String? recipeVersionId,
+    String? initialVersionId, // 편집할 특정 버전 ID
     String? error,
     @Default(false) bool showSaveOptions,
     @Default(true) bool createNewVersion,
@@ -56,31 +57,71 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
   Future<void> _loadRecipe(String recipeId) async {
     try {
       state = state.copyWith(isLoading: true, error: null);
-      
-      final getRecipeWithVersionsUseCase = ref.read(getRecipeWithVersionsUseCaseProvider);
+
+      final getRecipeWithVersionsUseCase = ref.read(
+        getRecipeWithVersionsUseCaseProvider,
+      );
       final result = await getRecipeWithVersionsUseCase(recipeId);
-      
+
       final recipe = result.$1;
       final allVersions = result.$2;
-      final latestVersion = allVersions.isNotEmpty ? allVersions.first : throw Exception('버전이 없습니다');
-      
+
       if (recipe == null) throw Exception('레시피를 찾을 수 없습니다');
-      
+
+      // 특정 버전 ID가 지정되어 있으면 해당 버전을 찾고, 없으면 최신 버전 사용
+      RecipeVersionEntity targetVersion;
+      if (state.initialVersionId != null &&
+          state.initialVersionId!.isNotEmpty) {
+        try {
+          targetVersion = allVersions.firstWhere(
+            (version) => version.id == state.initialVersionId,
+          );
+        } catch (e) {
+          // 지정된 버전을 찾을 수 없으면 최신 버전 사용
+          targetVersion =
+              allVersions.isNotEmpty
+                  ? allVersions.first
+                  : throw Exception('버전이 없습니다');
+        }
+      } else {
+        targetVersion =
+            allVersions.isNotEmpty
+                ? allVersions.first
+                : throw Exception('버전이 없습니다');
+      }
+
       state = state.copyWith(
         name: recipe.name,
         description: recipe.description ?? '',
-        ingredients: latestVersion.ingredients,
-        steps: latestVersion.steps,
-        recipeVersionId: latestVersion.id,
+        ingredients: targetVersion.ingredients,
+        steps: targetVersion.steps,
+        recipeVersionId: targetVersion.id,
         originalRecipe: recipe,
         allVersions: allVersions,
         isLoading: false,
       );
     } catch (error) {
-      state = state.copyWith(
-        isLoading: false,
-        error: error.toString(),
+      state = state.copyWith(isLoading: false, error: error.toString());
+    }
+  }
+
+  void _loadSpecificVersion(String versionId) {
+    if (state.allVersions == null) return;
+
+    try {
+      final targetVersion = state.allVersions!.firstWhere(
+        (version) => version.id == versionId,
       );
+
+      state = state.copyWith(
+        ingredients: targetVersion.ingredients,
+        steps: targetVersion.steps,
+        recipeVersionId: targetVersion.id,
+        name: targetVersion.name,
+        description: targetVersion.description,
+      );
+    } catch (e) {
+      // 버전을 찾을 수 없으면 무시
     }
   }
 
@@ -143,7 +184,6 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
     state = state.copyWith(steps: newSteps);
   }
 
-
   void showSaveOptions() {
     state = state.copyWith(showSaveOptions: true);
   }
@@ -168,34 +208,48 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
     state = state.copyWith(saveState: const AsyncValue.data(null));
   }
 
+  void setInitialVersionId(String versionId) {
+    state = state.copyWith(initialVersionId: versionId);
+    // 이미 로드된 상태에서 버전 ID가 변경되면 해당 버전을 로드
+    if (state.isEditMode &&
+        state.recipeId != null &&
+        state.allVersions != null) {
+      _loadSpecificVersion(versionId);
+    }
+  }
+
   Future<void> saveRecipe() async {
     if (state.isEditMode) {
       // 편집 모드일 때는 저장 옵션 다이얼로그 표시
       showSaveOptions();
       return;
     }
-    
+
     // 새 레시피 생성 모드일 때는 바로 저장
     await performSave();
   }
 
   Future<void> performSave() async {
     // 새 버전 생성 시 버전명 중복 검사
-    if (state.isEditMode && state.createNewVersion && 
-        state.versionName.isNotEmpty && state.recipeId != null) {
-      final checkVersionNameUseCase = ref.read(checkVersionNameExistsUseCaseProvider);
-      final exists = await checkVersionNameUseCase(
-        recipeId: state.recipeId!, 
-        versionName: state.versionName
+    if (state.isEditMode &&
+        state.createNewVersion &&
+        state.versionName.isNotEmpty &&
+        state.recipeId != null) {
+      final checkVersionNameUseCase = ref.read(
+        checkVersionNameExistsUseCaseProvider,
       );
-      
+      final exists = await checkVersionNameUseCase(
+        recipeId: state.recipeId!,
+        versionName: state.versionName,
+      );
+
       if (exists) {
         // 중복 버전명 에러 처리 - UI에서 다이얼로그로 처리
         state = state.copyWith(
           saveState: AsyncValue.error(
-            'VERSION_NAME_CONFLICT:${state.versionName}', 
-            StackTrace.current
-          )
+            'VERSION_NAME_CONFLICT:${state.versionName}',
+            StackTrace.current,
+          ),
         );
         return;
       }
@@ -207,14 +261,20 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
     try {
       final now = DateTime.now();
       const uuid = Uuid();
-      
-      if (state.isEditMode && state.recipeId != null && state.originalRecipe != null) {
+
+      if (state.isEditMode &&
+          state.recipeId != null &&
+          state.originalRecipe != null) {
         if (state.createNewVersion) {
           // 새 버전 생성
           final newVersionId = uuid.v4();
-          final maxVersionNumber = state.allVersions?.map((v) => v.versionNumber).reduce((a, b) => a > b ? a : b) ?? 1;
+          final maxVersionNumber =
+              state.allVersions
+                  ?.map((v) => v.versionNumber)
+                  .reduce((a, b) => a > b ? a : b) ??
+              1;
           final newVersionNumber = maxVersionNumber + 1;
-          
+
           // 기존 레시피 정보 유지하면서 업데이트
           final updatedRecipe = state.originalRecipe!.copyWith(
             latestVersionId: newVersionId,
@@ -242,9 +302,11 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
           await saveRecipeUseCase(updatedRecipe, newVersion);
         } else {
           // 기존 버전 덮어쓰기
-          final currentVersion = state.allVersions?.firstWhere((v) => v.id == state.recipeVersionId);
+          final currentVersion = state.allVersions?.firstWhere(
+            (v) => v.id == state.recipeVersionId,
+          );
           if (currentVersion == null) throw Exception('현재 버전을 찾을 수 없습니다');
-          
+
           final updatedRecipe = state.originalRecipe!.copyWith(
             name: state.name,
             description: state.description,
@@ -292,7 +354,7 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
         final saveRecipeUseCase = ref.read(saveRecipeUseCaseProvider);
         await saveRecipeUseCase(recipe, version);
       }
-      
+
       // 성공 상태로 설정
       state = state.copyWith(saveState: const AsyncValue.data(null));
     } catch (error, stackTrace) {

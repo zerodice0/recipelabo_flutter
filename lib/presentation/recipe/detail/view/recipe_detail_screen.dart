@@ -105,7 +105,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
           ),
     );
 
-    if (confirmed == true) {
+    if (confirmed == true && context.mounted) {
       await _deleteVersion(context, version, allVersions);
     }
   }
@@ -133,21 +133,25 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
       // 데이터 새로고침
       ref.invalidate(recipeDetailViewModelProvider(widget.recipeId));
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            '버전 "${version.versionName ?? 'v${version.versionNumber}'}"이 삭제되었습니다.',
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              '버전 "${version.versionName ?? 'v${version.versionNumber}'}"이 삭제되었습니다.',
+            ),
+            backgroundColor: Colors.green,
           ),
-          backgroundColor: Colors.green,
-        ),
-      );
+        );
+      }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('버전 삭제 중 오류가 발생했습니다: $e'),
-          backgroundColor: Colors.red,
-        ),
-      );
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('버전 삭제 중 오류가 발생했습니다: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 
@@ -164,8 +168,13 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () async {
+              // 현재 선택된 버전 ID를 쿼리 파라미터로 전달
+              final versionParam =
+                  _selectedVersionId != null
+                      ? '?versionId=$_selectedVersionId'
+                      : '';
               final result = await context.push<bool>(
-                '/recipes/${widget.recipeId}/edit',
+                '/recipes/${widget.recipeId}/edit$versionParam',
               );
               if (result == true) {
                 // 편집 후 돌아온 경우 데이터 새로고침

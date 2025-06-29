@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -469,7 +470,7 @@ class DatabaseHelper {
         );
       } catch (e) {
         // Column might already exist, ignore the error
-        print('versionName column might already exist: $e');
+        debugPrint('versionName column might already exist: $e');
       }
     }
   }
