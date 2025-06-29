@@ -23,6 +23,7 @@ class RecipeVersionModel with _$RecipeVersionModel {
     required DateTime updatedAt,
     @Default(false) bool isDeleted,
     String? changeLog,
+    String? baseVersionId, // 기반이 된 버전의 ID
   }) = _RecipeVersionModel;
 
   factory RecipeVersionModel.fromJson(Map<String, dynamic> json) =>
@@ -45,6 +46,7 @@ extension RecipeVersionModelExtension on RecipeVersionModel {
       'createdAt': createdAt.toIso8601String(),
       'isDeleted': isDeleted ? 1 : 0,
       'changeLog': changeLog,
+      'baseVersionId': baseVersionId, // 기반 버전 ID 추가
     };
   }
 
@@ -64,6 +66,7 @@ extension RecipeVersionModelExtension on RecipeVersionModel {
       updatedAt: DateTime.now(), // 임시
       isDeleted: map['isDeleted'] == 1,
       changeLog: map['changeLog'],
+      baseVersionId: map['baseVersionId'], // 기반 버전 ID 추가
     );
   }
 
@@ -81,11 +84,15 @@ extension RecipeVersionModelExtension on RecipeVersionModel {
       authorId: authorId,
       createdAt: createdAt,
       changeLog: changeLog,
+      baseVersionId: baseVersionId, // 기반 버전 ID 추가
     );
   }
 
   /// Entity에서 변환
-  static RecipeVersionModel fromEntity(RecipeVersionEntity entity, DateTime updatedAt) {
+  static RecipeVersionModel fromEntity(
+    RecipeVersionEntity entity,
+    DateTime updatedAt,
+  ) {
     return RecipeVersionModel(
       id: entity.id,
       recipeId: entity.recipeId,
@@ -93,12 +100,19 @@ extension RecipeVersionModelExtension on RecipeVersionModel {
       name: entity.name,
       versionName: entity.versionName,
       description: entity.description,
-      ingredients: entity.ingredients.map((e) => IngredientModelEntityExtension.fromEntity(e)).toList(),
-      steps: entity.steps.map((e) => StepModelEntityExtension.fromEntity(e)).toList(),
+      ingredients:
+          entity.ingredients
+              .map((e) => IngredientModelEntityExtension.fromEntity(e))
+              .toList(),
+      steps:
+          entity.steps
+              .map((e) => StepModelEntityExtension.fromEntity(e))
+              .toList(),
       authorId: entity.authorId,
       createdAt: entity.createdAt,
       updatedAt: updatedAt,
       changeLog: entity.changeLog,
+      baseVersionId: entity.baseVersionId, // 기반 버전 ID 추가
     );
   }
 }

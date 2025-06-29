@@ -19,6 +19,7 @@ class RecipeVersionEntity with _$RecipeVersionEntity {
     required String authorId,
     required DateTime createdAt,
     String? changeLog,
+    String? baseVersionId, // 기반이 된 버전의 ID
   }) = _RecipeVersionEntity;
 
   const RecipeVersionEntity._();

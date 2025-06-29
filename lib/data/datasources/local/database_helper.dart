@@ -20,7 +20,7 @@ class DatabaseHelper {
     final path = join(dbPath, 'saucerer.db');
     return await openDatabase(
       path,
-      version: 13,
+      version: 14,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -65,8 +65,10 @@ class DatabaseHelper {
         createdAt TEXT NOT NULL,
         isDeleted INTEGER NOT NULL DEFAULT 0,
         changeLog TEXT,
+        baseVersionId TEXT,
         FOREIGN KEY (recipeId) REFERENCES recipes(id),
-        FOREIGN KEY (authorId) REFERENCES users(id)
+        FOREIGN KEY (authorId) REFERENCES users(id),
+        FOREIGN KEY (baseVersionId) REFERENCES recipe_versions(id)
       )
     ''');
 
@@ -472,6 +474,15 @@ class DatabaseHelper {
         // Column might already exist, ignore the error
         debugPrint('versionName column might already exist: $e');
       }
+    }
+
+    if (oldVersion < 14) {
+      // Version 14: Add baseVersionId column to recipe_versions table for version tracking
+      await db.execute(
+        'ALTER TABLE recipe_versions ADD COLUMN baseVersionId TEXT',
+      );
+
+      debugPrint('Added baseVersionId column to recipe_versions table');
     }
   }
 }

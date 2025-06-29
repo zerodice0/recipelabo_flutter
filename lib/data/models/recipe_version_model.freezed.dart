@@ -34,6 +34,7 @@ mixin _$RecipeVersionModel {
   DateTime get updatedAt => throw _privateConstructorUsedError;
   bool get isDeleted => throw _privateConstructorUsedError;
   String? get changeLog => throw _privateConstructorUsedError;
+  String? get baseVersionId => throw _privateConstructorUsedError;
 
   /// Serializes this RecipeVersionModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -66,6 +67,7 @@ abstract class $RecipeVersionModelCopyWith<$Res> {
     DateTime updatedAt,
     bool isDeleted,
     String? changeLog,
+    String? baseVersionId,
   });
 }
 
@@ -97,6 +99,7 @@ class _$RecipeVersionModelCopyWithImpl<$Res, $Val extends RecipeVersionModel>
     Object? updatedAt = null,
     Object? isDeleted = null,
     Object? changeLog = freezed,
+    Object? baseVersionId = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -165,6 +168,11 @@ class _$RecipeVersionModelCopyWithImpl<$Res, $Val extends RecipeVersionModel>
                     ? _value.changeLog
                     : changeLog // ignore: cast_nullable_to_non_nullable
                         as String?,
+            baseVersionId:
+                freezed == baseVersionId
+                    ? _value.baseVersionId
+                    : baseVersionId // ignore: cast_nullable_to_non_nullable
+                        as String?,
           )
           as $Val,
     );
@@ -194,6 +202,7 @@ abstract class _$$RecipeVersionModelImplCopyWith<$Res>
     DateTime updatedAt,
     bool isDeleted,
     String? changeLog,
+    String? baseVersionId,
   });
 }
 
@@ -224,6 +233,7 @@ class __$$RecipeVersionModelImplCopyWithImpl<$Res>
     Object? updatedAt = null,
     Object? isDeleted = null,
     Object? changeLog = freezed,
+    Object? baseVersionId = freezed,
   }) {
     return _then(
       _$RecipeVersionModelImpl(
@@ -292,6 +302,11 @@ class __$$RecipeVersionModelImplCopyWithImpl<$Res>
                 ? _value.changeLog
                 : changeLog // ignore: cast_nullable_to_non_nullable
                     as String?,
+        baseVersionId:
+            freezed == baseVersionId
+                ? _value.baseVersionId
+                : baseVersionId // ignore: cast_nullable_to_non_nullable
+                    as String?,
       ),
     );
   }
@@ -314,6 +329,7 @@ class _$RecipeVersionModelImpl implements _RecipeVersionModel {
     required this.updatedAt,
     this.isDeleted = false,
     this.changeLog,
+    this.baseVersionId,
   }) : _ingredients = ingredients,
        _steps = steps;
 
@@ -360,10 +376,12 @@ class _$RecipeVersionModelImpl implements _RecipeVersionModel {
   final bool isDeleted;
   @override
   final String? changeLog;
+  @override
+  final String? baseVersionId;
 
   @override
   String toString() {
-    return 'RecipeVersionModel(id: $id, recipeId: $recipeId, versionNumber: $versionNumber, name: $name, versionName: $versionName, description: $description, ingredients: $ingredients, steps: $steps, authorId: $authorId, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted, changeLog: $changeLog)';
+    return 'RecipeVersionModel(id: $id, recipeId: $recipeId, versionNumber: $versionNumber, name: $name, versionName: $versionName, description: $description, ingredients: $ingredients, steps: $steps, authorId: $authorId, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted, changeLog: $changeLog, baseVersionId: $baseVersionId)';
   }
 
   @override
@@ -395,7 +413,9 @@ class _$RecipeVersionModelImpl implements _RecipeVersionModel {
             (identical(other.isDeleted, isDeleted) ||
                 other.isDeleted == isDeleted) &&
             (identical(other.changeLog, changeLog) ||
-                other.changeLog == changeLog));
+                other.changeLog == changeLog) &&
+            (identical(other.baseVersionId, baseVersionId) ||
+                other.baseVersionId == baseVersionId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -415,6 +435,7 @@ class _$RecipeVersionModelImpl implements _RecipeVersionModel {
     updatedAt,
     isDeleted,
     changeLog,
+    baseVersionId,
   );
 
   /// Create a copy of RecipeVersionModel
@@ -449,6 +470,7 @@ abstract class _RecipeVersionModel implements RecipeVersionModel {
     required final DateTime updatedAt,
     final bool isDeleted,
     final String? changeLog,
+    final String? baseVersionId,
   }) = _$RecipeVersionModelImpl;
 
   factory _RecipeVersionModel.fromJson(Map<String, dynamic> json) =
@@ -480,6 +502,8 @@ abstract class _RecipeVersionModel implements RecipeVersionModel {
   bool get isDeleted;
   @override
   String? get changeLog;
+  @override
+  String? get baseVersionId;
 
   /// Create a copy of RecipeVersionModel
   /// with the given fields replaced by the non-null parameter values.

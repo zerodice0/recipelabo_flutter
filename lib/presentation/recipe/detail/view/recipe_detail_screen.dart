@@ -236,8 +236,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
           _buildVersionSelector(context, versions),
           const SizedBox(height: 16),
           if (versions.isNotEmpty) ...[
-            _buildVersionInfo(context, selectedVersion),
-            const SizedBox(height: 24),
+            // _buildVersionInfo(context, selectedVersion, versions),
+            // const SizedBox(height: 24),
             _buildIngredientsList(context, selectedVersion),
             const SizedBox(height: 24),
             _buildStepsList(context, selectedVersion),
@@ -492,21 +492,61 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                             .withValues(alpha: 0.1),
                                         borderRadius: BorderRadius.circular(6),
                                       ),
-                                      child: Text(
-                                        version.changeLog!,
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.bodySmall?.copyWith(
-                                          color:
-                                              isSelected
-                                                  ? Theme.of(context)
-                                                      .colorScheme
-                                                      .onPrimaryContainer
-                                                  : Theme.of(context)
-                                                      .colorScheme
-                                                      .onSurfaceVariant,
-                                          fontStyle: FontStyle.italic,
-                                        ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.edit_note,
+                                                size: 16,
+                                                color:
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .onSurfaceVariant,
+                                              ),
+                                              const SizedBox(width: 4),
+                                              Text(
+                                                '변경사항',
+                                                style: Theme.of(
+                                                  context,
+                                                ).textTheme.bodySmall?.copyWith(
+                                                  color:
+                                                      Theme.of(context)
+                                                          .colorScheme
+                                                          .onSurfaceVariant,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                              20.0,
+                                              0.0,
+                                              20.0,
+                                              0.0,
+                                            ),
+                                            child: Text(
+                                              version.changeLog!,
+                                              style: Theme.of(
+                                                context,
+                                              ).textTheme.bodySmall?.copyWith(
+                                                color:
+                                                    isSelected
+                                                        ? Theme.of(context)
+                                                            .colorScheme
+                                                            .onPrimaryContainer
+                                                        : Theme.of(context)
+                                                            .colorScheme
+                                                            .onSurfaceVariant,
+                                                fontStyle: FontStyle.italic,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -527,6 +567,12 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                               ).colorScheme.onSurfaceVariant,
                                     ),
                                   ),
+                                  const SizedBox(height: 4),
+                                  _buildBaseVersionInfo(
+                                    context,
+                                    version,
+                                    versions,
+                                  ),
                                 ],
                               ),
                             ),
@@ -541,161 +587,171 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
     );
   }
 
-  Widget _buildVersionInfo(BuildContext context, RecipeVersionEntity version) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.info_outline,
-                  size: 20,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const SizedBox(width: 8),
-                Text(
-                  '버전 정보',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+  Widget _buildBaseVersionInfo(
+    BuildContext context,
+    RecipeVersionEntity version,
+    List<RecipeVersionEntity> allVersions,
+  ) {
+    allVersions.sort((a, b) => a.versionNumber.compareTo(b.versionNumber));
+    RecipeVersionEntity? baseVersion;
+    if (allVersions.first.id == version.id) {
+      baseVersion = null;
+    } else {
+      // 기반 버전 정보 찾기
+      baseVersion = allVersions.firstWhere(
+        (v) => v.id == version.baseVersionId,
+        orElse:
+            () => RecipeVersionEntity(
+              id: 'deleted',
+              recipeId: version.recipeId,
+              versionNumber: 0,
+              name: '삭제된 버전',
+              description: '',
+              ingredients: [],
+              steps: [],
+              authorId: '',
+              createdAt: DateTime.now(),
             ),
-            const SizedBox(height: 12),
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primaryContainer,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    'v${version.versionNumber}',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onPrimaryContainer,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    version.name,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                Icon(
-                  Icons.schedule,
-                  size: 16,
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  '생성일: ${_formatDate(version.createdAt)}',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
-            ),
-            if (version.changeLog != null && version.changeLog!.isNotEmpty) ...[
-              const SizedBox(height: 16),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.outline.withValues(alpha: 0.3),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.edit_note,
-                          size: 16,
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          '변경사항',
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodySmall?.copyWith(
-                            color:
-                                Theme.of(context).colorScheme.onSurfaceVariant,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      version.changeLog!,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ] else if (version.versionNumber == 1) ...[
-              const SizedBox(height: 16),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Theme.of(
+      );
+    }
+
+    final isDeleted = baseVersion?.id == 'deleted';
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color:
+            isDeleted
+                ? Theme.of(
+                  context,
+                ).colorScheme.errorContainer.withValues(alpha: 0.5)
+                : Theme.of(context).colorScheme.tertiaryContainer,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color:
+              isDeleted
+                  ? Theme.of(context).colorScheme.error.withValues(alpha: 0.3)
+                  : Theme.of(
                     context,
-                  ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: Theme.of(
-                      context,
-                    ).colorScheme.outline.withValues(alpha: 0.2),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.star_outline,
-                      size: 16,
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      '최초 버전',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ],
+                  ).colorScheme.outline.withValues(alpha: 0.3),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                isDeleted ? Icons.link_off : Icons.fork_right,
+                size: 16,
+                color:
+                    isDeleted
+                        ? Theme.of(context).colorScheme.error
+                        : Theme.of(context).colorScheme.onTertiaryContainer,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                '기반 버전',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color:
+                      isDeleted
+                          ? Theme.of(context).colorScheme.error
+                          : Theme.of(context).colorScheme.onTertiaryContainer,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 8),
+          if (isDeleted) ...[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.warning_amber,
+                    size: 14,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    '기반 버전이 삭제되었습니다',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.error,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ] else if (baseVersion != null) ...[
+            InkWell(
+              borderRadius: BorderRadius.circular(6),
+              onTap: () {
+                // 기반 버전으로 이동
+                setState(() {
+                  _selectedVersionId = baseVersion?.id;
+                });
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        'v${baseVersion.versionNumber}',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      baseVersion.versionName ?? baseVersion.name,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 12,
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ] else ...[
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+              child: Text(
+                '최초 버전입니다',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
           ],
-        ),
+        ],
       ),
     );
   }

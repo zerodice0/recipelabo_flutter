@@ -296,6 +296,7 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
             authorId: state.originalRecipe!.authorId,
             createdAt: now,
             changeLog: state.changeLog.isEmpty ? null : state.changeLog,
+            baseVersionId: state.recipeVersionId, // 기반 버전 ID 설정
           );
 
           final saveRecipeUseCase = ref.read(saveRecipeUseCaseProvider);
