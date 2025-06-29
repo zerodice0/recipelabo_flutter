@@ -7,7 +7,7 @@ part of 'cooking_log_viewmodel.dart';
 // **************************************************************************
 
 String _$cookingLogViewModelHash() =>
-    r'fb97cf5109afe649a288166f661af0149daeab0a';
+    r'10476a702ab47a2208869adf8da29c964d4db356';
 
 /// Copied from Dart SDK
 class _SystemHash {

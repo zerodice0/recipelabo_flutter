@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:saucerer_flutter/domain/entities/seasoning_entity.dart';
+import 'package:saucerer_flutter/domain/entities/category_entity.dart';
 import 'package:saucerer_flutter/domain/usecases/create_seasoning_usecase.dart';
 import 'package:saucerer_flutter/domain/usecases/get_all_seasonings_usecase.dart';
 
@@ -52,7 +53,7 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
     // 단위 카테고리만 필터링하고 사용 빈도순으로 정렬
     final units =
         allData
-            .where((item) => item.category == MasterDataCategory.unit)
+            .where((item) => item.categoryId == PredefinedCategories.unit.id)
             .toList()
           ..sort((a, b) => b.usageCount.compareTo(a.usageCount));
 
@@ -66,7 +67,7 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
       final createUseCase = ref.read(createSeasoningUseCaseProvider);
       await createUseCase(
         name: name,
-        category: MasterDataCategory.unit,
+        categoryId: PredefinedCategories.unit.id,
         description: '사용자 추가 단위',
       );
 

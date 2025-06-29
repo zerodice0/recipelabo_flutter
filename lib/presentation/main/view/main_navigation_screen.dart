@@ -126,19 +126,19 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const Divider(height: 1),
                 _NotificationSettingsTile(),
-                const Divider(height: 1),
-                ListTile(
-                  leading: const Icon(Icons.merge_type),
-                  title: const Text('재료 병합'),
-                  subtitle: const Text('중복된 재료 정리'),
-                  trailing: const Icon(Icons.chevron_right),
-                  onTap: () {
-                    // TODO: 재료 병합 화면 구현
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('준비 중인 기능입니다')),
-                    );
-                  },
-                ),
+                // const Divider(height: 1),
+                // ListTile(
+                //   leading: const Icon(Icons.merge_type),
+                //   title: const Text('재료 병합'),
+                //   subtitle: const Text('중복된 재료 정리'),
+                //   trailing: const Icon(Icons.chevron_right),
+                //   onTap: () {
+                //     // TODO: 재료 병합 화면 구현
+                //     ScaffoldMessenger.of(context).showSnackBar(
+                //       const SnackBar(content: Text('준비 중인 기능입니다')),
+                //     );
+                //   },
+                // ),
                 const Divider(height: 1),
                 _BackgroundAppRefreshTile(),
               ],
@@ -247,120 +247,118 @@ class _NotificationSettingsTileState
   void _showPermissionInfoDialog() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        title: Row(
-          children: [
-            Icon(
-              Icons.notifications_active,
-              color: AppColors.supportGreen,
-              size: 24,
+      builder:
+          (context) => AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
             ),
-            const SizedBox(width: 12),
-            const Expanded(
-              child: Text(
-                '알림 설정',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textBrown,
+            title: Row(
+              children: [
+                Icon(
+                  Icons.notifications_active,
+                  color: AppColors.supportGreen,
+                  size: 24,
                 ),
-              ),
-            ),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: AppColors.supportGreen.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: AppColors.supportGreen.withValues(alpha: 0.3),
-                ),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.check_circle,
-                    color: AppColors.supportGreen,
-                    size: 20,
+                const SizedBox(width: 12),
+                const Expanded(
+                  child: Text(
+                    '알림 설정',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textBrown,
+                    ),
                   ),
-                  const SizedBox(width: 8),
-                  const Expanded(
-                    child: Text(
-                      '타이머 알림이 활성화되어 있습니다',
-                      style: TextStyle(
+                ),
+              ],
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: AppColors.supportGreen.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: AppColors.supportGreen.withValues(alpha: 0.3),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.check_circle,
                         color: AppColors.supportGreen,
-                        fontWeight: FontWeight.w600,
+                        size: 20,
                       ),
-                    ),
+                      const SizedBox(width: 8),
+                      const Expanded(
+                        child: Text(
+                          '타이머 알림이 활성화되어 있습니다',
+                          style: TextStyle(
+                            color: AppColors.supportGreen,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 12),
-            const Text(
-              '알림을 끄고 싶다면:',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: AppColors.textBrown,
-              ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              '1. 아이폰 설정 앱 열기\n'
-              '2. 알림 > Saucerer 선택\n'
-              '3. 알림 허용 끄기',
-              style: TextStyle(
-                color: AppColors.textBrown,
-                height: 1.4,
-              ),
-            ),
-            const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: AppColors.lightCream.withValues(alpha: 0.3),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.info_outline,
-                    color: AppColors.primaryOrange,
-                    size: 16,
+                ),
+                const SizedBox(height: 12),
+                const Text(
+                  '알림을 끄고 싶다면:',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textBrown,
                   ),
-                  const SizedBox(width: 6),
-                  const Expanded(
-                    child: Text(
-                      '알림을 끄면 타이머 완료 시 알림을 받을 수 없습니다',
-                      style: TextStyle(
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  '1. 아이폰 설정 앱 열기\n'
+                  '2. 알림 > Saucerer 선택\n'
+                  '3. 알림 허용 끄기',
+                  style: TextStyle(color: AppColors.textBrown, height: 1.4),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: AppColors.lightCream.withValues(alpha: 0.3),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.info_outline,
                         color: AppColors.primaryOrange,
-                        fontSize: 12,
+                        size: 16,
                       ),
-                    ),
+                      const SizedBox(width: 6),
+                      const Expanded(
+                        child: Text(
+                          '알림을 끄면 타이머 완료 시 알림을 받을 수 없습니다',
+                          style: TextStyle(
+                            color: AppColors.primaryOrange,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
+              ],
+            ),
+            actions: [
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryOrange,
+                  foregroundColor: AppColors.warmWhite,
+                ),
+                child: const Text('확인'),
               ),
-            ),
-          ],
-        ),
-        actions: [
-          ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primaryOrange,
-              foregroundColor: AppColors.warmWhite,
-            ),
-            child: const Text('확인'),
+            ],
           ),
-        ],
-      ),
     );
   }
 
@@ -378,36 +376,40 @@ class _NotificationSettingsTileState
       subtitle: Text(
         _hasPermission ? '타이머 완료 시 알림을 받습니다' : '타이머 완료 알림을 받으려면 권한이 필요합니다',
       ),
-      trailing: _isLoading
-          ? const SizedBox(
-              width: 20,
-              height: 20,
-              child: CircularProgressIndicator(strokeWidth: 2),
-            )
-          : Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: _hasPermission 
-                    ? AppColors.supportGreen.withValues(alpha: 0.1)
-                    : AppColors.primaryOrange.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: _hasPermission 
-                      ? AppColors.supportGreen.withValues(alpha: 0.3)
-                      : AppColors.primaryOrange.withValues(alpha: 0.3),
+      trailing:
+          _isLoading
+              ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
+              : Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color:
+                      _hasPermission
+                          ? AppColors.supportGreen.withValues(alpha: 0.1)
+                          : AppColors.primaryOrange.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color:
+                        _hasPermission
+                            ? AppColors.supportGreen.withValues(alpha: 0.3)
+                            : AppColors.primaryOrange.withValues(alpha: 0.3),
+                  ),
+                ),
+                child: Text(
+                  _hasPermission ? '활성화됨' : '비활성화됨',
+                  style: TextStyle(
+                    color:
+                        _hasPermission
+                            ? AppColors.supportGreen
+                            : AppColors.primaryOrange,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
-              child: Text(
-                _hasPermission ? '활성화됨' : '비활성화됨',
-                style: TextStyle(
-                  color: _hasPermission 
-                      ? AppColors.supportGreen 
-                      : AppColors.primaryOrange,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
       onTap: _togglePermission,
     );
   }

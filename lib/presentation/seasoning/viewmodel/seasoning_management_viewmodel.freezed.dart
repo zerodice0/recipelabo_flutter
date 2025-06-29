@@ -17,7 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SeasoningManagementState {
-  List<SeasoningEntity> get seasonings => throw _privateConstructorUsedError;
+  List<SeasoningEntity> get seasonings =>
+      throw _privateConstructorUsedError; // 현재 표시되는 데이터
+  List<SeasoningEntity> get allSeasonings =>
+      throw _privateConstructorUsedError; // 원본 전체 데이터
   List<String> get categories => throw _privateConstructorUsedError;
   String get searchQuery => throw _privateConstructorUsedError;
   String? get selectedCategory => throw _privateConstructorUsedError;
@@ -41,6 +44,7 @@ abstract class $SeasoningManagementStateCopyWith<$Res> {
   @useResult
   $Res call({
     List<SeasoningEntity> seasonings,
+    List<SeasoningEntity> allSeasonings,
     List<String> categories,
     String searchQuery,
     String? selectedCategory,
@@ -69,6 +73,7 @@ class _$SeasoningManagementStateCopyWithImpl<
   @override
   $Res call({
     Object? seasonings = null,
+    Object? allSeasonings = null,
     Object? categories = null,
     Object? searchQuery = null,
     Object? selectedCategory = freezed,
@@ -82,6 +87,11 @@ class _$SeasoningManagementStateCopyWithImpl<
                 null == seasonings
                     ? _value.seasonings
                     : seasonings // ignore: cast_nullable_to_non_nullable
+                        as List<SeasoningEntity>,
+            allSeasonings:
+                null == allSeasonings
+                    ? _value.allSeasonings
+                    : allSeasonings // ignore: cast_nullable_to_non_nullable
                         as List<SeasoningEntity>,
             categories:
                 null == categories
@@ -130,6 +140,7 @@ abstract class _$$SeasoningManagementStateImplCopyWith<$Res>
   @useResult
   $Res call({
     List<SeasoningEntity> seasonings,
+    List<SeasoningEntity> allSeasonings,
     List<String> categories,
     String searchQuery,
     String? selectedCategory,
@@ -158,6 +169,7 @@ class __$$SeasoningManagementStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? seasonings = null,
+    Object? allSeasonings = null,
     Object? categories = null,
     Object? searchQuery = null,
     Object? selectedCategory = freezed,
@@ -171,6 +183,11 @@ class __$$SeasoningManagementStateImplCopyWithImpl<$Res>
             null == seasonings
                 ? _value._seasonings
                 : seasonings // ignore: cast_nullable_to_non_nullable
+                    as List<SeasoningEntity>,
+        allSeasonings:
+            null == allSeasonings
+                ? _value._allSeasonings
+                : allSeasonings // ignore: cast_nullable_to_non_nullable
                     as List<SeasoningEntity>,
         categories:
             null == categories
@@ -212,6 +229,7 @@ class __$$SeasoningManagementStateImplCopyWithImpl<$Res>
 class _$SeasoningManagementStateImpl implements _SeasoningManagementState {
   const _$SeasoningManagementStateImpl({
     final List<SeasoningEntity> seasonings = const [],
+    final List<SeasoningEntity> allSeasonings = const [],
     final List<String> categories = const [],
     this.searchQuery = '',
     this.selectedCategory,
@@ -219,6 +237,7 @@ class _$SeasoningManagementStateImpl implements _SeasoningManagementState {
     this.isCreating = false,
     this.error,
   }) : _seasonings = seasonings,
+       _allSeasonings = allSeasonings,
        _categories = categories;
 
   final List<SeasoningEntity> _seasonings;
@@ -230,7 +249,20 @@ class _$SeasoningManagementStateImpl implements _SeasoningManagementState {
     return EqualUnmodifiableListView(_seasonings);
   }
 
+  // 현재 표시되는 데이터
+  final List<SeasoningEntity> _allSeasonings;
+  // 현재 표시되는 데이터
+  @override
+  @JsonKey()
+  List<SeasoningEntity> get allSeasonings {
+    if (_allSeasonings is EqualUnmodifiableListView) return _allSeasonings;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_allSeasonings);
+  }
+
+  // 원본 전체 데이터
   final List<String> _categories;
+  // 원본 전체 데이터
   @override
   @JsonKey()
   List<String> get categories {
@@ -255,7 +287,7 @@ class _$SeasoningManagementStateImpl implements _SeasoningManagementState {
 
   @override
   String toString() {
-    return 'SeasoningManagementState(seasonings: $seasonings, categories: $categories, searchQuery: $searchQuery, selectedCategory: $selectedCategory, isLoading: $isLoading, isCreating: $isCreating, error: $error)';
+    return 'SeasoningManagementState(seasonings: $seasonings, allSeasonings: $allSeasonings, categories: $categories, searchQuery: $searchQuery, selectedCategory: $selectedCategory, isLoading: $isLoading, isCreating: $isCreating, error: $error)';
   }
 
   @override
@@ -266,6 +298,10 @@ class _$SeasoningManagementStateImpl implements _SeasoningManagementState {
             const DeepCollectionEquality().equals(
               other._seasonings,
               _seasonings,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._allSeasonings,
+              _allSeasonings,
             ) &&
             const DeepCollectionEquality().equals(
               other._categories,
@@ -286,6 +322,7 @@ class _$SeasoningManagementStateImpl implements _SeasoningManagementState {
   int get hashCode => Object.hash(
     runtimeType,
     const DeepCollectionEquality().hash(_seasonings),
+    const DeepCollectionEquality().hash(_allSeasonings),
     const DeepCollectionEquality().hash(_categories),
     searchQuery,
     selectedCategory,
@@ -308,6 +345,7 @@ class _$SeasoningManagementStateImpl implements _SeasoningManagementState {
 abstract class _SeasoningManagementState implements SeasoningManagementState {
   const factory _SeasoningManagementState({
     final List<SeasoningEntity> seasonings,
+    final List<SeasoningEntity> allSeasonings,
     final List<String> categories,
     final String searchQuery,
     final String? selectedCategory,
@@ -317,7 +355,9 @@ abstract class _SeasoningManagementState implements SeasoningManagementState {
   }) = _$SeasoningManagementStateImpl;
 
   @override
-  List<SeasoningEntity> get seasonings;
+  List<SeasoningEntity> get seasonings; // 현재 표시되는 데이터
+  @override
+  List<SeasoningEntity> get allSeasonings; // 원본 전체 데이터
   @override
   List<String> get categories;
   @override

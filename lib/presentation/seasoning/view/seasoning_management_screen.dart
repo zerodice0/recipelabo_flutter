@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:saucerer_flutter/domain/entities/seasoning_entity.dart';
+import 'package:saucerer_flutter/domain/entities/category_entity.dart';
 import 'package:saucerer_flutter/presentation/seasoning/viewmodel/seasoning_management_viewmodel.dart';
 import 'package:saucerer_flutter/presentation/seasoning/widgets/seasoning_create_dialog.dart';
 
@@ -50,7 +51,7 @@ class _SeasoningManagementScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('조미료 관리'),
+        title: const Text('카테고리 관리'),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -67,7 +68,7 @@ class _SeasoningManagementScreenState
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showCreateDialog(context, viewModel),
-        tooltip: '조미료 추가',
+        tooltip: '카테고리 추가',
         child: const Icon(Icons.add),
       ),
     );
@@ -86,7 +87,7 @@ class _SeasoningManagementScreenState
           SearchBar(
             controller: _searchController,
             focusNode: _searchFocusNode,
-            hintText: '조미료 이름을 검색하세요...',
+            hintText: '카테고리 이름을 검색하세요...',
             leading: const Icon(Icons.search),
             trailing: [
               if (_searchController.text.isNotEmpty)
@@ -167,14 +168,14 @@ class _SeasoningManagementScreenState
             ),
             const SizedBox(height: 16),
             Text(
-              state.searchQuery.isNotEmpty ? '검색 결과가 없습니다' : '등록된 조미료가 없습니다',
+              state.searchQuery.isNotEmpty ? '검색 결과가 없습니다' : '등록된 재료가 없습니다',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              '첫 조미료를 추가해보세요!',
+              '카테고리를 추가해보세요!',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
@@ -223,22 +224,20 @@ class _SeasoningManagementScreenState
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (seasoning.category != null) ...[
-              const SizedBox(height: 4),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondaryContainer,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  seasoning.category!,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  ),
+            const SizedBox(height: 4),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondaryContainer,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                seasoning.predefinedCategory?.displayName ?? seasoning.categoryId,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
                 ),
               ),
-            ],
+            ),
             if (seasoning.description != null) ...[
               const SizedBox(height: 4),
               Text(
@@ -277,9 +276,11 @@ class _SeasoningManagementScreenState
             categories:
                 ref.read(seasoningManagementViewModelProvider).categories,
             onSave: (name, category, description) {
+              // 카테고리 이름을 ID로 변환
+              final categoryId = _getCategoryIdFromDisplayName(category);
               viewModel.createSeasoning(
                 name: name,
-                category: category,
+                categoryId: categoryId,
                 description: description,
               );
             },
@@ -296,7 +297,7 @@ class _SeasoningManagementScreenState
       context: context,
       builder:
           (context) => AlertDialog(
-            title: const Text('조미료 삭제'),
+            title: const Text('재료 삭제'),
             content: Text('${seasoning.name}을(를) 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.'),
             actions: [
               TextButton(
@@ -316,5 +317,19 @@ class _SeasoningManagementScreenState
             ],
           ),
     );
+  }
+
+  // 카테고리 표시명을 ID로 변환하는 헬퍼 함수
+  String _getCategoryIdFromDisplayName(String? displayName) {
+    if (displayName == null) return PredefinedCategories.ingredient.id;
+    
+    for (final category in PredefinedCategories.all) {
+      if (category.displayName == displayName) {
+        return category.id;
+      }
+    }
+    
+    // 기본값
+    return PredefinedCategories.ingredient.id;
   }
 }

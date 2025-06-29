@@ -6,17 +6,16 @@ import 'package:saucerer_flutter/presentation/search/widgets/ingredient_chip.dar
 
 class IngredientSearchScreen extends ConsumerStatefulWidget {
   final bool showAppBar;
-  
-  const IngredientSearchScreen({
-    super.key,
-    this.showAppBar = true,
-  });
+
+  const IngredientSearchScreen({super.key, this.showAppBar = true});
 
   @override
-  ConsumerState<IngredientSearchScreen> createState() => _IngredientSearchScreenState();
+  ConsumerState<IngredientSearchScreen> createState() =>
+      _IngredientSearchScreenState();
 }
 
-class _IngredientSearchScreenState extends ConsumerState<IngredientSearchScreen> {
+class _IngredientSearchScreenState
+    extends ConsumerState<IngredientSearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
 
@@ -32,52 +31,59 @@ class _IngredientSearchScreenState extends ConsumerState<IngredientSearchScreen>
     final state = ref.watch(ingredientSearchViewModelProvider);
     final viewModel = ref.read(ingredientSearchViewModelProvider.notifier);
 
-    return Scaffold(
-      appBar: widget.showAppBar ? AppBar(
-        title: const Text('재료로 검색'),
-        actions: [
-          if (state.selectedIngredients.isNotEmpty)
-            IconButton(
-              icon: const Icon(Icons.clear_all),
-              onPressed: () => viewModel.resetSearch(),
-              tooltip: '검색 초기화',
-            ),
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              switch (value) {
-                case 'show_all':
-                  viewModel.loadAllIngredients();
-                  break;
-                case 'show_popular':
-                  viewModel.resetSearch();
-                  break;
-              }
-            },
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: 'show_popular',
-                child: Text('인기 재료 보기'),
-              ),
-              const PopupMenuItem(
-                value: 'show_all',
-                child: Text('모든 재료 보기'),
-              ),
-            ],
-          ),
-        ],
-      ) : null,
-      body: Column(
-        children: [
-          _buildSearchBar(viewModel, state),
-          Expanded(
-            child: _buildContent(context, state, viewModel),
-          ),
-        ],
+    return SafeArea(
+      child: Scaffold(
+        appBar:
+            widget.showAppBar
+                ? AppBar(
+                  title: const Text('재료로 검색'),
+                  actions: [
+                    if (state.selectedIngredients.isNotEmpty)
+                      IconButton(
+                        icon: const Icon(Icons.clear_all),
+                        onPressed: () => viewModel.resetSearch(),
+                        tooltip: '검색 초기화',
+                      ),
+                    PopupMenuButton<String>(
+                      onSelected: (value) {
+                        switch (value) {
+                          case 'show_all':
+                            viewModel.loadAllIngredients();
+                            break;
+                          case 'show_popular':
+                            viewModel.resetSearch();
+                            break;
+                        }
+                      },
+                      itemBuilder:
+                          (context) => [
+                            const PopupMenuItem(
+                              value: 'show_popular',
+                              child: Text('자주 사용된 재료 보기'),
+                            ),
+                            const PopupMenuItem(
+                              value: 'show_all',
+                              child: Text('모든 재료 보기'),
+                            ),
+                          ],
+                    ),
+                  ],
+                )
+                : null,
+        body: Column(
+          children: [
+            _buildSearchBar(viewModel, state),
+            Expanded(child: _buildContent(context, state, viewModel)),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildSearchBar(IngredientSearchViewModel viewModel, IngredientSearchState state) {
+  Widget _buildSearchBar(
+    IngredientSearchViewModel viewModel,
+    IngredientSearchState state,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       child: SearchBar(
@@ -105,7 +111,11 @@ class _IngredientSearchScreenState extends ConsumerState<IngredientSearchScreen>
     );
   }
 
-  Widget _buildContent(BuildContext context, IngredientSearchState state, IngredientSearchViewModel viewModel) {
+  Widget _buildContent(
+    BuildContext context,
+    IngredientSearchState state,
+    IngredientSearchViewModel viewModel,
+  ) {
     if (state.error != null) {
       return Center(
         child: Padding(
@@ -149,17 +159,18 @@ class _IngredientSearchScreenState extends ConsumerState<IngredientSearchScreen>
           SelectedIngredientsChips(
             selectedIngredients: state.selectedIngredients,
             onRemove: viewModel.removeSelectedIngredient,
-            onClearAll: state.selectedIngredients.isNotEmpty 
-                ? viewModel.clearAllSelectedIngredients 
-                : null,
+            onClearAll:
+                state.selectedIngredients.isNotEmpty
+                    ? viewModel.clearAllSelectedIngredients
+                    : null,
           ),
-          
+
           if (state.selectedIngredients.isNotEmpty) ...[
             const SizedBox(height: 24),
             _buildRecipeResults(context, state, viewModel),
             const SizedBox(height: 24),
           ],
-          
+
           // 사용 가능한 재료들
           _buildAvailableIngredients(state, viewModel),
         ],
@@ -167,7 +178,11 @@ class _IngredientSearchScreenState extends ConsumerState<IngredientSearchScreen>
     );
   }
 
-  Widget _buildRecipeResults(BuildContext context, IngredientSearchState state, IngredientSearchViewModel viewModel) {
+  Widget _buildRecipeResults(
+    BuildContext context,
+    IngredientSearchState state,
+    IngredientSearchViewModel viewModel,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -175,9 +190,9 @@ class _IngredientSearchScreenState extends ConsumerState<IngredientSearchScreen>
           children: [
             Text(
               '검색 결과',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(width: 8),
             if (state.isSearchingRecipes)
@@ -189,7 +204,7 @@ class _IngredientSearchScreenState extends ConsumerState<IngredientSearchScreen>
           ],
         ),
         const SizedBox(height: 12),
-        
+
         if (state.isSearchingRecipes)
           const Center(
             child: Padding(
@@ -256,20 +271,21 @@ class _IngredientSearchScreenState extends ConsumerState<IngredientSearchScreen>
         contentPadding: const EdgeInsets.all(16),
         title: Text(
           recipe.name,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
-        subtitle: recipe.description != null 
-            ? Padding(
-                padding: const EdgeInsets.only(top: 4),
-                child: Text(
-                  recipe.description!,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              )
-            : null,
+        subtitle:
+            recipe.description != null
+                ? Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Text(
+                    recipe.description!,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                )
+                : null,
         trailing: const Icon(Icons.chevron_right),
         onTap: () {
           context.push('/recipes/${recipe.id}');
@@ -278,15 +294,18 @@ class _IngredientSearchScreenState extends ConsumerState<IngredientSearchScreen>
     );
   }
 
-  Widget _buildAvailableIngredients(IngredientSearchState state, IngredientSearchViewModel viewModel) {
+  Widget _buildAvailableIngredients(
+    IngredientSearchState state,
+    IngredientSearchViewModel viewModel,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          state.searchQuery.isEmpty ? '인기 재료' : '검색 결과',
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+          state.searchQuery.isEmpty ? '자주 사용된 재료' : '검색 결과',
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 12),
         AvailableIngredientsGrid(

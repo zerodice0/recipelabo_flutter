@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:saucerer_flutter/domain/entities/seasoning_entity.dart';
 import 'package:saucerer_flutter/domain/entities/ingredient_entity.dart';
+import 'package:saucerer_flutter/domain/entities/category_entity.dart';
 import 'package:saucerer_flutter/domain/usecases/create_seasoning_usecase.dart';
 import 'package:saucerer_flutter/domain/usecases/get_all_seasonings_usecase.dart';
 import 'package:saucerer_flutter/presentation/recipe/widgets/unit_selector_widget.dart';
@@ -53,7 +54,7 @@ class _IngredientSelectorWidgetState extends ConsumerState<IngredientSelectorWid
       
       // 재료 카테고리만 필터링하고 사용 빈도순으로 정렬
       final ingredients = allData
-          .where((item) => item.category == MasterDataCategory.ingredient)
+          .where((item) => item.categoryId == PredefinedCategories.ingredient.id)
           .toList()
         ..sort((a, b) => b.usageCount.compareTo(a.usageCount));
       
@@ -116,7 +117,7 @@ class _IngredientSelectorWidgetState extends ConsumerState<IngredientSelectorWid
       final createUseCase = ref.read(createSeasoningUseCaseProvider);
       await createUseCase(
         name: name,
-        category: MasterDataCategory.ingredient,
+        categoryId: PredefinedCategories.ingredient.id,
         description: '사용자 추가 재료',
       );
       
@@ -295,12 +296,10 @@ class _IngredientSelectorWidgetState extends ConsumerState<IngredientSelectorWid
                                     : Theme.of(context).colorScheme.onSurfaceVariant,
                               ),
                               title: Text(seasoning.name),
-                              subtitle: seasoning.category != null
-                                  ? Text(
-                                      seasoning.category!,
-                                      style: Theme.of(context).textTheme.bodySmall,
-                                    )
-                                  : null,
+                              subtitle: Text(
+                                seasoning.predefinedCategory?.displayName ?? seasoning.categoryId,
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
                               trailing: Text(
                                 '${seasoning.usageCount}회',
                                 style: Theme.of(context).textTheme.bodySmall?.copyWith(

@@ -13,7 +13,7 @@ class CreateSeasoningUseCase {
 
   Future<String> call({
     required String name,
-    String? category,
+    required String categoryId,
     String? description,
   }) async {
     // 중복 체크
@@ -26,7 +26,7 @@ class CreateSeasoningUseCase {
     final seasoning = SeasoningEntity(
       id: '', // 데이터소스에서 생성
       name: name.trim(),
-      category: category?.trim(),
+      categoryId: categoryId,
       description: description?.trim(),
       createdAt: now,
       updatedAt: now,

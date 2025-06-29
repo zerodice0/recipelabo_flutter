@@ -7,7 +7,7 @@ part of 'seasoning_management_viewmodel.dart';
 // **************************************************************************
 
 String _$seasoningManagementViewModelHash() =>
-    r'c7fe10508fd9d12e4e8f6ef4bab645f1660efe5d';
+    r'a57c5cf6e0ee7a3824d6c04f0a50d9eacfc85b27';
 
 /// See also [SeasoningManagementViewModel].
 @ProviderFor(SeasoningManagementViewModel)

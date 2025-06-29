@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'category_entity.dart';
 
 part 'seasoning_entity.freezed.dart';
 
@@ -8,18 +9,31 @@ class SeasoningEntity with _$SeasoningEntity {
   const factory SeasoningEntity({
     required String id,
     required String name,
-    String? category, // 예: '재료', '단위' 또는 재료의 세부 분류 ('채소', '육류', '양념', '향신료' 등)
+    required String categoryId, // CategoryEntity의 ID 참조
     String? description,
     required DateTime createdAt,
     required DateTime updatedAt,
     @Default(0) int usageCount, // 사용 빈도 추적
   }) = _SeasoningEntity;
+
+  const SeasoningEntity._();
+
+  /// 사전 정의된 카테고리인지 확인
+  bool get hasPredefinedCategory {
+    return PredefinedCategories.findById(categoryId) != null;
+  }
+
+  /// 카테고리 엔티티 조회 (사전 정의된 카테고리만)
+  CategoryEntity? get predefinedCategory {
+    return PredefinedCategories.findById(categoryId);
+  }
 }
 
-// 마스터 데이터 카테고리 상수
+// 하위 호환성을 위한 마스터 데이터 카테고리 상수 (Deprecated)
+@Deprecated('Use PredefinedCategories.ingredient.id instead')
 class MasterDataCategory {
-  static const String ingredient = '재료';
-  static const String unit = '단위';
+  static const String ingredient = 'ingredient';
+  static const String unit = 'unit';
 }
 
 // 마스터 데이터 엔티티의 별칭들

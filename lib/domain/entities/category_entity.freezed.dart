@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'seasoning_entity.dart';
+part of 'category_entity.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -16,63 +16,75 @@ final _privateConstructorUsedError = UnsupportedError(
 );
 
 /// @nodoc
-mixin _$SeasoningEntity {
+mixin _$CategoryEntity {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get categoryId =>
-      throw _privateConstructorUsedError; // CategoryEntity의 ID 참조
+  String get displayName => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  String? get iconCode =>
+      throw _privateConstructorUsedError; // Material Icons 코드
+  String? get colorCode => throw _privateConstructorUsedError; // 색상 코드 (선택적)
+  CategoryType get type => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   int get usageCount => throw _privateConstructorUsedError;
+  bool get isActive => throw _privateConstructorUsedError;
 
-  /// Create a copy of SeasoningEntity
+  /// Create a copy of CategoryEntity
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $SeasoningEntityCopyWith<SeasoningEntity> get copyWith =>
+  $CategoryEntityCopyWith<CategoryEntity> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SeasoningEntityCopyWith<$Res> {
-  factory $SeasoningEntityCopyWith(
-    SeasoningEntity value,
-    $Res Function(SeasoningEntity) then,
-  ) = _$SeasoningEntityCopyWithImpl<$Res, SeasoningEntity>;
+abstract class $CategoryEntityCopyWith<$Res> {
+  factory $CategoryEntityCopyWith(
+    CategoryEntity value,
+    $Res Function(CategoryEntity) then,
+  ) = _$CategoryEntityCopyWithImpl<$Res, CategoryEntity>;
   @useResult
   $Res call({
     String id,
     String name,
-    String categoryId,
+    String displayName,
     String? description,
+    String? iconCode,
+    String? colorCode,
+    CategoryType type,
     DateTime createdAt,
     DateTime updatedAt,
     int usageCount,
+    bool isActive,
   });
 }
 
 /// @nodoc
-class _$SeasoningEntityCopyWithImpl<$Res, $Val extends SeasoningEntity>
-    implements $SeasoningEntityCopyWith<$Res> {
-  _$SeasoningEntityCopyWithImpl(this._value, this._then);
+class _$CategoryEntityCopyWithImpl<$Res, $Val extends CategoryEntity>
+    implements $CategoryEntityCopyWith<$Res> {
+  _$CategoryEntityCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of SeasoningEntity
+  /// Create a copy of CategoryEntity
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? categoryId = null,
+    Object? displayName = null,
     Object? description = freezed,
+    Object? iconCode = freezed,
+    Object? colorCode = freezed,
+    Object? type = null,
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? usageCount = null,
+    Object? isActive = null,
   }) {
     return _then(
       _value.copyWith(
@@ -86,16 +98,31 @@ class _$SeasoningEntityCopyWithImpl<$Res, $Val extends SeasoningEntity>
                     ? _value.name
                     : name // ignore: cast_nullable_to_non_nullable
                         as String,
-            categoryId:
-                null == categoryId
-                    ? _value.categoryId
-                    : categoryId // ignore: cast_nullable_to_non_nullable
+            displayName:
+                null == displayName
+                    ? _value.displayName
+                    : displayName // ignore: cast_nullable_to_non_nullable
                         as String,
             description:
                 freezed == description
                     ? _value.description
                     : description // ignore: cast_nullable_to_non_nullable
                         as String?,
+            iconCode:
+                freezed == iconCode
+                    ? _value.iconCode
+                    : iconCode // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            colorCode:
+                freezed == colorCode
+                    ? _value.colorCode
+                    : colorCode // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            type:
+                null == type
+                    ? _value.type
+                    : type // ignore: cast_nullable_to_non_nullable
+                        as CategoryType,
             createdAt:
                 null == createdAt
                     ? _value.createdAt
@@ -111,6 +138,11 @@ class _$SeasoningEntityCopyWithImpl<$Res, $Val extends SeasoningEntity>
                     ? _value.usageCount
                     : usageCount // ignore: cast_nullable_to_non_nullable
                         as int,
+            isActive:
+                null == isActive
+                    ? _value.isActive
+                    : isActive // ignore: cast_nullable_to_non_nullable
+                        as bool,
           )
           as $Val,
     );
@@ -118,49 +150,57 @@ class _$SeasoningEntityCopyWithImpl<$Res, $Val extends SeasoningEntity>
 }
 
 /// @nodoc
-abstract class _$$SeasoningEntityImplCopyWith<$Res>
-    implements $SeasoningEntityCopyWith<$Res> {
-  factory _$$SeasoningEntityImplCopyWith(
-    _$SeasoningEntityImpl value,
-    $Res Function(_$SeasoningEntityImpl) then,
-  ) = __$$SeasoningEntityImplCopyWithImpl<$Res>;
+abstract class _$$CategoryEntityImplCopyWith<$Res>
+    implements $CategoryEntityCopyWith<$Res> {
+  factory _$$CategoryEntityImplCopyWith(
+    _$CategoryEntityImpl value,
+    $Res Function(_$CategoryEntityImpl) then,
+  ) = __$$CategoryEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({
     String id,
     String name,
-    String categoryId,
+    String displayName,
     String? description,
+    String? iconCode,
+    String? colorCode,
+    CategoryType type,
     DateTime createdAt,
     DateTime updatedAt,
     int usageCount,
+    bool isActive,
   });
 }
 
 /// @nodoc
-class __$$SeasoningEntityImplCopyWithImpl<$Res>
-    extends _$SeasoningEntityCopyWithImpl<$Res, _$SeasoningEntityImpl>
-    implements _$$SeasoningEntityImplCopyWith<$Res> {
-  __$$SeasoningEntityImplCopyWithImpl(
-    _$SeasoningEntityImpl _value,
-    $Res Function(_$SeasoningEntityImpl) _then,
+class __$$CategoryEntityImplCopyWithImpl<$Res>
+    extends _$CategoryEntityCopyWithImpl<$Res, _$CategoryEntityImpl>
+    implements _$$CategoryEntityImplCopyWith<$Res> {
+  __$$CategoryEntityImplCopyWithImpl(
+    _$CategoryEntityImpl _value,
+    $Res Function(_$CategoryEntityImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of SeasoningEntity
+  /// Create a copy of CategoryEntity
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? categoryId = null,
+    Object? displayName = null,
     Object? description = freezed,
+    Object? iconCode = freezed,
+    Object? colorCode = freezed,
+    Object? type = null,
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? usageCount = null,
+    Object? isActive = null,
   }) {
     return _then(
-      _$SeasoningEntityImpl(
+      _$CategoryEntityImpl(
         id:
             null == id
                 ? _value.id
@@ -171,16 +211,31 @@ class __$$SeasoningEntityImplCopyWithImpl<$Res>
                 ? _value.name
                 : name // ignore: cast_nullable_to_non_nullable
                     as String,
-        categoryId:
-            null == categoryId
-                ? _value.categoryId
-                : categoryId // ignore: cast_nullable_to_non_nullable
+        displayName:
+            null == displayName
+                ? _value.displayName
+                : displayName // ignore: cast_nullable_to_non_nullable
                     as String,
         description:
             freezed == description
                 ? _value.description
                 : description // ignore: cast_nullable_to_non_nullable
                     as String?,
+        iconCode:
+            freezed == iconCode
+                ? _value.iconCode
+                : iconCode // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        colorCode:
+            freezed == colorCode
+                ? _value.colorCode
+                : colorCode // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        type:
+            null == type
+                ? _value.type
+                : type // ignore: cast_nullable_to_non_nullable
+                    as CategoryType,
         createdAt:
             null == createdAt
                 ? _value.createdAt
@@ -196,6 +251,11 @@ class __$$SeasoningEntityImplCopyWithImpl<$Res>
                 ? _value.usageCount
                 : usageCount // ignore: cast_nullable_to_non_nullable
                     as int,
+        isActive:
+            null == isActive
+                ? _value.isActive
+                : isActive // ignore: cast_nullable_to_non_nullable
+                    as bool,
       ),
     );
   }
@@ -203,15 +263,19 @@ class __$$SeasoningEntityImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SeasoningEntityImpl extends _SeasoningEntity {
-  const _$SeasoningEntityImpl({
+class _$CategoryEntityImpl extends _CategoryEntity {
+  const _$CategoryEntityImpl({
     required this.id,
     required this.name,
-    required this.categoryId,
+    required this.displayName,
     this.description,
+    this.iconCode,
+    this.colorCode,
+    required this.type,
     required this.createdAt,
     required this.updatedAt,
     this.usageCount = 0,
+    this.isActive = true,
   }) : super._();
 
   @override
@@ -219,10 +283,17 @@ class _$SeasoningEntityImpl extends _SeasoningEntity {
   @override
   final String name;
   @override
-  final String categoryId;
-  // CategoryEntity의 ID 참조
+  final String displayName;
   @override
   final String? description;
+  @override
+  final String? iconCode;
+  // Material Icons 코드
+  @override
+  final String? colorCode;
+  // 색상 코드 (선택적)
+  @override
+  final CategoryType type;
   @override
   final DateTime createdAt;
   @override
@@ -230,29 +301,39 @@ class _$SeasoningEntityImpl extends _SeasoningEntity {
   @override
   @JsonKey()
   final int usageCount;
+  @override
+  @JsonKey()
+  final bool isActive;
 
   @override
   String toString() {
-    return 'SeasoningEntity(id: $id, name: $name, categoryId: $categoryId, description: $description, createdAt: $createdAt, updatedAt: $updatedAt, usageCount: $usageCount)';
+    return 'CategoryEntity(id: $id, name: $name, displayName: $displayName, description: $description, iconCode: $iconCode, colorCode: $colorCode, type: $type, createdAt: $createdAt, updatedAt: $updatedAt, usageCount: $usageCount, isActive: $isActive)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SeasoningEntityImpl &&
+            other is _$CategoryEntityImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.categoryId, categoryId) ||
-                other.categoryId == categoryId) &&
+            (identical(other.displayName, displayName) ||
+                other.displayName == displayName) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.iconCode, iconCode) ||
+                other.iconCode == iconCode) &&
+            (identical(other.colorCode, colorCode) ||
+                other.colorCode == colorCode) &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
             (identical(other.usageCount, usageCount) ||
-                other.usageCount == usageCount));
+                other.usageCount == usageCount) &&
+            (identical(other.isActive, isActive) ||
+                other.isActive == isActive));
   }
 
   @override
@@ -260,56 +341,72 @@ class _$SeasoningEntityImpl extends _SeasoningEntity {
     runtimeType,
     id,
     name,
-    categoryId,
+    displayName,
     description,
+    iconCode,
+    colorCode,
+    type,
     createdAt,
     updatedAt,
     usageCount,
+    isActive,
   );
 
-  /// Create a copy of SeasoningEntity
+  /// Create a copy of CategoryEntity
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$SeasoningEntityImplCopyWith<_$SeasoningEntityImpl> get copyWith =>
-      __$$SeasoningEntityImplCopyWithImpl<_$SeasoningEntityImpl>(
+  _$$CategoryEntityImplCopyWith<_$CategoryEntityImpl> get copyWith =>
+      __$$CategoryEntityImplCopyWithImpl<_$CategoryEntityImpl>(
         this,
         _$identity,
       );
 }
 
-abstract class _SeasoningEntity extends SeasoningEntity {
-  const factory _SeasoningEntity({
+abstract class _CategoryEntity extends CategoryEntity {
+  const factory _CategoryEntity({
     required final String id,
     required final String name,
-    required final String categoryId,
+    required final String displayName,
     final String? description,
+    final String? iconCode,
+    final String? colorCode,
+    required final CategoryType type,
     required final DateTime createdAt,
     required final DateTime updatedAt,
     final int usageCount,
-  }) = _$SeasoningEntityImpl;
-  const _SeasoningEntity._() : super._();
+    final bool isActive,
+  }) = _$CategoryEntityImpl;
+  const _CategoryEntity._() : super._();
 
   @override
   String get id;
   @override
   String get name;
   @override
-  String get categoryId; // CategoryEntity의 ID 참조
+  String get displayName;
   @override
   String? get description;
+  @override
+  String? get iconCode; // Material Icons 코드
+  @override
+  String? get colorCode; // 색상 코드 (선택적)
+  @override
+  CategoryType get type;
   @override
   DateTime get createdAt;
   @override
   DateTime get updatedAt;
   @override
   int get usageCount;
+  @override
+  bool get isActive;
 
-  /// Create a copy of SeasoningEntity
+  /// Create a copy of CategoryEntity
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SeasoningEntityImplCopyWith<_$SeasoningEntityImpl> get copyWith =>
+  _$$CategoryEntityImplCopyWith<_$CategoryEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

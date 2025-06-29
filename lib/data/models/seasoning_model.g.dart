@@ -10,6 +10,7 @@ _$SeasoningModelImpl _$$SeasoningModelImplFromJson(Map<String, dynamic> json) =>
     _$SeasoningModelImpl(
       id: json['id'] as String,
       name: json['name'] as String,
+      categoryId: json['categoryId'] as String,
       category: json['category'] as String?,
       description: json['description'] as String?,
       createdAt: json['createdAt'] as String,
@@ -22,6 +23,7 @@ Map<String, dynamic> _$$SeasoningModelImplToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
+  'categoryId': instance.categoryId,
   'category': instance.category,
   'description': instance.description,
   'createdAt': instance.createdAt,

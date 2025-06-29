@@ -53,7 +53,7 @@ class IngredientSearchViewModel extends _$IngredientSearchViewModel {
     state = state.copyWith(searchQuery: query);
 
     if (query.trim().isEmpty) {
-      // 검색어가 비어있으면 인기 재료들을 다시 로드
+      // 검색어가 비어있으면 자주 사용된 재료들을 다시 로드
       await _loadInitialData();
       return;
     }
