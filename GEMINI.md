@@ -12,6 +12,55 @@ This file provides guidance to Gemini when working with code in this repository.
 
 Saucerer is a Flutter cross-platform mobile application for creating, sharing, and discovering sauce recipes. The project follows Clean Architecture principles with clear separation between data, domain, and presentation layers.
 
+## Current Implementation Status
+
+### ✅ Completed Features
+
+#### Core App Structure
+- **MainNavigationScreen**: 4-tab navigation (recipes, search, timer, settings)
+- **Clean Architecture**: Domain, Data, Presentation layer separation
+- **SQLite Database**: Version 14, complete offline support
+- **Dependency Injection**: Riverpod-based DI system
+
+#### Recipe Management
+- **RecipeListScreen**: Recipe list screen with empty state UI
+- **RecipeDetailScreen**: Version selection and detailed information display
+- **RecipeEditScreen**: Recipe creation/editing with version management
+- **Recipe Versioning**: Version names, genealogy tracking, change log support
+- **Version Management**: New version creation, existing version overwrite, version deletion
+
+#### Search & Discovery
+- **IngredientSearchScreen**: Ingredient-based real-time search
+- **Tag/Chip System**: Chip-based UI for ingredient selection
+- **Real-time Filtering**: Filter recipes by selected ingredients
+
+#### Cooking Features
+- **CookingLogCreateScreen**: Post-cooking photo and memo recording
+- **TimerScreen**: Multiple timer support with background notifications
+- **Timer Presets**: Built-in timer presets (pasta, eggs, etc.)
+- **Step-by-Step Cooking**: Cooking step widgets with timer integration
+
+#### Data Management
+- **SeasoningManagementScreen**: Seasoning/master data management
+- **Image Storage**: Local image storage and management system
+- **Unit System**: Various unit support and conversion
+
+#### Technical Features
+- **Background Notifications**: Utilizing flutter_local_notifications
+- **Image Handling**: Camera/gallery image selection and storage
+- **Data Consistency**: Tag/Chip-based input for typo prevention
+- **Offline-First**: Complete offline functionality
+
+### 🚧 Partially Implemented
+- **Authentication**: Basic structure exists but actual authentication system not implemented
+- **Profile/Settings**: Only seasoning management implemented, user profile features incomplete
+
+### ❌ Not Implemented
+- **Splash Screen**: Launch screen not implemented
+- **User Authentication**: Login/signup functionality not implemented
+- **Remote Sync**: Server synchronization not implemented (Local-First state)
+- **Sharing Features**: Recipe sharing functionality not implemented
+
 ## Development Commands
 
 - **Run app**: `flutter run`
@@ -27,30 +76,44 @@ Saucerer is a Flutter cross-platform mobile application for creating, sharing, a
 The project follows Clean Architecture with these key layers, as detailed in [ARCHITECTURE.md](./ARCHITECTURE.md):
 
 ### Core Layer (`lib/core/`)
-- **config/**: App configuration including themes (`app_theme.dart`)
-- **constants/**: Global constants and enums
-- **di/**: Dependency injection setup
-- **routes/**: Navigation and routing configuration
+- **config/**: App configuration including themes, recipe card widgets
+- **di/**: Dependency injection setup (Riverpod providers)
+- **routes/**: Navigation and routing configuration (GoRouter)
+- **services/**: Core services (ImageStorageService, TimerService)
 
 ### Data Layer (`lib/data/`)
-- **datasources/**: Concrete data source implementations
-  - **local/**: SQLite database helpers (`database_helper.dart`) and local data sources (`recipe_local_data_source.dart`)
-  - **remote/**: API clients and remote data sources (planned)
-- **models/**: Data transfer objects with JSON serialization (`recipe_version_model.dart`)
-- **repositories/**: Repository pattern implementations (`recipe_repository_impl.dart`)
+- **datasources/local/**: SQLite database helpers and local data sources
+  - `database_helper.dart`: SQLite DB schema and management (v14)
+  - `recipe_local_data_source.dart`: Recipe data CRUD operations
+  - `ingredient_local_data_source.dart`: Ingredient data management
+  - `cooking_log_local_data_source.dart`: Cooking log management
+  - `seasoning_local_data_source.dart`: Seasoning master data
+  - `timer_preset_datasource.dart`: Timer preset management
+- **models/**: Freezed-based data models with JSON serialization
+- **repositories/**: Repository pattern implementations
 
 ### Domain Layer (`lib/domain/`)
-- **entities/**: Pure business objects (`recipe_version.dart`)
-- **repositories/**: Abstract repository interfaces (`recipe_repository.dart`)
-- **usecases/**: Business logic encapsulation (`get_recipes_usecase.dart`)
+- **entities/**: Freezed-based business entities
+  - `recipe_entity.dart`, `recipe_version_entity.dart`: Recipe and version management
+  - `ingredient_entity.dart`, `step_entity.dart`: Ingredients and cooking steps
+  - `cooking_log_entity.dart`: Cooking records
+  - `seasoning_entity.dart`: Seasoning information
+  - `cooking_timer_entity.dart`, `timer_preset_entity.dart`: Timer-related entities
+- **repositories/**: Abstract repository interfaces
+- **usecases/**: 40+ specific business logic Use Cases
 
 ### Presentation Layer (`lib/presentation/`)
-- **auth/**: Authentication screens and logic
+- **main/**: Main navigation screen
 - **recipe/**: Recipe-related UI components
-  - **list/**: Recipe listing with view/viewmodel pattern (`recipe_list_screen.dart`, `recipe_list_viewmodel.dart`)
-  - **detail/**: Recipe detail screens
-  - **edit/**: Recipe creation/editing
-- **search/**: Search functionality
+  - **list/**: Recipe list screen with empty state UI
+  - **detail/**: Recipe detail screen with version management
+  - **edit/**: Recipe creation/editing screen
+  - **widgets/**: Reusable recipe widgets
+  - **providers/**: Ingredient and unit-related providers
+- **search/**: Ingredient-based search functionality
+- **cooking_log/**: Cooking log creation screen
+- **seasoning/**: Seasoning management screen
+- **timer/**: Timer screen and widgets
 
 ## Key Patterns & Conventions
 

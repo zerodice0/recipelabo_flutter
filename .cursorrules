@@ -1,0 +1,197 @@
+# Cursor Rules for Saucerer Flutter Project
+
+## Language Instructions
+- **Always respond in Korean (한글)** when communicating with users
+- Provide explanations, error messages, and all text responses in Korean
+- Code comments and documentation should be in Korean when added
+
+## Project Overview
+Saucerer is a Flutter cross-platform mobile application for creating, sharing, and discovering sauce recipes. The project follows Clean Architecture principles with clear separation between data, domain, and presentation layers.
+
+### Project Goals
+1. **Personalized Recipe Asset Management**: Enable users to meticulously record their unique sauce recipes down to precise ingredients and quantities, building a digital recipe library
+2. **Evolutionary Recipe Development**: Facilitate gradual recipe evolution through "Recipe Versioning" and "Cooking Log" systems, preserving entire developmental history
+3. **Frictionless User Experience**: Provide seamless experience with "In-Context Ingredient Creation" and "Tag/Chip-Based Input" systems
+4. **Data-Driven Discovery**: Enable instant answers to "What can I cook today?" through ingredient-based recipe search
+5. **Robust & Scalable Architecture**: Build with Local-First approach ensuring complete offline functionality and future scalability
+
+## Current Implementation Status
+
+### ✅ Completed Features
+- **MainNavigationScreen**: 4-tab navigation (recipes, search, timer, settings)
+- **Recipe Management**: Recipe list, detail, and edit screens completed
+- **Recipe Versioning**: Version names, genealogy tracking, change log support
+- **Search & Discovery**: Ingredient-based real-time search
+- **Cooking Features**: Cooking logs, multiple timers, preset support
+- **Data Management**: Seasoning management, image storage, unit system
+- **Technical Features**: Background notifications, offline-first architecture
+
+### 🚧 Partially Implemented
+- **Authentication**: Basic structure exists but actual authentication system not implemented
+- **Profile/Settings**: Only seasoning management implemented
+
+### ❌ Not Implemented
+- **Splash Screen**: Launch screen not implemented
+- **User Authentication**: Login/signup functionality not implemented
+- **Remote Sync**: Server synchronization not implemented
+- **Sharing Features**: Recipe sharing functionality not implemented
+
+## Architecture Guidelines
+
+### File Structure
+```
+lib/
+├── core/                 # Core functionality
+│   ├── config/          # App configuration, themes
+│   ├── di/              # Dependency injection (Riverpod)
+│   ├── routes/          # Navigation (GoRouter)
+│   └── services/        # Core services (Image, Timer)
+├── data/                # Data layer
+│   ├── datasources/     # Local data sources (SQLite)
+│   ├── models/          # Data models (Freezed + JSON)
+│   └── repositories/    # Repository implementations
+├── domain/              # Domain layer
+│   ├── entities/        # Business entities (Freezed)
+│   ├── repositories/    # Repository interfaces
+│   └── usecases/        # Business logic (40+ use cases)
+└── presentation/        # UI layer
+    ├── main/            # Main navigation
+    ├── recipe/          # Recipe-related screens
+    ├── search/          # Search functionality
+    ├── cooking_log/     # Cooking log features
+    ├── seasoning/       # Seasoning management
+    └── timer/           # Timer functionality
+```
+
+## Development Guidelines
+
+### State Management
+- **Use Riverpod** with `@riverpod` annotation for providers
+- **Prefer**: `AsyncNotifierProvider` and `NotifierProvider`
+- **Avoid**: `StateProvider`, `StateNotifierProvider`, and `ChangeNotifierProvider`
+- Use `AsyncValue` for handling loading and error states in UI
+- Use Riverpod Generator for type-safe providers
+
+### Code Generation & Immutability
+- **Freezed**: Use for creating immutable state classes and unions
+- **JSON Serialization**: Use `@JsonSerializable(fieldRename: FieldRename.snake)` for models
+- **Riverpod Generator**: For type-safe dependency injection
+- **Build Runner**: `flutter pub run build_runner build --delete-conflicting-outputs`
+
+### Database & Storage
+- **SQLite**: Version 14 with proper migration system
+- **Schema Fields**: Include `createdAt`, `updatedAt`, and `isDeleted` in all tables
+- **Local Image Storage**: Store images in app internal directory
+- **Offline-First**: Complete offline functionality priority
+
+### Navigation & Routing
+- **GoRouter**: Primary navigation system
+- Support deep linking capabilities
+- Follow established navigation patterns
+
+### UI/UX Patterns
+- **Material Design 3**: Follow guidelines with seed color-based dynamic themes
+- **Chip-based Input**: Use Tag/Chip system for data consistency and typo prevention
+- **Empty States**: Implement proper empty states for new users
+- **Error Handling**: Display errors with `SelectableText.rich` (red color). **Avoid SnackBars**
+- **Styling**: Use `Theme.of(context)` for consistent styling
+- **Bottom Navigation**: 4-tab main navigation structure
+
+### Performance & Optimization
+- **Const Widgets**: Use `const` widgets wherever possible
+- **List Performance**: Use `ListView.builder` for large lists
+- **Image Handling**: Implement proper image caching with `cached_network_image`
+- **Debugging**: Use `log` for debugging instead of `print`
+
+### Code Style & Structure
+- **Line Length**: Keep lines under 80 characters
+- **Trailing Commas**: Always use trailing commas
+- **Arrow Functions**: Use arrow syntax for simple one-line functions/methods
+- **Widget Structure**: Create small, private widget classes instead of helper methods
+- **Naming**: Follow established naming conventions for files and classes
+
+### Testing
+- Write unit tests for use cases and repositories
+- Use `flutter test` for running tests
+- Test database operations with proper setup/teardown
+- Follow existing test patterns in `test/` directory
+
+### Clean Architecture Compliance
+- **View/ViewModel Pattern**: Implement new screens using established pattern
+- **Use Cases**: Create use cases for business logic rather than putting it in ViewModels
+- **Entity vs Model**: Use entities in domain layer, models in data layer
+- **ViewModel Focus**: Keep ViewModels focused on UI state management only
+- **Layer Separation**: Maintain strict separation between Domain, Data, and Presentation layers
+
+## Development Commands
+- **Run app**: `flutter run`
+- **Run tests**: `flutter test`
+- **Analyze code**: `flutter analyze`
+- **Get dependencies**: `flutter pub get`
+- **Code generation**: `flutter pub run build_runner build --delete-conflicting-outputs`
+- **Build APK**: `flutter build apk`
+- **Build iOS**: `flutter build ios`
+
+## Key Technical Decisions
+- **Local-First Architecture**: Complete offline functionality
+- **Clean Architecture**: Strict layer separation
+- **Riverpod + Freezed**: Type-safe state management
+- **SQLite**: Local database with versioning
+- **Material Design 3**: Consistent UI/UX
+- **Background Notifications**: Timer functionality
+- **Image Storage**: Local file management
+- **Recipe Versioning**: Complete version history tracking
+
+## Current Database Schema (v14)
+- users: User information
+- recipes: Recipe basic information
+- recipe_versions: Recipe version management with `baseVersionId`
+- ingredients: Ingredient information
+- steps: Cooking steps with timer support
+- cooking_logs: Cooking records with photos
+- seasonings: Seasoning/master data with categories
+- timer_presets: Timer preset configurations
+
+## Specific Implementation Patterns
+
+### Recipe Versioning System
+- **Version Tracking**: Use `baseVersionId` to track version genealogy
+- **Version Names**: Support user-defined version names (e.g., "v1-Original", "v2-Less Spicy")
+- **Change Logs**: Include `changeLog` field for version modifications
+- **Display Names**: Use `displayName` and `fullDisplayName` for UI representation
+
+### Timer System
+- **Background Notifications**: Use `flutter_local_notifications` for background timer alerts
+- **Multiple Timers**: Support concurrent timer execution
+- **Preset Support**: Implement built-in timer presets (pasta, eggs, etc.)
+- **Permission Handling**: Manage iOS/Android notification permissions
+
+### Image Management
+- **Local Storage**: Store images in app internal directory using UUID-based filenames
+- **Format Support**: Handle JPG, PNG, GIF, BMP, WebP formats
+- **Cleanup**: Implement automatic cleanup for old images
+- **Size Management**: Track total image storage usage
+
+### Data Consistency
+- **Tag/Chip Input**: Use chip-based input to prevent typos in ingredient names
+- **In-Context Creation**: Allow new ingredient creation without workflow disruption
+- **Master Data**: Maintain seasoning/ingredient master data with category system
+
+## Important Notes
+- **Korean Language**: Ensure all user-facing text is in Korean
+- **Database Migrations**: Always maintain backward compatibility
+- **Error Handling**: Implement proper error handling for all async operations
+- **Loading States**: Implement proper loading states for all async UI operations
+- **Cross-Platform**: Test thoroughly on both iOS and Android platforms
+- **Pattern Consistency**: Follow established patterns for new feature development
+- **Offline Priority**: Ensure all core features work offline-first
+
+## Current Tech Stack
+- **Flutter SDK**: 3.7.2+
+- **State Management**: Riverpod (flutter_riverpod, riverpod_annotation)
+- **Database**: SQLite (sqflite) - Version 14
+- **Code Generation**: Freezed, JSON Annotation, Riverpod Generator
+- **Navigation**: GoRouter
+- **Image**: Image Picker, Path Provider
+- **Notifications**: Flutter Local Notifications, Timezone
+- **UUID**: UUID package for unique identifiers
