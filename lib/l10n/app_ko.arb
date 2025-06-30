@@ -1,0 +1,98 @@
+{
+  "@@locale": "ko",
+  "@@nav_section": "네비게이션",
+  "nav_tab_recipes": "레시피",
+  "nav_tab_search": "검색",
+  "nav_tab_timer": "타이머",
+  "nav_tab_settings": "설정",
+  "@@screen_section": "화면 제목",
+  "screen_recipe_list_title": "나의 레시피",
+  "screen_recipe_detail_title": "레시피 상세",
+  "screen_recipe_edit_title": "레시피 편집",
+  "screen_recipe_create_title": "새 레시피",
+  "screen_ingredient_search_title": "재료로 검색",
+  "screen_cooking_log_create_title": "쿠킹 로그 작성",
+  "screen_seasoning_management_title": "카테고리 관리",
+  "screen_timer_title": "요리 타이머",
+  "@@button_section": "버튼",
+  "button_recipe_add": "레시피 추가",
+  "button_ingredient_search": "재료 검색",
+  "button_cooking_log_add": "로그 추가",
+  "button_save": "저장",
+  "button_cancel": "취소",
+  "button_delete": "삭제",
+  "button_confirm": "확인",
+  "button_retry": "다시 시도",
+  "button_timer_start": "타이머 시작",
+  "button_timer_custom": "커스텀 타이머",
+  "button_notification_allow": "알림 허용",
+  "button_notification_later": "나중에",
+  "@@label_section": "폼 라벨",
+  "label_recipe_name": "레시피 이름",
+  "label_recipe_description": "설명",
+  "label_recipe_ingredients": "재료",
+  "label_recipe_steps": "조리 단계",
+  "label_cooking_log_title": "제목 *",
+  "label_cooking_log_datetime": "요리한 날짜 및 시간 *",
+  "label_cooking_log_photo": "사진",
+  "label_cooking_log_memo": "메모",
+  "@@hint_section": "폼 힌트",
+  "hint_ingredient_search": "재료 이름을 검색하세요...",
+  "hint_seasoning_search": "카테고리 이름을 검색하세요...",
+  "hint_cooking_log_title": "쿠킹 로그 제목을 입력하세요",
+  "hint_cooking_log_memo": "요리하면서 느낀 점이나 개선사항을 적어보세요",
+  "@@error_section": "에러 메시지",
+  "error_general": "오류가 발생했습니다",
+  "error_validation_title_required": "제목을 입력해주세요",
+  "error_recipe_load_failed": "레시피를 불러올 수 없습니다",
+  "@@empty_section": "빈 상태 메시지",
+  "empty_recipes_title": "아직 레시피가 없습니다",
+  "empty_recipes_description": "나만의 특별한 소스 레시피를\\n만들어보세요!",
+  "empty_cooking_logs_title": "아직 쿠킹 로그가 없습니다",
+  "empty_cooking_logs_description": "첫 번째 쿠킹 로그를 추가해보세요!",
+  "@@status_section": "상태 메시지",
+  "status_loading_recipe": "레시피를 불러오는 중...",
+  "@@success_section": "성공 메시지",
+  "success_recipe_deleted": "레시피가 삭제되었습니다",
+  "success_timer_started": "타이머가 시작되었습니다",
+  "@@dialog_section": "다이얼로그",
+  "dialog_recipe_delete_title": "레시피 삭제",
+  "dialog_delete_confirmation": "정말로 삭제하시겠습니까?",
+  "dialog_recipe_delete_question": "{recipeName}' 레시피를 삭제하시겠습니까?",
+  "@dialog_recipe_delete_question": {
+    "placeholders": {
+      "recipeName": {
+        "type": "String"
+      }
+    }
+  },
+  "@@search_section": "검색 라벨",
+  "search_results_count": "{count}개의 레시피를 찾았습니다",
+  "@search_results_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@@timer_section": "타이머",
+  "timer_active_count": "{count}개 진행중",
+  "@timer_active_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "timer_preset_pasta": "파스타 면 삶기",
+  "timer_preset_pasta_description": "알덴테 파스타를 위한 표준 시간",
+  "timer_preset_egg_hard": "달걀 완숙",
+  "timer_preset_egg_soft": "달걀 반숙",
+  "@@unit_section": "단위 카테고리",
+  "unit_category_weight": "무게",
+  "unit_category_volume": "부피",
+  "unit_category_count": "개수",
+  "@@settings_section": "설정 라벨",
+  "settings_user_section": "사용자",
+  "settings_seasoning_management": "조미료 관리"
+}
