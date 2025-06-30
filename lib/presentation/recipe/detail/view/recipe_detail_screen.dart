@@ -334,252 +334,240 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 ),
               )
             else
-              Column(
-                children:
-                    versions.map((version) {
-                      final isSelected = _selectedVersionId == version.id;
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 8),
-                        child: Material(
-                          color:
-                              isSelected
-                                  ? Theme.of(
-                                    context,
-                                  ).colorScheme.primaryContainer
-                                  : Theme.of(context).colorScheme.surface,
-                          borderRadius: BorderRadius.circular(12),
-                          child: InkWell(
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: versions.length,
+                itemBuilder: (context, index) {
+                  final version = versions[index];
+                  final isSelected = _selectedVersionId == version.id;
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 8),
+                    child: Material(
+                      color:
+                          isSelected
+                              ? Theme.of(context).colorScheme.primaryContainer
+                              : Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(12),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () {
+                          setState(() {
+                            _selectedVersionId = version.id;
+                          });
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            onTap: () {
-                              setState(() {
-                                _selectedVersionId = version.id;
-                              });
-                            },
-                            child: Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color:
-                                      isSelected
-                                          ? Theme.of(
-                                            context,
-                                          ).colorScheme.primary
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .outline
-                                              .withValues(alpha: 0.3),
-                                  width: isSelected ? 2 : 1,
-                                ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                            border: Border.all(
+                              color:
+                                  isSelected
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Theme.of(context).colorScheme.outline
+                                          .withValues(alpha: 0.3),
+                              width: isSelected ? 2 : 1,
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 4,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color:
-                                              isSelected
-                                                  ? Theme.of(
-                                                    context,
-                                                  ).colorScheme.primary
-                                                  : Theme.of(context)
-                                                      .colorScheme
-                                                      .secondaryContainer,
-                                          borderRadius: BorderRadius.circular(
-                                            12,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            if (isSelected)
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                  right: 4,
-                                                ),
-                                                child: Icon(
-                                                  Icons.check,
-                                                  color:
-                                                      Theme.of(
-                                                        context,
-                                                      ).colorScheme.onPrimary,
-                                                  size: 14,
-                                                ),
-                                              ),
-                                            Text(
-                                              version.versionName ??
-                                                  'v${version.versionNumber}',
-                                              style: Theme.of(
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 4,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color:
+                                          isSelected
+                                              ? Theme.of(
                                                 context,
-                                              ).textTheme.bodySmall?.copyWith(
-                                                color:
-                                                    isSelected
-                                                        ? Theme.of(
-                                                          context,
-                                                        ).colorScheme.onPrimary
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .onSecondaryContainer,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                              ).colorScheme.primary
+                                              : Theme.of(
+                                                context,
+                                              ).colorScheme.secondaryContainer,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        if (isSelected)
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                              right: 4,
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: Text(
-                                          version.name,
+                                            child: Icon(
+                                              Icons.check,
+                                              color:
+                                                  Theme.of(
+                                                    context,
+                                                  ).colorScheme.onPrimary,
+                                              size: 14,
+                                            ),
+                                          ),
+                                        Text(
+                                          version.versionName ??
+                                              'v${version.versionNumber}',
                                           style: Theme.of(
                                             context,
-                                          ).textTheme.bodyMedium?.copyWith(
-                                            fontWeight: FontWeight.w500,
+                                          ).textTheme.bodySmall?.copyWith(
+                                            color:
+                                                isSelected
+                                                    ? Theme.of(
+                                                      context,
+                                                    ).colorScheme.onPrimary
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .onSecondaryContainer,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Text(
+                                      version.name,
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.bodyMedium?.copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        color:
+                                            isSelected
+                                                ? Theme.of(
+                                                  context,
+                                                ).colorScheme.onPrimaryContainer
+                                                : null,
+                                      ),
+                                    ),
+                                  ),
+                                  if (versions.length > 1)
+                                    IconButton(
+                                      onPressed:
+                                          () => _showDeleteVersionDialog(
+                                            context,
+                                            version,
+                                            versions,
+                                          ),
+                                      icon: Icon(
+                                        Icons.delete_outline,
+                                        color:
+                                            Theme.of(context).colorScheme.error,
+                                        size: 20,
+                                      ),
+                                      tooltip: '버전 삭제',
+                                      constraints: const BoxConstraints(
+                                        minWidth: 32,
+                                        minHeight: 32,
+                                      ),
+                                      padding: const EdgeInsets.all(4),
+                                    ),
+                                ],
+                              ),
+                              if (version.changeLog != null &&
+                                  version.changeLog!.isNotEmpty) ...[
+                                const SizedBox(height: 8),
+                                Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: (isSelected
+                                            ? Theme.of(
+                                              context,
+                                            ).colorScheme.primary
+                                            : Theme.of(context)
+                                                .colorScheme
+                                                .surfaceContainerHighest)
+                                        .withValues(alpha: 0.1),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.edit_note,
+                                            size: 16,
+                                            color:
+                                                Theme.of(
+                                                  context,
+                                                ).colorScheme.onSurfaceVariant,
+                                          ),
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            '변경사항',
+                                            style: Theme.of(
+                                              context,
+                                            ).textTheme.bodySmall?.copyWith(
+                                              color:
+                                                  Theme.of(context)
+                                                      .colorScheme
+                                                      .onSurfaceVariant,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                          20.0,
+                                          0.0,
+                                          20.0,
+                                          0.0,
+                                        ),
+                                        child: Text(
+                                          version.changeLog!,
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodySmall?.copyWith(
                                             color:
                                                 isSelected
                                                     ? Theme.of(context)
                                                         .colorScheme
                                                         .onPrimaryContainer
-                                                    : null,
-                                          ),
-                                        ),
-                                      ),
-                                      if (versions.length > 1)
-                                        IconButton(
-                                          onPressed:
-                                              () => _showDeleteVersionDialog(
-                                                context,
-                                                version,
-                                                versions,
-                                              ),
-                                          icon: Icon(
-                                            Icons.delete_outline,
-                                            color:
-                                                Theme.of(
-                                                  context,
-                                                ).colorScheme.error,
-                                            size: 20,
-                                          ),
-                                          tooltip: '버전 삭제',
-                                          constraints: const BoxConstraints(
-                                            minWidth: 32,
-                                            minHeight: 32,
-                                          ),
-                                          padding: const EdgeInsets.all(4),
-                                        ),
-                                    ],
-                                  ),
-                                  if (version.changeLog != null &&
-                                      version.changeLog!.isNotEmpty) ...[
-                                    const SizedBox(height: 8),
-                                    Container(
-                                      width: double.infinity,
-                                      padding: const EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        color: (isSelected
-                                                ? Theme.of(
-                                                  context,
-                                                ).colorScheme.primary
-                                                : Theme.of(context)
-                                                    .colorScheme
-                                                    .surfaceContainerHighest)
-                                            .withValues(alpha: 0.1),
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.edit_note,
-                                                size: 16,
-                                                color:
-                                                    Theme.of(context)
+                                                    : Theme.of(context)
                                                         .colorScheme
                                                         .onSurfaceVariant,
-                                              ),
-                                              const SizedBox(width: 4),
-                                              Text(
-                                                '변경사항',
-                                                style: Theme.of(
-                                                  context,
-                                                ).textTheme.bodySmall?.copyWith(
-                                                  color:
-                                                      Theme.of(context)
-                                                          .colorScheme
-                                                          .onSurfaceVariant,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ],
+                                            fontStyle: FontStyle.italic,
                                           ),
-                                          const SizedBox(height: 4),
-                                          Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                              20.0,
-                                              0.0,
-                                              20.0,
-                                              0.0,
-                                            ),
-                                            child: Text(
-                                              version.changeLog!,
-                                              style: Theme.of(
-                                                context,
-                                              ).textTheme.bodySmall?.copyWith(
-                                                color:
-                                                    isSelected
-                                                        ? Theme.of(context)
-                                                            .colorScheme
-                                                            .onPrimaryContainer
-                                                        : Theme.of(context)
-                                                            .colorScheme
-                                                            .onSurfaceVariant,
-                                                fontStyle: FontStyle.italic,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    '생성일: ${_formatDate(version.createdAt)}',
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodySmall?.copyWith(
-                                      color:
-                                          isSelected
-                                              ? Theme.of(context)
-                                                  .colorScheme
-                                                  .onPrimaryContainer
-                                                  .withValues(alpha: 0.8)
-                                              : Theme.of(
-                                                context,
-                                              ).colorScheme.onSurfaceVariant,
-                                    ),
+                                    ],
                                   ),
-                                  const SizedBox(height: 4),
-                                  _buildBaseVersionInfo(
-                                    context,
-                                    version,
-                                    versions,
-                                  ),
-                                ],
+                                ),
+                              ],
+                              const SizedBox(height: 4),
+                              Text(
+                                '생성일: ${_formatDate(version.createdAt)}',
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.bodySmall?.copyWith(
+                                  color:
+                                      isSelected
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryContainer
+                                              .withValues(alpha: 0.8)
+                                          : Theme.of(
+                                            context,
+                                          ).colorScheme.onSurfaceVariant,
+                                ),
                               ),
-                            ),
+                              const SizedBox(height: 4),
+                              _buildBaseVersionInfo(context, version, versions),
+                            ],
                           ),
                         ),
-                      );
-                    }).toList(),
+                      ),
+                    ),
+                  );
+                },
               ),
           ],
         ),
