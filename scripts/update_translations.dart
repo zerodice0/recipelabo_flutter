@@ -1,4 +1,5 @@
 #!/usr/bin/env dart
+// ignore_for_file: avoid_print - This Script is running on CI/CD so we need to print
 
 import 'dart:convert';
 import 'dart:io';
