@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:csv/csv.dart';
-import 'package:flutter/foundation.dart';
 
 /// Script to download translations from Google Sheets and update ARB files
 ///
@@ -30,14 +29,14 @@ class TranslationUpdater {
 
   /// Main execution method
   Future<void> run() async {
-    debugPrint('🌍 Starting translation update...');
-    debugPrint('📊 Sheet ID: $sheetId');
-    debugPrint('🔑 API Key: ${apiKey.isNotEmpty ? "✅ Set" : "❌ Missing"}');
+    print('🌍 Starting translation update...');
+    print('📊 Sheet ID: $sheetId');
+    print('🔑 API Key: ${apiKey.isNotEmpty ? "✅ Set" : "❌ Missing"}');
 
     if (apiKey.isEmpty) {
-      debugPrint('❌ Error: GOOGLE_SHEETS_API_KEY environment variable not set');
-      debugPrint('💡 Please set your Google Sheets API key:');
-      debugPrint('   export GOOGLE_SHEETS_API_KEY="your_api_key_here"');
+      print('❌ Error: GOOGLE_SHEETS_API_KEY environment variable not set');
+      print('💡 Please set your Google Sheets API key:');
+      print('   export GOOGLE_SHEETS_API_KEY="your_api_key_here"');
       exit(1);
     }
 
@@ -51,10 +50,10 @@ class TranslationUpdater {
       // Generate ARB files
       await generateArbFiles(translations);
 
-      debugPrint('✅ Translation update completed successfully!');
+      print('✅ Translation update completed successfully!');
     } catch (e, stackTrace) {
-      debugPrint('❌ Error updating translations: $e');
-      debugPrint('Stack trace: $stackTrace');
+      print('❌ Error updating translations: $e');
+      print('Stack trace: $stackTrace');
       exit(1);
     }
   }
@@ -64,8 +63,8 @@ class TranslationUpdater {
     final url =
         'https://docs.google.com/spreadsheets/d/$sheetId/export?format=csv&gid=0';
 
-    debugPrint('📥 Downloading translations from Google Sheets...');
-    debugPrint('🔗 URL: $url');
+    print('📥 Downloading translations from Google Sheets...');
+    print('🔗 URL: $url');
 
     final client = HttpClient();
     try {
@@ -74,7 +73,7 @@ class TranslationUpdater {
 
       if (response.statusCode == 200) {
         final csvContent = await response.transform(utf8.decoder).join();
-        debugPrint('✅ Successfully downloaded ${csvContent.length} characters');
+        print('✅ Successfully downloaded ${csvContent.length} characters');
         return csvContent;
       } else {
         throw Exception(
@@ -87,7 +86,7 @@ class TranslationUpdater {
 
   /// Parse CSV data into translation maps
   Map<String, Map<String, String>> parseCsvToTranslations(String csvData) {
-    debugPrint('🔄 Parsing CSV data...');
+    print('🔄 Parsing CSV data...');
 
     final rows = const CsvToListConverter().convert(csvData);
 
@@ -97,7 +96,7 @@ class TranslationUpdater {
 
     // Expected header: Key, Korean (ko), English (en), Japanese (ja), Context, Status, Last Modified, Notes
     final headers = rows.first.map((e) => e.toString()).toList();
-    debugPrint('📋 Headers: $headers');
+    print('📋 Headers: $headers');
 
     // Find column indices
     final keyIndex = headers.indexOf('Key');
@@ -114,7 +113,7 @@ class TranslationUpdater {
           'Required columns not found. Expected: Key, Korean, English, Japanese');
     }
 
-    debugPrint(
+    print(
         '📍 Column mapping: Key=$keyIndex, Ko=$koIndex, En=$enIndex, Ja=$jaIndex');
 
     final translations = <String, Map<String, String>>{};
@@ -134,7 +133,7 @@ class TranslationUpdater {
       if (statusIndex != -1 && row.length > statusIndex) {
         final status = row[statusIndex]?.toString().trim().toLowerCase();
         if (status != null && status != 'approved') {
-          debugPrint('⏭️  Skipping $key (status: $status)');
+          print('⏭️  Skipping $key (status: $status)');
           continue;
         }
         approvedCount++;
@@ -156,15 +155,14 @@ class TranslationUpdater {
       processedCount++;
     }
 
-    debugPrint(
-        '✅ Parsed $processedCount translations ($approvedCount approved)');
+    print('✅ Parsed $processedCount translations ($approvedCount approved)');
     return translations;
   }
 
   /// Generate ARB files from translations
   Future<void> generateArbFiles(
       Map<String, Map<String, String>> translations) async {
-    debugPrint('📝 Generating ARB files...');
+    print('📝 Generating ARB files...');
 
     final locales = ['ko', 'en', 'ja'];
 
@@ -178,7 +176,7 @@ class TranslationUpdater {
       String locale, Map<String, Map<String, String>> translations) async {
     final arbPath = 'lib/l10n/app_$locale.arb';
 
-    debugPrint('📄 Generating $arbPath...');
+    print('📄 Generating $arbPath...');
 
     // Build ARB content
     final arbData = <String, dynamic>{
@@ -195,7 +193,7 @@ class TranslationUpdater {
       final value = translationsMap[locale];
 
       if (value == null || value.isEmpty) {
-        debugPrint('⚠️  Missing $locale translation for: $key');
+        print('⚠️  Missing $locale translation for: $key');
         continue;
       }
 
@@ -221,17 +219,16 @@ class TranslationUpdater {
     final jsonContent = const JsonEncoder.withIndent('  ').convert(arbData);
 
     if (dryRun) {
-      debugPrint(
-          '🔍 [DRY RUN] Would write to $arbPath ($addedCount translations)');
-      debugPrint('📄 Content preview (first 300 chars):');
-      debugPrint(jsonContent.substring(
+      print('🔍 [DRY RUN] Would write to $arbPath ($addedCount translations)');
+      print('📄 Content preview (first 300 chars):');
+      print(jsonContent.substring(
           0, jsonContent.length > 300 ? 300 : jsonContent.length));
-      debugPrint('...');
+      print('...');
     } else {
       final file = File(arbPath);
       await file.parent.create(recursive: true);
       await file.writeAsString(jsonContent);
-      debugPrint('✅ Written $arbPath ($addedCount translations)');
+      print('✅ Written $arbPath ($addedCount translations)');
     }
   }
 
@@ -318,8 +315,8 @@ Future<void> main(List<String> arguments) async {
   }
 
   if (sheetId == 'YOUR_SHEET_ID_HERE') {
-    debugPrint('❌ Error: Google Sheets ID not provided');
-    debugPrint(
+    print('❌ Error: Google Sheets ID not provided');
+    print(
         '💡 Please provide sheet ID as argument or update defaultSheetId in script');
     printUsage();
     exit(1);
@@ -330,7 +327,7 @@ Future<void> main(List<String> arguments) async {
 }
 
 void printUsage() {
-  debugPrint('''
+  print('''
 🌍 Translation Update Script
 
 Usage:
