@@ -37,7 +37,13 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
 
   Future<void> _loadPresets() async {
     try {
-      final presets = await ref.read(getAllPresetsUsecaseProvider).call();
+      List<TimerPresetEntity> defaultPresets =
+          await _initializeDefaultPresets();
+      final presetFromRepository =
+          await ref.read(getAllPresetsUsecaseProvider).call();
+
+      final presets = [...defaultPresets, ...presetFromRepository];
+
       setState(() {
         _presets = presets;
       });
@@ -48,7 +54,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
     }
   }
 
-  Future<void> _initializeDefaultPresets() async {
+  Future<List<TimerPresetEntity>> _initializeDefaultPresets() async {
     final defaultPresets = [
       TimerPresetEntity(
         id: '1',
@@ -121,9 +127,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
       }
     }
 
-    setState(() {
-      _presets = defaultPresets;
-    });
+    return defaultPresets;
   }
 
   @override
@@ -225,15 +229,14 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
   void _showCustomTimerDialog() {
     showDialog(
       context: context,
-      builder:
-          (context) => _CustomTimerDialog(
-            onTimerCreated: (timer) async {
-              await _startTimerWithPermissionCheck(() => timer);
-            },
-            onPresetSaved: () {
-              _loadPresets(); // 프리셋 목록 새로고침
-            },
-          ),
+      builder: (context) => _CustomTimerDialog(
+        onTimerCreated: (timer) async {
+          await _startTimerWithPermissionCheck(() => timer);
+        },
+        onPresetSaved: () {
+          _loadPresets(); // 프리셋 목록 새로고침
+        },
+      ),
     );
   }
 
@@ -428,10 +431,9 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
     const uuid = Uuid();
     final totalSeconds = (_minutes * 60) + _seconds;
     final name = _nameController.text.trim();
-    final description =
-        _descriptionController.text.trim().isEmpty
-            ? null
-            : _descriptionController.text.trim();
+    final description = _descriptionController.text.trim().isEmpty
+        ? null
+        : _descriptionController.text.trim();
 
     // 프리셋으로 저장하는 경우
     if (_saveAsPreset) {
@@ -541,10 +543,9 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
                           children: [
                             IconButton(
                               icon: const Icon(Icons.remove),
-                              onPressed:
-                                  _minutes > 0
-                                      ? () => setState(() => _minutes--)
-                                      : null,
+                              onPressed: _minutes > 0
+                                  ? () => setState(() => _minutes--)
+                                  : null,
                             ),
                             Expanded(
                               child: Text(
@@ -558,10 +559,9 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
                             ),
                             IconButton(
                               icon: const Icon(Icons.add),
-                              onPressed:
-                                  _minutes < 99
-                                      ? () => setState(() => _minutes++)
-                                      : null,
+                              onPressed: _minutes < 99
+                                  ? () => setState(() => _minutes++)
+                                  : null,
                             ),
                           ],
                         ),
@@ -585,10 +585,9 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
                           children: [
                             IconButton(
                               icon: const Icon(Icons.remove),
-                              onPressed:
-                                  _seconds > 0
-                                      ? () => setState(() => _seconds--)
-                                      : null,
+                              onPressed: _seconds > 0
+                                  ? () => setState(() => _seconds--)
+                                  : null,
                             ),
                             Expanded(
                               child: Text(
@@ -602,10 +601,9 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
                             ),
                             IconButton(
                               icon: const Icon(Icons.add),
-                              onPressed:
-                                  _seconds < 59
-                                      ? () => setState(() => _seconds++)
-                                      : null,
+                              onPressed: _seconds < 59
+                                  ? () => setState(() => _seconds++)
+                                  : null,
                             ),
                           ],
                         ),
