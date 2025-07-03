@@ -90,6 +90,12 @@ lib/
 │   └── services/                      # 핵심 서비스
 │       ├── image_storage_service.dart # 이미지 저장 관리
 │       └── timer_service.dart         # 타이머 서비스
+├── l10n/                              # 국제화 (i18n)
+│   ├── l10n.yaml                      # 국제화 설정
+│   ├── app_en.arb                     # 영어 번역 (템플릿)
+│   ├── app_ko.arb                     # 한국어 번역
+│   ├── app_ja.arb                     # 일본어 번역
+│   └── app_localizations.dart         # 자동 생성 국제화 코드
 ├── data/                              # 데이터 계층
 │   ├── datasources/                   # 데이터 소스
 │   │   └── local/                     # 로컬 데이터 소스
@@ -217,6 +223,13 @@ lib/
 - **Routes**: Go Router 기반 선언적 라우팅
 - **Services**: 이미지 저장, 타이머 등 핵심 서비스
 
+### Internationalization Layer (l10n)
+다국어 지원을 위한 국제화 모듈입니다.
+- **l10n.yaml**: Flutter 국제화 설정 파일
+- **ARB 파일들**: 각 언어별 번역 리소스 (한국어, 영어, 일본어)
+- **app_localizations.dart**: 자동 생성되는 국제화 클래스
+- **Translation Management**: Google Sheets 기반 번역 관리 워크플로우
+
 ### Data Layer
 외부 데이터 소스와의 상호작용을 담당합니다.
 - **DataSources**: SQLite 기반 로컬 데이터 소스
@@ -337,6 +350,12 @@ graph TD
 ### 백그라운드 작업
 - **Flutter Local Notifications**: 로컬 알림
 - **Timer Service**: 백그라운드 타이머 관리
+
+### 국제화 (i18n)
+- **Flutter Localizations**: 공식 Flutter 국제화 패키지
+- **ARB 파일**: 번역 리소스 관리
+- **Google Sheets Integration**: 번역 관리 및 협업 도구
+- **자동화 스크립트**: 번역 동기화 및 하드코딩된 문자열 스캔
 
 ## 설계 원칙
 

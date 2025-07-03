@@ -50,6 +50,8 @@ Saucerer is a Flutter cross-platform mobile application for creating, sharing, a
 - **Image Handling**: Camera/gallery image selection and storage
 - **Data Consistency**: Tag/Chip-based input for typo prevention
 - **Offline-First**: Complete offline functionality
+- **Internationalization**: Complete i18n support for Korean, English, and Japanese
+- **Google Sheets Integration**: Translation management via Google Sheets
 
 ### 🚧 Partially Implemented
 - **Authentication**: Basic structure exists but actual authentication system not implemented
@@ -69,6 +71,9 @@ Saucerer is a Flutter cross-platform mobile application for creating, sharing, a
 - **Get dependencies**: `flutter pub get`
 - **Build APK**: `flutter build apk`
 - **Build iOS**: `flutter build ios`
+- **Generate translations**: `flutter gen-l10n`
+- **Scan hardcoded strings**: `dart run scripts/scan_hardcoded_strings.dart`
+- **Update translations from Google Sheets**: `dart run scripts/update_translations.dart`
 
 ## Architecture
 
@@ -79,6 +84,11 @@ The project follows Clean Architecture with these key layers, as detailed in [AR
 - **di/**: Dependency injection setup (Riverpod providers)
 - **routes/**: Navigation and routing configuration (GoRouter)
 - **services/**: Core services (ImageStorageService, TimerService)
+
+### Internationalization (`lib/l10n/`)
+- **app_*.arb**: Translation files for Korean, English, and Japanese
+- **app_localizations.dart**: Generated localization classes
+- **l10n.yaml**: Internationalization configuration
 
 ### Data Layer (`lib/data/`)
 - **datasources/local/**: SQLite database helpers and local data sources
