@@ -12,15 +12,14 @@ String _$saveRecipeUseCaseHash() => r'c33160cc8fd102383cd93ad79307e2446472ceaa';
 @ProviderFor(saveRecipeUseCase)
 final saveRecipeUseCaseProvider =
     AutoDisposeProvider<SaveRecipeUseCase>.internal(
-      saveRecipeUseCase,
-      name: r'saveRecipeUseCaseProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$saveRecipeUseCaseHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+  saveRecipeUseCase,
+  name: r'saveRecipeUseCaseProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$saveRecipeUseCaseHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element

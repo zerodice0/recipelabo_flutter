@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:saucerer_flutter/domain/entities/seasoning_entity.dart';
+import 'package:saucerer_flutter/domain/entities/ingredient_master_entity.dart';
 import 'package:saucerer_flutter/domain/entities/ingredient_entity.dart';
 import 'package:saucerer_flutter/domain/entities/category_entity.dart';
-import 'package:saucerer_flutter/domain/usecases/create_seasoning_usecase.dart';
+import 'package:saucerer_flutter/domain/usecases/create_ingredient_master_usecase.dart';
 import 'package:saucerer_flutter/presentation/recipe/providers/ingredients_provider.dart';
 import 'package:saucerer_flutter/presentation/recipe/widgets/unit_selector_widget.dart';
 import 'package:uuid/uuid.dart';
@@ -27,7 +27,7 @@ class IngredientSelectorWidget extends ConsumerStatefulWidget {
 class _IngredientSelectorWidgetState extends ConsumerState<IngredientSelectorWidget> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
-  List<SeasoningEntity> _filteredSeasonings = [];
+  List<IngredientMasterEntity> _filteredSeasonings = [];
   bool _showDropdown = false;
 
   @override
@@ -37,7 +37,7 @@ class _IngredientSelectorWidgetState extends ConsumerState<IngredientSelectorWid
     super.dispose();
   }
 
-  void _filterSeasonings(String query, List<SeasoningEntity> availableSeasonings) {
+  void _filterSeasonings(String query, List<IngredientMasterEntity> availableSeasonings) {
     setState(() {
       if (query.isEmpty) {
         _filteredSeasonings = availableSeasonings;
@@ -83,7 +83,7 @@ class _IngredientSelectorWidgetState extends ConsumerState<IngredientSelectorWid
 
   Future<void> _createNewIngredient(String name) async {
     try {
-      final createUseCase = ref.read(createSeasoningUseCaseProvider);
+      final createUseCase = ref.read(createIngredientMasterUseCaseProvider);
       await createUseCase(
         name: name,
         categoryId: PredefinedCategories.ingredient.id,

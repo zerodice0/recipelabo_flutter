@@ -1,12 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'category_entity.dart';
 
-part 'seasoning_entity.freezed.dart';
+part 'ingredient_master_entity.freezed.dart';
 
-// TODO: 향후 ingredient_master_entity.dart로 파일명 변경 필요
 @freezed
-class SeasoningEntity with _$SeasoningEntity {
-  const factory SeasoningEntity({
+class IngredientMasterEntity with _$IngredientMasterEntity {
+  const factory IngredientMasterEntity({
     required String id,
     required String name,
     required String categoryId, // CategoryEntity의 ID 참조
@@ -15,9 +14,9 @@ class SeasoningEntity with _$SeasoningEntity {
     required DateTime createdAt,
     required DateTime updatedAt,
     @Default(0) int usageCount, // 사용 빈도 추적
-  }) = _SeasoningEntity;
+  }) = _IngredientMasterEntity;
 
-  const SeasoningEntity._();
+  const IngredientMasterEntity._();
 
   /// 사전 정의된 카테고리인지 확인
   bool get hasPredefinedCategory {
@@ -38,6 +37,7 @@ class MasterDataCategory {
 }
 
 // 마스터 데이터 엔티티의 별칭들
-typedef IngredientMasterEntity = SeasoningEntity;
-typedef UnitMasterEntity = SeasoningEntity;
-typedef MasterDataEntity = SeasoningEntity;
+typedef UnitMasterEntity = IngredientMasterEntity;
+typedef MasterDataEntity = IngredientMasterEntity;
+
+// SeasoningEntity는 이제 IngredientMasterEntity로 완전히 대체됨

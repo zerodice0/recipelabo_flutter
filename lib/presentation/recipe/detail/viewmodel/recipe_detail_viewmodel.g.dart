@@ -41,15 +41,21 @@ class RecipeDetailViewModelFamily
   const RecipeDetailViewModelFamily();
 
   /// See also [recipeDetailViewModel].
-  RecipeDetailViewModelProvider call(String recipeId) {
-    return RecipeDetailViewModelProvider(recipeId);
+  RecipeDetailViewModelProvider call(
+    String recipeId,
+  ) {
+    return RecipeDetailViewModelProvider(
+      recipeId,
+    );
   }
 
   @override
   RecipeDetailViewModelProvider getProviderOverride(
     covariant RecipeDetailViewModelProvider provider,
   ) {
-    return call(provider.recipeId);
+    return call(
+      provider.recipeId,
+    );
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -68,25 +74,27 @@ class RecipeDetailViewModelFamily
 }
 
 /// See also [recipeDetailViewModel].
-class RecipeDetailViewModelProvider
-    extends
-        AutoDisposeFutureProvider<(RecipeEntity, List<RecipeVersionEntity>)> {
+class RecipeDetailViewModelProvider extends AutoDisposeFutureProvider<
+    (RecipeEntity, List<RecipeVersionEntity>)> {
   /// See also [recipeDetailViewModel].
-  RecipeDetailViewModelProvider(String recipeId)
-    : this._internal(
-        (ref) =>
-            recipeDetailViewModel(ref as RecipeDetailViewModelRef, recipeId),
-        from: recipeDetailViewModelProvider,
-        name: r'recipeDetailViewModelProvider',
-        debugGetCreateSourceHash:
-            const bool.fromEnvironment('dart.vm.product')
-                ? null
-                : _$recipeDetailViewModelHash,
-        dependencies: RecipeDetailViewModelFamily._dependencies,
-        allTransitiveDependencies:
-            RecipeDetailViewModelFamily._allTransitiveDependencies,
-        recipeId: recipeId,
-      );
+  RecipeDetailViewModelProvider(
+    String recipeId,
+  ) : this._internal(
+          (ref) => recipeDetailViewModel(
+            ref as RecipeDetailViewModelRef,
+            recipeId,
+          ),
+          from: recipeDetailViewModelProvider,
+          name: r'recipeDetailViewModelProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$recipeDetailViewModelHash,
+          dependencies: RecipeDetailViewModelFamily._dependencies,
+          allTransitiveDependencies:
+              RecipeDetailViewModelFamily._allTransitiveDependencies,
+          recipeId: recipeId,
+        );
 
   RecipeDetailViewModelProvider._internal(
     super._createNotifier, {
@@ -103,9 +111,8 @@ class RecipeDetailViewModelProvider
   @override
   Override overrideWith(
     FutureOr<(RecipeEntity, List<RecipeVersionEntity>)> Function(
-      RecipeDetailViewModelRef provider,
-    )
-    create,
+            RecipeDetailViewModelRef provider)
+        create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -123,7 +130,7 @@ class RecipeDetailViewModelProvider
 
   @override
   AutoDisposeFutureProviderElement<(RecipeEntity, List<RecipeVersionEntity>)>
-  createElement() {
+      createElement() {
     return _RecipeDetailViewModelProviderElement(this);
   }
 
@@ -150,16 +157,13 @@ mixin RecipeDetailViewModelRef
 }
 
 class _RecipeDetailViewModelProviderElement
-    extends
-        AutoDisposeFutureProviderElement<
-          (RecipeEntity, List<RecipeVersionEntity>)
-        >
+    extends AutoDisposeFutureProviderElement<
+        (RecipeEntity, List<RecipeVersionEntity>)>
     with RecipeDetailViewModelRef {
   _RecipeDetailViewModelProviderElement(super.provider);
 
   @override
   String get recipeId => (origin as RecipeDetailViewModelProvider).recipeId;
 }
-
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

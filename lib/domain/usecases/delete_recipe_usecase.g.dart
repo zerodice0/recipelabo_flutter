@@ -13,15 +13,14 @@ String _$deleteRecipeUseCaseHash() =>
 @ProviderFor(deleteRecipeUseCase)
 final deleteRecipeUseCaseProvider =
     AutoDisposeProvider<DeleteRecipeUseCase>.internal(
-      deleteRecipeUseCase,
-      name: r'deleteRecipeUseCaseProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$deleteRecipeUseCaseHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+  deleteRecipeUseCase,
+  name: r'deleteRecipeUseCaseProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$deleteRecipeUseCaseHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element

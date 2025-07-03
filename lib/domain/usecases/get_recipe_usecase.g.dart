@@ -13,10 +13,9 @@ String _$getRecipeUseCaseHash() => r'e644a9d1ecb161333d1ecf2245a1c1bb3ea1acff';
 final getRecipeUseCaseProvider = AutoDisposeProvider<GetRecipeUseCase>.internal(
   getRecipeUseCase,
   name: r'getRecipeUseCaseProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$getRecipeUseCaseHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$getRecipeUseCaseHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

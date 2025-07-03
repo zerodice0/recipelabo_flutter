@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:saucerer_flutter/domain/entities/seasoning_entity.dart';
+import 'package:saucerer_flutter/domain/entities/ingredient_master_entity.dart';
 import 'package:saucerer_flutter/domain/entities/category_entity.dart';
 import 'package:saucerer_flutter/presentation/seasoning/viewmodel/seasoning_management_viewmodel.dart';
 import 'package:saucerer_flutter/presentation/seasoning/widgets/seasoning_create_dialog.dart';
@@ -199,7 +199,7 @@ class _SeasoningManagementScreenState
 
   Widget _buildSeasoningCard(
     BuildContext context,
-    SeasoningEntity seasoning,
+    IngredientMasterEntity seasoning,
     SeasoningManagementViewModel viewModel,
   ) {
     return Card(
@@ -290,7 +290,7 @@ class _SeasoningManagementScreenState
 
   void _showDeleteDialog(
     BuildContext context,
-    SeasoningEntity seasoning,
+    IngredientMasterEntity seasoning,
     SeasoningManagementViewModel viewModel,
   ) {
     showDialog(

@@ -1,13 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'seasoning_model.dart';
+part of 'ingredient_master_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SeasoningModelImpl _$$SeasoningModelImplFromJson(Map<String, dynamic> json) =>
-    _$SeasoningModelImpl(
+_$IngredientMasterModelImpl _$$IngredientMasterModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$IngredientMasterModelImpl(
       id: json['id'] as String,
       name: json['name'] as String,
       categoryId: json['categoryId'] as String,
@@ -19,16 +20,16 @@ _$SeasoningModelImpl _$$SeasoningModelImplFromJson(Map<String, dynamic> json) =>
       usageCount: (json['usageCount'] as num?)?.toInt() ?? 0,
     );
 
-Map<String, dynamic> _$$SeasoningModelImplToJson(
-  _$SeasoningModelImpl instance,
-) => <String, dynamic>{
-  'id': instance.id,
-  'name': instance.name,
-  'categoryId': instance.categoryId,
-  'category': instance.category,
-  'subCategory': instance.subCategory,
-  'description': instance.description,
-  'createdAt': instance.createdAt,
-  'updatedAt': instance.updatedAt,
-  'usageCount': instance.usageCount,
-};
+Map<String, dynamic> _$$IngredientMasterModelImplToJson(
+        _$IngredientMasterModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'categoryId': instance.categoryId,
+      'category': instance.category,
+      'subCategory': instance.subCategory,
+      'description': instance.description,
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
+      'usageCount': instance.usageCount,
+    };

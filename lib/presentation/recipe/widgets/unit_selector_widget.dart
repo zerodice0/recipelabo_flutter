@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:saucerer_flutter/domain/entities/seasoning_entity.dart';
+import 'package:saucerer_flutter/domain/entities/ingredient_master_entity.dart';
 import 'package:saucerer_flutter/domain/entities/category_entity.dart';
-import 'package:saucerer_flutter/domain/usecases/create_seasoning_usecase.dart';
+import 'package:saucerer_flutter/domain/usecases/create_ingredient_master_usecase.dart';
 import 'package:saucerer_flutter/presentation/recipe/providers/units_provider.dart';
 import 'package:saucerer_flutter/presentation/recipe/widgets/unit_category_dialog.dart';
 
@@ -55,7 +55,7 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
     if (selectedCategory == null) return; // 사용자가 취소한 경우
 
     try {
-      final createUseCase = ref.read(createSeasoningUseCaseProvider);
+      final createUseCase = ref.read(createIngredientMasterUseCaseProvider);
       await createUseCase(
         name: name,
         categoryId: PredefinedCategories.unit.id,
@@ -180,7 +180,7 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
 }
 
 class _UnitBottomSheet extends StatefulWidget {
-  final List<SeasoningEntity> availableUnits;
+  final List<IngredientMasterEntity> availableUnits;
   final String selectedUnit;
   final Future<void> Function(String) onCreateNewUnit;
 
@@ -196,7 +196,7 @@ class _UnitBottomSheet extends StatefulWidget {
 
 class _UnitBottomSheetState extends State<_UnitBottomSheet> {
   final TextEditingController _searchController = TextEditingController();
-  List<SeasoningEntity> _filteredUnits = [];
+  List<IngredientMasterEntity> _filteredUnits = [];
 
   @override
   void initState() {
@@ -228,7 +228,7 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
 
   Widget _buildUnitGroup(
     String title,
-    List<SeasoningEntity> units, {
+    List<IngredientMasterEntity> units, {
     IconData? icon,
   }) {
     if (units.isEmpty) return const SizedBox.shrink();

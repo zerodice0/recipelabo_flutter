@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:saucerer_flutter/domain/entities/seasoning_entity.dart';
+import 'package:saucerer_flutter/domain/entities/ingredient_master_entity.dart';
 import 'package:saucerer_flutter/domain/entities/category_entity.dart';
-import 'package:saucerer_flutter/domain/usecases/get_all_seasonings_usecase.dart';
+import 'package:saucerer_flutter/domain/usecases/get_all_ingredient_masters_usecase.dart';
 
 part 'ingredients_provider.g.dart';
 
@@ -9,7 +9,7 @@ part 'ingredients_provider.g.dart';
 @riverpod
 class AvailableIngredients extends _$AvailableIngredients {
   @override
-  Future<List<SeasoningEntity>> build() async {
+  Future<List<IngredientMasterEntity>> build() async {
     return _loadIngredients();
   }
 
@@ -20,8 +20,8 @@ class AvailableIngredients extends _$AvailableIngredients {
   }
 
   /// 데이터베이스에서 재료 목록을 가져옵니다.
-  Future<List<SeasoningEntity>> _loadIngredients() async {
-    final getAllUseCase = ref.read(getAllSeasoningsUseCaseProvider);
+  Future<List<IngredientMasterEntity>> _loadIngredients() async {
+    final getAllUseCase = ref.read(getAllIngredientMastersUseCaseProvider);
     final allData = await getAllUseCase();
 
     // 재료 카테고리만 필터링하고 사용 빈도순으로 정렬

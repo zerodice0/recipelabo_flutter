@@ -1,12 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:saucerer_flutter/domain/entities/seasoning_entity.dart';
+import 'package:saucerer_flutter/domain/entities/ingredient_master_entity.dart';
 
-part 'seasoning_model.freezed.dart';
-part 'seasoning_model.g.dart';
+part 'ingredient_master_model.freezed.dart';
+part 'ingredient_master_model.g.dart';
 
 @freezed
-class SeasoningModel with _$SeasoningModel {
-  const factory SeasoningModel({
+class IngredientMasterModel with _$IngredientMasterModel {
+  const factory IngredientMasterModel({
     required String id,
     required String name,
     required String categoryId,
@@ -16,14 +16,14 @@ class SeasoningModel with _$SeasoningModel {
     required String createdAt,
     required String updatedAt,
     @Default(0) int usageCount,
-  }) = _SeasoningModel;
+  }) = _IngredientMasterModel;
 
-  factory SeasoningModel.fromJson(Map<String, dynamic> json) => _$SeasoningModelFromJson(json);
+  factory IngredientMasterModel.fromJson(Map<String, dynamic> json) => _$IngredientMasterModelFromJson(json);
 }
 
-extension SeasoningModelX on SeasoningModel {
-  SeasoningEntity toEntity() {
-    return SeasoningEntity(
+extension IngredientMasterModelX on IngredientMasterModel {
+  IngredientMasterEntity toEntity() {
+    return IngredientMasterEntity(
       id: id,
       name: name,
       categoryId: categoryId,
@@ -35,8 +35,8 @@ extension SeasoningModelX on SeasoningModel {
     );
   }
 
-  static SeasoningModel fromEntity(SeasoningEntity entity) {
-    return SeasoningModel(
+  static IngredientMasterModel fromEntity(IngredientMasterEntity entity) {
+    return IngredientMasterModel(
       id: entity.id,
       name: entity.name,
       categoryId: entity.categoryId,
@@ -62,12 +62,12 @@ extension SeasoningModelX on SeasoningModel {
     };
   }
 
-  static SeasoningModel fromSqlMap(Map<String, dynamic> map) {
+  static IngredientMasterModel fromSqlMap(Map<String, dynamic> map) {
     // 마이그레이션을 위해 category_id가 없으면 category 값 사용
     String categoryId = map['category_id'] as String? ?? 
                       _mapLegacyCategoryToId(map['category'] as String?);
     
-    return SeasoningModel(
+    return IngredientMasterModel(
       id: map['id'] as String,
       name: map['name'] as String,
       categoryId: categoryId,
@@ -106,3 +106,8 @@ extension SeasoningModelX on SeasoningModel {
     }
   }
 }
+
+// 하위 호환성을 위한 alias
+@Deprecated('Use IngredientMasterModel instead')
+typedef SeasoningModel = IngredientMasterModel;
+

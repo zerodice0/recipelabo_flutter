@@ -12,15 +12,14 @@ String _$getRecipesUseCaseHash() => r'f9a6a83c85dfe57bb6de3e9b794bf66f88ea1e61';
 @ProviderFor(getRecipesUseCase)
 final getRecipesUseCaseProvider =
     AutoDisposeProvider<GetRecipesUseCase>.internal(
-      getRecipesUseCase,
-      name: r'getRecipesUseCaseProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$getRecipesUseCaseHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+  getRecipesUseCase,
+  name: r'getRecipesUseCaseProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$getRecipesUseCaseHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element

@@ -12,15 +12,12 @@ String _$recipeListViewModelHash() =>
 /// See also [RecipeListViewModel].
 @ProviderFor(RecipeListViewModel)
 final recipeListViewModelProvider = AutoDisposeAsyncNotifierProvider<
-  RecipeListViewModel,
-  List<RecipeEntity>
->.internal(
+    RecipeListViewModel, List<RecipeEntity>>.internal(
   RecipeListViewModel.new,
   name: r'recipeListViewModelProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$recipeListViewModelHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$recipeListViewModelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

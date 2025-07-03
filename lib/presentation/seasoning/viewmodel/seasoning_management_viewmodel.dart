@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:saucerer_flutter/domain/entities/seasoning_entity.dart';
-import 'package:saucerer_flutter/domain/usecases/get_all_seasonings_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/search_seasonings_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/create_seasoning_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/delete_seasoning_usecase.dart';
+import 'package:saucerer_flutter/domain/entities/ingredient_master_entity.dart';
+import 'package:saucerer_flutter/domain/usecases/get_all_ingredient_masters_usecase.dart';
+import 'package:saucerer_flutter/domain/usecases/search_ingredient_masters_usecase.dart';
+import 'package:saucerer_flutter/domain/usecases/create_ingredient_master_usecase.dart';
+import 'package:saucerer_flutter/domain/usecases/delete_ingredient_master_usecase.dart';
 
 part 'seasoning_management_viewmodel.freezed.dart';
 part 'seasoning_management_viewmodel.g.dart';
@@ -12,8 +12,8 @@ part 'seasoning_management_viewmodel.g.dart';
 @freezed
 class SeasoningManagementState with _$SeasoningManagementState {
   const factory SeasoningManagementState({
-    @Default([]) List<SeasoningEntity> seasonings, // 현재 표시되는 데이터
-    @Default([]) List<SeasoningEntity> allSeasonings, // 원본 전체 데이터
+    @Default([]) List<IngredientMasterEntity> seasonings, // 현재 표시되는 데이터
+    @Default([]) List<IngredientMasterEntity> allSeasonings, // 원본 전체 데이터
     @Default([]) List<String> categories,
     @Default('') String searchQuery,
     String? selectedCategory,
@@ -35,7 +35,7 @@ class SeasoningManagementViewModel extends _$SeasoningManagementViewModel {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      final getAllUseCase = ref.read(getAllSeasoningsUseCaseProvider);
+      final getAllUseCase = ref.read(getAllIngredientMastersUseCaseProvider);
       final seasonings = await getAllUseCase();
 
       // 카테고리 추출 - 표시명 사용
@@ -63,7 +63,7 @@ class SeasoningManagementViewModel extends _$SeasoningManagementViewModel {
     state = state.copyWith(searchQuery: query, isLoading: true, error: null);
 
     try {
-      final searchUseCase = ref.read(searchSeasoningsUseCaseProvider);
+      final searchUseCase = ref.read(searchIngredientMastersUseCaseProvider);
       final searchResults = await searchUseCase(query);
 
       // 원본 데이터 업데이트
@@ -108,7 +108,7 @@ class SeasoningManagementViewModel extends _$SeasoningManagementViewModel {
     state = state.copyWith(isCreating: true, error: null);
 
     try {
-      final createUseCase = ref.read(createSeasoningUseCaseProvider);
+      final createUseCase = ref.read(createIngredientMasterUseCaseProvider);
       await createUseCase(
         name: name,
         categoryId: categoryId,
@@ -124,7 +124,7 @@ class SeasoningManagementViewModel extends _$SeasoningManagementViewModel {
 
   Future<void> deleteSeasoning(String id) async {
     try {
-      final deleteUseCase = ref.read(deleteSeasoningUseCaseProvider);
+      final deleteUseCase = ref.read(deleteIngredientMasterUseCaseProvider);
       await deleteUseCase(id);
       await _loadSeasonings();
     } catch (error) {
