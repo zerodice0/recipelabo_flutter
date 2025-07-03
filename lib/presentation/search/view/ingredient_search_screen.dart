@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:saucerer_flutter/presentation/search/viewmodel/ingredient_search_viewmodel.dart';
 import 'package:saucerer_flutter/presentation/search/widgets/ingredient_chip.dart';
+import 'package:saucerer_flutter/l10n/app_localizations.dart';
 
 class IngredientSearchScreen extends ConsumerStatefulWidget {
   final bool showAppBar;
@@ -36,13 +37,13 @@ class _IngredientSearchScreenState
         appBar:
             widget.showAppBar
                 ? AppBar(
-                  title: const Text('재료로 검색'),
+                  title: Text(AppLocalizations.of(context)!.searchByIngredients),
                   actions: [
                     if (state.selectedIngredients.isNotEmpty)
                       IconButton(
                         icon: const Icon(Icons.clear_all),
                         onPressed: () => viewModel.resetSearch(),
-                        tooltip: '검색 초기화',
+                        tooltip: AppLocalizations.of(context)!.resetSearch,
                       ),
                     PopupMenuButton<String>(
                       onSelected: (value) {
@@ -57,13 +58,13 @@ class _IngredientSearchScreenState
                       },
                       itemBuilder:
                           (context) => [
-                            const PopupMenuItem(
+                            PopupMenuItem(
                               value: 'show_popular',
-                              child: Text('자주 사용된 재료 보기'),
+                              child: Text(AppLocalizations.of(context)!.showPopularIngredients),
                             ),
-                            const PopupMenuItem(
+                            PopupMenuItem(
                               value: 'show_all',
-                              child: Text('모든 재료 보기'),
+                              child: Text(AppLocalizations.of(context)!.showAllIngredients),
                             ),
                           ],
                     ),
@@ -89,7 +90,7 @@ class _IngredientSearchScreenState
       child: SearchBar(
         controller: _searchController,
         focusNode: _searchFocusNode,
-        hintText: '재료 이름을 검색하세요...',
+        hintText: AppLocalizations.of(context)!.searchIngredientsHint,
         leading: const Icon(Icons.search),
         trailing: [
           if (_searchController.text.isNotEmpty)
@@ -130,7 +131,7 @@ class _IngredientSearchScreenState
               ),
               const SizedBox(height: 16),
               Text(
-                '오류가 발생했습니다',
+                AppLocalizations.of(context)!.errorOccurred,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 8),
@@ -142,7 +143,7 @@ class _IngredientSearchScreenState
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () => viewModel.resetSearch(),
-                child: const Text('다시 시도'),
+                child: Text(AppLocalizations.of(context)!.retry),
               ),
             ],
           ),
@@ -189,7 +190,7 @@ class _IngredientSearchScreenState
         Row(
           children: [
             Text(
-              '검색 결과',
+              AppLocalizations.of(context)!.searchResults,
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -229,7 +230,7 @@ class _IngredientSearchScreenState
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  '선택한 재료로 만들 수 있는\n레시피가 없습니다',
+                  AppLocalizations.of(context)!.noRecipesFound,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
@@ -242,7 +243,7 @@ class _IngredientSearchScreenState
           Column(
             children: [
               Text(
-                '${state.filteredRecipes.length}개의 레시피를 찾았습니다',
+                AppLocalizations.of(context)!.recipesFound(state.filteredRecipes.length),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.w500,
@@ -302,7 +303,7 @@ class _IngredientSearchScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          state.searchQuery.isEmpty ? '자주 사용된 재료' : '검색 결과',
+          state.searchQuery.isEmpty ? AppLocalizations.of(context)!.popularIngredients : AppLocalizations.of(context)!.searchResultsIngredients,
           style: Theme.of(
             context,
           ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),

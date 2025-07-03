@@ -12,8 +12,7 @@ part of 'recipe_entity.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$RecipeEntity {
@@ -36,20 +35,18 @@ mixin _$RecipeEntity {
 /// @nodoc
 abstract class $RecipeEntityCopyWith<$Res> {
   factory $RecipeEntityCopyWith(
-    RecipeEntity value,
-    $Res Function(RecipeEntity) then,
-  ) = _$RecipeEntityCopyWithImpl<$Res, RecipeEntity>;
+          RecipeEntity value, $Res Function(RecipeEntity) then) =
+      _$RecipeEntityCopyWithImpl<$Res, RecipeEntity>;
   @useResult
-  $Res call({
-    String id,
-    String authorId,
-    String latestVersionId,
-    String name,
-    String? description,
-    bool isPublic,
-    DateTime createdAt,
-    DateTime updatedAt,
-  });
+  $Res call(
+      {String id,
+      String authorId,
+      String latestVersionId,
+      String name,
+      String? description,
+      bool isPublic,
+      DateTime createdAt,
+      DateTime updatedAt});
 }
 
 /// @nodoc
@@ -76,51 +73,40 @@ class _$RecipeEntityCopyWithImpl<$Res, $Val extends RecipeEntity>
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
-    return _then(
-      _value.copyWith(
-            id:
-                null == id
-                    ? _value.id
-                    : id // ignore: cast_nullable_to_non_nullable
-                        as String,
-            authorId:
-                null == authorId
-                    ? _value.authorId
-                    : authorId // ignore: cast_nullable_to_non_nullable
-                        as String,
-            latestVersionId:
-                null == latestVersionId
-                    ? _value.latestVersionId
-                    : latestVersionId // ignore: cast_nullable_to_non_nullable
-                        as String,
-            name:
-                null == name
-                    ? _value.name
-                    : name // ignore: cast_nullable_to_non_nullable
-                        as String,
-            description:
-                freezed == description
-                    ? _value.description
-                    : description // ignore: cast_nullable_to_non_nullable
-                        as String?,
-            isPublic:
-                null == isPublic
-                    ? _value.isPublic
-                    : isPublic // ignore: cast_nullable_to_non_nullable
-                        as bool,
-            createdAt:
-                null == createdAt
-                    ? _value.createdAt
-                    : createdAt // ignore: cast_nullable_to_non_nullable
-                        as DateTime,
-            updatedAt:
-                null == updatedAt
-                    ? _value.updatedAt
-                    : updatedAt // ignore: cast_nullable_to_non_nullable
-                        as DateTime,
-          )
-          as $Val,
-    );
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      authorId: null == authorId
+          ? _value.authorId
+          : authorId // ignore: cast_nullable_to_non_nullable
+              as String,
+      latestVersionId: null == latestVersionId
+          ? _value.latestVersionId
+          : latestVersionId // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isPublic: null == isPublic
+          ? _value.isPublic
+          : isPublic // ignore: cast_nullable_to_non_nullable
+              as bool,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ) as $Val);
   }
 }
 
@@ -128,21 +114,19 @@ class _$RecipeEntityCopyWithImpl<$Res, $Val extends RecipeEntity>
 abstract class _$$RecipeEntityImplCopyWith<$Res>
     implements $RecipeEntityCopyWith<$Res> {
   factory _$$RecipeEntityImplCopyWith(
-    _$RecipeEntityImpl value,
-    $Res Function(_$RecipeEntityImpl) then,
-  ) = __$$RecipeEntityImplCopyWithImpl<$Res>;
+          _$RecipeEntityImpl value, $Res Function(_$RecipeEntityImpl) then) =
+      __$$RecipeEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    String id,
-    String authorId,
-    String latestVersionId,
-    String name,
-    String? description,
-    bool isPublic,
-    DateTime createdAt,
-    DateTime updatedAt,
-  });
+  $Res call(
+      {String id,
+      String authorId,
+      String latestVersionId,
+      String name,
+      String? description,
+      bool isPublic,
+      DateTime createdAt,
+      DateTime updatedAt});
 }
 
 /// @nodoc
@@ -150,9 +134,8 @@ class __$$RecipeEntityImplCopyWithImpl<$Res>
     extends _$RecipeEntityCopyWithImpl<$Res, _$RecipeEntityImpl>
     implements _$$RecipeEntityImplCopyWith<$Res> {
   __$$RecipeEntityImplCopyWithImpl(
-    _$RecipeEntityImpl _value,
-    $Res Function(_$RecipeEntityImpl) _then,
-  ) : super(_value, _then);
+      _$RecipeEntityImpl _value, $Res Function(_$RecipeEntityImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of RecipeEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -168,66 +151,55 @@ class __$$RecipeEntityImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
-    return _then(
-      _$RecipeEntityImpl(
-        id:
-            null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                    as String,
-        authorId:
-            null == authorId
-                ? _value.authorId
-                : authorId // ignore: cast_nullable_to_non_nullable
-                    as String,
-        latestVersionId:
-            null == latestVersionId
-                ? _value.latestVersionId
-                : latestVersionId // ignore: cast_nullable_to_non_nullable
-                    as String,
-        name:
-            null == name
-                ? _value.name
-                : name // ignore: cast_nullable_to_non_nullable
-                    as String,
-        description:
-            freezed == description
-                ? _value.description
-                : description // ignore: cast_nullable_to_non_nullable
-                    as String?,
-        isPublic:
-            null == isPublic
-                ? _value.isPublic
-                : isPublic // ignore: cast_nullable_to_non_nullable
-                    as bool,
-        createdAt:
-            null == createdAt
-                ? _value.createdAt
-                : createdAt // ignore: cast_nullable_to_non_nullable
-                    as DateTime,
-        updatedAt:
-            null == updatedAt
-                ? _value.updatedAt
-                : updatedAt // ignore: cast_nullable_to_non_nullable
-                    as DateTime,
-      ),
-    );
+    return _then(_$RecipeEntityImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      authorId: null == authorId
+          ? _value.authorId
+          : authorId // ignore: cast_nullable_to_non_nullable
+              as String,
+      latestVersionId: null == latestVersionId
+          ? _value.latestVersionId
+          : latestVersionId // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isPublic: null == isPublic
+          ? _value.isPublic
+          : isPublic // ignore: cast_nullable_to_non_nullable
+              as bool,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
   }
 }
 
 /// @nodoc
 
 class _$RecipeEntityImpl implements _RecipeEntity {
-  const _$RecipeEntityImpl({
-    required this.id,
-    required this.authorId,
-    required this.latestVersionId,
-    required this.name,
-    this.description,
-    required this.isPublic,
-    required this.createdAt,
-    required this.updatedAt,
-  });
+  const _$RecipeEntityImpl(
+      {required this.id,
+      required this.authorId,
+      required this.latestVersionId,
+      required this.name,
+      this.description,
+      required this.isPublic,
+      required this.createdAt,
+      required this.updatedAt});
 
   @override
   final String id;
@@ -273,17 +245,8 @@ class _$RecipeEntityImpl implements _RecipeEntity {
   }
 
   @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    id,
-    authorId,
-    latestVersionId,
-    name,
-    description,
-    isPublic,
-    createdAt,
-    updatedAt,
-  );
+  int get hashCode => Object.hash(runtimeType, id, authorId, latestVersionId,
+      name, description, isPublic, createdAt, updatedAt);
 
   /// Create a copy of RecipeEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -295,16 +258,15 @@ class _$RecipeEntityImpl implements _RecipeEntity {
 }
 
 abstract class _RecipeEntity implements RecipeEntity {
-  const factory _RecipeEntity({
-    required final String id,
-    required final String authorId,
-    required final String latestVersionId,
-    required final String name,
-    final String? description,
-    required final bool isPublic,
-    required final DateTime createdAt,
-    required final DateTime updatedAt,
-  }) = _$RecipeEntityImpl;
+  const factory _RecipeEntity(
+      {required final String id,
+      required final String authorId,
+      required final String latestVersionId,
+      required final String name,
+      final String? description,
+      required final bool isPublic,
+      required final DateTime createdAt,
+      required final DateTime updatedAt}) = _$RecipeEntityImpl;
 
   @override
   String get id;

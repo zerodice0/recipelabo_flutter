@@ -6,6 +6,7 @@ import 'package:saucerer_flutter/domain/entities/preset_units.dart';
 import 'package:saucerer_flutter/domain/usecases/create_ingredient_master_usecase.dart';
 import 'package:saucerer_flutter/presentation/recipe/providers/units_provider.dart';
 import 'package:saucerer_flutter/presentation/recipe/widgets/unit_category_dialog.dart';
+import 'package:saucerer_flutter/l10n/app_localizations.dart';
 
 class UnitSelectorWidget extends ConsumerStatefulWidget {
   final String selectedUnit;
@@ -75,7 +76,7 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(
-            content: Text('새 단위 "$name"이(가) $selectedCategory 카테고리에 추가되었습니다')));
+            content: Text(AppLocalizations.of(context)!.newUnitAdded(name, selectedCategory))));
       }
     } catch (error) {
       if (mounted) {
@@ -172,7 +173,7 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
           controller: _controller,
           decoration: widget.decoration ??
               InputDecoration(
-                labelText: '단위',
+                labelText: AppLocalizations.of(context)!.unit,
                 suffixIcon: const Icon(Icons.arrow_drop_down),
                 border: const OutlineInputBorder(),
               ),
@@ -403,7 +404,7 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
                   children: [
                     Expanded(
                       child: Text(
-                        '단위 선택',
+                        AppLocalizations.of(context)!.selectUnit,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
@@ -420,7 +421,7 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
                 TextField(
                   controller: _searchController,
                   decoration: InputDecoration(
-                    hintText: '단위 검색...',
+                    hintText: AppLocalizations.of(context)!.unitSearch,
                     prefixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),

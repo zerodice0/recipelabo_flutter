@@ -1,0 +1,571 @@
+{
+  "@@locale": "en",
+  "recipes": "Recipes",
+  "@recipes": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "search": "Search",
+  "@search": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "timer": "Timer",
+  "@timer": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "addRecipe": "Add Recipe",
+  "@addRecipe": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "editRecipe": "Edit Recipe",
+  "@editRecipe": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "recipeDetail": "Recipe Detail",
+  "@recipeDetail": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "noRecipesYet": "No recipes yet",
+  "@noRecipesYet": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "createSpecialRecipe": "Create your own special\nsauce recipe!",
+  "@createSpecialRecipe": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "searchIngredients": "Search Ingredients",
+  "@searchIngredients": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "recipeDeleted": "Recipe has been deleted",
+  "@recipeDeleted": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "confirmDeleteRecipe": "Are you sure you want to delete this recipe?\n\nThis action cannot be undone.",
+  "@confirmDeleteRecipe": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "deleteFailed": "Delete failed",
+  "@deleteFailed": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "edit": "Edit",
+  "@edit": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "confirm": "Confirm",
+  "@confirm": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "errorOccurred": "An error occurred",
+  "@errorOccurred": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "selectUnit": "Select Unit",
+  "@selectUnit": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "management": "Management",
+  "@management": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "seasoningUnitManagement": "Seasoning/Unit Management",
+  "@seasoningUnitManagement": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "seasoningUnitDescription": "Add, edit, delete seasonings/units",
+  "@seasoningUnitDescription": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "appInfo": "App Info",
+  "@appInfo": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "version": "Version",
+  "@version": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "license": "License",
+  "@license": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "timerNotification": "Timer Notification",
+  "@timerNotification": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "backgroundAppRefresh": "Background App Refresh",
+  "@backgroundAppRefresh": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "backgroundAppRefreshDescription": "Set up for accurate timer notifications",
+  "@backgroundAppRefreshDescription": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "notificationActivated": "타이머 알림이 활성화되었습니다",
+  "@notificationActivated": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "notificationDenied": "알림 권한이 거부되었습니다. 시스템 설정에서 수동으로 활성화할 수 있습니다",
+  "@notificationDenied": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "notificationSettings": "알림 설정",
+  "@notificationSettings": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "timerNotificationEnabled": "타이머 알림이 활성화되어 있습니다",
+  "@timerNotificationEnabled": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "toTurnOffNotifications": "알림을 끄고 싶다면:",
+  "@toTurnOffNotifications": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "turnOffInstructions": "1. 아이폰 설정 앱 열기 2. 알림 > Saucerer 선택 3. 알림 허용 끄기",
+  "@turnOffInstructions": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "turnOffWarning": "알림을 끄면 타이머 완료 시 알림을 받을 수 없습니다",
+  "@turnOffWarning": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "activated": "활성화됨",
+  "@activated": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "deactivated": "비활성화됨",
+  "@deactivated": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "openSettings": "설정 열기",
+  "@openSettings": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "unitTypeSelection": "\"{unitName}\" 단위가 어떤 종류인지 선택해주세요.",
+  "@unitTypeSelection": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "frequently_used_units": "자주 사용하는 단위",
+  "@frequently_used_units": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "weight_basic": "무게 (기본)",
+  "@weight_basic": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "weight_custom": "무게 (사용자 추가)",
+  "@weight_custom": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "volume_basic": "부피 (기본)",
+  "@volume_basic": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "volume_custom": "부피 (사용자 추가)",
+  "@volume_custom": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "count_basic": "개수 (기본)",
+  "@count_basic": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "count_custom": "개수 (사용자 추가)",
+  "@count_custom": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "misc_basic": "기타 (기본)",
+  "@misc_basic": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "misc_custom": "기타 (사용자 추가)",
+  "@misc_custom": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "basic": "기본",
+  "@basic": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "newUnitAdded": "새 단위 \"{unitName}\"이(가) {category} 카테고리에 추가되었습니다",
+  "@newUnitAdded": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "unitSearch": "단위 검색...",
+  "@unitSearch": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "addNewUnit": "새 단위 추가: \"{unitName}\"",
+  "@addNewUnit": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "addNewUnitSubtitle": "새로운 단위를 추가합니다",
+  "@addNewUnitSubtitle": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "usageCount": "{count}회",
+  "@usageCount": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "errorLoadingUnits": "단위를 불러오는 중 오류가 발생했습니다",
+  "@errorLoadingUnits": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "retry": "다시 시도",
+  "@retry": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "timerFinished": "{duration} 타이머가 끝났습니다.",
+  "@timerFinished": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "presetSaved": "{name} 프리셋이 저장되었습니다",
+  "@presetSaved": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "timersInProgress": "{count}개 진행중",
+  "@timersInProgress": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "createNewVersion": "새 버전 생성",
+  "@createNewVersion": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "overwriteExistingVersion": "기존 버전 덮어쓰기",
+  "@overwriteExistingVersion": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "versionName": "버전 이름",
+  "@versionName": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "changeLog": "변경 사항",
+  "@changeLog": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "createDerivedVersion": "{versionName}에서 파생된 새 버전을 생성합니다",
+  "@createDerivedVersion": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "updateVersion": "{versionName}을(를) 업데이트합니다",
+  "@updateVersion": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "ingredients": "재료",
+  "@ingredients": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "steps": "조리 과정",
+  "@steps": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "unit": "단위",
+  "@unit": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "quantity": "수량",
+  "@quantity": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "name": "이름",
+  "@name": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "description": "설명",
+  "@description": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "cookingLog": "요리 기록",
+  "@cookingLog": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "addCookingLog": "요리 기록 추가",
+  "@addCookingLog": {
+    "description": "Auto-generated from hardcoded strings"
+  },
+  "deletePreset": "Delete Preset",
+  "@deletePreset": {
+    "description": "프리셋 삭제 다이얼로그 제목"
+  },
+  "confirmDeletePreset": "Are you sure you want to delete the {presetName} preset?\nDeleted presets cannot be recovered.",
+  "@confirmDeletePreset": {
+    "description": "프리셋 삭제 확인 메시지",
+    "placeholders": {
+      "presetName": {
+        "type": "String",
+        "description": "삭제할 프리셋 이름"
+      }
+    }
+  },
+  "frequentlyUsedTimers": "Frequently Used Timers",
+  "@frequentlyUsedTimers": {
+    "description": "자주 사용하는 타이머 섹션 제목"
+  },
+  "saveFailed": "Save failed",
+  "@saveFailed": {
+    "description": "저장 실패 메시지"
+  },
+  "newRecipe": "New Recipe",
+  "@newRecipe": {
+    "description": "새 레시피 제목"
+  },
+  "loadingRecipe": "Loading recipe...",
+  "@loadingRecipe": {
+    "description": "레시피 로딩 메시지"
+  },
+  "cannotLoadRecipe": "Cannot load recipe",
+  "@cannotLoadRecipe": {
+    "description": "레시피 로드 실패 메시지"
+  },
+  "goBack": "Go Back",
+  "@goBack": {
+    "description": "돌아가기 버튼"
+  },
+  "recipeName": "Recipe Name",
+  "@recipeName": {
+    "description": "레시피 이름 입력 라벨"
+  },
+  "cookingSteps": "Cooking Steps",
+  "@cookingSteps": {
+    "description": "조리 단계 섹션 제목"
+  },
+  "saveOptions": "Save Options",
+  "@saveOptions": {
+    "description": "저장 옵션 다이얼로그 제목"
+  },
+  "howToSave": "How would you like to save?",
+  "@howToSave": {
+    "description": "저장 방법 질문"
+  },
+  "editingVersion": "Editing: {versionName}",
+  "@editingVersion": {
+    "description": "현재 편집 중인 버전 표시",
+    "placeholders": {
+      "versionName": {
+        "type": "String",
+        "description": "편집 중인 버전 이름"
+      }
+    }
+  },
+  "saveAsNewVersion": "Save as New Version",
+  "@saveAsNewVersion": {
+    "description": "새 버전으로 저장 옵션"
+  },
+  "createDerivedVersionDescription": "Create a new version derived from {versionName}",
+  "@createDerivedVersionDescription": {
+    "description": "파생 버전 생성 설명",
+    "placeholders": {
+      "versionName": {
+        "type": "String",
+        "description": "기반 버전 이름"
+      }
+    }
+  },
+  "keepExistingVersion": "Keep the existing version and create a new version",
+  "@keepExistingVersion": {
+    "description": "기존 버전 유지 설명"
+  },
+  "overwriteVersion": "Overwrite Existing Version",
+  "@overwriteVersion": {
+    "description": "기존 버전 덮어쓰기 옵션"
+  },
+  "updateVersionDescription": "Update {versionName}",
+  "@updateVersionDescription": {
+    "description": "버전 업데이트 설명",
+    "placeholders": {
+      "versionName": {
+        "type": "String",
+        "description": "업데이트할 버전 이름"
+      }
+    }
+  },
+  "updateCurrentVersion": "Update the current version",
+  "@updateCurrentVersion": {
+    "description": "현재 버전 업데이트 설명"
+  },
+  "baseVersion": "Base version: {versionName}",
+  "@baseVersion": {
+    "description": "기반 버전 표시",
+    "placeholders": {
+      "versionName": {
+        "type": "String",
+        "description": "기반 버전 이름"
+      }
+    }
+  },
+  "versionNameOptional": "Version Name (Optional)",
+  "@versionNameOptional": {
+    "description": "버전명 입력 라벨"
+  },
+  "versionNameHint": "e.g., Spicy, Less Sugar, Vegan",
+  "@versionNameHint": {
+    "description": "버전명 입력 힌트"
+  },
+  "changeLogOptional": "Change Log (Optional)",
+  "@changeLogOptional": {
+    "description": "변경사항 입력 라벨"
+  },
+  "changeLogHint": "e.g., Reduced sugar, Added vegetables",
+  "@changeLogHint": {
+    "description": "변경사항 입력 힌트"
+  },
+  "cookingTimer": "Cooking Timer",
+  "pastaCooking": "Pasta Cooking",
+  "pastaCookingDescription": "Standard pasta cooking time",
+  "hardBoiledEgg": "Hard-boiled Egg",
+  "hardBoiledEggDescription": "Perfect hard-boiled egg",
+  "softBoiledEgg": "Soft-boiled Egg",
+  "softBoiledEggDescription": "Soft and runny egg yolk",
+  "instantNoodles": "Instant Noodles",
+  "instantNoodlesDescription": "Quick instant noodles",
+  "teaBrewing": "Tea Brewing",
+  "teaBrewingDescription": "Perfect tea steeping time",
+  "steakCooking": "Steak Cooking",
+  "steakCookingDescription": "Medium-rare steak",
+  "enableNotificationInSettings": "Please enable notifications in settings",
+  "notificationEnabled": "Notifications enabled",
+  "notificationPermissionDenied": "Notification permission denied",
+  "testNotificationSent": "Test notification sent",
+  "notificationTest": "Test Notification",
+  "timersRunning": "{count} timers running",
+  "@timersRunning": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "runningTimers": "Running Timers",
+  "presetDeleted": "{name} preset deleted",
+  "@presetDeleted": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cannotDeleteDefaultPreset": "Cannot delete default preset",
+  "customTimer": "Custom Timer",
+  "createCustomTimer": "Create Custom Timer",
+  "enterTimerName": "Please enter timer name",
+  "setTime": "Please set time",
+  "presetAlreadyExists": "Preset with same name already exists",
+  "failedToSavePreset": "Failed to save preset",
+  "timerName": "Timer Name",
+  "timerNameHint": "e.g., Egg boiling, Tea brewing",
+  "timeSetting": "Time Setting",
+  "minutes": "Minutes",
+  "seconds": "Seconds",
+  "descriptionOptional": "Description (Optional)",
+  "timerDescriptionHint": "e.g., Perfect for morning tea",
+  "saveAsPreset": "Save as Preset",
+  "saveAsPresetDescription": "Save for easy reuse next time",
+  "start": "Start",
+  "saveFailedWithError": "Save failed: {error}",
+  "@saveFailedWithError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "cookingSteps": "Cooking Steps",
+  "addStep": "Add Step",
+  "stepNumber": "Step {number}",
+  "@stepNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "writeCookingLog": "Write Cooking Log",
+  "recipeInfo": "Recipe Information",
+  "titleRequired": "Title *",
+  "cookingLogTitleHint": "Enter cooking log title",
+  "enterTitle": "Please enter a title",
+  "cookingDateTimeRequired": "Cooking Date & Time *",
+  "selectDateTime": "Select date and time",
+  "photo": "Photo",
+  "addPhoto": "Add Photo",
+  "takeWithCamera": "Take with Camera",
+  "selectFromGallery": "Select from Gallery",
+  "memo": "Memo",
+  "cookingMemoHint": "Write down your thoughts or improvements while cooking",
+  "searchByIngredients": "Search by Ingredients",
+  "resetSearch": "Reset Search",
+  "showPopularIngredients": "Show Popular Ingredients",
+  "showAllIngredients": "Show All Ingredients",
+  "searchIngredientsHint": "Search ingredient names...",
+  "searchResults": "Search Results",
+  "noRecipesFound": "No recipes can be made\nwith selected ingredients",
+  "recipesFound": "{count} recipes found",
+  "@recipesFound": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "popularIngredients": "Popular Ingredients",
+  "searchResultsIngredients": "Search Results",
+  "recipeRequiresMinimumVersion": "Recipe must have at least one version.",
+  "deleteVersion": "Delete Version",
+  "confirmDeleteVersion": "Are you sure you want to delete this version?",
+  "categoryManagement": "Category Management",
+  "refresh": "Refresh",
+  "addCategory": "Add Category",
+  "confirm": "Confirm",
+  "versionDeleteError": "Error occurred while deleting version: {error}",
+  "@versionDeleteError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "cookingTimerChannel": "Cooking Timer",
+  "timerNotificationDescription": "Cooking timer completion notifications",
+  "timerCompleteTitle": "🍳 {timerName} Complete!",
+  "@timerCompleteTitle": {
+    "placeholders": {
+      "timerName": {
+        "type": "String"
+      }
+    }
+  },
+  "timerCompleteBody": "{duration} timer finished.",
+  "@timerCompleteBody": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "testNotificationChannel": "Test Notifications",
+  "testNotificationDescription": "Test notification channel",
+  "testNotificationTitle": "🧪 Test Notification",
+  "testNotificationBody": "This is a test notification. Notifications are working properly!",
+  "recipeList": "Recipe List",
+  "usedTimes": "Used {count} times",
+  "@usedTimes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
+}

@@ -12,8 +12,7 @@ part of 'timer_preset_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 TimerPresetModel _$TimerPresetModelFromJson(Map<String, dynamic> json) {
   return _TimerPresetModel.fromJson(json);
@@ -47,22 +46,20 @@ mixin _$TimerPresetModel {
 /// @nodoc
 abstract class $TimerPresetModelCopyWith<$Res> {
   factory $TimerPresetModelCopyWith(
-    TimerPresetModel value,
-    $Res Function(TimerPresetModel) then,
-  ) = _$TimerPresetModelCopyWithImpl<$Res, TimerPresetModel>;
+          TimerPresetModel value, $Res Function(TimerPresetModel) then) =
+      _$TimerPresetModelCopyWithImpl<$Res, TimerPresetModel>;
   @useResult
-  $Res call({
-    String id,
-    String name,
-    int durationMinutes,
-    int durationSeconds,
-    String? description,
-    String? icon,
-    String createdAt,
-    String? lastUsedAt,
-    int usageCount,
-    bool isDefault,
-  });
+  $Res call(
+      {String id,
+      String name,
+      int durationMinutes,
+      int durationSeconds,
+      String? description,
+      String? icon,
+      String createdAt,
+      String? lastUsedAt,
+      int usageCount,
+      bool isDefault});
 }
 
 /// @nodoc
@@ -91,95 +88,79 @@ class _$TimerPresetModelCopyWithImpl<$Res, $Val extends TimerPresetModel>
     Object? usageCount = null,
     Object? isDefault = null,
   }) {
-    return _then(
-      _value.copyWith(
-            id:
-                null == id
-                    ? _value.id
-                    : id // ignore: cast_nullable_to_non_nullable
-                        as String,
-            name:
-                null == name
-                    ? _value.name
-                    : name // ignore: cast_nullable_to_non_nullable
-                        as String,
-            durationMinutes:
-                null == durationMinutes
-                    ? _value.durationMinutes
-                    : durationMinutes // ignore: cast_nullable_to_non_nullable
-                        as int,
-            durationSeconds:
-                null == durationSeconds
-                    ? _value.durationSeconds
-                    : durationSeconds // ignore: cast_nullable_to_non_nullable
-                        as int,
-            description:
-                freezed == description
-                    ? _value.description
-                    : description // ignore: cast_nullable_to_non_nullable
-                        as String?,
-            icon:
-                freezed == icon
-                    ? _value.icon
-                    : icon // ignore: cast_nullable_to_non_nullable
-                        as String?,
-            createdAt:
-                null == createdAt
-                    ? _value.createdAt
-                    : createdAt // ignore: cast_nullable_to_non_nullable
-                        as String,
-            lastUsedAt:
-                freezed == lastUsedAt
-                    ? _value.lastUsedAt
-                    : lastUsedAt // ignore: cast_nullable_to_non_nullable
-                        as String?,
-            usageCount:
-                null == usageCount
-                    ? _value.usageCount
-                    : usageCount // ignore: cast_nullable_to_non_nullable
-                        as int,
-            isDefault:
-                null == isDefault
-                    ? _value.isDefault
-                    : isDefault // ignore: cast_nullable_to_non_nullable
-                        as bool,
-          )
-          as $Val,
-    );
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      durationMinutes: null == durationMinutes
+          ? _value.durationMinutes
+          : durationMinutes // ignore: cast_nullable_to_non_nullable
+              as int,
+      durationSeconds: null == durationSeconds
+          ? _value.durationSeconds
+          : durationSeconds // ignore: cast_nullable_to_non_nullable
+              as int,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      icon: freezed == icon
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastUsedAt: freezed == lastUsedAt
+          ? _value.lastUsedAt
+          : lastUsedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      usageCount: null == usageCount
+          ? _value.usageCount
+          : usageCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      isDefault: null == isDefault
+          ? _value.isDefault
+          : isDefault // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ) as $Val);
   }
 }
 
 /// @nodoc
 abstract class _$$TimerPresetModelImplCopyWith<$Res>
     implements $TimerPresetModelCopyWith<$Res> {
-  factory _$$TimerPresetModelImplCopyWith(
-    _$TimerPresetModelImpl value,
-    $Res Function(_$TimerPresetModelImpl) then,
-  ) = __$$TimerPresetModelImplCopyWithImpl<$Res>;
+  factory _$$TimerPresetModelImplCopyWith(_$TimerPresetModelImpl value,
+          $Res Function(_$TimerPresetModelImpl) then) =
+      __$$TimerPresetModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    String id,
-    String name,
-    int durationMinutes,
-    int durationSeconds,
-    String? description,
-    String? icon,
-    String createdAt,
-    String? lastUsedAt,
-    int usageCount,
-    bool isDefault,
-  });
+  $Res call(
+      {String id,
+      String name,
+      int durationMinutes,
+      int durationSeconds,
+      String? description,
+      String? icon,
+      String createdAt,
+      String? lastUsedAt,
+      int usageCount,
+      bool isDefault});
 }
 
 /// @nodoc
 class __$$TimerPresetModelImplCopyWithImpl<$Res>
     extends _$TimerPresetModelCopyWithImpl<$Res, _$TimerPresetModelImpl>
     implements _$$TimerPresetModelImplCopyWith<$Res> {
-  __$$TimerPresetModelImplCopyWithImpl(
-    _$TimerPresetModelImpl _value,
-    $Res Function(_$TimerPresetModelImpl) _then,
-  ) : super(_value, _then);
+  __$$TimerPresetModelImplCopyWithImpl(_$TimerPresetModelImpl _value,
+      $Res Function(_$TimerPresetModelImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of TimerPresetModel
   /// with the given fields replaced by the non-null parameter values.
@@ -197,78 +178,66 @@ class __$$TimerPresetModelImplCopyWithImpl<$Res>
     Object? usageCount = null,
     Object? isDefault = null,
   }) {
-    return _then(
-      _$TimerPresetModelImpl(
-        id:
-            null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                    as String,
-        name:
-            null == name
-                ? _value.name
-                : name // ignore: cast_nullable_to_non_nullable
-                    as String,
-        durationMinutes:
-            null == durationMinutes
-                ? _value.durationMinutes
-                : durationMinutes // ignore: cast_nullable_to_non_nullable
-                    as int,
-        durationSeconds:
-            null == durationSeconds
-                ? _value.durationSeconds
-                : durationSeconds // ignore: cast_nullable_to_non_nullable
-                    as int,
-        description:
-            freezed == description
-                ? _value.description
-                : description // ignore: cast_nullable_to_non_nullable
-                    as String?,
-        icon:
-            freezed == icon
-                ? _value.icon
-                : icon // ignore: cast_nullable_to_non_nullable
-                    as String?,
-        createdAt:
-            null == createdAt
-                ? _value.createdAt
-                : createdAt // ignore: cast_nullable_to_non_nullable
-                    as String,
-        lastUsedAt:
-            freezed == lastUsedAt
-                ? _value.lastUsedAt
-                : lastUsedAt // ignore: cast_nullable_to_non_nullable
-                    as String?,
-        usageCount:
-            null == usageCount
-                ? _value.usageCount
-                : usageCount // ignore: cast_nullable_to_non_nullable
-                    as int,
-        isDefault:
-            null == isDefault
-                ? _value.isDefault
-                : isDefault // ignore: cast_nullable_to_non_nullable
-                    as bool,
-      ),
-    );
+    return _then(_$TimerPresetModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      durationMinutes: null == durationMinutes
+          ? _value.durationMinutes
+          : durationMinutes // ignore: cast_nullable_to_non_nullable
+              as int,
+      durationSeconds: null == durationSeconds
+          ? _value.durationSeconds
+          : durationSeconds // ignore: cast_nullable_to_non_nullable
+              as int,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      icon: freezed == icon
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastUsedAt: freezed == lastUsedAt
+          ? _value.lastUsedAt
+          : lastUsedAt // ignore: cast_nullable_to_non_nullable
+              as String?,
+      usageCount: null == usageCount
+          ? _value.usageCount
+          : usageCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      isDefault: null == isDefault
+          ? _value.isDefault
+          : isDefault // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$TimerPresetModelImpl extends _TimerPresetModel {
-  const _$TimerPresetModelImpl({
-    required this.id,
-    required this.name,
-    required this.durationMinutes,
-    required this.durationSeconds,
-    this.description,
-    this.icon,
-    required this.createdAt,
-    this.lastUsedAt,
-    this.usageCount = 0,
-    this.isDefault = false,
-  }) : super._();
+  const _$TimerPresetModelImpl(
+      {required this.id,
+      required this.name,
+      required this.durationMinutes,
+      required this.durationSeconds,
+      this.description,
+      this.icon,
+      required this.createdAt,
+      this.lastUsedAt,
+      this.usageCount = 0,
+      this.isDefault = false})
+      : super._();
 
   factory _$TimerPresetModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$TimerPresetModelImplFromJson(json);
@@ -287,10 +256,10 @@ class _$TimerPresetModelImpl extends _TimerPresetModel {
   final String? icon;
   @override
   final String createdAt;
-  // ISO string format
+// ISO string format
   @override
   final String? lastUsedAt;
-  // ISO string format
+// ISO string format
   @override
   @JsonKey()
   final int usageCount;
@@ -330,18 +299,17 @@ class _$TimerPresetModelImpl extends _TimerPresetModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-    runtimeType,
-    id,
-    name,
-    durationMinutes,
-    durationSeconds,
-    description,
-    icon,
-    createdAt,
-    lastUsedAt,
-    usageCount,
-    isDefault,
-  );
+      runtimeType,
+      id,
+      name,
+      durationMinutes,
+      durationSeconds,
+      description,
+      icon,
+      createdAt,
+      lastUsedAt,
+      usageCount,
+      isDefault);
 
   /// Create a copy of TimerPresetModel
   /// with the given fields replaced by the non-null parameter values.
@@ -350,29 +318,28 @@ class _$TimerPresetModelImpl extends _TimerPresetModel {
   @pragma('vm:prefer-inline')
   _$$TimerPresetModelImplCopyWith<_$TimerPresetModelImpl> get copyWith =>
       __$$TimerPresetModelImplCopyWithImpl<_$TimerPresetModelImpl>(
-        this,
-        _$identity,
-      );
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TimerPresetModelImplToJson(this);
+    return _$$TimerPresetModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _TimerPresetModel extends TimerPresetModel {
-  const factory _TimerPresetModel({
-    required final String id,
-    required final String name,
-    required final int durationMinutes,
-    required final int durationSeconds,
-    final String? description,
-    final String? icon,
-    required final String createdAt,
-    final String? lastUsedAt,
-    final int usageCount,
-    final bool isDefault,
-  }) = _$TimerPresetModelImpl;
+  const factory _TimerPresetModel(
+      {required final String id,
+      required final String name,
+      required final int durationMinutes,
+      required final int durationSeconds,
+      final String? description,
+      final String? icon,
+      required final String createdAt,
+      final String? lastUsedAt,
+      final int usageCount,
+      final bool isDefault}) = _$TimerPresetModelImpl;
   const _TimerPresetModel._() : super._();
 
   factory _TimerPresetModel.fromJson(Map<String, dynamic> json) =

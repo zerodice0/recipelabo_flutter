@@ -6,6 +6,7 @@ import 'package:saucerer_flutter/presentation/recipe/list/viewmodel/recipe_list_
 import 'package:saucerer_flutter/core/routes/app_router.dart';
 import 'package:saucerer_flutter/core/config/recipe_card_widget.dart';
 import 'package:saucerer_flutter/core/config/app_colors.dart';
+import 'package:saucerer_flutter/l10n/app_localizations.dart';
 
 class RecipeListScreen extends ConsumerWidget {
   final bool showAppBar;
@@ -19,14 +20,14 @@ class RecipeListScreen extends ConsumerWidget {
     return Scaffold(
       appBar: showAppBar
           ? AppBar(
-              title: const Text('나의 레시피'),
+              title: Text(AppLocalizations.of(context)!.recipeList),
               actions: [
                 IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: () {
                     context.push(AppRoutes.search);
                   },
-                  tooltip: '재료로 검색',
+                  tooltip: AppLocalizations.of(context)!.search,
                 ),
               ],
             )
@@ -90,7 +91,7 @@ class RecipeListScreen extends ConsumerWidget {
                       const SizedBox(height: 24),
 
                       Text(
-                        '아직 레시피가 없습니다',
+                        AppLocalizations.of(context)!.noRecipesYet,
                         style: Theme.of(
                           context,
                         ).textTheme.headlineSmall?.copyWith(
@@ -102,7 +103,7 @@ class RecipeListScreen extends ConsumerWidget {
                       const SizedBox(height: 12),
 
                       Text(
-                        '나만의 특별한 소스 레시피를\n만들어보세요!',
+                        AppLocalizations.of(context)!.createSpecialRecipe,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: AppColors.textBrown.withValues(alpha: 0.7),
                               height: 1.5,
@@ -120,7 +121,7 @@ class RecipeListScreen extends ConsumerWidget {
                               context.push(AppRoutes.recipeCreate);
                             },
                             icon: const Icon(Icons.add, size: 20),
-                            label: const Text('레시피 추가'),
+                            label: Text(AppLocalizations.of(context)!.addRecipe),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 20,
@@ -134,7 +135,7 @@ class RecipeListScreen extends ConsumerWidget {
                               context.push(AppRoutes.search);
                             },
                             icon: const Icon(Icons.search, size: 20),
-                            label: const Text('재료 검색'),
+                            label: Text(AppLocalizations.of(context)!.searchIngredients),
                             style: OutlinedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 20,
@@ -171,9 +172,9 @@ class RecipeListScreen extends ConsumerWidget {
               child: SelectableText.rich(
                 TextSpan(
                   children: [
-                    const TextSpan(
-                      text: '오류가 발생했습니다:\n\n',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    TextSpan(
+                      text: '${AppLocalizations.of(context)!.errorOccurred}:\n\n',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     TextSpan(text: error.toString()),
                   ],
@@ -206,9 +207,9 @@ class RecipeListScreen extends ConsumerWidget {
           elevation: 0,
           splashColor: AppColors.warmWhite.withValues(alpha: 0.2),
           icon: const Icon(Icons.add, color: AppColors.warmWhite, size: 24),
-          label: const Text(
-            '레시피 추가',
-            style: TextStyle(
+          label: Text(
+            AppLocalizations.of(context)!.addRecipe,
+            style: const TextStyle(
               color: AppColors.warmWhite,
               fontWeight: FontWeight.w600,
               fontSize: 16,
@@ -227,14 +228,12 @@ class RecipeListScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('레시피 삭제'),
-        content: Text(
-          '\'${recipe.name}\' 레시피를 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.',
-        ),
+        title: Text(AppLocalizations.of(context)!.delete),
+        content: Text(AppLocalizations.of(context)!.confirmDeleteRecipe),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('취소'),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           TextButton(
             onPressed: () async {
@@ -248,7 +247,7 @@ class RecipeListScreen extends ConsumerWidget {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('\'${recipe.name}\' 레시피가 삭제되었습니다'),
+                      content: Text(AppLocalizations.of(context)!.recipeDeleted),
                       backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
                   );
@@ -257,7 +256,7 @@ class RecipeListScreen extends ConsumerWidget {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('삭제 실패: $error'),
+                      content: Text('${AppLocalizations.of(context)!.deleteFailed}: $error'),
                       backgroundColor: Theme.of(context).colorScheme.error,
                     ),
                   );
@@ -267,7 +266,7 @@ class RecipeListScreen extends ConsumerWidget {
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(context).colorScheme.error,
             ),
-            child: const Text('삭제'),
+            child: Text(AppLocalizations.of(context)!.delete),
           ),
         ],
       ),

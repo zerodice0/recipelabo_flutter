@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saucerer_flutter/core/config/app_colors.dart';
+import 'package:saucerer_flutter/l10n/app_localizations.dart';
 
 /// 단위 추가 시 세부 카테고리 선택 다이얼로그
 class UnitCategoryDialog extends StatefulWidget {
@@ -90,10 +91,10 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
                 size: 28,
               ),
               const SizedBox(width: 12),
-              const Expanded(
+              Expanded(
                 child: Text(
-                  '단위 카테고리 선택',
-                  style: TextStyle(
+                  AppLocalizations.of(context)!.selectUnit,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppColors.textBrown,
                   ),
@@ -109,7 +110,7 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
-              '"${widget.unitName}" 단위가 어떤 종류인지 선택해주세요.',
+              AppLocalizations.of(context)!.unitTypeSelection(widget.unitName),
               style: const TextStyle(
                 fontSize: 14,
                 color: AppColors.textBrown,
@@ -208,7 +209,7 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
         TextButton(
           onPressed: widget.onCancel,
           child: Text(
-            '취소',
+            AppLocalizations.of(context)!.cancel,
             style: TextStyle(color: AppColors.textBrown.withValues(alpha: 0.7)),
           ),
         ),
@@ -223,7 +224,7 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
               borderRadius: BorderRadius.circular(8),
             ),
           ),
-          child: const Text('추가'),
+          child: Text(AppLocalizations.of(context)!.save),
         ),
       ],
     );

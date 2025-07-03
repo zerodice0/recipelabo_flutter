@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:saucerer_flutter/domain/entities/cooking_timer_entity.dart';
+import 'package:saucerer_flutter/l10n/app_localizations.dart';
 
 /// 요리 타이머 관리 서비스
 /// 백그라운드에서 타이머를 실행하고 완료 시 로컬 알림을 보냅니다.
@@ -121,7 +122,7 @@ class TimerService extends ChangeNotifier {
   }
 
   /// 타이머 시작
-  Future<void> startTimer(CookingTimerEntity timer) async {
+  Future<void> startTimer(CookingTimerEntity timer, [BuildContext? context]) async {
     debugPrint('=== TIMER START DEBUG ===');
     debugPrint('Timer ID: ${timer.id}');
     debugPrint('Timer name: ${timer.name}');
@@ -148,7 +149,7 @@ class TimerService extends ChangeNotifier {
     // 스케줄된 로컬 노티피케이션 설정 (백그라운드/앱 종료 시에도 작동)
     if (_hasNotificationPermission) {
       debugPrint('Scheduling notification...');
-      await _scheduleNotification(timer.id, timer.name, timer.formattedTotalTime, completionTime);
+      await _scheduleNotification(timer.id, timer.name, timer.formattedTotalTime, completionTime, context);
     } else {
       debugPrint('Notification permission not granted, skipping notification scheduling');
     }
@@ -176,7 +177,7 @@ class TimerService extends ChangeNotifier {
   }
 
   /// 스케줄된 로컬 노티피케이션 설정
-  Future<void> _scheduleNotification(String timerId, String timerName, String duration, DateTime scheduledTime) async {
+  Future<void> _scheduleNotification(String timerId, String timerName, String duration, DateTime scheduledTime, [BuildContext? context]) async {
     debugPrint('=== SCHEDULE NOTIFICATION DEBUG ===');
     debugPrint('Timer ID: $timerId');
     debugPrint('Timer Name: $timerName');
@@ -186,11 +187,25 @@ class TimerService extends ChangeNotifier {
     debugPrint('Time difference: ${scheduledTime.difference(DateTime.now()).inSeconds} seconds');
     
     try {
-      const AndroidNotificationDetails androidNotificationDetails =
+      // 다국어화를 위해 기본 텍스트 사용 (context가 없는 경우)
+      final channelName = context != null 
+          ? AppLocalizations.of(context).cookingTimerChannel 
+          : '요리 타이머';
+      final channelDescription = context != null
+          ? AppLocalizations.of(context).timerNotificationDescription
+          : '요리 타이머 완료 알림';
+      final notificationTitle = context != null
+          ? AppLocalizations.of(context).timerCompleteTitle(timerName)
+          : '🍳 $timerName 완료!';
+      final notificationBody = context != null
+          ? AppLocalizations.of(context).timerCompleteBody(duration)
+          : '$duration 타이머가 끝났습니다.';
+      
+      final AndroidNotificationDetails androidNotificationDetails =
           AndroidNotificationDetails(
         'cooking_timer_channel',
-        '요리 타이머',
-        channelDescription: '요리 타이머 완료 알림',
+        channelName,
+        channelDescription: channelDescription,
         importance: Importance.max, // max로 변경
         priority: Priority.max, // max로 변경
         showWhen: true,
@@ -207,7 +222,7 @@ class TimerService extends ChangeNotifier {
         sound: 'default',
       );
 
-      const NotificationDetails notificationDetails = NotificationDetails(
+      final NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails,
         iOS: iosNotificationDetails,
       );
@@ -218,8 +233,8 @@ class TimerService extends ChangeNotifier {
 
       await _flutterLocalNotificationsPlugin.zonedSchedule(
         timerId.hashCode, // 고유 ID
-        '🍳 $timerName 완료!',
-        '$duration 타이머가 끝났습니다.',
+        notificationTitle,
+        notificationBody,
         tzDateTime, // timezone 패키지 사용
         notificationDetails,
         androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle, // 정확한 시간에 알림
@@ -478,7 +493,7 @@ class TimerService extends ChangeNotifier {
       .length;
 
   /// 테스트용 즉시 노티피케이션 전송
-  Future<void> testNotification() async {
+  Future<void> testNotification([BuildContext? context]) async {
     debugPrint('=== TEST NOTIFICATION ===');
     
     if (!_isInitialized) {
@@ -495,11 +510,25 @@ class TimerService extends ChangeNotifier {
     }
     
     try {
-      const AndroidNotificationDetails androidNotificationDetails =
+      // 다국어화를 위해 기본 텍스트 사용 (context가 없는 경우)
+      final channelName = context != null 
+          ? AppLocalizations.of(context).testNotificationChannel 
+          : '테스트 알림';
+      final channelDescription = context != null
+          ? AppLocalizations.of(context).testNotificationDescription
+          : '노티피케이션 테스트용';
+      final notificationTitle = context != null
+          ? AppLocalizations.of(context).testNotificationTitle
+          : '🔔 테스트 알림';
+      final notificationBody = context != null
+          ? AppLocalizations.of(context).testNotificationBody
+          : '노티피케이션이 정상적으로 작동합니다!';
+      
+      final AndroidNotificationDetails androidNotificationDetails =
           AndroidNotificationDetails(
         'cooking_timer_test_channel',
-        '테스트 알림',
-        channelDescription: '노티피케이션 테스트용',
+        channelName,
+        channelDescription: channelDescription,
         importance: Importance.max,
         priority: Priority.high,
         showWhen: true,
@@ -515,15 +544,15 @@ class TimerService extends ChangeNotifier {
         sound: 'default',
       );
 
-      const NotificationDetails notificationDetails = NotificationDetails(
+      final NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails,
         iOS: iosNotificationDetails,
       );
 
       await _flutterLocalNotificationsPlugin.show(
         999, // 테스트용 고정 ID
-        '🔔 테스트 알림',
-        '노티피케이션이 정상적으로 작동합니다!',
+        notificationTitle,
+        notificationBody,
         notificationDetails,
         payload: 'test',
       );

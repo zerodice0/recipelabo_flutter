@@ -13,10 +13,9 @@ String _$pickImageUseCaseHash() => r'af036b903d965d324a5e488999e9b281add2aabc';
 final pickImageUseCaseProvider = AutoDisposeProvider<PickImageUseCase>.internal(
   pickImageUseCase,
   name: r'pickImageUseCaseProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$pickImageUseCaseHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$pickImageUseCaseHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -47,15 +46,14 @@ String _$imageStorageServiceHash() =>
 @ProviderFor(imageStorageService)
 final imageStorageServiceProvider =
     AutoDisposeProvider<ImageStorageService>.internal(
-      imageStorageService,
-      name: r'imageStorageServiceProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$imageStorageServiceHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+  imageStorageService,
+  name: r'imageStorageServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$imageStorageServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element

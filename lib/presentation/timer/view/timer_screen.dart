@@ -8,6 +8,7 @@ import 'package:saucerer_flutter/domain/entities/timer_preset_entity.dart';
 import 'package:saucerer_flutter/presentation/timer/widgets/timer_card_widget.dart';
 import 'package:saucerer_flutter/presentation/timer/widgets/timer_preset_selector.dart';
 import 'package:saucerer_flutter/presentation/timer/widgets/notification_permission_dialog.dart';
+import 'package:saucerer_flutter/l10n/app_localizations.dart';
 import 'package:uuid/uuid.dart';
 
 /// 타이머 메인 화면
@@ -55,63 +56,64 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
   }
 
   Future<List<TimerPresetEntity>> _initializeDefaultPresets() async {
+    final l10n = AppLocalizations.of(context);
     final defaultPresets = [
       TimerPresetEntity(
         id: '1',
-        name: '파스타 면 삶기',
+        name: l10n.pastaCooking,
         durationMinutes: 7,
         durationSeconds: 0,
-        description: '알덴테 파스타를 위한 표준 시간',
+        description: l10n.pastaCookingDescription,
         icon: 'pasta',
         createdAt: DateTime.now(),
         isDefault: true,
       ),
       TimerPresetEntity(
         id: '2',
-        name: '달걀 완숙',
+        name: l10n.hardBoiledEgg,
         durationMinutes: 8,
         durationSeconds: 0,
-        description: '완전히 익힌 삶은 달걀',
+        description: l10n.hardBoiledEggDescription,
         icon: 'egg',
         createdAt: DateTime.now(),
         isDefault: true,
       ),
       TimerPresetEntity(
         id: '3',
-        name: '달걀 반숙',
+        name: l10n.softBoiledEgg,
         durationMinutes: 6,
         durationSeconds: 0,
-        description: '노른자가 부드러운 반숙 달걀',
+        description: l10n.softBoiledEggDescription,
         icon: 'egg',
         createdAt: DateTime.now(),
         isDefault: true,
       ),
       TimerPresetEntity(
         id: '4',
-        name: '라면 끓이기',
+        name: l10n.instantNoodles,
         durationMinutes: 3,
         durationSeconds: 0,
-        description: '표준 라면 조리 시간',
+        description: l10n.instantNoodlesDescription,
         icon: 'noodles',
         createdAt: DateTime.now(),
         isDefault: true,
       ),
       TimerPresetEntity(
         id: '5',
-        name: '차 우리기',
+        name: l10n.teaBrewing,
         durationMinutes: 3,
         durationSeconds: 0,
-        description: '홍차나 녹차 우리는 시간',
+        description: l10n.teaBrewingDescription,
         icon: 'tea',
         createdAt: DateTime.now(),
         isDefault: true,
       ),
       TimerPresetEntity(
         id: '6',
-        name: '스테이크 굽기',
+        name: l10n.steakCooking,
         durationMinutes: 4,
         durationSeconds: 0,
-        description: '양면 각각 굽는 시간',
+        description: l10n.steakCookingDescription,
         icon: 'steak',
         createdAt: DateTime.now(),
         isDefault: true,
@@ -187,9 +189,9 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
         onSettings: () {
           // 설정 화면으로 이동하는 로직 추가 가능
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('설정 > 알림에서 타이머 알림을 활성화할 수 있습니다'),
-              duration: Duration(seconds: 3),
+            SnackBar(
+              content: Text(AppLocalizations.of(context).enableNotificationInSettings),
+              duration: const Duration(seconds: 3),
             ),
           );
         },
@@ -202,7 +204,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
         if (granted && mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: const Text('알림이 활성화되었습니다. 타이머 완료 시 알림을 받을 수 있습니다.'),
+              content: Text(AppLocalizations.of(context).notificationEnabled),
               backgroundColor: AppColors.supportGreen,
               duration: const Duration(seconds: 2),
             ),
@@ -210,9 +212,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
         } else if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: const Text(
-                '알림 권한이 거부되었습니다. 타이머는 사용할 수 있지만 완료 알림은 받을 수 없습니다.',
-              ),
+              content: Text(AppLocalizations.of(context).notificationPermissionDenied),
               backgroundColor: AppColors.primaryOrange,
               duration: const Duration(seconds: 3),
             ),
@@ -223,7 +223,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
 
     // 타이머 시작 (권한과 관계없이)
     final timer = timerFactory();
-    await _timerService.startTimer(timer);
+    await _timerService.startTimer(timer, context);
   }
 
   void _showCustomTimerDialog() {
@@ -243,11 +243,12 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final runningTimers = _timerService.runningTimers;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('요리 타이머'),
+        title: Text(l10n.cookingTimer),
         backgroundColor: AppColors.primaryOrange,
         foregroundColor: AppColors.warmWhite,
         actions: [
@@ -255,17 +256,17 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
           IconButton(
             icon: const Icon(Icons.notifications_active),
             onPressed: () async {
-              await _timerService.testNotification();
+              await _timerService.testNotification(context);
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('테스트 노티피케이션을 전송했습니다'),
-                    duration: Duration(seconds: 2),
+                  SnackBar(
+                    content: Text(l10n.testNotificationSent),
+                    duration: const Duration(seconds: 2),
                   ),
                 );
               }
             },
-            tooltip: '노티피케이션 테스트',
+            tooltip: l10n.notificationTest,
           ),
           if (_timerService.activeTimerCount > 0)
             Container(
@@ -276,7 +277,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                '${_timerService.activeTimerCount}개 진행중',
+                l10n.timersRunning(_timerService.activeTimerCount),
                 style: const TextStyle(
                   color: AppColors.warmWhite,
                   fontSize: 12,
@@ -295,7 +296,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  '진행 중인 타이머',
+                  l10n.runningTimers,
                   style: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: AppColors.textBrown,
@@ -333,14 +334,14 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
                   _loadPresets(); // 프리셋 목록 새로고침
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('${preset.name} 프리셋이 삭제되었습니다'),
+                      content: Text(l10n.presetDeleted(preset.name)),
                       backgroundColor: AppColors.supportGreen,
                     ),
                   );
                 } else if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('기본 프리셋은 삭제할 수 없습니다'),
+                    SnackBar(
+                      content: Text(l10n.cannotDeleteDefaultPreset),
                       backgroundColor: AppColors.primaryOrange,
                     ),
                   );
@@ -374,9 +375,9 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
             color: AppColors.warmWhite,
             size: 24,
           ),
-          label: const Text(
-            '커스텀 타이머',
-            style: TextStyle(
+          label: Text(
+            l10n.customTimer,
+            style: const TextStyle(
               color: AppColors.warmWhite,
               fontWeight: FontWeight.w600,
               fontSize: 16,
@@ -414,17 +415,19 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
   }
 
   Future<void> _createTimer() async {
+    final l10n = AppLocalizations.of(context);
+    
     if (_nameController.text.trim().isEmpty) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('타이머 이름을 입력해주세요')));
+      ).showSnackBar(SnackBar(content: Text(l10n.enterTimerName)));
       return;
     }
 
     if (_minutes == 0 && _seconds == 0) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('시간을 설정해주세요')));
+      ).showSnackBar(SnackBar(content: Text(l10n.setTime)));
       return;
     }
 
@@ -449,8 +452,8 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
 
         if (!success && mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('동일한 이름과 시간의 프리셋이 이미 존재합니다'),
+            SnackBar(
+              content: Text(l10n.presetAlreadyExists),
               backgroundColor: AppColors.primaryOrange,
             ),
           );
@@ -463,7 +466,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('$name 프리셋이 저장되었습니다'),
+              content: Text(l10n.presetSaved(name)),
               backgroundColor: AppColors.supportGreen,
             ),
           );
@@ -471,8 +474,8 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('프리셋 저장에 실패했습니다'),
+            SnackBar(
+              content: Text(l10n.failedToSavePreset),
               backgroundColor: AppColors.error,
             ),
           );
@@ -500,9 +503,10 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return AlertDialog(
-      title: const Text('커스텀 타이머 생성'),
+      title: Text(l10n.createCustomTimer),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -510,9 +514,9 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
             // 타이머 이름
             TextField(
               controller: _nameController,
-              decoration: const InputDecoration(
-                labelText: '타이머 이름',
-                hintText: '예: 스프 끓이기',
+              decoration: InputDecoration(
+                labelText: l10n.timerName,
+                hintText: l10n.timerNameHint,
               ),
               textCapitalization: TextCapitalization.sentences,
             ),
@@ -520,7 +524,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
 
             // 시간 설정
             Text(
-              '시간 설정',
+              l10n.timeSetting,
               style: theme.textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
@@ -533,7 +537,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
                 Expanded(
                   child: Column(
                     children: [
-                      Text('분', style: theme.textTheme.bodySmall),
+                      Text(l10n.minutes, style: theme.textTheme.bodySmall),
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: AppColors.accent),
@@ -575,7 +579,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
                 Expanded(
                   child: Column(
                     children: [
-                      Text('초', style: theme.textTheme.bodySmall),
+                      Text(l10n.seconds, style: theme.textTheme.bodySmall),
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: AppColors.accent),
@@ -619,9 +623,9 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
             // 설명 (선택사항)
             TextField(
               controller: _descriptionController,
-              decoration: const InputDecoration(
-                labelText: '설명 (선택사항)',
-                hintText: '타이머에 대한 메모',
+              decoration: InputDecoration(
+                labelText: l10n.descriptionOptional,
+                hintText: l10n.timerDescriptionHint,
               ),
               maxLines: 2,
             ),
@@ -654,7 +658,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '프리셋으로 저장',
+                          l10n.saveAsPreset,
                           style: theme.textTheme.titleSmall?.copyWith(
                             fontWeight: FontWeight.w600,
                             color: AppColors.textBrown,
@@ -662,7 +666,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          '다음에도 사용할 수 있도록 저장합니다',
+                          l10n.saveAsPresetDescription,
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: AppColors.textBrown.withValues(alpha: 0.7),
                           ),
@@ -679,9 +683,9 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('취소'),
+          child: Text(l10n.cancel),
         ),
-        ElevatedButton(onPressed: _createTimer, child: const Text('시작')),
+        ElevatedButton(onPressed: _createTimer, child: Text(l10n.start)),
       ],
     );
   }

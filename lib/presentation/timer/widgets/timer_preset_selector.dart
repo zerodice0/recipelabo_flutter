@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saucerer_flutter/core/config/app_colors.dart';
 import 'package:saucerer_flutter/domain/entities/timer_preset_entity.dart';
+import 'package:saucerer_flutter/l10n/app_localizations.dart';
 
 /// 타이머 프리셋 선택 위젯
 /// 자주 사용하는 타이머 프리셋을 그리드로 표시합니다.
@@ -120,7 +121,7 @@ class TimerPresetSelector extends StatelessWidget {
                 TextButton.icon(
                   onPressed: onAddCustomTimer,
                   icon: const Icon(Icons.add, size: 18),
-                  label: const Text('커스텀'),
+                  label: Text(AppLocalizations.of(context).customTimer),
                   style: TextButton.styleFrom(
                     foregroundColor: AppColors.primaryOrange,
                   ),
@@ -253,7 +254,7 @@ class TimerPresetSelector extends StatelessWidget {
                                 // 사용 횟수 (기본 프리셋이 아닌 경우)
                                 if (!preset.isDefault && preset.usageCount > 0)
                                   Text(
-                                    '${preset.usageCount}번 사용',
+                                    AppLocalizations.of(context).usedTimes(preset.usageCount),
                                     style: theme.textTheme.bodySmall?.copyWith(
                                       color: AppColors.textBrown.withValues(
                                         alpha: 0.6,

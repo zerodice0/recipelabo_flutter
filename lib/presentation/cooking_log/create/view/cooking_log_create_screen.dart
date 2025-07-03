@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:saucerer_flutter/presentation/cooking_log/create/viewmodel/cooking_log_create_viewmodel.dart';
+import 'package:saucerer_flutter/l10n/app_localizations.dart';
 
 class CookingLogCreateScreen extends ConsumerStatefulWidget {
   final String recipeVersionId;
@@ -95,7 +96,7 @@ class _CookingLogCreateScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('쿠킹 로그 작성'),
+        title: Text(AppLocalizations.of(context)!.writeCookingLog),
         actions: [
           if (state.isLoading)
             const Center(
@@ -120,7 +121,7 @@ class _CookingLogCreateScreenState
                   );
                 }
               },
-              child: const Text('저장'),
+              child: Text(AppLocalizations.of(context)!.save),
             ),
         ],
       ),
@@ -155,7 +156,7 @@ class _CookingLogCreateScreenState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '레시피 정보',
+              AppLocalizations.of(context)!.recipeInfo,
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -183,7 +184,7 @@ class _CookingLogCreateScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '제목 *',
+          AppLocalizations.of(context)!.titleRequired,
           style: Theme.of(
             context,
           ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -191,13 +192,13 @@ class _CookingLogCreateScreenState
         const SizedBox(height: 8),
         TextFormField(
           controller: _titleController,
-          decoration: const InputDecoration(
-            hintText: '쿠킹 로그 제목을 입력하세요',
-            border: OutlineInputBorder(),
+          decoration: InputDecoration(
+            hintText: AppLocalizations.of(context)!.cookingLogTitleHint,
+            border: const OutlineInputBorder(),
           ),
           validator: (value) {
             if (value == null || value.trim().isEmpty) {
-              return '제목을 입력해주세요';
+              return AppLocalizations.of(context)!.enterTitle;
             }
             return null;
           },
@@ -211,7 +212,7 @@ class _CookingLogCreateScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '요리한 날짜 및 시간 *',
+          AppLocalizations.of(context)!.cookingDateTimeRequired,
           style: Theme.of(
             context,
           ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -237,7 +238,7 @@ class _CookingLogCreateScreenState
                   child: Text(
                     state.cookedAt != null
                         ? '${_formatDate(state.cookedAt!)} ${_formatTime(state.cookedAt!)}'
-                        : '날짜와 시간을 선택하세요',
+                        : AppLocalizations.of(context)!.selectDateTime,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
@@ -261,7 +262,7 @@ class _CookingLogCreateScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '사진',
+          AppLocalizations.of(context)!.photo,
           style: Theme.of(
             context,
           ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -359,7 +360,7 @@ class _CookingLogCreateScreenState
           ),
           const SizedBox(height: 8),
           Text(
-            '사진 추가',
+            AppLocalizations.of(context)!.addPhoto,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
@@ -379,7 +380,7 @@ class _CookingLogCreateScreenState
             children: [
               ListTile(
                 leading: const Icon(Icons.camera_alt),
-                title: const Text('카메라로 촬영'),
+                title: Text(AppLocalizations.of(context)!.takeWithCamera),
                 onTap: () {
                   context.pop();
                   viewModel.pickImageFromCamera();
@@ -387,7 +388,7 @@ class _CookingLogCreateScreenState
               ),
               ListTile(
                 leading: const Icon(Icons.photo_library),
-                title: const Text('갤러리에서 선택'),
+                title: Text(AppLocalizations.of(context)!.selectFromGallery),
                 onTap: () {
                   context.pop();
                   viewModel.pickImageFromGallery();
@@ -406,7 +407,7 @@ class _CookingLogCreateScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '메모',
+          AppLocalizations.of(context)!.memo,
           style: Theme.of(
             context,
           ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -414,9 +415,9 @@ class _CookingLogCreateScreenState
         const SizedBox(height: 8),
         TextFormField(
           controller: _memoController,
-          decoration: const InputDecoration(
-            hintText: '요리하면서 느낀 점이나 개선사항을 적어보세요',
-            border: OutlineInputBorder(),
+          decoration: InputDecoration(
+            hintText: AppLocalizations.of(context)!.cookingMemoHint,
+            border: const OutlineInputBorder(),
           ),
           maxLines: 5,
         ),

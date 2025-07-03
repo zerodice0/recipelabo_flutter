@@ -12,8 +12,7 @@ part of 'timer_preset_entity.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$TimerPresetEntity {
@@ -40,22 +39,20 @@ mixin _$TimerPresetEntity {
 /// @nodoc
 abstract class $TimerPresetEntityCopyWith<$Res> {
   factory $TimerPresetEntityCopyWith(
-    TimerPresetEntity value,
-    $Res Function(TimerPresetEntity) then,
-  ) = _$TimerPresetEntityCopyWithImpl<$Res, TimerPresetEntity>;
+          TimerPresetEntity value, $Res Function(TimerPresetEntity) then) =
+      _$TimerPresetEntityCopyWithImpl<$Res, TimerPresetEntity>;
   @useResult
-  $Res call({
-    String id,
-    String name,
-    int durationMinutes,
-    int durationSeconds,
-    String? description,
-    String? icon,
-    DateTime createdAt,
-    DateTime? lastUsedAt,
-    int usageCount,
-    bool isDefault,
-  });
+  $Res call(
+      {String id,
+      String name,
+      int durationMinutes,
+      int durationSeconds,
+      String? description,
+      String? icon,
+      DateTime createdAt,
+      DateTime? lastUsedAt,
+      int usageCount,
+      bool isDefault});
 }
 
 /// @nodoc
@@ -84,95 +81,79 @@ class _$TimerPresetEntityCopyWithImpl<$Res, $Val extends TimerPresetEntity>
     Object? usageCount = null,
     Object? isDefault = null,
   }) {
-    return _then(
-      _value.copyWith(
-            id:
-                null == id
-                    ? _value.id
-                    : id // ignore: cast_nullable_to_non_nullable
-                        as String,
-            name:
-                null == name
-                    ? _value.name
-                    : name // ignore: cast_nullable_to_non_nullable
-                        as String,
-            durationMinutes:
-                null == durationMinutes
-                    ? _value.durationMinutes
-                    : durationMinutes // ignore: cast_nullable_to_non_nullable
-                        as int,
-            durationSeconds:
-                null == durationSeconds
-                    ? _value.durationSeconds
-                    : durationSeconds // ignore: cast_nullable_to_non_nullable
-                        as int,
-            description:
-                freezed == description
-                    ? _value.description
-                    : description // ignore: cast_nullable_to_non_nullable
-                        as String?,
-            icon:
-                freezed == icon
-                    ? _value.icon
-                    : icon // ignore: cast_nullable_to_non_nullable
-                        as String?,
-            createdAt:
-                null == createdAt
-                    ? _value.createdAt
-                    : createdAt // ignore: cast_nullable_to_non_nullable
-                        as DateTime,
-            lastUsedAt:
-                freezed == lastUsedAt
-                    ? _value.lastUsedAt
-                    : lastUsedAt // ignore: cast_nullable_to_non_nullable
-                        as DateTime?,
-            usageCount:
-                null == usageCount
-                    ? _value.usageCount
-                    : usageCount // ignore: cast_nullable_to_non_nullable
-                        as int,
-            isDefault:
-                null == isDefault
-                    ? _value.isDefault
-                    : isDefault // ignore: cast_nullable_to_non_nullable
-                        as bool,
-          )
-          as $Val,
-    );
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      durationMinutes: null == durationMinutes
+          ? _value.durationMinutes
+          : durationMinutes // ignore: cast_nullable_to_non_nullable
+              as int,
+      durationSeconds: null == durationSeconds
+          ? _value.durationSeconds
+          : durationSeconds // ignore: cast_nullable_to_non_nullable
+              as int,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      icon: freezed == icon
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      lastUsedAt: freezed == lastUsedAt
+          ? _value.lastUsedAt
+          : lastUsedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      usageCount: null == usageCount
+          ? _value.usageCount
+          : usageCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      isDefault: null == isDefault
+          ? _value.isDefault
+          : isDefault // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ) as $Val);
   }
 }
 
 /// @nodoc
 abstract class _$$TimerPresetEntityImplCopyWith<$Res>
     implements $TimerPresetEntityCopyWith<$Res> {
-  factory _$$TimerPresetEntityImplCopyWith(
-    _$TimerPresetEntityImpl value,
-    $Res Function(_$TimerPresetEntityImpl) then,
-  ) = __$$TimerPresetEntityImplCopyWithImpl<$Res>;
+  factory _$$TimerPresetEntityImplCopyWith(_$TimerPresetEntityImpl value,
+          $Res Function(_$TimerPresetEntityImpl) then) =
+      __$$TimerPresetEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    String id,
-    String name,
-    int durationMinutes,
-    int durationSeconds,
-    String? description,
-    String? icon,
-    DateTime createdAt,
-    DateTime? lastUsedAt,
-    int usageCount,
-    bool isDefault,
-  });
+  $Res call(
+      {String id,
+      String name,
+      int durationMinutes,
+      int durationSeconds,
+      String? description,
+      String? icon,
+      DateTime createdAt,
+      DateTime? lastUsedAt,
+      int usageCount,
+      bool isDefault});
 }
 
 /// @nodoc
 class __$$TimerPresetEntityImplCopyWithImpl<$Res>
     extends _$TimerPresetEntityCopyWithImpl<$Res, _$TimerPresetEntityImpl>
     implements _$$TimerPresetEntityImplCopyWith<$Res> {
-  __$$TimerPresetEntityImplCopyWithImpl(
-    _$TimerPresetEntityImpl _value,
-    $Res Function(_$TimerPresetEntityImpl) _then,
-  ) : super(_value, _then);
+  __$$TimerPresetEntityImplCopyWithImpl(_$TimerPresetEntityImpl _value,
+      $Res Function(_$TimerPresetEntityImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of TimerPresetEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -190,105 +171,93 @@ class __$$TimerPresetEntityImplCopyWithImpl<$Res>
     Object? usageCount = null,
     Object? isDefault = null,
   }) {
-    return _then(
-      _$TimerPresetEntityImpl(
-        id:
-            null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                    as String,
-        name:
-            null == name
-                ? _value.name
-                : name // ignore: cast_nullable_to_non_nullable
-                    as String,
-        durationMinutes:
-            null == durationMinutes
-                ? _value.durationMinutes
-                : durationMinutes // ignore: cast_nullable_to_non_nullable
-                    as int,
-        durationSeconds:
-            null == durationSeconds
-                ? _value.durationSeconds
-                : durationSeconds // ignore: cast_nullable_to_non_nullable
-                    as int,
-        description:
-            freezed == description
-                ? _value.description
-                : description // ignore: cast_nullable_to_non_nullable
-                    as String?,
-        icon:
-            freezed == icon
-                ? _value.icon
-                : icon // ignore: cast_nullable_to_non_nullable
-                    as String?,
-        createdAt:
-            null == createdAt
-                ? _value.createdAt
-                : createdAt // ignore: cast_nullable_to_non_nullable
-                    as DateTime,
-        lastUsedAt:
-            freezed == lastUsedAt
-                ? _value.lastUsedAt
-                : lastUsedAt // ignore: cast_nullable_to_non_nullable
-                    as DateTime?,
-        usageCount:
-            null == usageCount
-                ? _value.usageCount
-                : usageCount // ignore: cast_nullable_to_non_nullable
-                    as int,
-        isDefault:
-            null == isDefault
-                ? _value.isDefault
-                : isDefault // ignore: cast_nullable_to_non_nullable
-                    as bool,
-      ),
-    );
+    return _then(_$TimerPresetEntityImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      durationMinutes: null == durationMinutes
+          ? _value.durationMinutes
+          : durationMinutes // ignore: cast_nullable_to_non_nullable
+              as int,
+      durationSeconds: null == durationSeconds
+          ? _value.durationSeconds
+          : durationSeconds // ignore: cast_nullable_to_non_nullable
+              as int,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      icon: freezed == icon
+          ? _value.icon
+          : icon // ignore: cast_nullable_to_non_nullable
+              as String?,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      lastUsedAt: freezed == lastUsedAt
+          ? _value.lastUsedAt
+          : lastUsedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      usageCount: null == usageCount
+          ? _value.usageCount
+          : usageCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      isDefault: null == isDefault
+          ? _value.isDefault
+          : isDefault // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
   }
 }
 
 /// @nodoc
 
 class _$TimerPresetEntityImpl extends _TimerPresetEntity {
-  const _$TimerPresetEntityImpl({
-    required this.id,
-    required this.name,
-    required this.durationMinutes,
-    required this.durationSeconds,
-    this.description,
-    this.icon,
-    required this.createdAt,
-    this.lastUsedAt,
-    this.usageCount = 0,
-    this.isDefault = false,
-  }) : super._();
+  const _$TimerPresetEntityImpl(
+      {required this.id,
+      required this.name,
+      required this.durationMinutes,
+      required this.durationSeconds,
+      this.description,
+      this.icon,
+      required this.createdAt,
+      this.lastUsedAt,
+      this.usageCount = 0,
+      this.isDefault = false})
+      : super._();
 
   @override
   final String id;
   @override
   final String name;
-  // 예: "파스타 면 삶기", "달걀 완숙"
+// 예: "파스타 면 삶기", "달걀 완숙"
   @override
   final int durationMinutes;
-  // 분 단위 시간
+// 분 단위 시간
   @override
   final int durationSeconds;
-  // 초 단위 시간 (추가)
+// 초 단위 시간 (추가)
   @override
   final String? description;
-  // 타이머 설명
+// 타이머 설명
   @override
   final String? icon;
-  // 아이콘 이름 (예: "pasta", "egg")
+// 아이콘 이름 (예: "pasta", "egg")
   @override
   final DateTime createdAt;
   @override
   final DateTime? lastUsedAt;
-  // 마지막 사용 시간
+// 마지막 사용 시간
   @override
   @JsonKey()
   final int usageCount;
-  // 사용 횟수
+// 사용 횟수
   @override
   @JsonKey()
   final bool isDefault;
@@ -324,18 +293,17 @@ class _$TimerPresetEntityImpl extends _TimerPresetEntity {
 
   @override
   int get hashCode => Object.hash(
-    runtimeType,
-    id,
-    name,
-    durationMinutes,
-    durationSeconds,
-    description,
-    icon,
-    createdAt,
-    lastUsedAt,
-    usageCount,
-    isDefault,
-  );
+      runtimeType,
+      id,
+      name,
+      durationMinutes,
+      durationSeconds,
+      description,
+      icon,
+      createdAt,
+      lastUsedAt,
+      usageCount,
+      isDefault);
 
   /// Create a copy of TimerPresetEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -344,24 +312,21 @@ class _$TimerPresetEntityImpl extends _TimerPresetEntity {
   @pragma('vm:prefer-inline')
   _$$TimerPresetEntityImplCopyWith<_$TimerPresetEntityImpl> get copyWith =>
       __$$TimerPresetEntityImplCopyWithImpl<_$TimerPresetEntityImpl>(
-        this,
-        _$identity,
-      );
+          this, _$identity);
 }
 
 abstract class _TimerPresetEntity extends TimerPresetEntity {
-  const factory _TimerPresetEntity({
-    required final String id,
-    required final String name,
-    required final int durationMinutes,
-    required final int durationSeconds,
-    final String? description,
-    final String? icon,
-    required final DateTime createdAt,
-    final DateTime? lastUsedAt,
-    final int usageCount,
-    final bool isDefault,
-  }) = _$TimerPresetEntityImpl;
+  const factory _TimerPresetEntity(
+      {required final String id,
+      required final String name,
+      required final int durationMinutes,
+      required final int durationSeconds,
+      final String? description,
+      final String? icon,
+      required final DateTime createdAt,
+      final DateTime? lastUsedAt,
+      final int usageCount,
+      final bool isDefault}) = _$TimerPresetEntityImpl;
   const _TimerPresetEntity._() : super._();
 
   @override

@@ -8,6 +8,7 @@ import 'package:saucerer_flutter/presentation/timer/view/timer_screen.dart';
 import 'package:saucerer_flutter/presentation/main/viewmodel/main_navigation_viewmodel.dart';
 import 'package:saucerer_flutter/core/services/timer_service.dart';
 import 'package:saucerer_flutter/core/config/app_colors.dart';
+import 'package:saucerer_flutter/l10n/app_localizations.dart';
 
 class MainNavigationScreen extends ConsumerWidget {
   const MainNavigationScreen({super.key});
@@ -33,14 +34,23 @@ class MainNavigationScreen extends ConsumerWidget {
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: Theme.of(context).colorScheme.onSurfaceVariant,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant_menu),
-            label: '레시피',
+            icon: const Icon(Icons.restaurant_menu),
+            label: AppLocalizations.of(context)!.recipes,
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: '검색'),
-          BottomNavigationBarItem(icon: Icon(Icons.timer), label: '타이머'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: '설정'),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.search), 
+            label: AppLocalizations.of(context)!.search
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.timer), 
+            label: AppLocalizations.of(context)!.timer
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.settings), 
+            label: AppLocalizations.of(context)!.settings
+          ),
         ],
       ),
     );
@@ -54,7 +64,10 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('설정'), automaticallyImplyLeading: false),
+      appBar: AppBar(
+        title: Text(AppLocalizations.of(context)!.settings), 
+        automaticallyImplyLeading: false
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -105,7 +118,7 @@ class ProfileScreen extends StatelessWidget {
 
           // 관리 섹션
           Text(
-            '관리',
+            AppLocalizations.of(context)!.management,
             style: Theme.of(
               context,
             ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -117,8 +130,8 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 ListTile(
                   leading: const Icon(Icons.spa),
-                  title: const Text('조미료/단위 관리'),
-                  subtitle: const Text('조미료/단위 추가, 수정, 삭제'),
+                  title: Text(AppLocalizations.of(context)!.seasoningUnitManagement),
+                  subtitle: Text(AppLocalizations.of(context)!.seasoningUnitDescription),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     context.push('/settings/seasonings');
@@ -148,7 +161,7 @@ class ProfileScreen extends StatelessWidget {
 
           // 앱 정보 섹션
           Text(
-            '앱 정보',
+            AppLocalizations.of(context)!.appInfo,
             style: Theme.of(
               context,
             ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -160,14 +173,14 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 ListTile(
                   leading: const Icon(Icons.info_outline),
-                  title: const Text('버전'),
+                  title: Text(AppLocalizations.of(context)!.version),
                   subtitle: const Text('1.0.0'),
                   trailing: const Icon(Icons.chevron_right),
                 ),
                 const Divider(height: 1),
                 ListTile(
                   leading: const Icon(Icons.description),
-                  title: const Text('라이선스'),
+                  title: Text(AppLocalizations.of(context)!.license),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     showLicensePage(context: context);

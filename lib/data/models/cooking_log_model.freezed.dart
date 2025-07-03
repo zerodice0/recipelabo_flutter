@@ -12,8 +12,7 @@ part of 'cooking_log_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 CookingLogModel _$CookingLogModelFromJson(Map<String, dynamic> json) {
   return _CookingLogModel.fromJson(json);
@@ -45,22 +44,20 @@ mixin _$CookingLogModel {
 /// @nodoc
 abstract class $CookingLogModelCopyWith<$Res> {
   factory $CookingLogModelCopyWith(
-    CookingLogModel value,
-    $Res Function(CookingLogModel) then,
-  ) = _$CookingLogModelCopyWithImpl<$Res, CookingLogModel>;
+          CookingLogModel value, $Res Function(CookingLogModel) then) =
+      _$CookingLogModelCopyWithImpl<$Res, CookingLogModel>;
   @useResult
-  $Res call({
-    String id,
-    String recipeVersionId,
-    String authorId,
-    String title,
-    String? memo,
-    String? imageUrl,
-    DateTime cookedAt,
-    DateTime createdAt,
-    DateTime updatedAt,
-    bool isDeleted,
-  });
+  $Res call(
+      {String id,
+      String recipeVersionId,
+      String authorId,
+      String title,
+      String? memo,
+      String? imageUrl,
+      DateTime cookedAt,
+      DateTime createdAt,
+      DateTime updatedAt,
+      bool isDeleted});
 }
 
 /// @nodoc
@@ -89,85 +86,70 @@ class _$CookingLogModelCopyWithImpl<$Res, $Val extends CookingLogModel>
     Object? updatedAt = null,
     Object? isDeleted = null,
   }) {
-    return _then(
-      _value.copyWith(
-            id:
-                null == id
-                    ? _value.id
-                    : id // ignore: cast_nullable_to_non_nullable
-                        as String,
-            recipeVersionId:
-                null == recipeVersionId
-                    ? _value.recipeVersionId
-                    : recipeVersionId // ignore: cast_nullable_to_non_nullable
-                        as String,
-            authorId:
-                null == authorId
-                    ? _value.authorId
-                    : authorId // ignore: cast_nullable_to_non_nullable
-                        as String,
-            title:
-                null == title
-                    ? _value.title
-                    : title // ignore: cast_nullable_to_non_nullable
-                        as String,
-            memo:
-                freezed == memo
-                    ? _value.memo
-                    : memo // ignore: cast_nullable_to_non_nullable
-                        as String?,
-            imageUrl:
-                freezed == imageUrl
-                    ? _value.imageUrl
-                    : imageUrl // ignore: cast_nullable_to_non_nullable
-                        as String?,
-            cookedAt:
-                null == cookedAt
-                    ? _value.cookedAt
-                    : cookedAt // ignore: cast_nullable_to_non_nullable
-                        as DateTime,
-            createdAt:
-                null == createdAt
-                    ? _value.createdAt
-                    : createdAt // ignore: cast_nullable_to_non_nullable
-                        as DateTime,
-            updatedAt:
-                null == updatedAt
-                    ? _value.updatedAt
-                    : updatedAt // ignore: cast_nullable_to_non_nullable
-                        as DateTime,
-            isDeleted:
-                null == isDeleted
-                    ? _value.isDeleted
-                    : isDeleted // ignore: cast_nullable_to_non_nullable
-                        as bool,
-          )
-          as $Val,
-    );
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      recipeVersionId: null == recipeVersionId
+          ? _value.recipeVersionId
+          : recipeVersionId // ignore: cast_nullable_to_non_nullable
+              as String,
+      authorId: null == authorId
+          ? _value.authorId
+          : authorId // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      memo: freezed == memo
+          ? _value.memo
+          : memo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cookedAt: null == cookedAt
+          ? _value.cookedAt
+          : cookedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      isDeleted: null == isDeleted
+          ? _value.isDeleted
+          : isDeleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ) as $Val);
   }
 }
 
 /// @nodoc
 abstract class _$$CookingLogModelImplCopyWith<$Res>
     implements $CookingLogModelCopyWith<$Res> {
-  factory _$$CookingLogModelImplCopyWith(
-    _$CookingLogModelImpl value,
-    $Res Function(_$CookingLogModelImpl) then,
-  ) = __$$CookingLogModelImplCopyWithImpl<$Res>;
+  factory _$$CookingLogModelImplCopyWith(_$CookingLogModelImpl value,
+          $Res Function(_$CookingLogModelImpl) then) =
+      __$$CookingLogModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    String id,
-    String recipeVersionId,
-    String authorId,
-    String title,
-    String? memo,
-    String? imageUrl,
-    DateTime cookedAt,
-    DateTime createdAt,
-    DateTime updatedAt,
-    bool isDeleted,
-  });
+  $Res call(
+      {String id,
+      String recipeVersionId,
+      String authorId,
+      String title,
+      String? memo,
+      String? imageUrl,
+      DateTime cookedAt,
+      DateTime createdAt,
+      DateTime updatedAt,
+      bool isDeleted});
 }
 
 /// @nodoc
@@ -175,9 +157,8 @@ class __$$CookingLogModelImplCopyWithImpl<$Res>
     extends _$CookingLogModelCopyWithImpl<$Res, _$CookingLogModelImpl>
     implements _$$CookingLogModelImplCopyWith<$Res> {
   __$$CookingLogModelImplCopyWithImpl(
-    _$CookingLogModelImpl _value,
-    $Res Function(_$CookingLogModelImpl) _then,
-  ) : super(_value, _then);
+      _$CookingLogModelImpl _value, $Res Function(_$CookingLogModelImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of CookingLogModel
   /// with the given fields replaced by the non-null parameter values.
@@ -195,78 +176,65 @@ class __$$CookingLogModelImplCopyWithImpl<$Res>
     Object? updatedAt = null,
     Object? isDeleted = null,
   }) {
-    return _then(
-      _$CookingLogModelImpl(
-        id:
-            null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                    as String,
-        recipeVersionId:
-            null == recipeVersionId
-                ? _value.recipeVersionId
-                : recipeVersionId // ignore: cast_nullable_to_non_nullable
-                    as String,
-        authorId:
-            null == authorId
-                ? _value.authorId
-                : authorId // ignore: cast_nullable_to_non_nullable
-                    as String,
-        title:
-            null == title
-                ? _value.title
-                : title // ignore: cast_nullable_to_non_nullable
-                    as String,
-        memo:
-            freezed == memo
-                ? _value.memo
-                : memo // ignore: cast_nullable_to_non_nullable
-                    as String?,
-        imageUrl:
-            freezed == imageUrl
-                ? _value.imageUrl
-                : imageUrl // ignore: cast_nullable_to_non_nullable
-                    as String?,
-        cookedAt:
-            null == cookedAt
-                ? _value.cookedAt
-                : cookedAt // ignore: cast_nullable_to_non_nullable
-                    as DateTime,
-        createdAt:
-            null == createdAt
-                ? _value.createdAt
-                : createdAt // ignore: cast_nullable_to_non_nullable
-                    as DateTime,
-        updatedAt:
-            null == updatedAt
-                ? _value.updatedAt
-                : updatedAt // ignore: cast_nullable_to_non_nullable
-                    as DateTime,
-        isDeleted:
-            null == isDeleted
-                ? _value.isDeleted
-                : isDeleted // ignore: cast_nullable_to_non_nullable
-                    as bool,
-      ),
-    );
+    return _then(_$CookingLogModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      recipeVersionId: null == recipeVersionId
+          ? _value.recipeVersionId
+          : recipeVersionId // ignore: cast_nullable_to_non_nullable
+              as String,
+      authorId: null == authorId
+          ? _value.authorId
+          : authorId // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      memo: freezed == memo
+          ? _value.memo
+          : memo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cookedAt: null == cookedAt
+          ? _value.cookedAt
+          : cookedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      isDeleted: null == isDeleted
+          ? _value.isDeleted
+          : isDeleted // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CookingLogModelImpl implements _CookingLogModel {
-  const _$CookingLogModelImpl({
-    required this.id,
-    required this.recipeVersionId,
-    required this.authorId,
-    required this.title,
-    this.memo,
-    this.imageUrl,
-    required this.cookedAt,
-    required this.createdAt,
-    required this.updatedAt,
-    this.isDeleted = false,
-  });
+  const _$CookingLogModelImpl(
+      {required this.id,
+      required this.recipeVersionId,
+      required this.authorId,
+      required this.title,
+      this.memo,
+      this.imageUrl,
+      required this.cookedAt,
+      required this.createdAt,
+      required this.updatedAt,
+      this.isDeleted = false});
 
   factory _$CookingLogModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CookingLogModelImplFromJson(json);
@@ -324,19 +292,8 @@ class _$CookingLogModelImpl implements _CookingLogModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    id,
-    recipeVersionId,
-    authorId,
-    title,
-    memo,
-    imageUrl,
-    cookedAt,
-    createdAt,
-    updatedAt,
-    isDeleted,
-  );
+  int get hashCode => Object.hash(runtimeType, id, recipeVersionId, authorId,
+      title, memo, imageUrl, cookedAt, createdAt, updatedAt, isDeleted);
 
   /// Create a copy of CookingLogModel
   /// with the given fields replaced by the non-null parameter values.
@@ -345,29 +302,28 @@ class _$CookingLogModelImpl implements _CookingLogModel {
   @pragma('vm:prefer-inline')
   _$$CookingLogModelImplCopyWith<_$CookingLogModelImpl> get copyWith =>
       __$$CookingLogModelImplCopyWithImpl<_$CookingLogModelImpl>(
-        this,
-        _$identity,
-      );
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CookingLogModelImplToJson(this);
+    return _$$CookingLogModelImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _CookingLogModel implements CookingLogModel {
-  const factory _CookingLogModel({
-    required final String id,
-    required final String recipeVersionId,
-    required final String authorId,
-    required final String title,
-    final String? memo,
-    final String? imageUrl,
-    required final DateTime cookedAt,
-    required final DateTime createdAt,
-    required final DateTime updatedAt,
-    final bool isDeleted,
-  }) = _$CookingLogModelImpl;
+  const factory _CookingLogModel(
+      {required final String id,
+      required final String recipeVersionId,
+      required final String authorId,
+      required final String title,
+      final String? memo,
+      final String? imageUrl,
+      required final DateTime cookedAt,
+      required final DateTime createdAt,
+      required final DateTime updatedAt,
+      final bool isDeleted}) = _$CookingLogModelImpl;
 
   factory _CookingLogModel.fromJson(Map<String, dynamic> json) =
       _$CookingLogModelImpl.fromJson;

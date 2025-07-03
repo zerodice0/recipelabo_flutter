@@ -1,0 +1,40 @@
+Key,Korean,English,Japanese,Description
+recipes,레시피,Recipes,レシピ,레시피 탭 제목
+search,검색,Search,検索,검색 탭 제목
+timer,타이머,Timer,タイマー,타이머 탭 제목
+settings,설정,Settings,設定,설정 탭 제목
+addRecipe,레시피 추가,Add Recipe,レシピ追加,레시피 추가 버튼
+editRecipe,레시피 편집,Edit Recipe,レシピ編集,레시피 편집 화면 제목
+recipeDetail,레시피 상세,Recipe Detail,レシピ詳細,레시피 상세 화면 제목
+recipeList,나의 레시피,My Recipes,私のレシピ,레시피 목록 화면 제목
+noRecipesYet,아직 레시피가 없습니다,No recipes yet,まだレシピがありません,레시피가 없을 때 표시되는 메시지
+createSpecialRecipe,나만의 특별한 소스 레시피를\n만들어보세요!,Create your own special\nsauce recipe!,あなただけの特別な\nソースレシピを作ってみましょう！,첫 레시피 생성 유도 메시지
+searchIngredients,재료 검색,Search Ingredients,材料検索,재료로 검색 버튼
+recipeDeleted,레시피가 삭제되었습니다,Recipe has been deleted,レシピが削除されました,레시피 삭제 완료 메시지
+confirmDeleteRecipe,레시피를 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.,Are you sure you want to delete this recipe?\n\nThis action cannot be undone.,このレシピを削除しますか？\n\nこの操作は元に戻せません。,레시피 삭제 확인 다이얼로그
+deleteFailed,삭제 실패,Delete failed,削除失敗,삭제 실패 오류 메시지
+save,저장,Save,保存,저장 버튼
+cancel,취소,Cancel,キャンセル,취소 버튼
+delete,삭제,Delete,削除,삭제 버튼
+edit,편집,Edit,編集,편집 버튼
+confirm,확인,Confirm,確認,확인 버튼
+errorOccurred,오류가 발생했습니다,An error occurred,エラーが発生しました,일반적인 오류 메시지
+selectUnit,단위 선택,Select Unit,単位選択,단위 선택 다이얼로그 제목
+management,관리,Management,管理,관리 섹션 제목
+seasoningUnitManagement,조미료/단위 관리,Seasoning/Unit Management,調味料/単位管理,조미료/단위 관리 메뉴
+seasoningUnitDescription,"조미료/단위 추가, 수정, 삭제","Add, edit, delete seasonings/units",調味料/単位の追加、編集、削除,조미료/단위 관리 설명
+appInfo,앱 정보,App Info,アプリ情報,앱 정보 섹션 제목
+version,버전,Version,バージョン,버전 메뉴 항목
+license,라이선스,License,ライセンス,라이선스 메뉴 항목
+unitTypeSelection,"""{unitName}"" 단위가 어떤 종류인지 선택해주세요.","Please select what type of unit ""{unitName}"" is.","""{unitName}"" 単位の種類を選択してください。",단위 타입 선택 다이얼로그 (파라미터: unitName)
+frequently_used_units,자주 사용하는 단위,Frequently Used Units,よく使う単位,자주 사용하는 단위 섹션
+weight_basic,무게 (기본),Weight (Basic),重量（基本）,기본 무게 단위 섹션
+volume_basic,부피 (기본),Volume (Basic),容量（基本）,기본 부피 단위 섹션
+count_basic,개수 (기본),Count (Basic),個数（基본）,기본 개수 단위 섹션
+misc_basic,기타 (기본),Misc (Basic),その他（基本）,기본 기타 단위 섹션
+ingredients,재료,Ingredients,材料,재료 섹션 제목
+steps,조리 과정,Steps,調理手順,조리 과정 섹션 제목
+unit,단위,Unit,単位,단위 입력 라벨
+quantity,수량,Quantity,数量,수량 입력 라벨
+name,이름,Name,名前,이름 입력 라벨
+description,설명,Description,説明,설명 입력 라벨

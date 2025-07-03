@@ -115,3 +115,4 @@ build/
 # 프로젝트를 진행하면서 작성한 부수적인 기록들
 study/
 screenshot/
+scripts/service-account-key.json
