@@ -20,7 +20,7 @@ void main() {
 
   setUp(() async {
     // 각 테스트마다 새로운 인메모리 데이터베이스 생성
-    final db = await openDatabase(
+    await openDatabase(
       ':memory:',
       version: 2,
       onCreate: (Database db, int version) async {
@@ -95,12 +95,12 @@ void main() {
         ''');
       },
     );
-    
+
     // Mock DatabaseHelper
     databaseHelper = DatabaseHelper();
     // Private field를 우회하여 데이터베이스 설정
     await databaseHelper.database; // 초기화
-    
+
     dataSource = RecipeLocalDataSourceImpl(databaseHelper);
     repository = RecipeRepositoryImpl(localDataSource: dataSource);
   });
@@ -113,7 +113,7 @@ void main() {
     test('레시피 저장 및 조회 전체 플로우 테스트', () async {
       // 테스트 데이터 생성
       final testTime = DateTime.now();
-      
+
       final recipeEntity = RecipeEntity(
         id: 'recipe-test-1',
         authorId: 'user-test-1',
@@ -184,7 +184,7 @@ void main() {
 
     test('여러 레시피 저장 및 조회 테스트', () async {
       final testTime = DateTime.now();
-      
+
       // 첫 번째 레시피
       final recipe1 = RecipeEntity(
         id: 'recipe-test-2',
@@ -268,7 +268,7 @@ void main() {
       // 전체 레시피 조회
       final recipes = await repository.getRecipes();
       expect(recipes.length, 2);
-      
+
       final recipeNames = recipes.map((r) => r.name).toList();
       expect(recipeNames, contains('된장찌개'));
       expect(recipeNames, contains('라면'));
@@ -276,7 +276,7 @@ void main() {
 
     test('레시피 삭제 테스트', () async {
       final testTime = DateTime.now();
-      
+
       // 레시피 저장
       final recipe = RecipeEntity(
         id: 'recipe-delete-test',
@@ -322,7 +322,7 @@ void main() {
 
     test('빈 재료와 단계가 있는 레시피 저장 테스트', () async {
       final testTime = DateTime.now();
-      
+
       final recipe = RecipeEntity(
         id: 'recipe-empty-test',
         authorId: 'user-test-1',
@@ -350,7 +350,8 @@ void main() {
       await repository.saveRecipe(recipe, version);
 
       // 조회 확인
-      final savedVersion = await repository.getRecipeVersion('version-empty-test');
+      final savedVersion =
+          await repository.getRecipeVersion('version-empty-test');
       expect(savedVersion, isNotNull);
       expect(savedVersion!.ingredients, isEmpty);
       expect(savedVersion.steps, isEmpty);
