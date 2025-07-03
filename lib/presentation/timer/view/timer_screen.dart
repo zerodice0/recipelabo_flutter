@@ -38,24 +38,52 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
 
   Future<void> _loadPresets() async {
     try {
-      List<TimerPresetEntity> defaultPresets =
-          await _initializeDefaultPresets();
-      final presetFromRepository =
-          await ref.read(getAllPresetsUsecaseProvider).call();
+      debugPrint('=== TIMER PRESET LOADING DEBUG ===');
+      debugPrint('Starting to load presets...');
+      
+      // 기본 프리셋을 데이터베이스에 초기화 (없는 경우만)
+      await _initializeDefaultPresets();
+      debugPrint('Default presets initialized in database');
+      
+      // 데이터베이스에서 모든 프리셋 조회
+      final allPresets = await ref.read(getAllPresetsUsecaseProvider).call();
+      debugPrint('All presets loaded from database: ${allPresets.length}');
 
-      final presets = [...defaultPresets, ...presetFromRepository];
-
-      setState(() {
-        _presets = presets;
-      });
+      if (mounted) {
+        setState(() {
+          _presets = allPresets;
+        });
+        
+        debugPrint('Presets set in state: ${_presets.length}');
+        for (int i = 0; i < _presets.length; i++) {
+          debugPrint('Preset $i: ${_presets[i].name} (${_presets[i].formattedDuration})');
+        }
+      }
+      
+      debugPrint('=== TIMER PRESET LOADING COMPLETE ===');
     } catch (e) {
       debugPrint('Failed to load presets: $e');
-      // 실패 시 기본 프리셋들로 초기화
-      await _initializeDefaultPresets();
+      debugPrint('Error type: ${e.runtimeType}');
+      debugPrint('Stack trace: ${StackTrace.current}');
+      
+      // 실패 시 하드코딩된 기본 프리셋만 사용
+      if (mounted) {
+        try {
+          final fallbackPresets = await _createHardcodedPresets();
+          setState(() {
+            _presets = fallbackPresets;
+          });
+          debugPrint('Fallback presets loaded: ${fallbackPresets.length}');
+        } catch (fallbackError) {
+          debugPrint('Fallback preset loading failed: $fallbackError');
+        }
+      }
     }
   }
 
-  Future<List<TimerPresetEntity>> _initializeDefaultPresets() async {
+  Future<void> _initializeDefaultPresets() async {
+    if (!mounted) return;
+    
     final l10n = AppLocalizations.of(context);
     final defaultPresets = [
       TimerPresetEntity(
@@ -123,13 +151,86 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
     final repository = ref.read(timerPresetRepositoryProvider);
     for (final preset in defaultPresets) {
       try {
-        await repository.addPreset(preset);
+        // 기존에 있는지 확인 후 추가
+        final existing = await repository.getPresetById(preset.id);
+        if (existing == null) {
+          await repository.addPreset(preset);
+          debugPrint('Added default preset: ${preset.name}');
+        } else {
+          debugPrint('Default preset already exists: ${preset.name}');
+        }
       } catch (e) {
-        // 이미 존재하는 경우 무시
+        debugPrint('Error adding preset ${preset.name}: $e');
       }
     }
+  }
 
-    return defaultPresets;
+  Future<List<TimerPresetEntity>> _createHardcodedPresets() async {
+    if (!mounted) return [];
+    
+    final l10n = AppLocalizations.of(context);
+    return [
+      TimerPresetEntity(
+        id: '1',
+        name: l10n.pastaCooking,
+        durationMinutes: 7,
+        durationSeconds: 0,
+        description: l10n.pastaCookingDescription,
+        icon: 'pasta',
+        createdAt: DateTime.now(),
+        isDefault: true,
+      ),
+      TimerPresetEntity(
+        id: '2',
+        name: l10n.hardBoiledEgg,
+        durationMinutes: 8,
+        durationSeconds: 0,
+        description: l10n.hardBoiledEggDescription,
+        icon: 'egg',
+        createdAt: DateTime.now(),
+        isDefault: true,
+      ),
+      TimerPresetEntity(
+        id: '3',
+        name: l10n.softBoiledEgg,
+        durationMinutes: 6,
+        durationSeconds: 0,
+        description: l10n.softBoiledEggDescription,
+        icon: 'egg',
+        createdAt: DateTime.now(),
+        isDefault: true,
+      ),
+      TimerPresetEntity(
+        id: '4',
+        name: l10n.instantNoodles,
+        durationMinutes: 3,
+        durationSeconds: 0,
+        description: l10n.instantNoodlesDescription,
+        icon: 'noodles',
+        createdAt: DateTime.now(),
+        isDefault: true,
+      ),
+      TimerPresetEntity(
+        id: '5',
+        name: l10n.teaBrewing,
+        durationMinutes: 3,
+        durationSeconds: 0,
+        description: l10n.teaBrewingDescription,
+        icon: 'tea',
+        createdAt: DateTime.now(),
+        isDefault: true,
+      ),
+      TimerPresetEntity(
+        id: '6',
+        name: l10n.steakCooking,
+        durationMinutes: 4,
+        durationSeconds: 0,
+        description: l10n.steakCookingDescription,
+        icon: 'steak',
+        createdAt: DateTime.now(),
+        isDefault: true,
+      ),
+    ];
   }
 
   @override

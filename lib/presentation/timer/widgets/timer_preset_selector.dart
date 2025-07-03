@@ -63,14 +63,14 @@ class TimerPresetSelector extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
             ),
             title: Text(
-              '프리셋 삭제',
+              AppLocalizations.of(context).deletePreset,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: AppColors.textBrown,
               ),
             ),
             content: Text(
-              '${preset.name} 프리셋을 삭제하시겠습니까?\n삭제된 프리셋은 복구할 수 없습니다.',
+              AppLocalizations.of(context).confirmDeletePreset(preset.name),
               style: TextStyle(color: AppColors.textBrown),
             ),
             actions: [
@@ -79,7 +79,7 @@ class TimerPresetSelector extends StatelessWidget {
                 style: TextButton.styleFrom(
                   foregroundColor: AppColors.textBrown.withValues(alpha: 0.7),
                 ),
-                child: const Text('취소'),
+                child: Text(AppLocalizations.of(context).cancel),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -90,7 +90,7 @@ class TimerPresetSelector extends StatelessWidget {
                   backgroundColor: AppColors.primaryOrange,
                   foregroundColor: AppColors.warmWhite,
                 ),
-                child: const Text('삭제'),
+                child: Text(AppLocalizations.of(context).delete),
               ),
             ],
           ),
@@ -100,6 +100,13 @@ class TimerPresetSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    
+    debugPrint('=== TIMER PRESET SELECTOR DEBUG ===');
+    debugPrint('Presets count: ${presets.length}');
+    for (int i = 0; i < presets.length; i++) {
+      debugPrint('Preset $i: ${presets[i].name} - ${presets[i].formattedDuration}');
+    }
+    debugPrint('=== TIMER PRESET SELECTOR DEBUG END ===');
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +118,7 @@ class TimerPresetSelector extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '자주 사용하는 타이머',
+                AppLocalizations.of(context).frequentlyUsedTimers,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: AppColors.textBrown,

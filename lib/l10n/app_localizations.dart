@@ -1170,6 +1170,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Used {count} times'**
   String usedTimes(int count);
+
+  /// No description provided for @languageSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Language Settings'**
+  String get languageSettings;
+
+  /// No description provided for @selectLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a language'**
+  String get selectLanguage;
+
+  /// No description provided for @systemLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'System Language'**
+  String get systemLanguage;
+
+  /// No description provided for @korean.
+  ///
+  /// In en, this message translates to:
+  /// **'한국어'**
+  String get korean;
+
+  /// No description provided for @english.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
+
+  /// No description provided for @japanese.
+  ///
+  /// In en, this message translates to:
+  /// **'日本語'**
+  String get japanese;
+
+  /// No description provided for @languageChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Language has been changed'**
+  String get languageChanged;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

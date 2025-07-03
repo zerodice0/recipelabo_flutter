@@ -9,6 +9,8 @@ import 'package:saucerer_flutter/presentation/main/viewmodel/main_navigation_vie
 import 'package:saucerer_flutter/core/services/timer_service.dart';
 import 'package:saucerer_flutter/core/config/app_colors.dart';
 import 'package:saucerer_flutter/l10n/app_localizations.dart';
+import 'package:saucerer_flutter/core/providers/locale_provider.dart';
+import 'package:saucerer_flutter/presentation/settings/widgets/language_selection_dialog.dart';
 
 class MainNavigationScreen extends ConsumerWidget {
   const MainNavigationScreen({super.key});
@@ -58,11 +60,11 @@ class MainNavigationScreen extends ConsumerWidget {
 }
 
 // 프로필/설정 화면
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.settings), 
@@ -128,6 +130,8 @@ class ProfileScreen extends StatelessWidget {
           Card(
             child: Column(
               children: [
+                _LanguageSettingTile(ref: ref),
+                const Divider(height: 1),
                 ListTile(
                   leading: const Icon(Icons.spa),
                   title: Text(AppLocalizations.of(context)!.seasoningUnitManagement),
@@ -585,5 +589,48 @@ class _BackgroundAppRefreshTile extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+/// 언어 설정 타일
+class _LanguageSettingTile extends StatelessWidget {
+  const _LanguageSettingTile({required this.ref});
+  
+  final WidgetRef ref;
+
+  @override
+  Widget build(BuildContext context) {
+    final localeAsync = ref.watch(localeNotifierProvider);
+    
+    return ListTile(
+      leading: const Icon(Icons.language),
+      title: Text(AppLocalizations.of(context)!.languageSettings),
+      subtitle: localeAsync.when(
+        data: (locale) => Text(_getCurrentLanguageName(context, locale)),
+        loading: () => const Text('...'),
+        error: (_, __) => Text(AppLocalizations.of(context)!.systemLanguage),
+      ),
+      trailing: const Icon(Icons.chevron_right),
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) => const LanguageSelectionDialog(),
+        );
+      },
+    );
+  }
+
+  String _getCurrentLanguageName(BuildContext context, SupportedLocale locale) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (locale) {
+      case SupportedLocale.system:
+        return l10n.systemLanguage;
+      case SupportedLocale.korean:
+        return l10n.korean;
+      case SupportedLocale.english:
+        return l10n.english;
+      case SupportedLocale.japanese:
+        return l10n.japanese;
+    }
   }
 }

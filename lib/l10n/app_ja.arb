@@ -180,5 +180,12 @@
   "testNotificationTitle": "🧪 テスト通知",
   "testNotificationBody": "これはテスト通知です。通知が正常に動作しています！",
   "recipeList": "レシピ一覧",
-  "usedTimes": "{count}回使用"
+  "usedTimes": "{count}回使用",
+  "languageSettings": "言語設定",
+  "selectLanguage": "言語を選択してください",
+  "systemLanguage": "システム言語",
+  "korean": "한국어",
+  "english": "English",
+  "japanese": "日本語",
+  "languageChanged": "言語が変更されました"
 }

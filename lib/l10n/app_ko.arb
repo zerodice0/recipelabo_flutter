@@ -180,5 +180,12 @@
   "testNotificationTitle": "🧪 테스트 알림",
   "testNotificationBody": "이것은 테스트 알림입니다. 알림이 정상적으로 작동하고 있습니다!",
   "recipeList": "레시피 목록",
-  "usedTimes": "{count}회 사용"
+  "usedTimes": "{count}회 사용",
+  "languageSettings": "언어 설정",
+  "selectLanguage": "언어를 선택하세요",
+  "systemLanguage": "시스템 언어",
+  "korean": "한국어",
+  "english": "English",
+  "japanese": "日本語",
+  "languageChanged": "언어가 변경되었습니다"
 }

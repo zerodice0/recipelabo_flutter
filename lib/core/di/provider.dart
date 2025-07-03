@@ -71,7 +71,7 @@ IngredientMasterRepository ingredientMasterRepository(Ref ref) {
 // Timer Preset providers
 @Riverpod(keepAlive: true)
 TimerPresetDatasource timerPresetDatasource(Ref ref) {
-  return TimerPresetDatasource();
+  return TimerPresetDatasource(ref.watch(databaseHelperProvider));
 }
 
 @Riverpod(keepAlive: true)

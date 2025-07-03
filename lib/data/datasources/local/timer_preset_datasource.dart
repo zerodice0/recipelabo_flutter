@@ -5,7 +5,9 @@ import 'package:saucerer_flutter/domain/entities/timer_preset_entity.dart';
 /// 타이머 프리셋 로컬 데이터소스
 /// 기본 프리셋과 사용자 커스텀 프리셋을 관리합니다.
 class TimerPresetDatasource {
-  final DatabaseHelper _dbHelper = DatabaseHelper();
+  final DatabaseHelper _dbHelper;
+  
+  TimerPresetDatasource(this._dbHelper);
 
   /// 모든 프리셋 조회 (기본 + 사용자 커스텀)
   Future<List<TimerPresetEntity>> getAllPresets() async {

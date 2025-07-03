@@ -590,4 +590,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String usedTimes(int count) {
     return 'Used $count times';
   }
+
+  @override
+  String get languageSettings => 'Language Settings';
+
+  @override
+  String get selectLanguage => 'Please select a language';
+
+  @override
+  String get systemLanguage => 'System Language';
+
+  @override
+  String get korean => '한국어';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get japanese => '日本語';
+
+  @override
+  String get languageChanged => 'Language has been changed';
 }
