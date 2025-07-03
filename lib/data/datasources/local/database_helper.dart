@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:saucerer_flutter/domain/entities/preset_units.dart';
+import 'package:saucerer_flutter/data/models/ingredient_master_model.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
@@ -20,7 +22,7 @@ class DatabaseHelper {
     final path = join(dbPath, 'saucerer.db');
     return await openDatabase(
       path,
-      version: 14,
+      version: 15,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -145,6 +147,9 @@ class DatabaseHelper {
         isDefault INTEGER NOT NULL DEFAULT 0
       )
     ''');
+    
+    // 프리셋 단위 초기화
+    await _initializePresetUnits(db);
   }
 
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
@@ -484,5 +489,39 @@ class DatabaseHelper {
 
       debugPrint('Added baseVersionId column to recipe_versions table');
     }
+    
+    if (oldVersion < 15) {
+      // Version 15: 프리셋 단위 초기화
+      await _initializePresetUnits(db);
+    }
+  }
+  
+  /// 프리셋 단위를 데이터베이스에 초기화하는 메서드
+  Future<void> _initializePresetUnits(Database db) async {
+    final presetUnits = PresetUnits.allPresetUnits;
+    
+    for (final unit in presetUnits) {
+      final model = IngredientMasterModelX.fromEntity(unit);
+      await db.execute(
+        '''
+        INSERT OR REPLACE INTO seasonings (
+          id, name, category_id, category, sub_category, description, created_at, updated_at, usage_count
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''',
+        [
+          model.id,
+          model.name,
+          model.categoryId,
+          model.category,
+          model.subCategory,
+          model.description,
+          model.createdAt,
+          model.updatedAt,
+          model.usageCount,
+        ],
+      );
+    }
+    
+    debugPrint('Initialized ${presetUnits.length} preset units');
   }
 }
