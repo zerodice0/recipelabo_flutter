@@ -76,7 +76,7 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(
-            content: Text(AppLocalizations.of(context)!.newUnitAdded(name, selectedCategory))));
+            content: Text(AppLocalizations.of(context).newUnitAdded(name, selectedCategory))));
       }
     } catch (error) {
       if (mounted) {
@@ -173,7 +173,7 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
           controller: _controller,
           decoration: widget.decoration ??
               InputDecoration(
-                labelText: AppLocalizations.of(context)!.unit,
+                labelText: AppLocalizations.of(context).unit,
                 suffixIcon: const Icon(Icons.arrow_drop_down),
                 border: const OutlineInputBorder(),
               ),
@@ -404,7 +404,7 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
                   children: [
                     Expanded(
                       child: Text(
-                        AppLocalizations.of(context)!.selectUnit,
+                        AppLocalizations.of(context).selectUnit,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
@@ -421,7 +421,7 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
                 TextField(
                   controller: _searchController,
                   decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context)!.unitSearch,
+                    hintText: AppLocalizations.of(context).unitSearch,
                     prefixIcon: const Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),

@@ -39,19 +39,19 @@ class MainNavigationScreen extends ConsumerWidget {
         items: [
           BottomNavigationBarItem(
             icon: const Icon(Icons.restaurant_menu),
-            label: AppLocalizations.of(context)!.recipes,
+            label: AppLocalizations.of(context).recipes,
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.search), 
-            label: AppLocalizations.of(context)!.search
+            label: AppLocalizations.of(context).search
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.timer), 
-            label: AppLocalizations.of(context)!.timer
+            label: AppLocalizations.of(context).timer
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.settings), 
-            label: AppLocalizations.of(context)!.settings
+            label: AppLocalizations.of(context).settings
           ),
         ],
       ),
@@ -67,7 +67,7 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.settings), 
+        title: Text(AppLocalizations.of(context).settings), 
         automaticallyImplyLeading: false
       ),
       body: ListView(
@@ -120,7 +120,7 @@ class ProfileScreen extends ConsumerWidget {
 
           // 관리 섹션
           Text(
-            AppLocalizations.of(context)!.management,
+            AppLocalizations.of(context).management,
             style: Theme.of(
               context,
             ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -134,8 +134,8 @@ class ProfileScreen extends ConsumerWidget {
                 const Divider(height: 1),
                 ListTile(
                   leading: const Icon(Icons.spa),
-                  title: Text(AppLocalizations.of(context)!.seasoningUnitManagement),
-                  subtitle: Text(AppLocalizations.of(context)!.seasoningUnitDescription),
+                  title: Text(AppLocalizations.of(context).seasoningUnitManagement),
+                  subtitle: Text(AppLocalizations.of(context).seasoningUnitDescription),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     context.push('/settings/seasonings');
@@ -165,7 +165,7 @@ class ProfileScreen extends ConsumerWidget {
 
           // 앱 정보 섹션
           Text(
-            AppLocalizations.of(context)!.appInfo,
+            AppLocalizations.of(context).appInfo,
             style: Theme.of(
               context,
             ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -177,14 +177,14 @@ class ProfileScreen extends ConsumerWidget {
               children: [
                 ListTile(
                   leading: const Icon(Icons.info_outline),
-                  title: Text(AppLocalizations.of(context)!.version),
+                  title: Text(AppLocalizations.of(context).version),
                   subtitle: const Text('1.0.0'),
                   trailing: const Icon(Icons.chevron_right),
                 ),
                 const Divider(height: 1),
                 ListTile(
                   leading: const Icon(Icons.description),
-                  title: Text(AppLocalizations.of(context)!.license),
+                  title: Text(AppLocalizations.of(context).license),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     showLicensePage(context: context);
@@ -604,11 +604,11 @@ class _LanguageSettingTile extends StatelessWidget {
     
     return ListTile(
       leading: const Icon(Icons.language),
-      title: Text(AppLocalizations.of(context)!.languageSettings),
+      title: Text(AppLocalizations.of(context).languageSettings),
       subtitle: localeAsync.when(
         data: (locale) => Text(_getCurrentLanguageName(context, locale)),
         loading: () => const Text('...'),
-        error: (_, __) => Text(AppLocalizations.of(context)!.systemLanguage),
+        error: (_, __) => Text(AppLocalizations.of(context).systemLanguage),
       ),
       trailing: const Icon(Icons.chevron_right),
       onTap: () {
@@ -621,7 +621,7 @@ class _LanguageSettingTile extends StatelessWidget {
   }
 
   String _getCurrentLanguageName(BuildContext context, SupportedLocale locale) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     switch (locale) {
       case SupportedLocale.system:
         return l10n.systemLanguage;

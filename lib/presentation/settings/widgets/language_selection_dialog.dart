@@ -12,12 +12,12 @@ class LanguageSelectionDialog extends ConsumerWidget {
     final localeNotifier = ref.read(localeNotifierProvider.notifier);
 
     return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.languageSettings),
+      title: Text(AppLocalizations.of(context).languageSettings),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            AppLocalizations.of(context)!.selectLanguage,
+            AppLocalizations.of(context).selectLanguage,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 16),
@@ -33,7 +33,7 @@ class LanguageSelectionDialog extends ConsumerWidget {
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(AppLocalizations.of(context)!.languageChanged),
+                        content: Text(AppLocalizations.of(context).languageChanged),
                         duration: const Duration(seconds: 2),
                       ),
                     );
@@ -48,14 +48,14 @@ class LanguageSelectionDialog extends ConsumerWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
       ],
     );
   }
 
   String _getLocaleName(BuildContext context, SupportedLocale locale) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     switch (locale) {
       case SupportedLocale.system:
         return l10n.systemLanguage;

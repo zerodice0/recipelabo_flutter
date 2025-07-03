@@ -96,7 +96,7 @@ class _CookingLogCreateScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.writeCookingLog),
+        title: Text(AppLocalizations.of(context).writeCookingLog),
         actions: [
           if (state.isLoading)
             const Center(
@@ -121,7 +121,7 @@ class _CookingLogCreateScreenState
                   );
                 }
               },
-              child: Text(AppLocalizations.of(context)!.save),
+              child: Text(AppLocalizations.of(context).save),
             ),
         ],
       ),
@@ -156,7 +156,7 @@ class _CookingLogCreateScreenState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.of(context)!.recipeInfo,
+              AppLocalizations.of(context).recipeInfo,
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -184,7 +184,7 @@ class _CookingLogCreateScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.of(context)!.titleRequired,
+          AppLocalizations.of(context).titleRequired,
           style: Theme.of(
             context,
           ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -193,12 +193,12 @@ class _CookingLogCreateScreenState
         TextFormField(
           controller: _titleController,
           decoration: InputDecoration(
-            hintText: AppLocalizations.of(context)!.cookingLogTitleHint,
+            hintText: AppLocalizations.of(context).cookingLogTitleHint,
             border: const OutlineInputBorder(),
           ),
           validator: (value) {
             if (value == null || value.trim().isEmpty) {
-              return AppLocalizations.of(context)!.enterTitle;
+              return AppLocalizations.of(context).enterTitle;
             }
             return null;
           },
@@ -212,7 +212,7 @@ class _CookingLogCreateScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.of(context)!.cookingDateTimeRequired,
+          AppLocalizations.of(context).cookingDateTimeRequired,
           style: Theme.of(
             context,
           ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -238,7 +238,7 @@ class _CookingLogCreateScreenState
                   child: Text(
                     state.cookedAt != null
                         ? '${_formatDate(state.cookedAt!)} ${_formatTime(state.cookedAt!)}'
-                        : AppLocalizations.of(context)!.selectDateTime,
+                        : AppLocalizations.of(context).selectDateTime,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
@@ -262,7 +262,7 @@ class _CookingLogCreateScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.of(context)!.photo,
+          AppLocalizations.of(context).photo,
           style: Theme.of(
             context,
           ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -360,7 +360,7 @@ class _CookingLogCreateScreenState
           ),
           const SizedBox(height: 8),
           Text(
-            AppLocalizations.of(context)!.addPhoto,
+            AppLocalizations.of(context).addPhoto,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
@@ -380,7 +380,7 @@ class _CookingLogCreateScreenState
             children: [
               ListTile(
                 leading: const Icon(Icons.camera_alt),
-                title: Text(AppLocalizations.of(context)!.takeWithCamera),
+                title: Text(AppLocalizations.of(context).takeWithCamera),
                 onTap: () {
                   context.pop();
                   viewModel.pickImageFromCamera();
@@ -388,7 +388,7 @@ class _CookingLogCreateScreenState
               ),
               ListTile(
                 leading: const Icon(Icons.photo_library),
-                title: Text(AppLocalizations.of(context)!.selectFromGallery),
+                title: Text(AppLocalizations.of(context).selectFromGallery),
                 onTap: () {
                   context.pop();
                   viewModel.pickImageFromGallery();
@@ -407,7 +407,7 @@ class _CookingLogCreateScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.of(context)!.memo,
+          AppLocalizations.of(context).memo,
           style: Theme.of(
             context,
           ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -416,7 +416,7 @@ class _CookingLogCreateScreenState
         TextFormField(
           controller: _memoController,
           decoration: InputDecoration(
-            hintText: AppLocalizations.of(context)!.cookingMemoHint,
+            hintText: AppLocalizations.of(context).cookingMemoHint,
             border: const OutlineInputBorder(),
           ),
           maxLines: 5,

@@ -37,13 +37,13 @@ class _IngredientSearchScreenState
         appBar:
             widget.showAppBar
                 ? AppBar(
-                  title: Text(AppLocalizations.of(context)!.searchByIngredients),
+                  title: Text(AppLocalizations.of(context).searchByIngredients),
                   actions: [
                     if (state.selectedIngredients.isNotEmpty)
                       IconButton(
                         icon: const Icon(Icons.clear_all),
                         onPressed: () => viewModel.resetSearch(),
-                        tooltip: AppLocalizations.of(context)!.resetSearch,
+                        tooltip: AppLocalizations.of(context).resetSearch,
                       ),
                     PopupMenuButton<String>(
                       onSelected: (value) {
@@ -60,11 +60,11 @@ class _IngredientSearchScreenState
                           (context) => [
                             PopupMenuItem(
                               value: 'show_popular',
-                              child: Text(AppLocalizations.of(context)!.showPopularIngredients),
+                              child: Text(AppLocalizations.of(context).showPopularIngredients),
                             ),
                             PopupMenuItem(
                               value: 'show_all',
-                              child: Text(AppLocalizations.of(context)!.showAllIngredients),
+                              child: Text(AppLocalizations.of(context).showAllIngredients),
                             ),
                           ],
                     ),
@@ -90,7 +90,7 @@ class _IngredientSearchScreenState
       child: SearchBar(
         controller: _searchController,
         focusNode: _searchFocusNode,
-        hintText: AppLocalizations.of(context)!.searchIngredientsHint,
+        hintText: AppLocalizations.of(context).searchIngredientsHint,
         leading: const Icon(Icons.search),
         trailing: [
           if (_searchController.text.isNotEmpty)
@@ -131,7 +131,7 @@ class _IngredientSearchScreenState
               ),
               const SizedBox(height: 16),
               Text(
-                AppLocalizations.of(context)!.errorOccurred,
+                AppLocalizations.of(context).errorOccurred,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 8),
@@ -143,7 +143,7 @@ class _IngredientSearchScreenState
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () => viewModel.resetSearch(),
-                child: Text(AppLocalizations.of(context)!.retry),
+                child: Text(AppLocalizations.of(context).retry),
               ),
             ],
           ),
@@ -190,7 +190,7 @@ class _IngredientSearchScreenState
         Row(
           children: [
             Text(
-              AppLocalizations.of(context)!.searchResults,
+              AppLocalizations.of(context).searchResults,
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -230,7 +230,7 @@ class _IngredientSearchScreenState
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  AppLocalizations.of(context)!.noRecipesFound,
+                  AppLocalizations.of(context).noRecipesFound,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
@@ -243,7 +243,7 @@ class _IngredientSearchScreenState
           Column(
             children: [
               Text(
-                AppLocalizations.of(context)!.recipesFound(state.filteredRecipes.length),
+                AppLocalizations.of(context).recipesFound(state.filteredRecipes.length),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.w500,
@@ -303,7 +303,7 @@ class _IngredientSearchScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          state.searchQuery.isEmpty ? AppLocalizations.of(context)!.popularIngredients : AppLocalizations.of(context)!.searchResultsIngredients,
+          state.searchQuery.isEmpty ? AppLocalizations.of(context).popularIngredients : AppLocalizations.of(context).searchResultsIngredients,
           style: Theme.of(
             context,
           ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),

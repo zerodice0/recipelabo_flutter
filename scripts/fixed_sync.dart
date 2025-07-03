@@ -7,7 +7,13 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 Future<void> main() async {
-  const apiKey = 'AIzaSyCRjnR8Z7RbrXveNLmUFZO5v-rW02Y8cWs';
+  final apiKey = Platform.environment['GOOGLE_SHEETS_API_KEY'];
+  
+  if (apiKey == null || apiKey.isEmpty) {
+    print('❌ Google Sheets API 키가 필요합니다.');
+    print('환경변수 GOOGLE_SHEETS_API_KEY를 설정해주세요.');
+    exit(1);
+  }
   const spreadsheetId = '1q3T5hPEshaAifT5K9g0L-2yqPH4zv62x-43Z1u-cZns';
   const sheetRange = '시트1!A2:E'; // 한글 시트명 사용
   

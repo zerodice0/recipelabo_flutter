@@ -93,7 +93,7 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  AppLocalizations.of(context)!.selectUnit,
+                  AppLocalizations.of(context).selectUnit,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppColors.textBrown,
@@ -110,7 +110,7 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
-              AppLocalizations.of(context)!.unitTypeSelection(widget.unitName),
+              AppLocalizations.of(context).unitTypeSelection(widget.unitName),
               style: const TextStyle(
                 fontSize: 14,
                 color: AppColors.textBrown,
@@ -209,7 +209,7 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
         TextButton(
           onPressed: widget.onCancel,
           child: Text(
-            AppLocalizations.of(context)!.cancel,
+            AppLocalizations.of(context).cancel,
             style: TextStyle(color: AppColors.textBrown.withValues(alpha: 0.7)),
           ),
         ),
@@ -224,7 +224,7 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
               borderRadius: BorderRadius.circular(8),
             ),
           ),
-          child: Text(AppLocalizations.of(context)!.save),
+          child: Text(AppLocalizations.of(context).save),
         ),
       ],
     );

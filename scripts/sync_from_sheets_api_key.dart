@@ -114,15 +114,15 @@ class SheetsApiKeySync {
 
 Future<void> main() async {
   // API 키 확인
-  final apiKey = Platform.environment['GOOGLE_SHEETS_API_KEY'] ?? 'AIzaSyCRjnR8Z7RbrXveNLmUFZO5v-rW02Y8cWs';
+  final apiKey = Platform.environment['GOOGLE_SHEETS_API_KEY'];
   
-  if (apiKey.isEmpty) {
+  if (apiKey == null || apiKey.isEmpty) {
     print('❌ Google Sheets API 키가 필요합니다.');
     print('');
     print('사용법:');
     print('GOOGLE_SHEETS_API_KEY=your_api_key dart scripts/sync_from_sheets_api_key.dart');
     print('');
-    print('또는 스크립트에서 기본값 사용 (현재 설정됨)');
+    print('환경변수를 설정하거나 .env 파일을 사용하세요.');
     exit(1);
   }
   

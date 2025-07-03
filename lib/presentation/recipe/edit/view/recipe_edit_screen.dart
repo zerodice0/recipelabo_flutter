@@ -51,7 +51,7 @@ class RecipeEditScreen extends ConsumerWidget {
             } else {
               ScaffoldMessenger.of(
                 context,
-              ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.saveFailedWithError(err.toString()))));
+              ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).saveFailedWithError(err.toString()))));
             }
           },
           loading: () {},
@@ -77,7 +77,7 @@ class RecipeEditScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(viewModel.isEditMode ? AppLocalizations.of(context)!.editRecipe : AppLocalizations.of(context)!.newRecipe),
+            Text(viewModel.isEditMode ? AppLocalizations.of(context).editRecipe : AppLocalizations.of(context).newRecipe),
             if (viewModel.isEditMode &&
                 viewModel.allVersions != null &&
                 viewModel.allVersions!.isNotEmpty) ...[
@@ -122,7 +122,7 @@ class RecipeEditScreen extends ConsumerWidget {
                   children: [
                     const CircularProgressIndicator(),
                     const SizedBox(height: 16),
-                    Text(AppLocalizations.of(context)!.loadingRecipe),
+                    Text(AppLocalizations.of(context).loadingRecipe),
                   ],
                 ),
               )
@@ -140,7 +140,7 @@ class RecipeEditScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        AppLocalizations.of(context)!.cannotLoadRecipe,
+                        AppLocalizations.of(context).cannotLoadRecipe,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 8),
@@ -152,7 +152,7 @@ class RecipeEditScreen extends ConsumerWidget {
                       const SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: () => context.pop(),
-                        child: Text(AppLocalizations.of(context)!.goBack),
+                        child: Text(AppLocalizations.of(context).goBack),
                       ),
                     ],
                   ),
@@ -167,24 +167,24 @@ class RecipeEditScreen extends ConsumerWidget {
                   children: [
                     TextFormField(
                       initialValue: viewModel.name,
-                      decoration: InputDecoration(labelText: AppLocalizations.of(context)!.recipeName),
+                      decoration: InputDecoration(labelText: AppLocalizations.of(context).recipeName),
                       onChanged: notifier.updateName,
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
                       initialValue: viewModel.description,
-                      decoration: InputDecoration(labelText: AppLocalizations.of(context)!.description),
+                      decoration: InputDecoration(labelText: AppLocalizations.of(context).description),
                       onChanged: notifier.updateDescription,
                       maxLines: 3,
                     ),
                     const SizedBox(height: 24),
                     IngredientSelectorWidget(
-                      label: AppLocalizations.of(context)!.ingredients,
+                      label: AppLocalizations.of(context).ingredients,
                       selectedIngredients: viewModel.ingredients,
                       onIngredientsChanged: notifier.updateIngredients,
                     ),
                     const SizedBox(height: 24),
-                    _buildSectionHeader(context, AppLocalizations.of(context)!.cookingSteps, notifier.addStep),
+                    _buildSectionHeader(context, AppLocalizations.of(context).cookingSteps, notifier.addStep),
                     ..._buildStepFields(context, viewModel.steps, notifier),
                   ],
                 ),
@@ -221,7 +221,7 @@ class RecipeEditScreen extends ConsumerWidget {
           Expanded(
             child: TextFormField(
               initialValue: step.description,
-              decoration: InputDecoration(labelText: AppLocalizations.of(context)!.description),
+              decoration: InputDecoration(labelText: AppLocalizations.of(context).description),
               onChanged:
                   (desc) => notifier.updateStep(
                     index,
@@ -250,12 +250,12 @@ class RecipeEditScreen extends ConsumerWidget {
       context: context,
       builder:
           (context) => AlertDialog(
-            title: Text(AppLocalizations.of(context)!.saveOptions),
+            title: Text(AppLocalizations.of(context).saveOptions),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(AppLocalizations.of(context)!.howToSave),
+                Text(AppLocalizations.of(context).howToSave),
                 const SizedBox(height: 16),
                 Consumer(
                   builder: (context, ref, child) {
@@ -321,13 +321,13 @@ class RecipeEditScreen extends ConsumerWidget {
                         ],
 
                         RadioListTile<bool>(
-                          title: Text(AppLocalizations.of(context)!.saveAsNewVersion),
+                          title: Text(AppLocalizations.of(context).saveAsNewVersion),
                           subtitle:
                               currentVersion != null
                                   ? Text(
-                                    AppLocalizations.of(context)!.createDerivedVersionDescription(currentVersion.fullDisplayName),
+                                    AppLocalizations.of(context).createDerivedVersionDescription(currentVersion.fullDisplayName),
                                   )
-                                  : Text(AppLocalizations.of(context)!.keepExistingVersion),
+                                  : Text(AppLocalizations.of(context).keepExistingVersion),
                           value: true,
                           groupValue: currentState.createNewVersion,
                           onChanged: (value) {
@@ -337,13 +337,13 @@ class RecipeEditScreen extends ConsumerWidget {
                           },
                         ),
                         RadioListTile<bool>(
-                          title: Text(AppLocalizations.of(context)!.overwriteVersion),
+                          title: Text(AppLocalizations.of(context).overwriteVersion),
                           subtitle:
                               currentVersion != null
                                   ? Text(
-                                    AppLocalizations.of(context)!.updateVersionDescription(currentVersion.fullDisplayName),
+                                    AppLocalizations.of(context).updateVersionDescription(currentVersion.fullDisplayName),
                                   )
-                                  : Text(AppLocalizations.of(context)!.updateCurrentVersion),
+                                  : Text(AppLocalizations.of(context).updateCurrentVersion),
                           value: false,
                           groupValue: currentState.createNewVersion,
                           onChanged: (value) {
@@ -377,7 +377,7 @@ class RecipeEditScreen extends ConsumerWidget {
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
-                                    AppLocalizations.of(context)!.baseVersion(currentVersion.fullDisplayName),
+                                    AppLocalizations.of(context).baseVersion(currentVersion.fullDisplayName),
                                     style: Theme.of(
                                       context,
                                     ).textTheme.bodySmall?.copyWith(
@@ -394,8 +394,8 @@ class RecipeEditScreen extends ConsumerWidget {
                           ],
                           TextField(
                             decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.versionNameOptional,
-                              hintText: AppLocalizations.of(context)!.versionNameHint,
+                              labelText: AppLocalizations.of(context).versionNameOptional,
+                              hintText: AppLocalizations.of(context).versionNameHint,
                               border: OutlineInputBorder(),
                             ),
                             onChanged: notifier.updateVersionName,
@@ -403,8 +403,8 @@ class RecipeEditScreen extends ConsumerWidget {
                           const SizedBox(height: 12),
                           TextField(
                             decoration: InputDecoration(
-                              labelText: AppLocalizations.of(context)!.changeLogOptional,
-                              hintText: AppLocalizations.of(context)!.changeLogHint,
+                              labelText: AppLocalizations.of(context).changeLogOptional,
+                              hintText: AppLocalizations.of(context).changeLogHint,
                               border: OutlineInputBorder(),
                             ),
                             maxLines: 2,
@@ -423,14 +423,14 @@ class RecipeEditScreen extends ConsumerWidget {
                   notifier.hideSaveOptions();
                   Navigator.of(context).pop();
                 },
-                child: Text(AppLocalizations.of(context)!.cancel),
+                child: Text(AppLocalizations.of(context).cancel),
               ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                   notifier.performSave();
                 },
-                child: Text(AppLocalizations.of(context)!.save),
+                child: Text(AppLocalizations.of(context).save),
               ),
             ],
           ),

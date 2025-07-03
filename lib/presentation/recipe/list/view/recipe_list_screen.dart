@@ -20,14 +20,14 @@ class RecipeListScreen extends ConsumerWidget {
     return Scaffold(
       appBar: showAppBar
           ? AppBar(
-              title: Text(AppLocalizations.of(context)!.recipeList),
+              title: Text(AppLocalizations.of(context).recipeList),
               actions: [
                 IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: () {
                     context.push(AppRoutes.search);
                   },
-                  tooltip: AppLocalizations.of(context)!.search,
+                  tooltip: AppLocalizations.of(context).search,
                 ),
               ],
             )
@@ -91,7 +91,7 @@ class RecipeListScreen extends ConsumerWidget {
                       const SizedBox(height: 24),
 
                       Text(
-                        AppLocalizations.of(context)!.noRecipesYet,
+                        AppLocalizations.of(context).noRecipesYet,
                         style: Theme.of(
                           context,
                         ).textTheme.headlineSmall?.copyWith(
@@ -103,7 +103,7 @@ class RecipeListScreen extends ConsumerWidget {
                       const SizedBox(height: 12),
 
                       Text(
-                        AppLocalizations.of(context)!.createSpecialRecipe,
+                        AppLocalizations.of(context).createSpecialRecipe,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: AppColors.textBrown.withValues(alpha: 0.7),
                               height: 1.5,
@@ -121,7 +121,7 @@ class RecipeListScreen extends ConsumerWidget {
                               context.push(AppRoutes.recipeCreate);
                             },
                             icon: const Icon(Icons.add, size: 20),
-                            label: Text(AppLocalizations.of(context)!.addRecipe),
+                            label: Text(AppLocalizations.of(context).addRecipe),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 20,
@@ -135,7 +135,7 @@ class RecipeListScreen extends ConsumerWidget {
                               context.push(AppRoutes.search);
                             },
                             icon: const Icon(Icons.search, size: 20),
-                            label: Text(AppLocalizations.of(context)!.searchIngredients),
+                            label: Text(AppLocalizations.of(context).searchIngredients),
                             style: OutlinedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 20,
@@ -173,7 +173,7 @@ class RecipeListScreen extends ConsumerWidget {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: '${AppLocalizations.of(context)!.errorOccurred}:\n\n',
+                      text: '${AppLocalizations.of(context).errorOccurred}:\n\n',
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     TextSpan(text: error.toString()),
@@ -208,7 +208,7 @@ class RecipeListScreen extends ConsumerWidget {
           splashColor: AppColors.warmWhite.withValues(alpha: 0.2),
           icon: const Icon(Icons.add, color: AppColors.warmWhite, size: 24),
           label: Text(
-            AppLocalizations.of(context)!.addRecipe,
+            AppLocalizations.of(context).addRecipe,
             style: const TextStyle(
               color: AppColors.warmWhite,
               fontWeight: FontWeight.w600,
@@ -228,12 +228,12 @@ class RecipeListScreen extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.delete),
-        content: Text(AppLocalizations.of(context)!.confirmDeleteRecipe),
+        title: Text(AppLocalizations.of(context).delete),
+        content: Text(AppLocalizations.of(context).confirmDeleteRecipe),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(AppLocalizations.of(context).cancel),
           ),
           TextButton(
             onPressed: () async {
@@ -247,7 +247,7 @@ class RecipeListScreen extends ConsumerWidget {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(AppLocalizations.of(context)!.recipeDeleted),
+                      content: Text(AppLocalizations.of(context).recipeDeleted),
                       backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
                   );
@@ -256,7 +256,7 @@ class RecipeListScreen extends ConsumerWidget {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('${AppLocalizations.of(context)!.deleteFailed}: $error'),
+                      content: Text('${AppLocalizations.of(context).deleteFailed}: $error'),
                       backgroundColor: Theme.of(context).colorScheme.error,
                     ),
                   );
@@ -266,7 +266,7 @@ class RecipeListScreen extends ConsumerWidget {
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(context).colorScheme.error,
             ),
-            child: Text(AppLocalizations.of(context)!.delete),
+            child: Text(AppLocalizations.of(context).delete),
           ),
         ],
       ),

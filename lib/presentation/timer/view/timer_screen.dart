@@ -324,7 +324,9 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
 
     // 타이머 시작 (권한과 관계없이)
     final timer = timerFactory();
-    await _timerService.startTimer(timer, context);
+    if (mounted) {
+      await _timerService.startTimer(timer, context);
+    }
   }
 
   void _showCustomTimerDialog() {

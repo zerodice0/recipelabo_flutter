@@ -149,7 +149,11 @@ class TimerService extends ChangeNotifier {
     // 스케줄된 로컬 노티피케이션 설정 (백그라운드/앱 종료 시에도 작동)
     if (_hasNotificationPermission) {
       debugPrint('Scheduling notification...');
-      await _scheduleNotification(timer.id, timer.name, timer.formattedTotalTime, completionTime, context);
+      if (context != null && context.mounted) {
+        await _scheduleNotification(timer.id, timer.name, timer.formattedTotalTime, completionTime, context);
+      } else {
+        await _scheduleNotification(timer.id, timer.name, timer.formattedTotalTime, completionTime, null);
+      }
     } else {
       debugPrint('Notification permission not granted, skipping notification scheduling');
     }
@@ -188,16 +192,16 @@ class TimerService extends ChangeNotifier {
     
     try {
       // 다국어화를 위해 기본 텍스트 사용 (context가 없는 경우)
-      final channelName = context != null 
+      final channelName = (context != null && context.mounted)
           ? AppLocalizations.of(context).cookingTimerChannel 
           : '요리 타이머';
-      final channelDescription = context != null
+      final channelDescription = (context != null && context.mounted)
           ? AppLocalizations.of(context).timerNotificationDescription
           : '요리 타이머 완료 알림';
-      final notificationTitle = context != null
+      final notificationTitle = (context != null && context.mounted)
           ? AppLocalizations.of(context).timerCompleteTitle(timerName)
           : '🍳 $timerName 완료!';
-      final notificationBody = context != null
+      final notificationBody = (context != null && context.mounted)
           ? AppLocalizations.of(context).timerCompleteBody(duration)
           : '$duration 타이머가 끝났습니다.';
       
@@ -511,16 +515,16 @@ class TimerService extends ChangeNotifier {
     
     try {
       // 다국어화를 위해 기본 텍스트 사용 (context가 없는 경우)
-      final channelName = context != null 
+      final channelName = (context != null && context.mounted)
           ? AppLocalizations.of(context).testNotificationChannel 
           : '테스트 알림';
-      final channelDescription = context != null
+      final channelDescription = (context != null && context.mounted)
           ? AppLocalizations.of(context).testNotificationDescription
           : '노티피케이션 테스트용';
-      final notificationTitle = context != null
+      final notificationTitle = (context != null && context.mounted)
           ? AppLocalizations.of(context).testNotificationTitle
           : '🔔 테스트 알림';
-      final notificationBody = context != null
+      final notificationBody = (context != null && context.mounted)
           ? AppLocalizations.of(context).testNotificationBody
           : '노티피케이션이 정상적으로 작동합니다!';
       
