@@ -78,16 +78,14 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
           );
         } catch (e) {
           // 지정된 버전을 찾을 수 없으면 최신 버전 사용
-          targetVersion =
-              allVersions.isNotEmpty
-                  ? allVersions.first
-                  : throw Exception('버전이 없습니다');
+          targetVersion = allVersions.isNotEmpty
+              ? allVersions.first
+              : throw Exception('버전이 없습니다');
         }
       } else {
-        targetVersion =
-            allVersions.isNotEmpty
-                ? allVersions.first
-                : throw Exception('버전이 없습니다');
+        targetVersion = allVersions.isNotEmpty
+            ? allVersions.first
+            : throw Exception('버전이 없습니다');
       }
 
       state = state.copyWith(
@@ -268,8 +266,7 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
         if (state.createNewVersion) {
           // 새 버전 생성
           final newVersionId = uuid.v4();
-          final maxVersionNumber =
-              state.allVersions
+          final maxVersionNumber = state.allVersions
                   ?.map((v) => v.versionNumber)
                   .reduce((a, b) => a > b ? a : b) ??
               1;
@@ -283,7 +280,14 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
             updatedAt: now,
           );
 
-          // 새 버전 생성
+          // 새 버전 생성 - 재료와 단계에 새로운 ID 할당
+          final newIngredients = state.ingredients
+              .map((ingredient) => ingredient.copyWith(id: uuid.v4()))
+              .toList();
+
+          final newSteps =
+              state.steps.map((step) => step.copyWith(id: uuid.v4())).toList();
+
           final newVersion = RecipeVersionEntity(
             id: newVersionId,
             recipeId: state.recipeId!,
@@ -291,8 +295,8 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
             name: state.name,
             versionName: state.versionName.isEmpty ? null : state.versionName,
             description: state.description,
-            ingredients: state.ingredients,
-            steps: state.steps,
+            ingredients: newIngredients,
+            steps: newSteps,
             authorId: state.originalRecipe!.authorId,
             createdAt: now,
             changeLog: state.changeLog.isEmpty ? null : state.changeLog,

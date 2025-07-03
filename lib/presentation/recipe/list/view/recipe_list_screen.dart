@@ -17,24 +17,23 @@ class RecipeListScreen extends ConsumerWidget {
     final recipeListState = ref.watch(recipeListViewModelProvider);
 
     return Scaffold(
-      appBar:
-          showAppBar
-              ? AppBar(
-                title: const Text('나의 레시피'),
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.search),
-                    onPressed: () {
-                      context.push(AppRoutes.search);
-                    },
-                    tooltip: '재료로 검색',
-                  ),
-                ],
-              )
-              : null,
+      appBar: showAppBar
+          ? AppBar(
+              title: const Text('나의 레시피'),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    context.push(AppRoutes.search);
+                  },
+                  tooltip: '재료로 검색',
+                ),
+              ],
+            )
+          : null,
       body: RefreshIndicator(
-        onRefresh:
-            () => ref.read(recipeListViewModelProvider.notifier).refresh(),
+        onRefresh: () =>
+            ref.read(recipeListViewModelProvider.notifier).refresh(),
         child: recipeListState.when(
           data: (recipes) {
             if (recipes.isEmpty) {
@@ -95,9 +94,9 @@ class RecipeListScreen extends ConsumerWidget {
                         style: Theme.of(
                           context,
                         ).textTheme.headlineSmall?.copyWith(
-                          color: AppColors.textBrown,
-                          fontWeight: FontWeight.bold,
-                        ),
+                              color: AppColors.textBrown,
+                              fontWeight: FontWeight.bold,
+                            ),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 12),
@@ -105,9 +104,9 @@ class RecipeListScreen extends ConsumerWidget {
                       Text(
                         '나만의 특별한 소스 레시피를\n만들어보세요!',
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: AppColors.textBrown.withValues(alpha: 0.7),
-                          height: 1.5,
-                        ),
+                              color: AppColors.textBrown.withValues(alpha: 0.7),
+                              height: 1.5,
+                            ),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 32),
@@ -159,9 +158,9 @@ class RecipeListScreen extends ConsumerWidget {
                   onTap: () {
                     context.push('/recipes/${recipe.id}');
                   },
-                  onDelete:
-                      () => _showDeleteConfirmDialog(context, ref, recipe),
-                  heroTag: 'recipe_card_${recipe.id}',
+                  onDelete: () =>
+                      _showDeleteConfirmDialog(context, ref, recipe),
+                  // heroTag: 'recipe_card_${recipe.id}',
                 );
               },
             );
@@ -199,6 +198,7 @@ class RecipeListScreen extends ConsumerWidget {
           ],
         ),
         child: FloatingActionButton.extended(
+          heroTag: 'recipe_list_screen_floating_action_button',
           onPressed: () {
             context.push(AppRoutes.recipeCreate);
           },
@@ -226,53 +226,51 @@ class RecipeListScreen extends ConsumerWidget {
   ) {
     showDialog(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('레시피 삭제'),
-            content: Text(
-              '\'${recipe.name}\' 레시피를 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('취소'),
-              ),
-              TextButton(
-                onPressed: () async {
-                  Navigator.of(context).pop();
-
-                  try {
-                    await ref
-                        .read(recipeListViewModelProvider.notifier)
-                        .deleteRecipe(recipe.id);
-
-                    if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('\'${recipe.name}\' 레시피가 삭제되었습니다'),
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                        ),
-                      );
-                    }
-                  } catch (error) {
-                    if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('삭제 실패: $error'),
-                          backgroundColor: Theme.of(context).colorScheme.error,
-                        ),
-                      );
-                    }
-                  }
-                },
-                style: TextButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.error,
-                ),
-                child: const Text('삭제'),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        title: const Text('레시피 삭제'),
+        content: Text(
+          '\'${recipe.name}\' 레시피를 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('취소'),
           ),
+          TextButton(
+            onPressed: () async {
+              Navigator.of(context).pop();
+
+              try {
+                await ref
+                    .read(recipeListViewModelProvider.notifier)
+                    .deleteRecipe(recipe.id);
+
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('\'${recipe.name}\' 레시피가 삭제되었습니다'),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                    ),
+                  );
+                }
+              } catch (error) {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('삭제 실패: $error'),
+                      backgroundColor: Theme.of(context).colorScheme.error,
+                    ),
+                  );
+                }
+              }
+            },
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
+            child: const Text('삭제'),
+          ),
+        ],
+      ),
     );
   }
 }

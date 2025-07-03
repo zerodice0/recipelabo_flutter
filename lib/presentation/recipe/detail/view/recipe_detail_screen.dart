@@ -43,66 +43,65 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       barrierDismissible: false,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('버전 삭제'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('정말로 이 버전을 삭제하시겠습니까?'),
-                const SizedBox(height: 12),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.errorContainer,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${version.versionName ?? 'v${version.versionNumber}'} - ${version.name}',
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+      builder: (context) => AlertDialog(
+        title: const Text('버전 삭제'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('정말로 이 버전을 삭제하시겠습니까?'),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.errorContainer,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${version.versionName ?? 'v${version.versionNumber}'} - ${version.name}',
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.onErrorContainer,
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        '생성일: ${_formatDate(version.createdAt)}',
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '생성일: ${_formatDate(version.createdAt)}',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).colorScheme.onErrorContainer,
                         ),
-                      ),
-                    ],
                   ),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  '⚠️ 이 작업은 되돌릴 수 없습니다.',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              '⚠️ 이 작업은 되돌릴 수 없습니다.',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context).colorScheme.error,
                     fontWeight: FontWeight.w500,
                   ),
-                ),
-              ],
             ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('취소'),
-              ),
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.error,
-                  foregroundColor: Theme.of(context).colorScheme.onError,
-                ),
-                child: const Text('삭제'),
-              ),
-            ],
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('취소'),
           ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.error,
+              foregroundColor: Theme.of(context).colorScheme.onError,
+            ),
+            child: const Text('삭제'),
+          ),
+        ],
+      ),
     );
 
     if (confirmed == true && context.mounted) {
@@ -169,10 +168,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
             icon: const Icon(Icons.edit),
             onPressed: () async {
               // 현재 선택된 버전 ID를 쿼리 파라미터로 전달
-              final versionParam =
-                  _selectedVersionId != null
-                      ? '?versionId=$_selectedVersionId'
-                      : '';
+              final versionParam = _selectedVersionId != null
+                  ? '?versionId=$_selectedVersionId'
+                  : '';
               final result = await context.push<bool>(
                 '/recipes/${widget.recipeId}/edit$versionParam',
               );
@@ -186,21 +184,20 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
       ),
       body: recipeDetailState.when(
         data: (data) => _buildContent(context, data.$1, data.$2),
-        error:
-            (error, stackTrace) => Center(
-              child: SelectableText.rich(
-                TextSpan(
-                  children: [
-                    const TextSpan(
-                      text: '오류가 발생했습니다:\n\n',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    TextSpan(text: error.toString()),
-                  ],
+        error: (error, stackTrace) => Center(
+          child: SelectableText.rich(
+            TextSpan(
+              children: [
+                const TextSpan(
+                  text: '오류가 발생했습니다:\n\n',
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                style: const TextStyle(color: Colors.red),
-              ),
+                TextSpan(text: error.toString()),
+              ],
             ),
+            style: const TextStyle(color: Colors.red),
+          ),
+        ),
         loading: () => const Center(child: CircularProgressIndicator()),
       ),
     );
@@ -219,11 +216,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
     // 선택된 버전 찾기
     final selectedVersion = versions.firstWhere(
       (v) => v.id == _selectedVersionId,
-      orElse:
-          () =>
-              versions.isNotEmpty
-                  ? versions.first
-                  : throw Exception('버전이 없습니다'),
+      orElse: () =>
+          versions.isNotEmpty ? versions.first : throw Exception('버전이 없습니다'),
     );
 
     return SingleChildScrollView(
@@ -281,8 +275,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 Text(
                   '생성일: ${_formatDate(recipe.createdAt)}',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
                 ),
               ],
             ),
@@ -298,8 +292,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 Text(
                   '최종 업데이트: ${_formatDate(recipe.updatedAt)}',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
                 ),
               ],
             ),
@@ -330,244 +324,233 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               Text(
                 '등록된 버전이 없습니다',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
               )
             else
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: versions.length,
-                itemBuilder: (context, index) {
-                  final version = versions[index];
+              Column(
+                children: versions.map((version) {
                   final isSelected = _selectedVersionId == version.id;
+
                   return Container(
+                    key: ValueKey(version.id),
                     margin: const EdgeInsets.only(bottom: 8),
-                    child: Material(
-                      color:
-                          isSelected
-                              ? Theme.of(context).colorScheme.primaryContainer
-                              : Theme.of(context).colorScheme.surface,
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? Theme.of(context).colorScheme.primaryContainer
+                          : Theme.of(context).colorScheme.surface,
                       borderRadius: BorderRadius.circular(12),
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(12),
-                        onTap: () {
-                          setState(() {
-                            _selectedVersionId = version.id;
-                          });
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color:
-                                  isSelected
-                                      ? Theme.of(context).colorScheme.primary
-                                      : Theme.of(context).colorScheme.outline
-                                          .withValues(alpha: 0.3),
-                              width: isSelected ? 2 : 1,
-                            ),
+                    ),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () {
+                        setState(() {
+                          _selectedVersionId = version.id;
+                        });
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: isSelected
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(context)
+                                    .colorScheme
+                                    .outline
+                                    .withValues(alpha: 0.3),
+                            width: isSelected ? 2 : 1,
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 4,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color:
-                                          isSelected
-                                              ? Theme.of(
-                                                context,
-                                              ).colorScheme.primary
-                                              : Theme.of(
-                                                context,
-                                              ).colorScheme.secondaryContainer,
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        if (isSelected)
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                              right: 4,
-                                            ),
-                                            child: Icon(
-                                              Icons.check,
-                                              color:
-                                                  Theme.of(
-                                                    context,
-                                                  ).colorScheme.onPrimary,
-                                              size: 14,
-                                            ),
-                                          ),
-                                        Text(
-                                          version.versionName ??
-                                              'v${version.versionNumber}',
-                                          style: Theme.of(
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: isSelected
+                                        ? Theme.of(
                                             context,
-                                          ).textTheme.bodySmall?.copyWith(
-                                            color:
-                                                isSelected
-                                                    ? Theme.of(
+                                          ).colorScheme.primary
+                                        : Theme.of(
+                                            context,
+                                          ).colorScheme.secondaryContainer,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      if (isSelected)
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: 4,
+                                          ),
+                                          child: Icon(
+                                            Icons.check,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onPrimary,
+                                            size: 14,
+                                          ),
+                                        ),
+                                      Text(
+                                        version.versionName ??
+                                            'v${version.versionNumber}',
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.bodySmall?.copyWith(
+                                              color: isSelected
+                                                  ? Theme.of(
                                                       context,
                                                     ).colorScheme.onPrimary
-                                                    : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSecondaryContainer,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Expanded(
-                                    child: Text(
-                                      version.name,
-                                      style: Theme.of(
-                                        context,
-                                      ).textTheme.bodyMedium?.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                        color:
-                                            isSelected
-                                                ? Theme.of(
-                                                  context,
-                                                ).colorScheme.onPrimaryContainer
-                                                : null,
-                                      ),
-                                    ),
-                                  ),
-                                  if (versions.length > 1)
-                                    IconButton(
-                                      onPressed:
-                                          () => _showDeleteVersionDialog(
-                                            context,
-                                            version,
-                                            versions,
-                                          ),
-                                      icon: Icon(
-                                        Icons.delete_outline,
-                                        color:
-                                            Theme.of(context).colorScheme.error,
-                                        size: 20,
-                                      ),
-                                      tooltip: '버전 삭제',
-                                      constraints: const BoxConstraints(
-                                        minWidth: 32,
-                                        minHeight: 32,
-                                      ),
-                                      padding: const EdgeInsets.all(4),
-                                    ),
-                                ],
-                              ),
-                              if (version.changeLog != null &&
-                                  version.changeLog!.isNotEmpty) ...[
-                                const SizedBox(height: 8),
-                                Container(
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    color: (isSelected
-                                            ? Theme.of(
-                                              context,
-                                            ).colorScheme.primary
-                                            : Theme.of(context)
-                                                .colorScheme
-                                                .surfaceContainerHighest)
-                                        .withValues(alpha: 0.1),
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Icons.edit_note,
-                                            size: 16,
-                                            color:
-                                                Theme.of(
-                                                  context,
-                                                ).colorScheme.onSurfaceVariant,
-                                          ),
-                                          const SizedBox(width: 4),
-                                          Text(
-                                            '변경사항',
-                                            style: Theme.of(
-                                              context,
-                                            ).textTheme.bodySmall?.copyWith(
-                                              color:
-                                                  Theme.of(context)
+                                                  : Theme.of(context)
                                                       .colorScheme
-                                                      .onSurfaceVariant,
-                                              fontWeight: FontWeight.w500,
+                                                      .onSecondaryContainer,
+                                              fontWeight: FontWeight.bold,
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                          20.0,
-                                          0.0,
-                                          20.0,
-                                          0.0,
-                                        ),
-                                        child: Text(
-                                          version.changeLog!,
-                                          style: Theme.of(
-                                            context,
-                                          ).textTheme.bodySmall?.copyWith(
-                                            color:
-                                                isSelected
-                                                    ? Theme.of(context)
-                                                        .colorScheme
-                                                        .onPrimaryContainer
-                                                    : Theme.of(context)
-                                                        .colorScheme
-                                                        .onSurfaceVariant,
-                                            fontStyle: FontStyle.italic,
-                                          ),
-                                        ),
                                       ),
                                     ],
                                   ),
                                 ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    version.name,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyMedium?.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          color: isSelected
+                                              ? Theme.of(
+                                                  context,
+                                                ).colorScheme.onPrimaryContainer
+                                              : null,
+                                        ),
+                                  ),
+                                ),
+                                if (versions.length > 1)
+                                  IconButton(
+                                    onPressed: () => _showDeleteVersionDialog(
+                                      context,
+                                      version,
+                                      versions,
+                                    ),
+                                    icon: Icon(
+                                      Icons.delete_outline,
+                                      color:
+                                          Theme.of(context).colorScheme.error,
+                                      size: 20,
+                                    ),
+                                    tooltip: '버전 삭제',
+                                    constraints: const BoxConstraints(
+                                      minWidth: 32,
+                                      minHeight: 32,
+                                    ),
+                                    padding: const EdgeInsets.all(4),
+                                  ),
                               ],
-                              const SizedBox(height: 4),
-                              Text(
-                                '생성일: ${_formatDate(version.createdAt)}',
-                                style: Theme.of(
-                                  context,
-                                ).textTheme.bodySmall?.copyWith(
-                                  color:
-                                      isSelected
-                                          ? Theme.of(context)
+                            ),
+                            if (version.changeLog != null &&
+                                version.changeLog!.isNotEmpty) ...[
+                              const SizedBox(height: 8),
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: (isSelected
+                                          ? Theme.of(
+                                              context,
+                                            ).colorScheme.primary
+                                          : Theme.of(context)
                                               .colorScheme
-                                              .onPrimaryContainer
-                                              .withValues(alpha: 0.8)
-                                          : Theme.of(
+                                              .surfaceContainerHighest)
+                                      .withValues(alpha: 0.1),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.edit_note,
+                                          size: 16,
+                                          color: Theme.of(
                                             context,
                                           ).colorScheme.onSurfaceVariant,
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          '변경사항',
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.bodySmall?.copyWith(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSurfaceVariant,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                        20.0,
+                                        0.0,
+                                        20.0,
+                                        0.0,
+                                      ),
+                                      child: Text(
+                                        version.changeLog!,
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.bodySmall?.copyWith(
+                                              color: isSelected
+                                                  ? Theme.of(context)
+                                                      .colorScheme
+                                                      .onPrimaryContainer
+                                                  : Theme.of(context)
+                                                      .colorScheme
+                                                      .onSurfaceVariant,
+                                              fontStyle: FontStyle.italic,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              const SizedBox(height: 4),
-                              _buildBaseVersionInfo(context, version, versions),
                             ],
-                          ),
+                            const SizedBox(height: 4),
+                            Text(
+                              '생성일: ${_formatDate(version.createdAt)}',
+                              style: Theme.of(
+                                context,
+                              ).textTheme.bodySmall?.copyWith(
+                                    color: isSelected
+                                        ? Theme.of(context)
+                                            .colorScheme
+                                            .onPrimaryContainer
+                                            .withValues(alpha: 0.8)
+                                        : Theme.of(
+                                            context,
+                                          ).colorScheme.onSurfaceVariant,
+                                  ),
+                            ),
+                            const SizedBox(height: 4),
+                            _buildBaseVersionInfo(context, version, versions),
+                          ],
                         ),
                       ),
                     ),
                   );
-                },
+                }).toList(),
               ),
           ],
         ),
@@ -580,7 +563,6 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
     RecipeVersionEntity version,
     List<RecipeVersionEntity> allVersions,
   ) {
-    allVersions.sort((a, b) => a.versionNumber.compareTo(b.versionNumber));
     RecipeVersionEntity? baseVersion;
     if (allVersions.first.id == version.id) {
       baseVersion = null;
@@ -588,18 +570,17 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
       // 기반 버전 정보 찾기
       baseVersion = allVersions.firstWhere(
         (v) => v.id == version.baseVersionId,
-        orElse:
-            () => RecipeVersionEntity(
-              id: 'deleted',
-              recipeId: version.recipeId,
-              versionNumber: 0,
-              name: '삭제된 버전',
-              description: '',
-              ingredients: [],
-              steps: [],
-              authorId: '',
-              createdAt: DateTime.now(),
-            ),
+        orElse: () => RecipeVersionEntity(
+          id: 'deleted',
+          recipeId: version.recipeId,
+          versionNumber: 0,
+          name: '삭제된 버전',
+          description: '',
+          ingredients: [],
+          steps: [],
+          authorId: '',
+          createdAt: DateTime.now(),
+        ),
       );
     }
 
@@ -609,20 +590,18 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
       width: double.infinity,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color:
-            isDeleted
-                ? Theme.of(
-                  context,
-                ).colorScheme.errorContainer.withValues(alpha: 0.5)
-                : Theme.of(context).colorScheme.tertiaryContainer,
+        color: isDeleted
+            ? Theme.of(
+                context,
+              ).colorScheme.errorContainer.withValues(alpha: 0.5)
+            : Theme.of(context).colorScheme.tertiaryContainer,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color:
-              isDeleted
-                  ? Theme.of(context).colorScheme.error.withValues(alpha: 0.3)
-                  : Theme.of(
-                    context,
-                  ).colorScheme.outline.withValues(alpha: 0.3),
+          color: isDeleted
+              ? Theme.of(context).colorScheme.error.withValues(alpha: 0.3)
+              : Theme.of(
+                  context,
+                ).colorScheme.outline.withValues(alpha: 0.3),
         ),
       ),
       child: Column(
@@ -633,21 +612,19 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               Icon(
                 isDeleted ? Icons.link_off : Icons.fork_right,
                 size: 16,
-                color:
-                    isDeleted
-                        ? Theme.of(context).colorScheme.error
-                        : Theme.of(context).colorScheme.onTertiaryContainer,
+                color: isDeleted
+                    ? Theme.of(context).colorScheme.error
+                    : Theme.of(context).colorScheme.onTertiaryContainer,
               ),
               const SizedBox(width: 8),
               Text(
                 '기반 버전',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color:
-                      isDeleted
+                      color: isDeleted
                           ? Theme.of(context).colorScheme.error
                           : Theme.of(context).colorScheme.onTertiaryContainer,
-                  fontWeight: FontWeight.w500,
-                ),
+                      fontWeight: FontWeight.w500,
+                    ),
               ),
             ],
           ),
@@ -666,9 +643,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   Text(
                     '기반 버전이 삭제되었습니다',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.error,
-                      fontStyle: FontStyle.italic,
-                    ),
+                          color: Theme.of(context).colorScheme.error,
+                          fontStyle: FontStyle.italic,
+                        ),
                   ),
                 ],
               ),
@@ -703,19 +680,21 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                       child: Text(
                         'v${baseVersion.versionNumber}',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                        ),
+                              color: Theme.of(context).colorScheme.onPrimary,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                            ),
                       ),
                     ),
                     const SizedBox(width: 6),
                     Text(
                       baseVersion.versionName ?? baseVersion.name,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
-                        fontWeight: FontWeight.w500,
-                      ),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                            fontWeight: FontWeight.w500,
+                          ),
                     ),
                     const SizedBox(width: 4),
                     Icon(
@@ -734,8 +713,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               child: Text(
                 '최초 버전입니다',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
               ),
             ),
           ],
@@ -765,8 +744,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               Text(
                 '등록된 재료가 없습니다',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
               )
             else
               ListView.separated(
@@ -792,9 +771,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                           style: Theme.of(
                             context,
                           ).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w500,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
+                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                         ),
                       ],
                     ),
@@ -825,16 +804,16 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               Text(
                 '등록된 조리 순서가 없습니다',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
               )
             else
               ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: version.steps.length,
-                separatorBuilder:
-                    (context, index) => const SizedBox(height: 16),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 16),
                 itemBuilder: (context, index) {
                   final step = version.steps[index];
                   return Row(
@@ -853,9 +832,10 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                             style: Theme.of(
                               context,
                             ).textTheme.bodyMedium?.copyWith(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                              fontWeight: FontWeight.bold,
-                            ),
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  fontWeight: FontWeight.bold,
+                                ),
                           ),
                         ),
                       ),
@@ -919,8 +899,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                     Text(
                       '쿠킹 로그',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                     ElevatedButton.icon(
                       onPressed: () async {
@@ -953,26 +933,24 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 ),
                 const SizedBox(height: 12),
                 cookingLogsAsync.when(
-                  data:
-                      (cookingLogs) =>
-                          _buildCookingLogsList(context, cookingLogs),
-                  loading:
-                      () => const Center(child: CircularProgressIndicator()),
-                  error:
-                      (error, stackTrace) => Center(
-                        child: SelectableText.rich(
-                          TextSpan(
-                            children: [
-                              const TextSpan(
-                                text: '쿠킹 로그를 불러오는 중 오류가 발생했습니다:\n\n',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              TextSpan(text: error.toString()),
-                            ],
+                  data: (cookingLogs) =>
+                      _buildCookingLogsList(context, cookingLogs),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (error, stackTrace) => Center(
+                    child: SelectableText.rich(
+                      TextSpan(
+                        children: [
+                          const TextSpan(
+                            text: '쿠킹 로그를 불러오는 중 오류가 발생했습니다:\n\n',
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          style: const TextStyle(color: Colors.red),
-                        ),
+                          TextSpan(text: error.toString()),
+                        ],
                       ),
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -1001,15 +979,15 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               Text(
                 '아직 쿠킹 로그가 없습니다',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
               ),
               const SizedBox(height: 4),
               Text(
                 '첫 번째 쿠킹 로그를 추가해보세요!',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
               ),
             ],
           ),
@@ -1046,27 +1024,24 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Theme.of(context).colorScheme.outline),
             ),
-            child:
-                cookingLog.imageUrl != null
-                    ? ClipRRect(
-                      borderRadius: BorderRadius.circular(7),
-                      child: Image.file(
-                        File(cookingLog.imageUrl!),
-                        fit: BoxFit.cover,
-                        errorBuilder:
-                            (context, error, stackTrace) => Icon(
-                              Icons.broken_image,
-                              color:
-                                  Theme.of(
-                                    context,
-                                  ).colorScheme.onSurfaceVariant,
-                            ),
+            child: cookingLog.imageUrl != null
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(7),
+                    child: Image.file(
+                      File(cookingLog.imageUrl!),
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => Icon(
+                        Icons.broken_image,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurfaceVariant,
                       ),
-                    )
-                    : Icon(
-                      Icons.restaurant,
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
+                  )
+                : Icon(
+                    Icons.restaurant,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -1100,8 +1075,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                     Text(
                       _formatDate(cookingLog.cookedAt),
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
+                            color:
+                                Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
                     ),
                   ],
                 ),
