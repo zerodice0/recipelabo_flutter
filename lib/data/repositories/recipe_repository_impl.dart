@@ -133,6 +133,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
       authorId: model.authorId,
       createdAt: model.createdAt,
       changeLog: model.changeLog,
+      baseVersionId: model.baseVersionId,
     );
   }
 
@@ -146,16 +147,16 @@ class RecipeRepositoryImpl implements RecipeRepository {
       name: entity.name,
       versionName: entity.versionName,
       description: entity.description,
-      ingredients:
-          entity.ingredients
-              .map((e) => _mapIngredientEntityToModel(e, entity.id))
-              .toList(),
+      ingredients: entity.ingredients
+          .map((e) => _mapIngredientEntityToModel(e, entity.id))
+          .toList(),
       steps:
           entity.steps.map((e) => _mapStepEntityToModel(e, entity.id)).toList(),
       authorId: entity.authorId,
       createdAt: entity.createdAt,
       updatedAt: DateTime.now(), // Should be handled properly
       changeLog: entity.changeLog,
+      baseVersionId: entity.baseVersionId,
     );
   }
 

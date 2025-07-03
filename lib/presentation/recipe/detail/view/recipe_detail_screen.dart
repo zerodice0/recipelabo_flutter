@@ -564,10 +564,14 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
     List<RecipeVersionEntity> allVersions,
   ) {
     RecipeVersionEntity? baseVersion;
-    if (allVersions.first.id == version.id) {
+
+    if (allVersions.last.id == version.id) {
       baseVersion = null;
+    } else if (allVersions.any((v) => v.id == version.baseVersionId)) {
+      baseVersion = allVersions.firstWhere(
+        (v) => v.id == version.baseVersionId,
+      );
     } else {
-      // 기반 버전 정보 찾기
       baseVersion = allVersions.firstWhere(
         (v) => v.id == version.baseVersionId,
         orElse: () => RecipeVersionEntity(
@@ -583,6 +587,12 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
         ),
       );
     }
+
+    //if (allVersions.first.id == version.id) {
+    //   baseVersion = null;
+    // } else {
+    //   // 기반 버전 정보 찾기
+    // }
 
     final isDeleted = baseVersion?.id == 'deleted';
 
