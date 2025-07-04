@@ -4,21 +4,22 @@ import 'package:googleapis/sheets/v4.dart';
 import 'package:googleapis_auth/auth_io.dart';
 
 /// 하드코딩된 한국어 문자열을 스캔하고 Google Sheets에 업로드하는 스크립트
-/// 
+///
 /// 사용법:
 /// dart scripts/scan_hardcoded_strings.dart [--upload] [--dry-run]
-/// 
+///
 /// 환경변수:
 /// - GOOGLE_SERVICE_ACCOUNT_JSON: 서비스 계정 JSON (필수, 쓰기 권한 필요)
 
 class StringScanner {
-  static const String spreadsheetId = '1q3T5hPEshaAifT5K9g0L-2yqPH4zv62x-43Z1u-cZns';
-  static const String sheetRange = 'Sheet1!A:E';
-  
+  static const String spreadsheetId =
+      '1q3T5hPEshaAifT5K9g0L-2yqPH4zv62x-43Z1u-cZns';
+  static const String sheetRange = 'multi_language!A:E';
+
   final SheetsApi? sheetsApi;
   final bool shouldUpload;
   final bool isDryRun;
-  
+
   StringScanner({
     this.sheetsApi,
     this.shouldUpload = false,
@@ -30,17 +31,22 @@ class StringScanner {
     bool shouldUpload = false,
     bool isDryRun = false,
   }) async {
+    // .env 파일에서 환경변수 로드 시도
+    await _loadEnvFile();
+
     SheetsApi? sheetsApi;
-    
+
     if (shouldUpload && !isDryRun) {
-      final serviceAccountJson = Platform.environment['GOOGLE_SERVICE_ACCOUNT_JSON'];
-      
-      if (serviceAccountJson == null) {
+      final serviceAccountFile = File('scripts/service-account-key.json');
+
+      if (!await serviceAccountFile.exists()) {
         throw Exception(
-          'Google Sheets 업로드를 위해서는 GOOGLE_SERVICE_ACCOUNT_JSON 환경변수가 필요합니다.',
+          'Google Sheets 업로드를 위해서는 scripts/service-account-key.json 파일이 필요합니다.',
         );
       }
-      
+
+      final serviceAccountJson = await serviceAccountFile.readAsString();
+
       final credentials = ServiceAccountCredentials.fromJson(
         jsonDecode(serviceAccountJson),
       );
@@ -50,7 +56,7 @@ class StringScanner {
       );
       sheetsApi = SheetsApi(client);
     }
-    
+
     return StringScanner(
       sheetsApi: sheetsApi,
       shouldUpload: shouldUpload,
@@ -58,25 +64,54 @@ class StringScanner {
     );
   }
 
+  /// .env 파일에서 환경변수 로드
+  static Future<void> _loadEnvFile() async {
+    try {
+      final envFile = File('.env');
+      if (await envFile.exists()) {
+        final lines = await envFile.readAsLines();
+        for (final line in lines) {
+          final trimmed = line.trim();
+          if (trimmed.isEmpty || trimmed.startsWith('#')) continue;
+
+          final splitIndex = trimmed.indexOf('=');
+          if (splitIndex == -1) continue;
+
+          final key = trimmed.substring(0, splitIndex).trim();
+          final value = trimmed.substring(splitIndex + 1).trim();
+
+          // 환경변수가 아직 설정되지 않은 경우에만 설정
+          if (Platform.environment[key] == null) {
+            Platform.environment[key] = value;
+          }
+        }
+        print('✅ .env 파일에서 환경변수를 로드했습니다.');
+      }
+    } catch (e) {
+      // .env 파일이 없거나 읽기 실패는 무시 (환경변수로 대체 가능)
+      print('💡 .env 파일을 찾을 수 없습니다. 시스템 환경변수를 사용합니다.');
+    }
+  }
+
   /// Dart 파일에서 하드코딩된 한국어 문자열 스캔
   Future<List<HardcodedString>> scanHardcodedStrings() async {
     print('🔍 하드코딩된 한국어 문자열 스캔 시작...');
-    
+
     final libDir = Directory('lib');
     if (!libDir.existsSync()) {
       throw Exception('lib 디렉토리를 찾을 수 없습니다.');
     }
-    
+
     final dartFiles = await _findDartFiles(libDir);
     print('📁 스캔할 Dart 파일: ${dartFiles.length}개');
-    
+
     final hardcodedStrings = <HardcodedString>[];
-    
+
     for (final file in dartFiles) {
       final strings = await _scanFile(file);
       hardcodedStrings.addAll(strings);
     }
-    
+
     // 중복 제거 (동일한 텍스트)
     final uniqueStrings = <String, HardcodedString>{};
     for (final str in hardcodedStrings) {
@@ -87,10 +122,10 @@ class StringScanner {
         uniqueStrings[str.text]!.locations.addAll(str.locations);
       }
     }
-    
+
     final result = uniqueStrings.values.toList();
     result.sort((a, b) => a.text.compareTo(b.text));
-    
+
     print('✅ 스캔 완료: ${result.length}개의 고유한 한국어 문자열 발견');
     return result;
   }
@@ -98,11 +133,11 @@ class StringScanner {
   /// 디렉토리에서 Dart 파일 찾기
   Future<List<File>> _findDartFiles(Directory dir) async {
     final files = <File>[];
-    
+
     await for (final entity in dir.list(recursive: true)) {
       if (entity is File && entity.path.endsWith('.dart')) {
         // 생성된 파일들 제외
-        if (entity.path.contains('.g.dart') || 
+        if (entity.path.contains('.g.dart') ||
             entity.path.contains('.freezed.dart') ||
             entity.path.contains('app_localizations')) {
           continue;
@@ -110,7 +145,7 @@ class StringScanner {
         files.add(entity);
       }
     }
-    
+
     return files;
   }
 
@@ -119,28 +154,28 @@ class StringScanner {
     final content = await file.readAsString();
     final lines = content.split('\n');
     final hardcodedStrings = <HardcodedString>[];
-    
+
     for (int lineIndex = 0; lineIndex < lines.length; lineIndex++) {
       final line = lines[lineIndex];
       final lineNumber = lineIndex + 1;
-      
+
       // 문자열 리터럴 패턴들
       final patterns = [
         RegExp(r"'([^']*[가-힣]+[^']*)'"), // 작은따옴표
         RegExp(r'"([^"]*[가-힣]+[^"]*)"'), // 큰따옴표
       ];
-      
+
       for (final pattern in patterns) {
         final matches = pattern.allMatches(line);
-        
+
         for (final match in matches) {
           final text = match.group(1)!;
-          
+
           // 제외할 패턴들
           if (_shouldExclude(text, file.path)) {
             continue;
           }
-          
+
           // 한국어가 포함된 문자열만
           if (_containsKorean(text)) {
             final location = StringLocation(
@@ -148,7 +183,7 @@ class StringScanner {
               line: lineNumber,
               column: match.start,
             );
-            
+
             hardcodedStrings.add(HardcodedString(
               text: text,
               locations: [location],
@@ -157,7 +192,7 @@ class StringScanner {
         }
       }
     }
-    
+
     return hardcodedStrings;
   }
 
@@ -167,26 +202,26 @@ class StringScanner {
     if (filePath.contains('test/')) {
       return true;
     }
-    
+
     // 주석이나 로그 메시지일 가능성이 높은 것들
-    if (text.startsWith('//') || 
-        text.startsWith('/*') || 
+    if (text.startsWith('//') ||
+        text.startsWith('/*') ||
         text.startsWith('*') ||
         text.contains('print(') ||
         text.contains('debugPrint(')) {
       return true;
     }
-    
+
     // 너무 짧거나 긴 문자열
     if (text.length < 2 || text.length > 100) {
       return true;
     }
-    
+
     // 특수 문자만 있는 것들
     if (text.trim().isEmpty) {
       return true;
     }
-    
+
     return false;
   }
 
@@ -201,7 +236,7 @@ class StringScanner {
     String cleanText = text
         .replaceAll(RegExp(r'\$\{[^}]+\}'), 'VAR')
         .replaceAll(RegExp(r'\$[a-zA-Z_][a-zA-Z0-9_]*'), 'VAR');
-    
+
     // 한국어 텍스트를 영어 키로 변환
     final keyMap = {
       '레시피': 'recipe',
@@ -253,14 +288,14 @@ class StringScanner {
       '번': 'times',
       '회': 'times',
     };
-    
+
     String key = cleanText.toLowerCase();
-    
+
     // 한국어 단어들을 영어로 변환
     keyMap.forEach((korean, english) {
       key = key.replaceAll(korean, english);
     });
-    
+
     // 특수 문자 제거 및 정리
     key = key
         .replaceAll(RegExp(r'[^\w\s]'), '') // 특수문자 제거
@@ -268,25 +303,28 @@ class StringScanner {
         .replaceAll(RegExp(r'[가-힣]'), '') // 남은 한국어 제거
         .replaceAll(RegExp(r'_+'), '_') // 연속 언더스코어 정리
         .replaceAll(RegExp(r'^_|_$'), ''); // 시작/끝 언더스코어 제거
-    
+
     // 빈 키인 경우 해시 기반 기본값
     if (key.isEmpty || key == 'var') {
       final hash = text.hashCode.abs().toString();
       key = 'text_$hash';
     }
-    
+
     // camelCase로 변환
     final parts = key.split('_');
     if (parts.length > 1) {
-      key = parts.first + parts.skip(1).map((p) => 
-          p.isEmpty ? '' : p[0].toUpperCase() + p.substring(1)).join('');
+      key = parts.first +
+          parts
+              .skip(1)
+              .map((p) => p.isEmpty ? '' : p[0].toUpperCase() + p.substring(1))
+              .join('');
     }
-    
+
     // 너무 긴 키는 줄이기
     if (key.length > 50) {
       key = key.substring(0, 47) + '_${text.hashCode.abs() % 1000}';
     }
-    
+
     return key;
   }
 
@@ -351,12 +389,12 @@ class StringScanner {
       '번 사용': 'times used',
       '회': 'times',
     };
-    
+
     // 정확한 매치 우선
     if (translationMap.containsKey(koreanText.trim())) {
       return translationMap[koreanText.trim()]!;
     }
-    
+
     // 변수 치환이 있는 문자열 처리
     String result = koreanText;
     translationMap.forEach((korean, english) {
@@ -364,7 +402,7 @@ class StringScanner {
         result = result.replaceAll(korean, english);
       }
     });
-    
+
     // 변경되지 않았으면 원본 반환 (번역 필요)
     return result == koreanText ? '[NEEDS_TRANSLATION] $koreanText' : result;
   }
@@ -430,12 +468,12 @@ class StringScanner {
       '번 사용': '回使用',
       '회': '回',
     };
-    
+
     // 정확한 매치 우선
     if (translationMap.containsKey(koreanText.trim())) {
       return translationMap[koreanText.trim()]!;
     }
-    
+
     // 변수 치환이 있는 문자열 처리
     String result = koreanText;
     translationMap.forEach((korean, japanese) {
@@ -443,7 +481,7 @@ class StringScanner {
         result = result.replaceAll(korean, japanese);
       }
     });
-    
+
     // 변경되지 않았으면 원본 반환 (번역 필요)
     return result == koreanText ? '[NEEDS_TRANSLATION] $koreanText' : result;
   }
@@ -453,38 +491,40 @@ class StringScanner {
     if (!isDryRun && sheetsApi == null) {
       throw Exception('Google Sheets API가 초기화되지 않았습니다.');
     }
-    
+
     print('📤 Google Sheets에 번역 데이터 업로드 중...');
-    
+
     // 기존 데이터 가져오기 (dry-run에서는 빈 데이터로 가정)
     final existingData = isDryRun ? <List<String>>[] : await _getExistingData();
-    final existingKeys = existingData.map((row) => row.isNotEmpty ? row[0] : '').toSet();
-    
+    final existingKeys =
+        existingData.map((row) => row.isNotEmpty ? row[0] : '').toSet();
+
     // 새로운 데이터 준비
     final newRows = <List<String>>[];
     int newCount = 0;
-    
+
     for (final hardcodedString in strings) {
       final key = _generateKey(hardcodedString.text);
-      
+
       // 이미 존재하는 키는 건너뛰기
       if (existingKeys.contains(key)) {
         continue;
       }
-      
+
       final english = _generateEnglishTranslation(hardcodedString.text);
       final japanese = _generateJapaneseTranslation(hardcodedString.text);
-      final description = '${hardcodedString.locations.map((l) => '${l.file}:${l.line}').join(', ')}에서 발견';
-      
+      final description =
+          '${hardcodedString.locations.map((l) => '${l.file}:${l.line}').join(', ')}에서 발견';
+
       newRows.add([key, hardcodedString.text, english, japanese, description]);
       newCount++;
     }
-    
+
     if (newRows.isEmpty) {
       print('ℹ️ 새로 추가할 번역 데이터가 없습니다.');
       return;
     }
-    
+
     if (isDryRun) {
       print('🔍 [DRY RUN] 업로드할 새로운 번역 데이터:');
       for (final row in newRows.take(10)) {
@@ -495,15 +535,15 @@ class StringScanner {
       }
       return;
     }
-    
+
     // 기존 데이터 다음 행부터 추가
     final startRow = existingData.length + 2; // 헤더 행 고려
     final endRow = startRow + newRows.length - 1;
-    final range = 'Sheet1!A$startRow:E$endRow';
-    
+    final range = 'multi_language!A$startRow:E$endRow';
+
     final valueRange = ValueRange()
       ..values = newRows.map((row) => row.cast<Object>()).toList();
-    
+
     try {
       await sheetsApi!.spreadsheets.values.update(
         valueRange,
@@ -511,10 +551,9 @@ class StringScanner {
         range,
         valueInputOption: 'RAW',
       );
-      
+
       print('✅ Google Sheets 업로드 완료: $newCount개의 새로운 번역 항목 추가');
       print('📋 스프레드시트: https://docs.google.com/spreadsheets/d/$spreadsheetId');
-      
     } catch (e) {
       print('❌ Google Sheets 업로드 실패: $e');
       rethrow;
@@ -526,12 +565,14 @@ class StringScanner {
     try {
       final response = await sheetsApi!.spreadsheets.values.get(
         spreadsheetId,
-        'Sheet1!A:E',
+        'multi_language!A:E',
       );
-      
-      return response.values?.map((row) => 
-          List<String>.from(row.map((cell) => cell?.toString() ?? ''))
-      ).toList() ?? [];
+
+      return response.values
+              ?.map((row) =>
+                  List<String>.from(row.map((cell) => cell?.toString() ?? '')))
+              .toList() ??
+          [];
     } catch (e) {
       print('⚠️ 기존 데이터를 가져올 수 없습니다: $e');
       return [];
@@ -542,27 +583,28 @@ class StringScanner {
   void printResults(List<HardcodedString> strings) {
     print('\n📊 스캔 결과:');
     print('=' * 50);
-    
+
     if (strings.isEmpty) {
       print('🎉 하드코딩된 한국어 문자열을 찾지 못했습니다!');
       return;
     }
-    
+
     print('📝 발견된 하드코딩 문자열 (${strings.length}개):');
     print('-' * 50);
-    
+
     for (int i = 0; i < strings.length && i < 20; i++) {
       final str = strings[i];
       final key = _generateKey(str.text);
       print('${i + 1}. "$key": "${str.text}"');
-      print('   위치: ${str.locations.map((l) => '${l.file}:${l.line}').join(', ')}');
+      print(
+          '   위치: ${str.locations.map((l) => '${l.file}:${l.line}').join(', ')}');
       print('');
     }
-    
+
     if (strings.length > 20) {
       print('... 그리고 ${strings.length - 20}개 더');
     }
-    
+
     print('\n💡 다음 단계:');
     print('1. --upload 옵션으로 Google Sheets에 업로드');
     print('2. 스프레드시트에서 번역 검토 및 수정');
@@ -574,22 +616,21 @@ class StringScanner {
     try {
       print('🔍 하드코딩된 문자열 스캔 시작${isDryRun ? ' (DRY RUN)' : ''}');
       print('=' * 50);
-      
+
       // 1. 하드코딩된 문자열 스캔
       final strings = await scanHardcodedStrings();
-      
+
       // 2. 결과 출력
       printResults(strings);
-      
+
       // 3. Google Sheets에 업로드
       if (shouldUpload && strings.isNotEmpty) {
         print('\n📤 Google Sheets 업로드 시작...');
         await uploadToSheets(strings);
       }
-      
+
       print('\n' + '=' * 50);
       print('🎉 스캔 완료!');
-      
     } catch (e, stackTrace) {
       print('❌ 스캔 실패: $e');
       print('\nStackTrace:\n$stackTrace');
@@ -602,14 +643,15 @@ class StringScanner {
 class HardcodedString {
   final String text;
   final List<StringLocation> locations;
-  
+
   HardcodedString({
     required this.text,
     required this.locations,
   });
-  
+
   @override
-  String toString() => 'HardcodedString(text: $text, locations: ${locations.length})';
+  String toString() =>
+      'HardcodedString(text: $text, locations: ${locations.length})';
 }
 
 /// 문자열 위치 정보
@@ -617,13 +659,13 @@ class StringLocation {
   final String file;
   final int line;
   final int column;
-  
+
   StringLocation({
     required this.file,
     required this.line,
     required this.column,
   });
-  
+
   @override
   String toString() => '$file:$line:$column';
 }
@@ -632,7 +674,7 @@ class StringLocation {
 Future<void> main(List<String> args) async {
   bool shouldUpload = false;
   bool isDryRun = false;
-  
+
   // 명령행 인수 파싱
   for (final arg in args) {
     if (arg == '--upload') {
@@ -644,7 +686,7 @@ Future<void> main(List<String> args) async {
       return;
     }
   }
-  
+
   try {
     final scanner = await StringScanner.create(
       shouldUpload: shouldUpload,
@@ -670,8 +712,8 @@ void _printUsage() {
   --dry-run    실제 업로드하지 않고 미리보기만 출력
   --help, -h   도움말 출력
 
-환경변수:
-  GOOGLE_SERVICE_ACCOUNT_JSON    서비스 계정 JSON (--upload 사용 시 필수)
+파일:
+  scripts/service-account-key.json    서비스 계정 JSON (--upload 사용 시 필수)
 
 예시:
   # 스캔만 실행

@@ -521,7 +521,7 @@
     }
   },
   "popularIngredients": "Popular Ingredients",
-  "searchResultsIngredients": "Search Results",
+  "searchResultsIngredients": "Ingredient Search Results",
   "recipeRequiresMinimumVersion": "Recipe must have at least one version.",
   "deleteVersion": "Delete Version",
   "confirmDeleteVersion": "Are you sure you want to delete this version?",

@@ -530,7 +530,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get popularIngredients => '자주 사용된 재료';
 
   @override
-  String get searchResultsIngredients => '검색 결과';
+  String get searchResultsIngredients => '재료 검색 결과';
 
   @override
   String get recipeRequiresMinimumVersion => '레시피에는 최소 하나의 버전이 있어야 합니다.';

@@ -530,7 +530,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get popularIngredients => '人気の材料';
 
   @override
-  String get searchResultsIngredients => '検索結果';
+  String get searchResultsIngredients => '材料検索結果';
 
   @override
   String get recipeRequiresMinimumVersion => 'レシピには最低一つのバージョンが必要です。';

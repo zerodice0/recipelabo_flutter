@@ -1066,7 +1066,7 @@ abstract class AppLocalizations {
   /// No description provided for @searchResultsIngredients.
   ///
   /// In en, this message translates to:
-  /// **'Search Results'**
+  /// **'Ingredient Search Results'**
   String get searchResultsIngredients;
 
   /// No description provided for @recipeRequiresMinimumVersion.

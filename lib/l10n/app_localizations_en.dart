@@ -530,7 +530,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get popularIngredients => 'Popular Ingredients';
 
   @override
-  String get searchResultsIngredients => 'Search Results';
+  String get searchResultsIngredients => 'Ingredient Search Results';
 
   @override
   String get recipeRequiresMinimumVersion => 'Recipe must have at least one version.';

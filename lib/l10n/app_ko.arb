@@ -162,7 +162,7 @@
   "noRecipesFound": "선택한 재료로 만들 수 있는\n레시피가 없습니다",
   "recipesFound": "{count}개의 레시피를 찾았습니다",
   "popularIngredients": "자주 사용된 재료",
-  "searchResultsIngredients": "검색 결과",
+  "searchResultsIngredients": "재료 검색 결과",
   "recipeRequiresMinimumVersion": "레시피에는 최소 하나의 버전이 있어야 합니다.",
   "deleteVersion": "버전 삭제",
   "confirmDeleteVersion": "정말로 이 버전을 삭제하시겠습니까?",

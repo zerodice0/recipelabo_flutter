@@ -162,7 +162,7 @@
   "noRecipesFound": "選択した材料で作れる\nレシピがありません",
   "recipesFound": "{count}件のレシピが見つかりました",
   "popularIngredients": "人気の材料",
-  "searchResultsIngredients": "検索結果",
+  "searchResultsIngredients": "材料検索結果",
   "recipeRequiresMinimumVersion": "レシピには最低一つのバージョンが必要です。",
   "deleteVersion": "バージョン削除",
   "confirmDeleteVersion": "本当にこのバージョンを削除しますか？",
