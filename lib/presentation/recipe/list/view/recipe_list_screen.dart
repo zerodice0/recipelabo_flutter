@@ -40,8 +40,9 @@ class RecipeListScreen extends ConsumerWidget {
             if (recipes.isEmpty) {
               return Center(
                 child: Container(
-                  margin: const EdgeInsets.all(32),
-                  padding: const EdgeInsets.all(32),
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(24),
+                  constraints: const BoxConstraints(maxWidth: 500),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
@@ -60,41 +61,48 @@ class RecipeListScreen extends ConsumerWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // 요리 아이콘 그룹
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            width: 120,
-                            height: 120,
-                            decoration: BoxDecoration(
-                              gradient: AppColors.accentGradient,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.accent.withValues(
-                                    alpha: 0.3,
-                                  ),
-                                  blurRadius: 20,
-                                  offset: const Offset(0, 10),
+                      // 요리 아이콘 그룹 - 반응형 크기
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          final isSmallScreen = constraints.maxWidth < 400;
+                          final iconSize = isSmallScreen ? 100.0 : 120.0;
+                          final iconInnerSize = isSmallScreen ? 50.0 : 60.0;
+
+                          return Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                width: iconSize,
+                                height: iconSize,
+                                decoration: BoxDecoration(
+                                  gradient: AppColors.accentGradient,
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColors.accent.withValues(
+                                        alpha: 0.3,
+                                      ),
+                                      blurRadius: 20,
+                                      offset: const Offset(0, 10),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
-                          Icon(
-                            Icons.restaurant_menu,
-                            size: 60,
-                            color: AppColors.warmWhite,
-                          ),
-                        ],
+                              ),
+                              Icon(
+                                Icons.restaurant_menu,
+                                size: iconInnerSize,
+                                color: AppColors.warmWhite,
+                              ),
+                            ],
+                          );
+                        },
                       ),
                       const SizedBox(height: 24),
 
                       Text(
                         AppLocalizations.of(context).recipeEmptyState,
-                        style: Theme.of(
-                          context,
-                        ).textTheme.headlineSmall?.copyWith(
+                        style: Theme.of(context).textTheme.headlineSmall
+                            ?.copyWith(
                               color: AppColors.textBrown,
                               fontWeight: FontWeight.bold,
                             ),
@@ -103,49 +111,108 @@ class RecipeListScreen extends ConsumerWidget {
                       const SizedBox(height: 12),
 
                       Text(
-                        AppLocalizations.of(context)
-                            .recipeEmptyStateDescription,
+                        AppLocalizations.of(
+                          context,
+                        ).recipeEmptyStateDescription,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: AppColors.textBrown.withValues(alpha: 0.7),
-                              height: 1.5,
-                            ),
+                          color: AppColors.textBrown.withValues(alpha: 0.7),
+                          height: 1.5,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 32),
 
-                      // 버튼들
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              context.push(AppRoutes.recipeCreate);
-                            },
-                            icon: const Icon(Icons.add, size: 20),
-                            label: Text(AppLocalizations.of(context).recipeAdd),
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 12,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          OutlinedButton.icon(
-                            onPressed: () {
-                              context.push(AppRoutes.search);
-                            },
-                            icon: const Icon(Icons.search, size: 20),
-                            label: Text(
-                                AppLocalizations.of(context).ingredientSearch),
-                            style: OutlinedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 12,
-                              ),
-                            ),
-                          ),
-                        ],
+                      // 버튼들 - 반응형 디자인
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          // 화면 너비가 작을 때는 세로로, 클 때는 가로로 배치
+                          if (constraints.maxWidth < 400) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      context.push(AppRoutes.recipeCreate);
+                                    },
+                                    icon: const Icon(Icons.add, size: 20),
+                                    label: Text(
+                                      AppLocalizations.of(context).recipeAdd,
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                        vertical: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 12),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: OutlinedButton.icon(
+                                    onPressed: () {
+                                      context.push(AppRoutes.search);
+                                    },
+                                    icon: const Icon(Icons.search, size: 20),
+                                    label: Text(
+                                      AppLocalizations.of(
+                                        context,
+                                      ).ingredientSearch,
+                                    ),
+                                    style: OutlinedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                        vertical: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          } else {
+                            return Wrap(
+                              alignment: WrapAlignment.center,
+                              spacing: 16,
+                              runSpacing: 12,
+                              children: [
+                                ElevatedButton.icon(
+                                  onPressed: () {
+                                    context.push(AppRoutes.recipeCreate);
+                                  },
+                                  icon: const Icon(Icons.add, size: 20),
+                                  label: Text(
+                                    AppLocalizations.of(context).recipeAdd,
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 12,
+                                    ),
+                                  ),
+                                ),
+                                OutlinedButton.icon(
+                                  onPressed: () {
+                                    context.push(AppRoutes.search);
+                                  },
+                                  icon: const Icon(Icons.search, size: 20),
+                                  label: Text(
+                                    AppLocalizations.of(
+                                      context,
+                                    ).ingredientSearch,
+                                  ),
+                                  style: OutlinedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 12,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }
+                        },
                       ),
                     ],
                   ),
@@ -251,7 +318,8 @@ class RecipeListScreen extends ConsumerWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                          AppLocalizations.of(context).recipeDeleteSuccess),
+                        AppLocalizations.of(context).recipeDeleteSuccess,
+                      ),
                       backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
                   );
@@ -261,7 +329,8 @@ class RecipeListScreen extends ConsumerWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                          '${AppLocalizations.of(context).recipeDeleteFailed}: $error'),
+                        '${AppLocalizations.of(context).recipeDeleteFailed}: $error',
+                      ),
                       backgroundColor: Theme.of(context).colorScheme.error,
                     ),
                   );

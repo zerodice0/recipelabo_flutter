@@ -21,44 +21,49 @@ class MainNavigationScreen extends ConsumerWidget {
     final currentIndex = ref.watch(mainNavigationViewModelProvider);
     final viewModel = ref.read(mainNavigationViewModelProvider.notifier);
 
-    return Scaffold(
-      body: Column(
-        children: [
-          const AdBannerWidget(),
-          Expanded(
-            child: IndexedStack(
-              index: currentIndex,
-              children: const [
-                RecipeListScreen(),
-                IngredientSearchScreen(),
-                TimerScreen(),
-                ProfileScreen(),
-              ],
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: [
+            const AdBannerWidget(),
+            Expanded(
+              child: IndexedStack(
+                index: currentIndex,
+                children: const [
+                  RecipeListScreen(),
+                  IngredientSearchScreen(),
+                  TimerScreen(),
+                  ProfileScreen(),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: viewModel.setIndex,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Theme.of(context).colorScheme.primary,
-        unselectedItemColor: Theme.of(context).colorScheme.onSurfaceVariant,
-        items: [
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.restaurant_menu),
-            label: AppLocalizations.of(context).navigationRecipes,
-          ),
-          BottomNavigationBarItem(
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: currentIndex,
+          onTap: viewModel.setIndex,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Theme.of(context).colorScheme.primary,
+          unselectedItemColor: Theme.of(context).colorScheme.onSurfaceVariant,
+          items: [
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.restaurant_menu),
+              label: AppLocalizations.of(context).navigationRecipes,
+            ),
+            BottomNavigationBarItem(
               icon: const Icon(Icons.search),
-              label: AppLocalizations.of(context).navigationSearch),
-          BottomNavigationBarItem(
+              label: AppLocalizations.of(context).navigationSearch,
+            ),
+            BottomNavigationBarItem(
               icon: const Icon(Icons.timer),
-              label: AppLocalizations.of(context).navigationTimer),
-          BottomNavigationBarItem(
+              label: AppLocalizations.of(context).navigationTimer,
+            ),
+            BottomNavigationBarItem(
               icon: const Icon(Icons.settings),
-              label: AppLocalizations.of(context).navigationSettings),
-        ],
+              label: AppLocalizations.of(context).navigationSettings,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -72,8 +77,9 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(AppLocalizations.of(context).navigationSettings),
-          automaticallyImplyLeading: false),
+        title: Text(AppLocalizations.of(context).navigationSettings),
+        automaticallyImplyLeading: false,
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
@@ -138,10 +144,16 @@ class ProfileScreen extends ConsumerWidget {
                 const Divider(height: 1),
                 ListTile(
                   leading: const Icon(Icons.spa),
-                  title: Text(AppLocalizations.of(context)
-                      .settingsSeasoningUnitManagement),
-                  subtitle: Text(AppLocalizations.of(context)
-                      .settingsSeasoningUnitDescription),
+                  title: Text(
+                    AppLocalizations.of(
+                      context,
+                    ).settingsSeasoningUnitManagement,
+                  ),
+                  subtitle: Text(
+                    AppLocalizations.of(
+                      context,
+                    ).settingsSeasoningUnitDescription,
+                  ),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     context.push('/settings/seasonings');
@@ -270,9 +282,7 @@ class _NotificationSettingsTileState
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Row(
           children: [
             Icon(
@@ -455,9 +465,7 @@ class _BackgroundAppRefreshTile extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Row(
           children: [
             Container(
@@ -523,10 +531,7 @@ class _BackgroundAppRefreshTile extends StatelessWidget {
                     '• 앱이 백그라운드에 있을 때 타이머가 정확히 작동하지 않을 수 있습니다\n'
                     '• 타이머 완료 알림이 늦게 오거나 오지 않을 수 있습니다\n'
                     '• 앱을 다시 열어야 타이머 상태가 업데이트됩니다',
-                    style: TextStyle(
-                      color: AppColors.textBrown,
-                      height: 1.5,
-                    ),
+                    style: TextStyle(color: AppColors.textBrown, height: 1.5),
                   ),
                 ],
               ),
