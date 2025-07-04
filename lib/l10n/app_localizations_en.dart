@@ -9,314 +9,100 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get recipes => 'Recipes';
+  String get navigationRecipes => 'Recipes';
 
   @override
-  String get search => 'Search';
+  String get navigationSearch => 'Search';
 
   @override
-  String get timer => 'Timer';
+  String get navigationTimer => 'Timer';
 
   @override
-  String get settings => 'Settings';
+  String get navigationSettings => 'Settings';
 
   @override
-  String get addRecipe => 'Add Recipe';
+  String get actionSave => 'Save';
 
   @override
-  String get editRecipe => 'Edit Recipe';
+  String get actionCancel => 'Cancel';
+
+  @override
+  String get actionDelete => 'Delete';
+
+  @override
+  String get actionEdit => 'Edit';
+
+  @override
+  String get actionConfirm => 'Confirm';
+
+  @override
+  String get actionStart => 'Start';
+
+  @override
+  String get actionRetry => 'Retry';
+
+  @override
+  String get actionGoBack => 'Go Back';
+
+  @override
+  String get actionRefresh => 'Refresh';
+
+  @override
+  String get recipeAdd => 'Add Recipe';
+
+  @override
+  String get recipeEdit => 'Edit Recipe';
 
   @override
   String get recipeDetail => 'Recipe Detail';
 
   @override
-  String get noRecipesYet => 'No recipes yet';
-
-  @override
-  String get createSpecialRecipe => 'Create your own special\nsauce recipe!';
-
-  @override
-  String get searchIngredients => 'Search Ingredients';
-
-  @override
-  String get recipeDeleted => 'Recipe has been deleted';
-
-  @override
-  String get confirmDeleteRecipe => 'Are you sure you want to delete this recipe?\n\nThis action cannot be undone.';
-
-  @override
-  String get deleteFailed => 'Delete failed';
-
-  @override
-  String get save => 'Save';
-
-  @override
-  String get cancel => 'Cancel';
-
-  @override
-  String get delete => 'Delete';
-
-  @override
-  String get edit => 'Edit';
-
-  @override
-  String get confirm => 'Confirm';
-
-  @override
-  String get errorOccurred => 'An error occurred';
-
-  @override
-  String get selectUnit => 'Select Unit';
-
-  @override
-  String get management => 'Management';
-
-  @override
-  String get seasoningUnitManagement => 'Seasoning/Unit Management';
-
-  @override
-  String get seasoningUnitDescription => 'Add, edit, delete seasonings/units';
-
-  @override
-  String get appInfo => 'App Info';
-
-  @override
-  String get version => 'Version';
-
-  @override
-  String get license => 'License';
-
-  @override
-  String get timerNotification => 'Timer Notification';
-
-  @override
-  String get backgroundAppRefresh => 'Background App Refresh';
-
-  @override
-  String get backgroundAppRefreshDescription => 'Set up for accurate timer notifications';
-
-  @override
-  String get notificationActivated => '타이머 알림이 활성화되었습니다';
-
-  @override
-  String get notificationDenied => '알림 권한이 거부되었습니다. 시스템 설정에서 수동으로 활성화할 수 있습니다';
-
-  @override
-  String get notificationSettings => '알림 설정';
-
-  @override
-  String get timerNotificationEnabled => '타이머 알림이 활성화되어 있습니다';
-
-  @override
-  String get toTurnOffNotifications => '알림을 끄고 싶다면:';
-
-  @override
-  String get turnOffInstructions => '1. 아이폰 설정 앱 열기 2. 알림 > Saucerer 선택 3. 알림 허용 끄기';
-
-  @override
-  String get turnOffWarning => '알림을 끄면 타이머 완료 시 알림을 받을 수 없습니다';
-
-  @override
-  String get activated => '활성화됨';
-
-  @override
-  String get deactivated => '비활성화됨';
-
-  @override
-  String get openSettings => '설정 열기';
-
-  @override
-  String unitTypeSelection(Object unitName) {
-    return '\"$unitName\" 단위가 어떤 종류인지 선택해주세요.';
-  }
-
-  @override
-  String get frequently_used_units => '자주 사용하는 단위';
-
-  @override
-  String get weight_basic => '무게 (기본)';
-
-  @override
-  String get weight_custom => '무게 (사용자 추가)';
-
-  @override
-  String get volume_basic => '부피 (기본)';
-
-  @override
-  String get volume_custom => '부피 (사용자 추가)';
-
-  @override
-  String get count_basic => '개수 (기본)';
-
-  @override
-  String get count_custom => '개수 (사용자 추가)';
-
-  @override
-  String get misc_basic => '기타 (기본)';
-
-  @override
-  String get misc_custom => '기타 (사용자 추가)';
-
-  @override
-  String get basic => '기본';
-
-  @override
-  String newUnitAdded(Object category, Object unitName) {
-    return '새 단위 \"$unitName\"이(가) $category 카테고리에 추가되었습니다';
-  }
-
-  @override
-  String get unitSearch => '단위 검색...';
-
-  @override
-  String addNewUnit(Object unitName) {
-    return '새 단위 추가: \"$unitName\"';
-  }
-
-  @override
-  String get addNewUnitSubtitle => '새로운 단위를 추가합니다';
-
-  @override
-  String usageCount(Object count) {
-    return '$count회';
-  }
-
-  @override
-  String get errorLoadingUnits => '단위를 불러오는 중 오류가 발생했습니다';
-
-  @override
-  String get retry => '다시 시도';
-
-  @override
-  String timerFinished(Object duration) {
-    return '$duration 타이머가 끝났습니다.';
-  }
-
-  @override
-  String presetSaved(Object name) {
-    return '$name 프리셋이 저장되었습니다';
-  }
-
-  @override
-  String timersInProgress(Object count) {
-    return '$count개 진행중';
-  }
-
-  @override
-  String get createNewVersion => '새 버전 생성';
-
-  @override
-  String get overwriteExistingVersion => '기존 버전 덮어쓰기';
-
-  @override
-  String get versionName => '버전 이름';
-
-  @override
-  String get changeLog => '변경 사항';
-
-  @override
-  String createDerivedVersion(Object versionName) {
-    return '$versionName에서 파생된 새 버전을 생성합니다';
-  }
-
-  @override
-  String updateVersion(Object versionName) {
-    return '$versionName을(를) 업데이트합니다';
-  }
-
-  @override
-  String get ingredients => '재료';
-
-  @override
-  String get steps => '조리 과정';
-
-  @override
-  String get unit => '단위';
-
-  @override
-  String get quantity => '수량';
-
-  @override
-  String get name => '이름';
-
-  @override
-  String get description => '설명';
-
-  @override
-  String get cookingLog => '요리 기록';
-
-  @override
-  String get addCookingLog => '요리 기록 추가';
-
-  @override
-  String get deletePreset => 'Delete Preset';
-
-  @override
-  String confirmDeletePreset(String presetName) {
-    return 'Are you sure you want to delete the $presetName preset?\nDeleted presets cannot be recovered.';
-  }
-
-  @override
-  String get frequentlyUsedTimers => 'Frequently Used Timers';
-
-  @override
-  String get saveFailed => 'Save failed';
-
-  @override
-  String get newRecipe => 'New Recipe';
-
-  @override
-  String get loadingRecipe => 'Loading recipe...';
-
-  @override
-  String get cannotLoadRecipe => 'Cannot load recipe';
-
-  @override
-  String get goBack => 'Go Back';
-
-  @override
   String get recipeName => 'Recipe Name';
 
   @override
-  String get cookingSteps => 'Cooking Steps';
+  String get recipeIngredients => 'Ingredients';
 
   @override
-  String get saveOptions => 'Save Options';
+  String get recipeCookingSteps => 'Cooking Steps';
 
   @override
-  String get howToSave => 'How would you like to save?';
+  String get recipeEmptyState => 'No recipes yet';
 
   @override
-  String editingVersion(String versionName) {
-    return 'Editing: $versionName';
-  }
+  String get recipeEmptyStateDescription => 'Create your own special\nsauce recipe!';
 
   @override
-  String get saveAsNewVersion => 'Save as New Version';
+  String get recipeDeleteConfirm => 'Are you sure you want to delete this recipe?\n\nThis action cannot be undone.';
 
   @override
-  String createDerivedVersionDescription(String versionName) {
-    return 'Create a new version derived from $versionName';
-  }
+  String get recipeDeleteSuccess => 'Recipe has been deleted';
 
   @override
-  String get keepExistingVersion => 'Keep the existing version and create a new version';
+  String get recipeDeleteFailed => 'Delete failed';
 
   @override
-  String get overwriteVersion => 'Overwrite Existing Version';
+  String get recipeLoadingError => 'Cannot load recipe';
 
   @override
-  String updateVersionDescription(String versionName) {
-    return 'Update $versionName';
-  }
+  String get recipeLoading => 'Loading recipe...';
 
   @override
-  String get updateCurrentVersion => 'Update the current version';
+  String get recipeNewTitle => 'New Recipe';
 
   @override
-  String baseVersion(String versionName) {
-    return 'Base version: $versionName';
-  }
+  String get recipeVersionsRequired => 'Recipe must have at least one version.';
+
+  @override
+  String get recipeList => 'Recipe List';
+
+  @override
+  String get versionCreate => 'Create New Version';
+
+  @override
+  String get versionOverwrite => 'Overwrite Existing Version';
+
+  @override
+  String get versionName => 'Version Name';
 
   @override
   String get versionNameOptional => 'Version Name (Optional)';
@@ -325,98 +111,128 @@ class AppLocalizationsEn extends AppLocalizations {
   String get versionNameHint => 'e.g., Spicy, Less Sugar, Vegan';
 
   @override
-  String get changeLogOptional => 'Change Log (Optional)';
+  String get versionChangeLog => 'Change Log';
 
   @override
-  String get changeLogHint => 'e.g., Reduced sugar, Added vegetables';
+  String get versionChangeLogOptional => 'Change Log (Optional)';
 
   @override
-  String get cookingTimer => 'Cooking Timer';
+  String get versionChangeLogHint => 'e.g., Reduced sugar, Added vegetables';
 
   @override
-  String get pastaCooking => 'Pasta Cooking';
+  String get versionDelete => 'Delete Version';
 
   @override
-  String get pastaCookingDescription => 'Standard pasta cooking time';
+  String get versionDeleteConfirm => 'Are you sure you want to delete this version?';
 
   @override
-  String get hardBoiledEgg => 'Hard-boiled Egg';
+  String versionDeleteError(String error) {
+    return 'Error occurred while deleting version: $error';
+  }
 
   @override
-  String get hardBoiledEggDescription => 'Perfect hard-boiled egg';
+  String get versionSaveAsDerived => 'Save as New Version';
 
   @override
-  String get softBoiledEgg => 'Soft-boiled Egg';
+  String versionDerivedDescription(String versionName) {
+    return 'Create a new version derived from $versionName';
+  }
 
   @override
-  String get softBoiledEggDescription => 'Soft and runny egg yolk';
+  String get versionKeepExisting => 'Keep the existing version and create a new version';
 
   @override
-  String get instantNoodles => 'Instant Noodles';
+  String versionUpdateDescription(String versionName) {
+    return 'Update $versionName';
+  }
 
   @override
-  String get instantNoodlesDescription => 'Quick instant noodles';
+  String get versionUpdateCurrent => 'Update the current version';
 
   @override
-  String get teaBrewing => 'Tea Brewing';
+  String versionBaseVersion(String versionName) {
+    return 'Base version: $versionName';
+  }
 
   @override
-  String get teaBrewingDescription => 'Perfect tea steeping time';
+  String versionEditingCurrent(String versionName) {
+    return 'Editing: $versionName';
+  }
 
   @override
-  String get steakCooking => 'Steak Cooking';
+  String get ingredientAdd => 'Add Ingredient';
 
   @override
-  String get steakCookingDescription => 'Medium-rare steak';
+  String get ingredientName => 'Ingredient Name';
 
   @override
-  String get enableNotificationInSettings => 'Please enable notifications in settings';
+  String get ingredientQuantity => 'Quantity';
 
   @override
-  String get notificationEnabled => 'Notifications enabled';
+  String get ingredientUnit => 'Unit';
 
   @override
-  String get notificationPermissionDenied => 'Notification permission denied';
+  String get ingredientSelectUnit => 'Select Unit';
 
   @override
-  String get testNotificationSent => 'Test notification sent';
+  String get ingredientSearch => 'Search Ingredients';
 
   @override
-  String get notificationTest => 'Test Notification';
+  String get ingredientSearchHint => 'Search ingredient names...';
 
   @override
-  String timersRunning(int count) {
+  String get ingredientSearchByIngredients => 'Search by Ingredients';
+
+  @override
+  String get ingredientPopular => 'Popular Ingredients';
+
+  @override
+  String get ingredientShowPopular => 'Show Popular Ingredients';
+
+  @override
+  String get ingredientShowAll => 'Show All Ingredients';
+
+  @override
+  String get ingredientSearchResults => 'Ingredient Search Results';
+
+  @override
+  String get timerStart => 'Start';
+
+  @override
+  String get timerStop => 'Stop';
+
+  @override
+  String get timerReset => 'Reset';
+
+  @override
+  String timerFinished(String duration) {
+    return '$duration timer finished.';
+  }
+
+  @override
+  String timerRunning(String count) {
     return '$count timers running';
   }
 
   @override
-  String get runningTimers => 'Running Timers';
-
-  @override
-  String presetDeleted(String name) {
-    return '$name preset deleted';
+  String timerInProgress(String count) {
+    return '$count in progress';
   }
 
   @override
-  String get cannotDeleteDefaultPreset => 'Cannot delete default preset';
+  String get timerRunningList => 'Running Timers';
 
   @override
-  String get customTimer => 'Custom Timer';
+  String get timerCooking => 'Cooking Timer';
 
   @override
-  String get createCustomTimer => 'Create Custom Timer';
+  String get timerFrequentlyUsed => 'Frequently Used Timers';
 
   @override
-  String get enterTimerName => 'Please enter timer name';
+  String get timerCustom => 'Custom Timer';
 
   @override
-  String get setTime => 'Please set time';
-
-  @override
-  String get presetAlreadyExists => 'Preset with same name already exists';
-
-  @override
-  String get failedToSavePreset => 'Failed to save preset';
+  String get timerCreateCustom => 'Create Custom Timer';
 
   @override
   String get timerName => 'Timer Name';
@@ -425,190 +241,373 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timerNameHint => 'e.g., Egg boiling, Tea brewing';
 
   @override
-  String get timeSetting => 'Time Setting';
+  String get timerNameRequired => 'Please enter timer name';
 
   @override
-  String get minutes => 'Minutes';
+  String get timerTimeRequired => 'Please set time';
 
   @override
-  String get seconds => 'Seconds';
+  String get timerTimeSetting => 'Time Setting';
 
   @override
-  String get descriptionOptional => 'Description (Optional)';
+  String get timerMinutes => 'Minutes';
+
+  @override
+  String get timerSeconds => 'Seconds';
+
+  @override
+  String get timerDescriptionOptional => 'Description (Optional)';
 
   @override
   String get timerDescriptionHint => 'e.g., Perfect for morning tea';
 
   @override
-  String get saveAsPreset => 'Save as Preset';
+  String get timerPresetSave => 'Save as Preset';
 
   @override
-  String get saveAsPresetDescription => 'Save for easy reuse next time';
+  String get timerPresetSaveDescription => 'Save for easy reuse next time';
 
   @override
-  String get start => 'Start';
-
-  @override
-  String saveFailedWithError(String error) {
-    return 'Save failed: $error';
+  String timerPresetSaved(String name) {
+    return '$name preset saved';
   }
 
   @override
-  String get addStep => 'Add Step';
+  String get timerPresetDelete => 'Delete Preset';
 
   @override
-  String stepNumber(int number) {
-    return 'Step $number';
+  String timerPresetDeleteConfirm(String presetName) {
+    return 'Are you sure you want to delete the $presetName preset?\nDeleted presets cannot be recovered.';
   }
 
   @override
-  String get writeCookingLog => 'Write Cooking Log';
+  String timerPresetDeleted(String name) {
+    return '$name preset deleted';
+  }
 
   @override
-  String get recipeInfo => 'Recipe Information';
+  String get timerPresetCannotDeleteDefault => 'Cannot delete default preset';
 
   @override
-  String get titleRequired => 'Title *';
+  String get timerPresetAlreadyExists => 'Preset with same name already exists';
+
+  @override
+  String get timerPresetSaveFailed => 'Failed to save preset';
+
+  @override
+  String get timerPresetPastaCooking => 'Pasta Cooking';
+
+  @override
+  String get timerPresetPastaCookingDescription => 'Standard pasta cooking time';
+
+  @override
+  String get timerPresetHardBoiledEgg => 'Hard-boiled Egg';
+
+  @override
+  String get timerPresetHardBoiledEggDescription => 'Perfect hard-boiled egg';
+
+  @override
+  String get timerPresetSoftBoiledEgg => 'Soft-boiled Egg';
+
+  @override
+  String get timerPresetSoftBoiledEggDescription => 'Soft and runny egg yolk';
+
+  @override
+  String get timerPresetInstantNoodles => 'Instant Noodles';
+
+  @override
+  String get timerPresetInstantNoodlesDescription => 'Quick instant noodles';
+
+  @override
+  String get timerPresetTeaBrewing => 'Tea Brewing';
+
+  @override
+  String get timerPresetTeaBrewingDescription => 'Perfect tea steeping time';
+
+  @override
+  String get timerPresetSteakCooking => 'Steak Cooking';
+
+  @override
+  String get timerPresetSteakCookingDescription => 'Medium-rare steak';
+
+  @override
+  String get cookingLogAdd => 'Add Cooking Log';
+
+  @override
+  String get cookingLogWrite => 'Write Cooking Log';
+
+  @override
+  String get cookingLogTitle => 'Title';
+
+  @override
+  String get cookingLogTitleRequired => 'Title *';
 
   @override
   String get cookingLogTitleHint => 'Enter cooking log title';
 
   @override
-  String get enterTitle => 'Please enter a title';
+  String get cookingLogEnterTitle => 'Please enter a title';
 
   @override
-  String get cookingDateTimeRequired => 'Cooking Date & Time *';
+  String get cookingLogDateTime => 'Cooking Date & Time *';
 
   @override
-  String get selectDateTime => 'Select date and time';
+  String get cookingLogSelectDateTime => 'Select date and time';
 
   @override
-  String get photo => 'Photo';
+  String get cookingLogPhoto => 'Photo';
 
   @override
-  String get addPhoto => 'Add Photo';
+  String get cookingLogAddPhoto => 'Add Photo';
 
   @override
-  String get takeWithCamera => 'Take with Camera';
+  String get cookingLogTakePhoto => 'Take with Camera';
 
   @override
-  String get selectFromGallery => 'Select from Gallery';
+  String get cookingLogSelectFromGallery => 'Select from Gallery';
 
   @override
-  String get memo => 'Memo';
+  String get cookingLogMemo => 'Memo';
 
   @override
-  String get cookingMemoHint => 'Write down your thoughts or improvements while cooking';
+  String get cookingLogMemoHint => 'Write down your thoughts or improvements while cooking';
 
   @override
-  String get searchByIngredients => 'Search by Ingredients';
+  String get cookingLogRecipeInfo => 'Recipe Information';
 
   @override
-  String get resetSearch => 'Reset Search';
+  String get cookingStepAdd => 'Add Step';
 
   @override
-  String get showPopularIngredients => 'Show Popular Ingredients';
+  String cookingStepNumber(String number) {
+    return 'Step $number';
+  }
 
   @override
-  String get showAllIngredients => 'Show All Ingredients';
-
-  @override
-  String get searchIngredientsHint => 'Search ingredient names...';
+  String get cookingStepDescription => 'Step Description';
 
   @override
   String get searchResults => 'Search Results';
 
   @override
-  String get noRecipesFound => 'No recipes can be made\nwith selected ingredients';
+  String get searchReset => 'Reset Search';
 
   @override
-  String recipesFound(int count) {
+  String get searchNoResults => 'No recipes can be made\nwith selected ingredients';
+
+  @override
+  String searchRecipesFound(String count) {
     return '$count recipes found';
   }
 
   @override
-  String get popularIngredients => 'Popular Ingredients';
+  String get settingsManagement => 'Management';
 
   @override
-  String get searchResultsIngredients => 'Ingredient Search Results';
+  String get settingsSeasoningUnitManagement => 'Seasoning/Unit Management';
 
   @override
-  String get recipeRequiresMinimumVersion => 'Recipe must have at least one version.';
+  String get settingsSeasoningUnitDescription => 'Add, edit, delete seasonings/units';
 
   @override
-  String get deleteVersion => 'Delete Version';
+  String get settingsAppInfo => 'App Info';
 
   @override
-  String get confirmDeleteVersion => 'Are you sure you want to delete this version?';
+  String get settingsVersion => 'Version';
 
   @override
-  String get categoryManagement => 'Category Management';
+  String get settingsLicense => 'License';
 
   @override
-  String get refresh => 'Refresh';
+  String get settingsLanguage => 'Language Settings';
 
   @override
-  String get addCategory => 'Add Category';
+  String get settingsSelectLanguage => 'Please select a language';
 
   @override
-  String versionDeleteError(String error) {
-    return 'Error occurred while deleting version: $error';
+  String get settingsLanguageSystem => 'System Language';
+
+  @override
+  String get settingsLanguageKorean => 'Korean';
+
+  @override
+  String get settingsLanguageEnglish => 'English';
+
+  @override
+  String get settingsLanguageJapanese => 'Japanese';
+
+  @override
+  String get settingsLanguageChanged => 'Language has been changed';
+
+  @override
+  String unitTypeSelection(String unitName) {
+    return 'Please select what type of unit \"$unitName\" is.';
   }
 
   @override
-  String get cookingTimerChannel => 'Cooking Timer';
+  String get unitFrequentlyUsed => 'Frequently Used Units';
 
   @override
-  String get timerNotificationDescription => 'Cooking timer completion notifications';
+  String get unitWeightBasic => 'Weight (Basic)';
 
   @override
-  String timerCompleteTitle(String timerName) {
-    return '🍳 $timerName Complete!';
+  String get unitWeightCustom => 'Weight (Custom)';
+
+  @override
+  String get unitVolumeBasic => 'Volume (Basic)';
+
+  @override
+  String get unitVolumeCustom => 'Volume (Custom)';
+
+  @override
+  String get unitCountBasic => 'Count (Basic)';
+
+  @override
+  String get unitCountCustom => 'Count (Custom)';
+
+  @override
+  String get unitMiscBasic => 'Misc (Basic)';
+
+  @override
+  String get unitMiscCustom => 'Misc (Custom)';
+
+  @override
+  String get unitBasic => 'Basic';
+
+  @override
+  String unitNewAdded(String unitName, String category) {
+    return 'New unit \"$unitName\" added to $category category';
   }
 
   @override
-  String timerCompleteBody(String duration) {
-    return '$duration timer finished.';
+  String get unitSearch => 'Search units...';
+
+  @override
+  String unitAddNew(String unitName) {
+    return 'Add new unit: \"$unitName\"';
   }
 
   @override
-  String get testNotificationChannel => 'Test Notifications';
+  String get unitAddNewSubtitle => 'Add a new unit';
 
   @override
-  String get testNotificationDescription => 'Test notification channel';
+  String unitUsageCount(String count) {
+    return '$count times';
+  }
 
   @override
-  String get testNotificationTitle => '🧪 Test Notification';
+  String get unitErrorLoading => 'Error loading units';
 
   @override
-  String get testNotificationBody => 'This is a test notification. Notifications are working properly!';
-
-  @override
-  String get recipeList => 'Recipe List';
-
-  @override
-  String usedTimes(int count) {
+  String unitUsedTimes(String count) {
     return 'Used $count times';
   }
 
   @override
-  String get languageSettings => 'Language Settings';
+  String get notificationTimerTitle => 'Timer Notification';
 
   @override
-  String get selectLanguage => 'Please select a language';
+  String get notificationBackgroundRefresh => 'Background App Refresh';
 
   @override
-  String get systemLanguage => 'System Language';
+  String get notificationBackgroundRefreshDescription => 'Set up for accurate timer notifications';
 
   @override
-  String get korean => '한국어';
+  String get notificationActivated => 'Timer notifications activated';
 
   @override
-  String get english => 'English';
+  String get notificationDenied => 'Notification permission denied. You can manually activate it in system settings';
 
   @override
-  String get japanese => '日本語';
+  String get notificationSettings => 'Notification Settings';
 
   @override
-  String get languageChanged => 'Language has been changed';
+  String get notificationEnabled => 'Timer notifications are enabled';
+
+  @override
+  String get notificationTurnOff => 'To turn off notifications:';
+
+  @override
+  String get notificationTurnOffInstructions => '1. Open iPhone Settings app\n2. Select Notifications > Saucerer\n3. Turn off Allow Notifications';
+
+  @override
+  String get notificationTurnOffWarning => 'If you turn off notifications, you will not receive timer completion alerts';
+
+  @override
+  String get notificationActivatedStatus => 'Activated';
+
+  @override
+  String get notificationDeactivatedStatus => 'Deactivated';
+
+  @override
+  String get notificationOpenSettings => 'Open Settings';
+
+  @override
+  String get notificationEnableInSettings => 'Please enable notifications in settings';
+
+  @override
+  String get notificationPermissionDenied => 'Notification permission denied';
+
+  @override
+  String get notificationTestSent => 'Test notification sent';
+
+  @override
+  String get notificationTest => 'Test Notification';
+
+  @override
+  String get timerNotificationChannelTitle => 'Cooking Timer';
+
+  @override
+  String get timerNotificationChannelDescription => 'Cooking timer completion notifications';
+
+  @override
+  String timerNotificationCompleteTitle(String timerName) {
+    return '🍳 $timerName Complete!';
+  }
+
+  @override
+  String timerNotificationCompleteBody(String duration) {
+    return '$duration timer finished.';
+  }
+
+  @override
+  String get timerNotificationTestChannelTitle => 'Test Notifications';
+
+  @override
+  String get timerNotificationTestChannelDescription => 'Test notification channel';
+
+  @override
+  String get timerNotificationTestTitle => '🧪 Test Notification';
+
+  @override
+  String get timerNotificationTestBody => 'This is a test notification. Notifications are working properly!';
+
+  @override
+  String get generalErrorOccurred => 'An error occurred';
+
+  @override
+  String get generalSaveFailed => 'Save failed';
+
+  @override
+  String generalSaveFailedWithError(String error) {
+    return 'Save failed: $error';
+  }
+
+  @override
+  String get generalCategoryManagement => 'Category Management';
+
+  @override
+  String get generalAddCategory => 'Add Category';
+
+  @override
+  String get generalName => 'Name';
+
+  @override
+  String get generalDescription => 'Description';
+
+  @override
+  String get generalSaveOptions => 'Save Options';
+
+  @override
+  String get generalHowToSave => 'How would you like to save?';
 }

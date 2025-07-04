@@ -55,7 +55,7 @@ Future<void> main() async {
     try {
       final response = await sheetsApi.spreadsheets.values.get(
         spreadsheetId,
-        '시트1!A1:E1', // 헤더만 읽기
+        'multi_language!A1:E1', // 헤더만 읽기
       );
 
       if (response.values != null && response.values!.isNotEmpty) {
@@ -72,7 +72,7 @@ Future<void> main() async {
     print('3️⃣ 쓰기 권한 테스트...');
     try {
       final testData = ValueRange(
-          range: '시트1!Z1:Z1', // 임시 위치에 테스트
+          range: 'multi_language!Z1:Z1', // 임시 위치에 테스트
           values: [
             ['권한테스트-${DateTime.now().millisecondsSinceEpoch}']
           ]);
@@ -80,7 +80,7 @@ Future<void> main() async {
       await sheetsApi.spreadsheets.values.update(
         testData,
         spreadsheetId,
-        '시트1!Z1:Z1',
+        'multi_language!Z1:Z1',
         valueInputOption: 'RAW',
       );
 
@@ -90,7 +90,7 @@ Future<void> main() async {
       await sheetsApi.spreadsheets.values.clear(
         ClearValuesRequest(),
         spreadsheetId,
-        '시트1!Z1:Z1',
+        'multi_language!Z1:Z1',
       );
       print('✅ 테스트 데이터 정리 완료');
     } catch (e) {

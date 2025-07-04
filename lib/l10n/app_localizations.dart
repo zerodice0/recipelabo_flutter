@@ -97,497 +97,101 @@ abstract class AppLocalizations {
     Locale('ja')
   ];
 
-  /// Auto-generated from hardcoded strings
+  /// 메인 네비게이션: 레시피 탭
   ///
   /// In en, this message translates to:
   /// **'Recipes'**
-  String get recipes;
+  String get navigationRecipes;
 
-  /// Auto-generated from hardcoded strings
+  /// 메인 네비게이션: 검색 탭
   ///
   /// In en, this message translates to:
   /// **'Search'**
-  String get search;
+  String get navigationSearch;
 
-  /// Auto-generated from hardcoded strings
+  /// 메인 네비게이션: 타이머 탭
   ///
   /// In en, this message translates to:
   /// **'Timer'**
-  String get timer;
+  String get navigationTimer;
 
-  /// Auto-generated from hardcoded strings
+  /// 메인 네비게이션: 설정 탭
   ///
   /// In en, this message translates to:
   /// **'Settings'**
-  String get settings;
+  String get navigationSettings;
 
-  /// Auto-generated from hardcoded strings
+  /// 저장 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get actionSave;
+
+  /// 취소 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get actionCancel;
+
+  /// 삭제 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get actionDelete;
+
+  /// 편집 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get actionEdit;
+
+  /// 확인 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get actionConfirm;
+
+  /// 시작 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get actionStart;
+
+  /// 다시 시도 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get actionRetry;
+
+  /// 뒤로가기 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Go Back'**
+  String get actionGoBack;
+
+  /// 새로고침 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get actionRefresh;
+
+  /// 레시피 추가 버튼/화면 제목
   ///
   /// In en, this message translates to:
   /// **'Add Recipe'**
-  String get addRecipe;
+  String get recipeAdd;
 
-  /// Auto-generated from hardcoded strings
+  /// 레시피 편집 화면 제목
   ///
   /// In en, this message translates to:
   /// **'Edit Recipe'**
-  String get editRecipe;
+  String get recipeEdit;
 
-  /// Auto-generated from hardcoded strings
+  /// 레시피 상세 화면 제목
   ///
   /// In en, this message translates to:
   /// **'Recipe Detail'**
   String get recipeDetail;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'No recipes yet'**
-  String get noRecipesYet;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Create your own special\nsauce recipe!'**
-  String get createSpecialRecipe;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Search Ingredients'**
-  String get searchIngredients;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Recipe has been deleted'**
-  String get recipeDeleted;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Are you sure you want to delete this recipe?\n\nThis action cannot be undone.'**
-  String get confirmDeleteRecipe;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Delete failed'**
-  String get deleteFailed;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Save'**
-  String get save;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel'**
-  String get cancel;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Delete'**
-  String get delete;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Edit'**
-  String get edit;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm'**
-  String get confirm;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'An error occurred'**
-  String get errorOccurred;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Select Unit'**
-  String get selectUnit;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Management'**
-  String get management;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Seasoning/Unit Management'**
-  String get seasoningUnitManagement;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Add, edit, delete seasonings/units'**
-  String get seasoningUnitDescription;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'App Info'**
-  String get appInfo;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Version'**
-  String get version;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'License'**
-  String get license;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Timer Notification'**
-  String get timerNotification;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Background App Refresh'**
-  String get backgroundAppRefresh;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'Set up for accurate timer notifications'**
-  String get backgroundAppRefreshDescription;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'타이머 알림이 활성화되었습니다'**
-  String get notificationActivated;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'알림 권한이 거부되었습니다. 시스템 설정에서 수동으로 활성화할 수 있습니다'**
-  String get notificationDenied;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'알림 설정'**
-  String get notificationSettings;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'타이머 알림이 활성화되어 있습니다'**
-  String get timerNotificationEnabled;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'알림을 끄고 싶다면:'**
-  String get toTurnOffNotifications;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'1. 아이폰 설정 앱 열기 2. 알림 > Saucerer 선택 3. 알림 허용 끄기'**
-  String get turnOffInstructions;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'알림을 끄면 타이머 완료 시 알림을 받을 수 없습니다'**
-  String get turnOffWarning;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'활성화됨'**
-  String get activated;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'비활성화됨'**
-  String get deactivated;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'설정 열기'**
-  String get openSettings;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'\"{unitName}\" 단위가 어떤 종류인지 선택해주세요.'**
-  String unitTypeSelection(Object unitName);
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'자주 사용하는 단위'**
-  String get frequently_used_units;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'무게 (기본)'**
-  String get weight_basic;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'무게 (사용자 추가)'**
-  String get weight_custom;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'부피 (기본)'**
-  String get volume_basic;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'부피 (사용자 추가)'**
-  String get volume_custom;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'개수 (기본)'**
-  String get count_basic;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'개수 (사용자 추가)'**
-  String get count_custom;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'기타 (기본)'**
-  String get misc_basic;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'기타 (사용자 추가)'**
-  String get misc_custom;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'기본'**
-  String get basic;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'새 단위 \"{unitName}\"이(가) {category} 카테고리에 추가되었습니다'**
-  String newUnitAdded(Object category, Object unitName);
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'단위 검색...'**
-  String get unitSearch;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'새 단위 추가: \"{unitName}\"'**
-  String addNewUnit(Object unitName);
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'새로운 단위를 추가합니다'**
-  String get addNewUnitSubtitle;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'{count}회'**
-  String usageCount(Object count);
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'단위를 불러오는 중 오류가 발생했습니다'**
-  String get errorLoadingUnits;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'다시 시도'**
-  String get retry;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'{duration} 타이머가 끝났습니다.'**
-  String timerFinished(Object duration);
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'{name} 프리셋이 저장되었습니다'**
-  String presetSaved(Object name);
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'{count}개 진행중'**
-  String timersInProgress(Object count);
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'새 버전 생성'**
-  String get createNewVersion;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'기존 버전 덮어쓰기'**
-  String get overwriteExistingVersion;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'버전 이름'**
-  String get versionName;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'변경 사항'**
-  String get changeLog;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'{versionName}에서 파생된 새 버전을 생성합니다'**
-  String createDerivedVersion(Object versionName);
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'{versionName}을(를) 업데이트합니다'**
-  String updateVersion(Object versionName);
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'재료'**
-  String get ingredients;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'조리 과정'**
-  String get steps;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'단위'**
-  String get unit;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'수량'**
-  String get quantity;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'이름'**
-  String get name;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'설명'**
-  String get description;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'요리 기록'**
-  String get cookingLog;
-
-  /// Auto-generated from hardcoded strings
-  ///
-  /// In en, this message translates to:
-  /// **'요리 기록 추가'**
-  String get addCookingLog;
-
-  /// 프리셋 삭제 다이얼로그 제목
-  ///
-  /// In en, this message translates to:
-  /// **'Delete Preset'**
-  String get deletePreset;
-
-  /// 프리셋 삭제 확인 메시지
-  ///
-  /// In en, this message translates to:
-  /// **'Are you sure you want to delete the {presetName} preset?\nDeleted presets cannot be recovered.'**
-  String confirmDeletePreset(String presetName);
-
-  /// 자주 사용하는 타이머 섹션 제목
-  ///
-  /// In en, this message translates to:
-  /// **'Frequently Used Timers'**
-  String get frequentlyUsedTimers;
-
-  /// 저장 실패 메시지
-  ///
-  /// In en, this message translates to:
-  /// **'Save failed'**
-  String get saveFailed;
-
-  /// 새 레시피 제목
-  ///
-  /// In en, this message translates to:
-  /// **'New Recipe'**
-  String get newRecipe;
-
-  /// 레시피 로딩 메시지
-  ///
-  /// In en, this message translates to:
-  /// **'Loading recipe...'**
-  String get loadingRecipe;
-
-  /// 레시피 로드 실패 메시지
-  ///
-  /// In en, this message translates to:
-  /// **'Cannot load recipe'**
-  String get cannotLoadRecipe;
-
-  /// 돌아가기 버튼
-  ///
-  /// In en, this message translates to:
-  /// **'Go Back'**
-  String get goBack;
 
   /// 레시피 이름 입력 라벨
   ///
@@ -595,73 +199,97 @@ abstract class AppLocalizations {
   /// **'Recipe Name'**
   String get recipeName;
 
+  /// 재료 섹션 제목
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredients'**
+  String get recipeIngredients;
+
   /// 조리 단계 섹션 제목
   ///
   /// In en, this message translates to:
   /// **'Cooking Steps'**
-  String get cookingSteps;
+  String get recipeCookingSteps;
 
-  /// 저장 옵션 다이얼로그 제목
+  /// 레시피 목록 비어있을 때 메시지
   ///
   /// In en, this message translates to:
-  /// **'Save Options'**
-  String get saveOptions;
+  /// **'No recipes yet'**
+  String get recipeEmptyState;
 
-  /// 저장 방법 질문
+  /// 레시피 목록 비어있을 때 안내 메시지
   ///
   /// In en, this message translates to:
-  /// **'How would you like to save?'**
-  String get howToSave;
+  /// **'Create your own special\nsauce recipe!'**
+  String get recipeEmptyStateDescription;
 
-  /// 현재 편집 중인 버전 표시
+  /// 레시피 삭제 확인 메시지
   ///
   /// In en, this message translates to:
-  /// **'Editing: {versionName}'**
-  String editingVersion(String versionName);
+  /// **'Are you sure you want to delete this recipe?\n\nThis action cannot be undone.'**
+  String get recipeDeleteConfirm;
 
-  /// 새 버전으로 저장 옵션
+  /// 레시피 삭제 성공 메시지
   ///
   /// In en, this message translates to:
-  /// **'Save as New Version'**
-  String get saveAsNewVersion;
+  /// **'Recipe has been deleted'**
+  String get recipeDeleteSuccess;
 
-  /// 파생 버전 생성 설명
+  /// 레시피 삭제 실패 메시지
   ///
   /// In en, this message translates to:
-  /// **'Create a new version derived from {versionName}'**
-  String createDerivedVersionDescription(String versionName);
+  /// **'Delete failed'**
+  String get recipeDeleteFailed;
 
-  /// 기존 버전 유지 설명
+  /// 레시피 로딩 실패 메시지
   ///
   /// In en, this message translates to:
-  /// **'Keep the existing version and create a new version'**
-  String get keepExistingVersion;
+  /// **'Cannot load recipe'**
+  String get recipeLoadingError;
+
+  /// 레시피 로딩 중 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Loading recipe...'**
+  String get recipeLoading;
+
+  /// 새 레시피 화면 제목
+  ///
+  /// In en, this message translates to:
+  /// **'New Recipe'**
+  String get recipeNewTitle;
+
+  /// 레시피 버전 필수 요구사항 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Recipe must have at least one version.'**
+  String get recipeVersionsRequired;
+
+  /// 레시피 목록 화면
+  ///
+  /// In en, this message translates to:
+  /// **'Recipe List'**
+  String get recipeList;
+
+  /// 새 버전 생성 옵션
+  ///
+  /// In en, this message translates to:
+  /// **'Create New Version'**
+  String get versionCreate;
 
   /// 기존 버전 덮어쓰기 옵션
   ///
   /// In en, this message translates to:
   /// **'Overwrite Existing Version'**
-  String get overwriteVersion;
-
-  /// 버전 업데이트 설명
-  ///
-  /// In en, this message translates to:
-  /// **'Update {versionName}'**
-  String updateVersionDescription(String versionName);
-
-  /// 현재 버전 업데이트 설명
-  ///
-  /// In en, this message translates to:
-  /// **'Update the current version'**
-  String get updateCurrentVersion;
-
-  /// 기반 버전 표시
-  ///
-  /// In en, this message translates to:
-  /// **'Base version: {versionName}'**
-  String baseVersion(String versionName);
+  String get versionOverwrite;
 
   /// 버전명 입력 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Version Name'**
+  String get versionName;
+
+  /// 버전명 입력 라벨 (선택사항)
   ///
   /// In en, this message translates to:
   /// **'Version Name (Optional)'**
@@ -673,545 +301,923 @@ abstract class AppLocalizations {
   /// **'e.g., Spicy, Less Sugar, Vegan'**
   String get versionNameHint;
 
-  /// 변경사항 입력 라벨
+  /// 변경사항 섹션 제목
+  ///
+  /// In en, this message translates to:
+  /// **'Change Log'**
+  String get versionChangeLog;
+
+  /// 변경사항 입력 라벨 (선택사항)
   ///
   /// In en, this message translates to:
   /// **'Change Log (Optional)'**
-  String get changeLogOptional;
+  String get versionChangeLogOptional;
 
   /// 변경사항 입력 힌트
   ///
   /// In en, this message translates to:
   /// **'e.g., Reduced sugar, Added vegetables'**
-  String get changeLogHint;
+  String get versionChangeLogHint;
 
-  /// No description provided for @cookingTimer.
-  ///
-  /// In en, this message translates to:
-  /// **'Cooking Timer'**
-  String get cookingTimer;
-
-  /// No description provided for @pastaCooking.
-  ///
-  /// In en, this message translates to:
-  /// **'Pasta Cooking'**
-  String get pastaCooking;
-
-  /// No description provided for @pastaCookingDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Standard pasta cooking time'**
-  String get pastaCookingDescription;
-
-  /// No description provided for @hardBoiledEgg.
-  ///
-  /// In en, this message translates to:
-  /// **'Hard-boiled Egg'**
-  String get hardBoiledEgg;
-
-  /// No description provided for @hardBoiledEggDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Perfect hard-boiled egg'**
-  String get hardBoiledEggDescription;
-
-  /// No description provided for @softBoiledEgg.
-  ///
-  /// In en, this message translates to:
-  /// **'Soft-boiled Egg'**
-  String get softBoiledEgg;
-
-  /// No description provided for @softBoiledEggDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Soft and runny egg yolk'**
-  String get softBoiledEggDescription;
-
-  /// No description provided for @instantNoodles.
-  ///
-  /// In en, this message translates to:
-  /// **'Instant Noodles'**
-  String get instantNoodles;
-
-  /// No description provided for @instantNoodlesDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Quick instant noodles'**
-  String get instantNoodlesDescription;
-
-  /// No description provided for @teaBrewing.
-  ///
-  /// In en, this message translates to:
-  /// **'Tea Brewing'**
-  String get teaBrewing;
-
-  /// No description provided for @teaBrewingDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Perfect tea steeping time'**
-  String get teaBrewingDescription;
-
-  /// No description provided for @steakCooking.
-  ///
-  /// In en, this message translates to:
-  /// **'Steak Cooking'**
-  String get steakCooking;
-
-  /// No description provided for @steakCookingDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Medium-rare steak'**
-  String get steakCookingDescription;
-
-  /// No description provided for @enableNotificationInSettings.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enable notifications in settings'**
-  String get enableNotificationInSettings;
-
-  /// No description provided for @notificationEnabled.
-  ///
-  /// In en, this message translates to:
-  /// **'Notifications enabled'**
-  String get notificationEnabled;
-
-  /// No description provided for @notificationPermissionDenied.
-  ///
-  /// In en, this message translates to:
-  /// **'Notification permission denied'**
-  String get notificationPermissionDenied;
-
-  /// No description provided for @testNotificationSent.
-  ///
-  /// In en, this message translates to:
-  /// **'Test notification sent'**
-  String get testNotificationSent;
-
-  /// No description provided for @notificationTest.
-  ///
-  /// In en, this message translates to:
-  /// **'Test Notification'**
-  String get notificationTest;
-
-  /// No description provided for @timersRunning.
-  ///
-  /// In en, this message translates to:
-  /// **'{count} timers running'**
-  String timersRunning(int count);
-
-  /// No description provided for @runningTimers.
-  ///
-  /// In en, this message translates to:
-  /// **'Running Timers'**
-  String get runningTimers;
-
-  /// No description provided for @presetDeleted.
-  ///
-  /// In en, this message translates to:
-  /// **'{name} preset deleted'**
-  String presetDeleted(String name);
-
-  /// No description provided for @cannotDeleteDefaultPreset.
-  ///
-  /// In en, this message translates to:
-  /// **'Cannot delete default preset'**
-  String get cannotDeleteDefaultPreset;
-
-  /// No description provided for @customTimer.
-  ///
-  /// In en, this message translates to:
-  /// **'Custom Timer'**
-  String get customTimer;
-
-  /// No description provided for @createCustomTimer.
-  ///
-  /// In en, this message translates to:
-  /// **'Create Custom Timer'**
-  String get createCustomTimer;
-
-  /// No description provided for @enterTimerName.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter timer name'**
-  String get enterTimerName;
-
-  /// No description provided for @setTime.
-  ///
-  /// In en, this message translates to:
-  /// **'Please set time'**
-  String get setTime;
-
-  /// No description provided for @presetAlreadyExists.
-  ///
-  /// In en, this message translates to:
-  /// **'Preset with same name already exists'**
-  String get presetAlreadyExists;
-
-  /// No description provided for @failedToSavePreset.
-  ///
-  /// In en, this message translates to:
-  /// **'Failed to save preset'**
-  String get failedToSavePreset;
-
-  /// No description provided for @timerName.
-  ///
-  /// In en, this message translates to:
-  /// **'Timer Name'**
-  String get timerName;
-
-  /// No description provided for @timerNameHint.
-  ///
-  /// In en, this message translates to:
-  /// **'e.g., Egg boiling, Tea brewing'**
-  String get timerNameHint;
-
-  /// No description provided for @timeSetting.
-  ///
-  /// In en, this message translates to:
-  /// **'Time Setting'**
-  String get timeSetting;
-
-  /// No description provided for @minutes.
-  ///
-  /// In en, this message translates to:
-  /// **'Minutes'**
-  String get minutes;
-
-  /// No description provided for @seconds.
-  ///
-  /// In en, this message translates to:
-  /// **'Seconds'**
-  String get seconds;
-
-  /// No description provided for @descriptionOptional.
-  ///
-  /// In en, this message translates to:
-  /// **'Description (Optional)'**
-  String get descriptionOptional;
-
-  /// No description provided for @timerDescriptionHint.
-  ///
-  /// In en, this message translates to:
-  /// **'e.g., Perfect for morning tea'**
-  String get timerDescriptionHint;
-
-  /// No description provided for @saveAsPreset.
-  ///
-  /// In en, this message translates to:
-  /// **'Save as Preset'**
-  String get saveAsPreset;
-
-  /// No description provided for @saveAsPresetDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Save for easy reuse next time'**
-  String get saveAsPresetDescription;
-
-  /// No description provided for @start.
-  ///
-  /// In en, this message translates to:
-  /// **'Start'**
-  String get start;
-
-  /// No description provided for @saveFailedWithError.
-  ///
-  /// In en, this message translates to:
-  /// **'Save failed: {error}'**
-  String saveFailedWithError(String error);
-
-  /// No description provided for @addStep.
-  ///
-  /// In en, this message translates to:
-  /// **'Add Step'**
-  String get addStep;
-
-  /// No description provided for @stepNumber.
-  ///
-  /// In en, this message translates to:
-  /// **'Step {number}'**
-  String stepNumber(int number);
-
-  /// No description provided for @writeCookingLog.
-  ///
-  /// In en, this message translates to:
-  /// **'Write Cooking Log'**
-  String get writeCookingLog;
-
-  /// No description provided for @recipeInfo.
-  ///
-  /// In en, this message translates to:
-  /// **'Recipe Information'**
-  String get recipeInfo;
-
-  /// No description provided for @titleRequired.
-  ///
-  /// In en, this message translates to:
-  /// **'Title *'**
-  String get titleRequired;
-
-  /// No description provided for @cookingLogTitleHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter cooking log title'**
-  String get cookingLogTitleHint;
-
-  /// No description provided for @enterTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter a title'**
-  String get enterTitle;
-
-  /// No description provided for @cookingDateTimeRequired.
-  ///
-  /// In en, this message translates to:
-  /// **'Cooking Date & Time *'**
-  String get cookingDateTimeRequired;
-
-  /// No description provided for @selectDateTime.
-  ///
-  /// In en, this message translates to:
-  /// **'Select date and time'**
-  String get selectDateTime;
-
-  /// No description provided for @photo.
-  ///
-  /// In en, this message translates to:
-  /// **'Photo'**
-  String get photo;
-
-  /// No description provided for @addPhoto.
-  ///
-  /// In en, this message translates to:
-  /// **'Add Photo'**
-  String get addPhoto;
-
-  /// No description provided for @takeWithCamera.
-  ///
-  /// In en, this message translates to:
-  /// **'Take with Camera'**
-  String get takeWithCamera;
-
-  /// No description provided for @selectFromGallery.
-  ///
-  /// In en, this message translates to:
-  /// **'Select from Gallery'**
-  String get selectFromGallery;
-
-  /// No description provided for @memo.
-  ///
-  /// In en, this message translates to:
-  /// **'Memo'**
-  String get memo;
-
-  /// No description provided for @cookingMemoHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Write down your thoughts or improvements while cooking'**
-  String get cookingMemoHint;
-
-  /// No description provided for @searchByIngredients.
-  ///
-  /// In en, this message translates to:
-  /// **'Search by Ingredients'**
-  String get searchByIngredients;
-
-  /// No description provided for @resetSearch.
-  ///
-  /// In en, this message translates to:
-  /// **'Reset Search'**
-  String get resetSearch;
-
-  /// No description provided for @showPopularIngredients.
-  ///
-  /// In en, this message translates to:
-  /// **'Show Popular Ingredients'**
-  String get showPopularIngredients;
-
-  /// No description provided for @showAllIngredients.
-  ///
-  /// In en, this message translates to:
-  /// **'Show All Ingredients'**
-  String get showAllIngredients;
-
-  /// No description provided for @searchIngredientsHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Search ingredient names...'**
-  String get searchIngredientsHint;
-
-  /// No description provided for @searchResults.
-  ///
-  /// In en, this message translates to:
-  /// **'Search Results'**
-  String get searchResults;
-
-  /// No description provided for @noRecipesFound.
-  ///
-  /// In en, this message translates to:
-  /// **'No recipes can be made\nwith selected ingredients'**
-  String get noRecipesFound;
-
-  /// No description provided for @recipesFound.
-  ///
-  /// In en, this message translates to:
-  /// **'{count} recipes found'**
-  String recipesFound(int count);
-
-  /// No description provided for @popularIngredients.
-  ///
-  /// In en, this message translates to:
-  /// **'Popular Ingredients'**
-  String get popularIngredients;
-
-  /// No description provided for @searchResultsIngredients.
-  ///
-  /// In en, this message translates to:
-  /// **'Ingredient Search Results'**
-  String get searchResultsIngredients;
-
-  /// No description provided for @recipeRequiresMinimumVersion.
-  ///
-  /// In en, this message translates to:
-  /// **'Recipe must have at least one version.'**
-  String get recipeRequiresMinimumVersion;
-
-  /// No description provided for @deleteVersion.
+  /// 버전 삭제 버튼
   ///
   /// In en, this message translates to:
   /// **'Delete Version'**
-  String get deleteVersion;
+  String get versionDelete;
 
-  /// No description provided for @confirmDeleteVersion.
+  /// 버전 삭제 확인 메시지
   ///
   /// In en, this message translates to:
   /// **'Are you sure you want to delete this version?'**
-  String get confirmDeleteVersion;
+  String get versionDeleteConfirm;
 
-  /// No description provided for @categoryManagement.
-  ///
-  /// In en, this message translates to:
-  /// **'Category Management'**
-  String get categoryManagement;
-
-  /// No description provided for @refresh.
-  ///
-  /// In en, this message translates to:
-  /// **'Refresh'**
-  String get refresh;
-
-  /// No description provided for @addCategory.
-  ///
-  /// In en, this message translates to:
-  /// **'Add Category'**
-  String get addCategory;
-
-  /// No description provided for @versionDeleteError.
+  /// 버전 삭제 오류 메시지
   ///
   /// In en, this message translates to:
   /// **'Error occurred while deleting version: {error}'**
   String versionDeleteError(String error);
 
-  /// No description provided for @cookingTimerChannel.
+  /// 새 버전으로 저장 옵션
   ///
   /// In en, this message translates to:
-  /// **'Cooking Timer'**
-  String get cookingTimerChannel;
+  /// **'Save as New Version'**
+  String get versionSaveAsDerived;
 
-  /// No description provided for @timerNotificationDescription.
+  /// 파생 버전 생성 설명
   ///
   /// In en, this message translates to:
-  /// **'Cooking timer completion notifications'**
-  String get timerNotificationDescription;
+  /// **'Create a new version derived from {versionName}'**
+  String versionDerivedDescription(String versionName);
 
-  /// No description provided for @timerCompleteTitle.
+  /// 기존 버전 유지 설명
   ///
   /// In en, this message translates to:
-  /// **'🍳 {timerName} Complete!'**
-  String timerCompleteTitle(String timerName);
+  /// **'Keep the existing version and create a new version'**
+  String get versionKeepExisting;
 
-  /// No description provided for @timerCompleteBody.
+  /// 버전 업데이트 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Update {versionName}'**
+  String versionUpdateDescription(String versionName);
+
+  /// 현재 버전 업데이트 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Update the current version'**
+  String get versionUpdateCurrent;
+
+  /// 기반 버전 표시
+  ///
+  /// In en, this message translates to:
+  /// **'Base version: {versionName}'**
+  String versionBaseVersion(String versionName);
+
+  /// 현재 편집 중인 버전 표시
+  ///
+  /// In en, this message translates to:
+  /// **'Editing: {versionName}'**
+  String versionEditingCurrent(String versionName);
+
+  /// 재료 추가 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Add Ingredient'**
+  String get ingredientAdd;
+
+  /// 재료 이름 입력 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredient Name'**
+  String get ingredientName;
+
+  /// 수량 입력 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get ingredientQuantity;
+
+  /// 단위 선택 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Unit'**
+  String get ingredientUnit;
+
+  /// 단위 선택 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Select Unit'**
+  String get ingredientSelectUnit;
+
+  /// 재료 검색 화면 제목
+  ///
+  /// In en, this message translates to:
+  /// **'Search Ingredients'**
+  String get ingredientSearch;
+
+  /// 재료 검색 입력 힌트
+  ///
+  /// In en, this message translates to:
+  /// **'Search ingredient names...'**
+  String get ingredientSearchHint;
+
+  /// 재료 기반 검색 기능
+  ///
+  /// In en, this message translates to:
+  /// **'Search by Ingredients'**
+  String get ingredientSearchByIngredients;
+
+  /// 인기 재료 섹션
+  ///
+  /// In en, this message translates to:
+  /// **'Popular Ingredients'**
+  String get ingredientPopular;
+
+  /// 인기 재료 보기 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Show Popular Ingredients'**
+  String get ingredientShowPopular;
+
+  /// 모든 재료 보기 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Show All Ingredients'**
+  String get ingredientShowAll;
+
+  /// 재료 검색 결과 섹션
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredient Search Results'**
+  String get ingredientSearchResults;
+
+  /// 타이머 시작 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get timerStart;
+
+  /// 타이머 정지 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get timerStop;
+
+  /// 타이머 재설정 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get timerReset;
+
+  /// 타이머 완료 메시지
   ///
   /// In en, this message translates to:
   /// **'{duration} timer finished.'**
-  String timerCompleteBody(String duration);
+  String timerFinished(String duration);
 
-  /// No description provided for @testNotificationChannel.
+  /// 실행 중인 타이머 수
   ///
   /// In en, this message translates to:
-  /// **'Test Notifications'**
-  String get testNotificationChannel;
+  /// **'{count} timers running'**
+  String timerRunning(String count);
 
-  /// No description provided for @testNotificationDescription.
+  /// 진행 중인 타이머 수
   ///
   /// In en, this message translates to:
-  /// **'Test notification channel'**
-  String get testNotificationDescription;
+  /// **'{count} in progress'**
+  String timerInProgress(String count);
 
-  /// No description provided for @testNotificationTitle.
+  /// 실행 중인 타이머 목록
   ///
   /// In en, this message translates to:
-  /// **'🧪 Test Notification'**
-  String get testNotificationTitle;
+  /// **'Running Timers'**
+  String get timerRunningList;
 
-  /// No description provided for @testNotificationBody.
+  /// 요리 타이머 섹션
   ///
   /// In en, this message translates to:
-  /// **'This is a test notification. Notifications are working properly!'**
-  String get testNotificationBody;
+  /// **'Cooking Timer'**
+  String get timerCooking;
 
-  /// No description provided for @recipeList.
+  /// 자주 사용하는 타이머 섹션
   ///
   /// In en, this message translates to:
-  /// **'Recipe List'**
-  String get recipeList;
+  /// **'Frequently Used Timers'**
+  String get timerFrequentlyUsed;
 
-  /// No description provided for @usedTimes.
+  /// 커스텀 타이머 제목
   ///
   /// In en, this message translates to:
-  /// **'Used {count} times'**
-  String usedTimes(int count);
+  /// **'Custom Timer'**
+  String get timerCustom;
 
-  /// No description provided for @languageSettings.
+  /// 커스텀 타이머 생성 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Create Custom Timer'**
+  String get timerCreateCustom;
+
+  /// 타이머 이름 입력 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Timer Name'**
+  String get timerName;
+
+  /// 타이머 이름 입력 힌트
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Egg boiling, Tea brewing'**
+  String get timerNameHint;
+
+  /// 타이머 이름 필수 입력 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter timer name'**
+  String get timerNameRequired;
+
+  /// 타이머 시간 필수 설정 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Please set time'**
+  String get timerTimeRequired;
+
+  /// 시간 설정 섹션
+  ///
+  /// In en, this message translates to:
+  /// **'Time Setting'**
+  String get timerTimeSetting;
+
+  /// 분 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes'**
+  String get timerMinutes;
+
+  /// 초 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Seconds'**
+  String get timerSeconds;
+
+  /// 타이머 설명 입력 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Optional)'**
+  String get timerDescriptionOptional;
+
+  /// 타이머 설명 입력 힌트
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Perfect for morning tea'**
+  String get timerDescriptionHint;
+
+  /// 프리셋 저장 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Save as Preset'**
+  String get timerPresetSave;
+
+  /// 프리셋 저장 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Save for easy reuse next time'**
+  String get timerPresetSaveDescription;
+
+  /// 프리셋 저장 완료 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'{name} preset saved'**
+  String timerPresetSaved(String name);
+
+  /// 프리셋 삭제 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Preset'**
+  String get timerPresetDelete;
+
+  /// 프리셋 삭제 확인 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete the {presetName} preset?\nDeleted presets cannot be recovered.'**
+  String timerPresetDeleteConfirm(String presetName);
+
+  /// 프리셋 삭제 완료 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'{name} preset deleted'**
+  String timerPresetDeleted(String name);
+
+  /// 기본 프리셋 삭제 불가 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot delete default preset'**
+  String get timerPresetCannotDeleteDefault;
+
+  /// 프리셋 이름 중복 오류 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Preset with same name already exists'**
+  String get timerPresetAlreadyExists;
+
+  /// 프리셋 저장 실패 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to save preset'**
+  String get timerPresetSaveFailed;
+
+  /// 파스타 조리 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Pasta Cooking'**
+  String get timerPresetPastaCooking;
+
+  /// 파스타 조리 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Standard pasta cooking time'**
+  String get timerPresetPastaCookingDescription;
+
+  /// 완숙 계란 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Hard-boiled Egg'**
+  String get timerPresetHardBoiledEgg;
+
+  /// 완숙 계란 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Perfect hard-boiled egg'**
+  String get timerPresetHardBoiledEggDescription;
+
+  /// 반숙 계란 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Soft-boiled Egg'**
+  String get timerPresetSoftBoiledEgg;
+
+  /// 반숙 계란 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Soft and runny egg yolk'**
+  String get timerPresetSoftBoiledEggDescription;
+
+  /// 라면 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Instant Noodles'**
+  String get timerPresetInstantNoodles;
+
+  /// 라면 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Quick instant noodles'**
+  String get timerPresetInstantNoodlesDescription;
+
+  /// 차 우리기 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Tea Brewing'**
+  String get timerPresetTeaBrewing;
+
+  /// 차 우리기 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Perfect tea steeping time'**
+  String get timerPresetTeaBrewingDescription;
+
+  /// 스테이크 굽기 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Steak Cooking'**
+  String get timerPresetSteakCooking;
+
+  /// 스테이크 굽기 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Medium-rare steak'**
+  String get timerPresetSteakCookingDescription;
+
+  /// 요리 기록 추가 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Add Cooking Log'**
+  String get cookingLogAdd;
+
+  /// 요리 기록 작성 화면 제목
+  ///
+  /// In en, this message translates to:
+  /// **'Write Cooking Log'**
+  String get cookingLogWrite;
+
+  /// 요리 기록 제목
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get cookingLogTitle;
+
+  /// 요리 기록 제목 필수 입력
+  ///
+  /// In en, this message translates to:
+  /// **'Title *'**
+  String get cookingLogTitleRequired;
+
+  /// 요리 기록 제목 입력 힌트
+  ///
+  /// In en, this message translates to:
+  /// **'Enter cooking log title'**
+  String get cookingLogTitleHint;
+
+  /// 제목 필수 입력 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a title'**
+  String get cookingLogEnterTitle;
+
+  /// 요리 날짜/시간 선택 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Cooking Date & Time *'**
+  String get cookingLogDateTime;
+
+  /// 날짜/시간 선택 힌트
+  ///
+  /// In en, this message translates to:
+  /// **'Select date and time'**
+  String get cookingLogSelectDateTime;
+
+  /// 요리 사진 섹션
+  ///
+  /// In en, this message translates to:
+  /// **'Photo'**
+  String get cookingLogPhoto;
+
+  /// 사진 추가 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Add Photo'**
+  String get cookingLogAddPhoto;
+
+  /// 카메라로 사진 촬영 옵션
+  ///
+  /// In en, this message translates to:
+  /// **'Take with Camera'**
+  String get cookingLogTakePhoto;
+
+  /// 갤러리에서 사진 선택 옵션
+  ///
+  /// In en, this message translates to:
+  /// **'Select from Gallery'**
+  String get cookingLogSelectFromGallery;
+
+  /// 요리 메모 섹션
+  ///
+  /// In en, this message translates to:
+  /// **'Memo'**
+  String get cookingLogMemo;
+
+  /// 요리 메모 입력 힌트
+  ///
+  /// In en, this message translates to:
+  /// **'Write down your thoughts or improvements while cooking'**
+  String get cookingLogMemoHint;
+
+  /// 레시피 정보 섹션
+  ///
+  /// In en, this message translates to:
+  /// **'Recipe Information'**
+  String get cookingLogRecipeInfo;
+
+  /// 조리 단계 추가 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Add Step'**
+  String get cookingStepAdd;
+
+  /// 조리 단계 번호
+  ///
+  /// In en, this message translates to:
+  /// **'Step {number}'**
+  String cookingStepNumber(String number);
+
+  /// 조리 단계 설명 입력
+  ///
+  /// In en, this message translates to:
+  /// **'Step Description'**
+  String get cookingStepDescription;
+
+  /// 검색 결과 섹션
+  ///
+  /// In en, this message translates to:
+  /// **'Search Results'**
+  String get searchResults;
+
+  /// 검색 초기화 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Search'**
+  String get searchReset;
+
+  /// 검색 결과 없음 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'No recipes can be made\nwith selected ingredients'**
+  String get searchNoResults;
+
+  /// 검색 결과 개수
+  ///
+  /// In en, this message translates to:
+  /// **'{count} recipes found'**
+  String searchRecipesFound(String count);
+
+  /// 관리 섹션
+  ///
+  /// In en, this message translates to:
+  /// **'Management'**
+  String get settingsManagement;
+
+  /// 조미료/단위 관리 메뉴
+  ///
+  /// In en, this message translates to:
+  /// **'Seasoning/Unit Management'**
+  String get settingsSeasoningUnitManagement;
+
+  /// 조미료/단위 관리 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Add, edit, delete seasonings/units'**
+  String get settingsSeasoningUnitDescription;
+
+  /// 앱 정보 섹션
+  ///
+  /// In en, this message translates to:
+  /// **'App Info'**
+  String get settingsAppInfo;
+
+  /// 앱 버전
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get settingsVersion;
+
+  /// 라이선스 정보
+  ///
+  /// In en, this message translates to:
+  /// **'License'**
+  String get settingsLicense;
+
+  /// 언어 설정 메뉴
   ///
   /// In en, this message translates to:
   /// **'Language Settings'**
-  String get languageSettings;
+  String get settingsLanguage;
 
-  /// No description provided for @selectLanguage.
+  /// 언어 선택 요청
   ///
   /// In en, this message translates to:
   /// **'Please select a language'**
-  String get selectLanguage;
+  String get settingsSelectLanguage;
 
-  /// No description provided for @systemLanguage.
+  /// 시스템 언어 옵션
   ///
   /// In en, this message translates to:
   /// **'System Language'**
-  String get systemLanguage;
+  String get settingsLanguageSystem;
 
-  /// No description provided for @korean.
+  /// 한국어 옵션
   ///
   /// In en, this message translates to:
-  /// **'한국어'**
-  String get korean;
+  /// **'Korean'**
+  String get settingsLanguageKorean;
 
-  /// No description provided for @english.
+  /// 영어 옵션
   ///
   /// In en, this message translates to:
   /// **'English'**
-  String get english;
+  String get settingsLanguageEnglish;
 
-  /// No description provided for @japanese.
+  /// 일본어 옵션
   ///
   /// In en, this message translates to:
-  /// **'日本語'**
-  String get japanese;
+  /// **'Japanese'**
+  String get settingsLanguageJapanese;
 
-  /// No description provided for @languageChanged.
+  /// 언어 변경 완료 메시지
   ///
   /// In en, this message translates to:
   /// **'Language has been changed'**
-  String get languageChanged;
+  String get settingsLanguageChanged;
+
+  /// 단위 타입 선택 요청
+  ///
+  /// In en, this message translates to:
+  /// **'Please select what type of unit \"{unitName}\" is.'**
+  String unitTypeSelection(String unitName);
+
+  /// 자주 사용하는 단위 섹션
+  ///
+  /// In en, this message translates to:
+  /// **'Frequently Used Units'**
+  String get unitFrequentlyUsed;
+
+  /// 기본 무게 단위 카테고리
+  ///
+  /// In en, this message translates to:
+  /// **'Weight (Basic)'**
+  String get unitWeightBasic;
+
+  /// 사용자 추가 무게 단위 카테고리
+  ///
+  /// In en, this message translates to:
+  /// **'Weight (Custom)'**
+  String get unitWeightCustom;
+
+  /// 기본 부피 단위 카테고리
+  ///
+  /// In en, this message translates to:
+  /// **'Volume (Basic)'**
+  String get unitVolumeBasic;
+
+  /// 사용자 추가 부피 단위 카테고리
+  ///
+  /// In en, this message translates to:
+  /// **'Volume (Custom)'**
+  String get unitVolumeCustom;
+
+  /// 기본 개수 단위 카테고리
+  ///
+  /// In en, this message translates to:
+  /// **'Count (Basic)'**
+  String get unitCountBasic;
+
+  /// 사용자 추가 개수 단위 카테고리
+  ///
+  /// In en, this message translates to:
+  /// **'Count (Custom)'**
+  String get unitCountCustom;
+
+  /// 기본 기타 단위 카테고리
+  ///
+  /// In en, this message translates to:
+  /// **'Misc (Basic)'**
+  String get unitMiscBasic;
+
+  /// 사용자 추가 기타 단위 카테고리
+  ///
+  /// In en, this message translates to:
+  /// **'Misc (Custom)'**
+  String get unitMiscCustom;
+
+  /// 기본 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Basic'**
+  String get unitBasic;
+
+  /// 새 단위 추가 완료 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'New unit \"{unitName}\" added to {category} category'**
+  String unitNewAdded(String unitName, String category);
+
+  /// 단위 검색 힌트
+  ///
+  /// In en, this message translates to:
+  /// **'Search units...'**
+  String get unitSearch;
+
+  /// 새 단위 추가 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Add new unit: \"{unitName}\"'**
+  String unitAddNew(String unitName);
+
+  /// 새 단위 추가 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new unit'**
+  String get unitAddNewSubtitle;
+
+  /// 단위 사용 횟수
+  ///
+  /// In en, this message translates to:
+  /// **'{count} times'**
+  String unitUsageCount(String count);
+
+  /// 단위 로딩 오류 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading units'**
+  String get unitErrorLoading;
+
+  /// 단위 사용 횟수 표시
+  ///
+  /// In en, this message translates to:
+  /// **'Used {count} times'**
+  String unitUsedTimes(String count);
+
+  /// 타이머 알림 설정
+  ///
+  /// In en, this message translates to:
+  /// **'Timer Notification'**
+  String get notificationTimerTitle;
+
+  /// 백그라운드 앱 새로고침 설정
+  ///
+  /// In en, this message translates to:
+  /// **'Background App Refresh'**
+  String get notificationBackgroundRefresh;
+
+  /// 백그라운드 앱 새로고침 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Set up for accurate timer notifications'**
+  String get notificationBackgroundRefreshDescription;
+
+  /// 알림 활성화 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Timer notifications activated'**
+  String get notificationActivated;
+
+  /// 알림 권한 거부 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Notification permission denied. You can manually activate it in system settings'**
+  String get notificationDenied;
+
+  /// 알림 설정 메뉴
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Settings'**
+  String get notificationSettings;
+
+  /// 알림 활성화 상태
+  ///
+  /// In en, this message translates to:
+  /// **'Timer notifications are enabled'**
+  String get notificationEnabled;
+
+  /// 알림 끄기 안내
+  ///
+  /// In en, this message translates to:
+  /// **'To turn off notifications:'**
+  String get notificationTurnOff;
+
+  /// 알림 끄기 방법
+  ///
+  /// In en, this message translates to:
+  /// **'1. Open iPhone Settings app\n2. Select Notifications > Saucerer\n3. Turn off Allow Notifications'**
+  String get notificationTurnOffInstructions;
+
+  /// 알림 끄기 경고
+  ///
+  /// In en, this message translates to:
+  /// **'If you turn off notifications, you will not receive timer completion alerts'**
+  String get notificationTurnOffWarning;
+
+  /// 활성화 상태
+  ///
+  /// In en, this message translates to:
+  /// **'Activated'**
+  String get notificationActivatedStatus;
+
+  /// 비활성화 상태
+  ///
+  /// In en, this message translates to:
+  /// **'Deactivated'**
+  String get notificationDeactivatedStatus;
+
+  /// 설정 열기 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Open Settings'**
+  String get notificationOpenSettings;
+
+  /// 설정에서 알림 활성화 요청
+  ///
+  /// In en, this message translates to:
+  /// **'Please enable notifications in settings'**
+  String get notificationEnableInSettings;
+
+  /// 알림 권한 거부 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Notification permission denied'**
+  String get notificationPermissionDenied;
+
+  /// 테스트 알림 전송 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Test notification sent'**
+  String get notificationTestSent;
+
+  /// 알림 테스트 기능
+  ///
+  /// In en, this message translates to:
+  /// **'Test Notification'**
+  String get notificationTest;
+
+  /// 타이머 알림 채널 제목
+  ///
+  /// In en, this message translates to:
+  /// **'Cooking Timer'**
+  String get timerNotificationChannelTitle;
+
+  /// 타이머 알림 채널 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Cooking timer completion notifications'**
+  String get timerNotificationChannelDescription;
+
+  /// 타이머 완료 알림 제목
+  ///
+  /// In en, this message translates to:
+  /// **'🍳 {timerName} Complete!'**
+  String timerNotificationCompleteTitle(String timerName);
+
+  /// 타이머 완료 알림 내용
+  ///
+  /// In en, this message translates to:
+  /// **'{duration} timer finished.'**
+  String timerNotificationCompleteBody(String duration);
+
+  /// 테스트 알림 채널 제목
+  ///
+  /// In en, this message translates to:
+  /// **'Test Notifications'**
+  String get timerNotificationTestChannelTitle;
+
+  /// 테스트 알림 채널 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Test notification channel'**
+  String get timerNotificationTestChannelDescription;
+
+  /// 테스트 알림 제목
+  ///
+  /// In en, this message translates to:
+  /// **'🧪 Test Notification'**
+  String get timerNotificationTestTitle;
+
+  /// 테스트 알림 내용
+  ///
+  /// In en, this message translates to:
+  /// **'This is a test notification. Notifications are working properly!'**
+  String get timerNotificationTestBody;
+
+  /// 일반 오류 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred'**
+  String get generalErrorOccurred;
+
+  /// 저장 실패 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Save failed'**
+  String get generalSaveFailed;
+
+  /// 저장 실패 오류 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Save failed: {error}'**
+  String generalSaveFailedWithError(String error);
+
+  /// 카테고리 관리 메뉴
+  ///
+  /// In en, this message translates to:
+  /// **'Category Management'**
+  String get generalCategoryManagement;
+
+  /// 카테고리 추가 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Add Category'**
+  String get generalAddCategory;
+
+  /// 이름 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get generalName;
+
+  /// 설명 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get generalDescription;
+
+  /// 저장 옵션 다이얼로그
+  ///
+  /// In en, this message translates to:
+  /// **'Save Options'**
+  String get generalSaveOptions;
+
+  /// 저장 방법 질문
+  ///
+  /// In en, this message translates to:
+  /// **'How would you like to save?'**
+  String get generalHowToSave;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

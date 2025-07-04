@@ -19,7 +19,7 @@ class TranslationUpdater {
       '1q3T5hPEshaAifT5K9g0L-2yqPH4zv62x-43Z1u-cZns';
 
   // 시트 범위 - A:E는 Key, Korean, English, Japanese, Description 컬럼
-  static const String sheetRange = '시트1!A2:E';
+  static const String sheetRange = 'multi_language!A2:E';
 
   final SheetsApi sheetsApi;
   final String spreadsheetId;

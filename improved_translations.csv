@@ -1,0 +1,209 @@
+Key,Korean,English,Japanese,Description
+navigationRecipes,레시피,Recipes,レシピ,메인 네비게이션: 레시피 탭
+navigationSearch,검색,Search,検索,메인 네비게이션: 검색 탭
+navigationTimer,타이머,Timer,タイマー,메인 네비게이션: 타이머 탭
+navigationSettings,설정,Settings,設定,메인 네비게이션: 설정 탭
+actionSave,저장,Save,保存,저장 버튼
+actionCancel,취소,Cancel,キャンセル,취소 버튼
+actionDelete,삭제,Delete,削除,삭제 버튼
+actionEdit,편집,Edit,編集,편집 버튼
+actionConfirm,확인,Confirm,確認,확인 버튼
+actionStart,시작,Start,開始,시작 버튼
+actionRetry,다시 시도,Retry,再試行,다시 시도 버튼
+actionGoBack,돌아가기,Go Back,戻る,뒤로가기 버튼
+actionRefresh,새로고침,Refresh,更新,새로고침 버튼
+recipeAdd,레시피 추가,Add Recipe,レシピ追加,레시피 추가 버튼/화면 제목
+recipeEdit,레시피 편집,Edit Recipe,レシピ編集,레시피 편집 화면 제목
+recipeDetail,레시피 상세,Recipe Detail,レシピ詳細,레시피 상세 화면 제목
+recipeName,레시피 이름,Recipe Name,レシピ名,레시피 이름 입력 라벨
+recipeIngredients,재료,Ingredients,材料,재료 섹션 제목
+recipeCookingSteps,조리 과정,Cooking Steps,調理手順,조리 단계 섹션 제목
+recipeEmptyState,아직 레시피가 없습니다,No recipes yet,まだレシピがありません,레시피 목록 비어있을 때 메시지
+recipeEmptyStateDescription,나만의 특별한 소스 레시피를
+만들어보세요!,Create your own special
+sauce recipe!,あなただけの特別な
+ソースレシピを作ってみましょう！,레시피 목록 비어있을 때 안내 메시지
+recipeDeleteConfirm,레시피를 삭제하시겠습니까?
+
+이 작업은 되돌릴 수 없습니다.,Are you sure you want to delete this recipe?
+
+This action cannot be undone.,このレシピを削除しますか？
+
+この操作は元に戻せません。,레시피 삭제 확인 메시지
+recipeDeleteSuccess,레시피가 삭제되었습니다,Recipe has been deleted,レシピが削除されました,레시피 삭제 성공 메시지
+recipeDeleteFailed,삭제 실패,Delete failed,削除失敗,레시피 삭제 실패 메시지
+recipeLoadingError,레시피를 불러올 수 없습니다,Cannot load recipe,レシピを読み込めません,레시피 로딩 실패 메시지
+recipeLoading,레시피를 불러오는 중...,Loading recipe...,レシピを読み込み中...,레시피 로딩 중 메시지
+recipeNewTitle,새 레시피,New Recipe,新しいレシピ,새 레시피 화면 제목
+recipeVersionsRequired,레시피에는 최소 하나의 버전이 있어야 합니다.,Recipe must have at least one version.,レシピには少なくとも1つのバージョンが必要です。,레시피 버전 필수 요구사항 메시지
+recipeList,레시피 목록,Recipe List,レシピ一覧,레시피 목록 화면
+versionCreate,새 버전 생성,Create New Version,新しいバージョンを作成,새 버전 생성 옵션
+versionOverwrite,기존 버전 덮어쓰기,Overwrite Existing Version,既存のバージョンを上書き,기존 버전 덮어쓰기 옵션
+versionName,버전 이름,Version Name,バージョン名,버전명 입력 라벨
+versionNameOptional,버전명 (선택사항),Version Name (Optional),バージョン名 (任意),버전명 입력 라벨 (선택사항)
+versionNameHint,예: 매운맛, 설탕 덜 넣은, 비건,e.g., Spicy, Less Sugar, Vegan,例: 辛口、砂糖控えめ、ビーガン,버전명 입력 힌트
+versionChangeLog,변경 사항,Change Log,変更履歴,변경사항 섹션 제목
+versionChangeLogOptional,변경사항 (선택사항),Change Log (Optional),変更履歴 (任意),변경사항 입력 라벨 (선택사항)
+versionChangeLogHint,예: 설탕량 줄임, 야채 추가,e.g., Reduced sugar, Added vegetables,例: 砂糖の量を減らした、野菜を追加した,변경사항 입력 힌트
+versionDelete,버전 삭제,Delete Version,バージョンを削除,버전 삭제 버튼
+versionDeleteConfirm,정말로 이 버전을 삭제하시겠습니까?,Are you sure you want to delete this version?,本当にこのバージョンを削除しますか？,버전 삭제 확인 메시지
+versionDeleteError,버전 삭제 중 오류가 발생했습니다: {error},Error occurred while deleting version: {error},バージョン削除中にエラーが発生しました: {error},버전 삭제 오류 메시지
+versionSaveAsDerived,새 버전으로 저장,Save as New Version,新しいバージョンとして保存,새 버전으로 저장 옵션
+versionDerivedDescription,{versionName}에서 파생된 새 버전을 생성합니다,Create a new version derived from {versionName},{versionName}から派生した新しいバージョンを作成します,파생 버전 생성 설명
+versionKeepExisting,기존 버전은 유지하고 새 버전을 생성합니다,Keep the existing version and create a new version,既存のバージョンを保持し、新しいバージョンを作成します,기존 버전 유지 설명
+versionUpdateDescription,{versionName}을(를) 업데이트합니다,Update {versionName},{versionName}を更新します,버전 업데이트 설명
+versionUpdateCurrent,현재 버전을 업데이트합니다,Update the current version,現在のバージョンを更新します,현재 버전 업데이트 설명
+versionBaseVersion,기반 버전: {versionName},Base version: {versionName},ベースバージョン: {versionName},기반 버전 표시
+versionEditingCurrent,편집 중: {versionName},Editing: {versionName},編集中: {versionName},현재 편집 중인 버전 표시
+ingredientAdd,재료 추가,Add Ingredient,材料を追加,재료 추가 버튼
+ingredientName,재료명,Ingredient Name,材料名,재료 이름 입력 라벨
+ingredientQuantity,수량,Quantity,数量,수량 입력 라벨
+ingredientUnit,단위,Unit,単位,단위 선택 라벨
+ingredientSelectUnit,단위 선택,Select Unit,単位を選択,단위 선택 버튼
+ingredientSearch,재료 검색,Search Ingredients,材料を検索,재료 검색 화면 제목
+ingredientSearchHint,재료 이름을 검색하세요...,Search ingredient names...,材料名を検索してください...,재료 검색 입력 힌트
+ingredientSearchByIngredients,재료로 검색,Search by Ingredients,材料で検索,재료 기반 검색 기능
+ingredientPopular,자주 사용된 재료,Popular Ingredients,よく使われる材料,인기 재료 섹션
+ingredientShowPopular,자주 사용된 재료 보기,Show Popular Ingredients,よく使われる材料を表示,인기 재료 보기 버튼
+ingredientShowAll,모든 재료 보기,Show All Ingredients,すべての材料を表示,모든 재료 보기 버튼
+ingredientSearchResults,재료 검색 결과,Ingredient Search Results,材料検索結果,재료 검색 결과 섹션
+timerStart,시작,Start,開始,타이머 시작 버튼
+timerStop,정지,Stop,停止,타이머 정지 버튼
+timerReset,재설정,Reset,リセット,타이머 재설정 버튼
+timerFinished,{duration} 타이머가 끝났습니다.,{duration} timer finished.,{duration}タイマーが終了しました。,타이머 완료 메시지
+timerRunning,{count}개 타이머 진행 중,{count} timers running,{count}個のタイマーが動作中,실행 중인 타이머 수
+timerInProgress,{count}개 진행중,{count} in progress,{count}個進行中,진행 중인 타이머 수
+timerRunningList,진행 중인 타이머,Running Timers,実行中のタイマー,실행 중인 타이머 목록
+timerCooking,요리 타이머,Cooking Timer,料理タイマー,요리 타이머 섹션
+timerFrequentlyUsed,자주 사용하는 타이머,Frequently Used Timers,よく使うタイマー,자주 사용하는 타이머 섹션
+timerCustom,커스텀 타이머,Custom Timer,カスタムタイマー,커스텀 타이머 제목
+timerCreateCustom,커스텀 타이머 만들기,Create Custom Timer,カスタムタイマーを作成,커스텀 타이머 생성 버튼
+timerName,타이머 이름,Timer Name,タイマー名,타이머 이름 입력 라벨
+timerNameHint,예: 계란 삶기, 차 우리기,e.g., Egg boiling, Tea brewing,例: 卵茹で、お茶を淹れる,타이머 이름 입력 힌트
+timerNameRequired,타이머 이름을 입력해주세요,Please enter timer name,タイマー名を入力してください,타이머 이름 필수 입력 메시지
+timerTimeRequired,시간을 설정해주세요,Please set time,時間を設定してください,타이머 시간 필수 설정 메시지
+timerTimeSetting,시간 설정,Time Setting,時間設定,시간 설정 섹션
+timerMinutes,분,Minutes,分,분 단위 라벨
+timerSeconds,초,Seconds,秒,초 단위 라벨
+timerDescriptionOptional,설명 (선택사항),Description (Optional),説明 (任意),타이머 설명 입력 라벨
+timerDescriptionHint,예: 모닝 티에 완벽한 시간,e.g., Perfect for morning tea,例: 朝のお茶に最適な時間,타이머 설명 입력 힌트
+timerPresetSave,프리셋으로 저장,Save as Preset,プリセットとして保存,프리셋 저장 버튼
+timerPresetSaveDescription,다음에 쉽게 재사용할 수 있도록 저장,Save for easy reuse next time,次回簡単に再利用できるよう保存,프리셋 저장 설명
+timerPresetSaved,{name} 프리셋이 저장되었습니다,{name} preset saved,{name}プリセットが保存されました,프리셋 저장 완료 메시지
+timerPresetDelete,프리셋 삭제,Delete Preset,プリセットを削除,프리셋 삭제 버튼
+timerPresetDeleteConfirm,{presetName} 프리셋을 삭제하시겠습니까?
+삭제된 프리셋은 복구할 수 없습니다.,Are you sure you want to delete the {presetName} preset?
+Deleted presets cannot be recovered.,{presetName}プリセットを削除しますか？
+削除されたプリセットは復元できません。,프리셋 삭제 확인 메시지
+timerPresetDeleted,{name} 프리셋이 삭제되었습니다,{name} preset deleted,{name}プリセットが削除されました,프리셋 삭제 완료 메시지
+timerPresetCannotDeleteDefault,기본 프리셋은 삭제할 수 없습니다,Cannot delete default preset,デフォルトプリセットは削除できません,기본 프리셋 삭제 불가 메시지
+timerPresetAlreadyExists,같은 이름의 프리셋이 이미 존재합니다,Preset with same name already exists,同じ名前のプリセットが既に存在します,프리셋 이름 중복 오류 메시지
+timerPresetSaveFailed,프리셋 저장에 실패했습니다,Failed to save preset,プリセットの保存に失敗しました,프리셋 저장 실패 메시지
+timerPresetPastaCooking,파스타 삶기,Pasta Cooking,パスタを茹でる,파스타 조리 프리셋
+timerPresetPastaCookingDescription,표준 파스타 조리 시간,Standard pasta cooking time,標準パスタ調理時間,파스타 조리 프리셋 설명
+timerPresetHardBoiledEgg,완숙 계란,Hard-boiled Egg,固茹で卵,완숙 계란 프리셋
+timerPresetHardBoiledEggDescription,완벽한 완숙 계란,Perfect hard-boiled egg,完璧な固茹で卵,완숙 계란 프리셋 설명
+timerPresetSoftBoiledEgg,반숙 계란,Soft-boiled Egg,半熟卵,반숙 계란 프리셋
+timerPresetSoftBoiledEggDescription,부드럽고 흐르는 노른자,Soft and runny egg yolk,柔らかくとろける黄身,반숙 계란 프리셋 설명
+timerPresetInstantNoodles,라면,Instant Noodles,インスタントラーメン,라면 프리셋
+timerPresetInstantNoodlesDescription,빠른 라면 조리,Quick instant noodles,手軽なインスタントラーメン,라면 프리셋 설명
+timerPresetTeaBrewing,차 우리기,Tea Brewing,お茶を淹れる,차 우리기 프리셋
+timerPresetTeaBrewingDescription,완벽한 차 우리는 시간,Perfect tea steeping time,完璧なお茶の抽出時間,차 우리기 프리셋 설명
+timerPresetSteakCooking,스테이크 굽기,Steak Cooking,ステーキを焼く,스테이크 굽기 프리셋
+timerPresetSteakCookingDescription,미디움 레어 스테이크,Medium-rare steak,ミディアムレアステーキ,스테이크 굽기 프리셋 설명
+cookingLogAdd,요리 기록 추가,Add Cooking Log,料理記録を追加,요리 기록 추가 버튼
+cookingLogWrite,요리 기록 작성,Write Cooking Log,料理記録を書く,요리 기록 작성 화면 제목
+cookingLogTitle,제목,Title,タイトル,요리 기록 제목
+cookingLogTitleRequired,제목 *,Title *,タイトル *,요리 기록 제목 필수 입력
+cookingLogTitleHint,요리 기록 제목을 입력하세요,Enter cooking log title,料理記録のタイトルを入力してください,요리 기록 제목 입력 힌트
+cookingLogEnterTitle,제목을 입력해주세요,Please enter a title,タイトルを入力してください,제목 필수 입력 메시지
+cookingLogDateTime,요리한 날짜 및 시간 *,Cooking Date & Time *,料理した日時 *,요리 날짜/시간 선택 라벨
+cookingLogSelectDateTime,날짜와 시간을 선택하세요,Select date and time,日付と時刻を選択してください,날짜/시간 선택 힌트
+cookingLogPhoto,사진,Photo,写真,요리 사진 섹션
+cookingLogAddPhoto,사진 추가,Add Photo,写真を追加,사진 추가 버튼
+cookingLogTakePhoto,카메라로 촬영,Take with Camera,カメラで撮影,카메라로 사진 촬영 옵션
+cookingLogSelectFromGallery,갤러리에서 선택,Select from Gallery,ギャラリーから選択,갤러리에서 사진 선택 옵션
+cookingLogMemo,메모,Memo,メモ,요리 메모 섹션
+cookingLogMemoHint,요리하면서 느낀 점이나 개선사항을 적어보세요,Write down your thoughts or improvements while cooking,料理しながら感じたことや改善点を書いてみてください,요리 메모 입력 힌트
+cookingLogRecipeInfo,레시피 정보,Recipe Information,レシピ情報,레시피 정보 섹션
+cookingStepAdd,단계 추가,Add Step,手順を追加,조리 단계 추가 버튼
+cookingStepNumber,{number}번째 단계,Step {number},{number}番目の手順,조리 단계 번호
+cookingStepDescription,단계 설명,Step Description,手順説明,조리 단계 설명 입력
+searchResults,검색 결과,Search Results,検索結果,검색 결과 섹션
+searchReset,검색 초기화,Reset Search,検索をリセット,검색 초기화 버튼
+searchNoResults,선택한 재료로 만들 수 있는
+레시피가 없습니다,No recipes can be made
+with selected ingredients,選択した材料で作れる
+レシピがありません,검색 결과 없음 메시지
+searchRecipesFound,{count}개의 레시피를 찾았습니다,{count} recipes found,{count}個のレシピが見つかりました,검색 결과 개수
+settingsManagement,관리,Management,管理,관리 섹션
+settingsSeasoningUnitManagement,조미료/단위 관리,Seasoning/Unit Management,調味料/単位管理,조미료/단위 관리 메뉴
+settingsSeasoningUnitDescription,조미료/단위 추가, 수정, 삭제,Add, edit, delete seasonings/units,調味料/単位の追加、編集、削除,조미료/단위 관리 설명
+settingsAppInfo,앱 정보,App Info,アプリ情報,앱 정보 섹션
+settingsVersion,버전,Version,バージョン,앱 버전
+settingsLicense,라이선스,License,ライセンス,라이선스 정보
+settingsLanguage,언어 설정,Language Settings,言語設定,언어 설정 메뉴
+settingsSelectLanguage,언어를 선택하세요,Please select a language,言語を選択してください,언어 선택 요청
+settingsLanguageSystem,시스템 언어,System Language,システム言語,시스템 언어 옵션
+settingsLanguageKorean,한국어,Korean,韓国語,한국어 옵션
+settingsLanguageEnglish,English,English,英語,영어 옵션
+settingsLanguageJapanese,日本語,Japanese,日本語,일본어 옵션
+settingsLanguageChanged,언어가 변경되었습니다,Language has been changed,言語が変更されました,언어 변경 완료 메시지
+unitTypeSelection,"{unitName}" 단위가 어떤 종류인지 선택해주세요.,Please select what type of unit "{unitName}" is.,"{unitName}"単位がどのような種類かを選択してください。,단위 타입 선택 요청
+unitFrequentlyUsed,자주 사용하는 단위,Frequently Used Units,よく使う単位,자주 사용하는 단위 섹션
+unitWeightBasic,무게 (기본),Weight (Basic),重量 (基本),기본 무게 단위 카테고리
+unitWeightCustom,무게 (사용자 추가),Weight (Custom),重量 (ユーザー追加),사용자 추가 무게 단위 카테고리
+unitVolumeBasic,부피 (기본),Volume (Basic),体積 (基本),기본 부피 단위 카테고리
+unitVolumeCustom,부피 (사용자 추가),Volume (Custom),体積 (ユーザー追加),사용자 추가 부피 단위 카테고리
+unitCountBasic,개수 (기본),Count (Basic),個数 (基本),기본 개수 단위 카테고리
+unitCountCustom,개수 (사용자 추가),Count (Custom),個数 (ユーザー追加),사용자 추가 개수 단위 카테고리
+unitMiscBasic,기타 (기본),Misc (Basic),その他 (基本),기본 기타 단위 카테고리
+unitMiscCustom,기타 (사용자 추가),Misc (Custom),その他 (ユーザー追加),사용자 추가 기타 단위 카테고리
+unitBasic,기본,Basic,基本,기본 단위 라벨
+unitNewAdded,새 단위 "{unitName}"이(가) {category} 카테고리에 추가되었습니다,New unit "{unitName}" added to {category} category,新しい単位"{unitName}"が{category}カテゴリに追加されました,새 단위 추가 완료 메시지
+unitSearch,단위 검색...,Search units...,単位を検索...,단위 검색 힌트
+unitAddNew,새 단위 추가: "{unitName}",Add new unit: "{unitName}",新しい単位を追加: "{unitName}",새 단위 추가 버튼
+unitAddNewSubtitle,새로운 단위를 추가합니다,Add a new unit,新しい単位を追加します,새 단위 추가 설명
+unitUsageCount,{count}회,{count} times,{count}回,단위 사용 횟수
+unitErrorLoading,단위를 불러오는 중 오류가 발생했습니다,Error loading units,単位の読み込み中にエラーが発生しました,단위 로딩 오류 메시지
+unitUsedTimes,{count}회 사용,Used {count} times,{count}回使用,단위 사용 횟수 표시
+notificationTimerTitle,타이머 알림,Timer Notification,タイマー通知,타이머 알림 설정
+notificationBackgroundRefresh,백그라운드 앱 새로고침,Background App Refresh,バックグラウンドアプリ更新,백그라운드 앱 새로고침 설정
+notificationBackgroundRefreshDescription,타이머 알림이 정확히 작동하도록 설정,Set up for accurate timer notifications,タイマー通知が正確に動作するように設定,백그라운드 앱 새로고침 설명
+notificationActivated,타이머 알림이 활성화되었습니다,Timer notifications activated,タイマー通知が有効になりました,알림 활성화 메시지
+notificationDenied,알림 권한이 거부되었습니다. 시스템 설정에서 수동으로 활성화할 수 있습니다,Notification permission denied. You can manually activate it in system settings,通知の権限が拒否されました。システム設定で手動で有効にできます,알림 권한 거부 메시지
+notificationSettings,알림 설정,Notification Settings,通知設定,알림 설정 메뉴
+notificationEnabled,타이머 알림이 활성화되어 있습니다,Timer notifications are enabled,タイマー通知が有効になっています,알림 활성화 상태
+notificationTurnOff,알림을 끄고 싶다면:,To turn off notifications:,通知を無効にしたい場合:,알림 끄기 안내
+notificationTurnOffInstructions,1. 아이폰 설정 앱 열기
+2. 알림 > Saucerer 선택
+3. 알림 허용 끄기,1. Open iPhone Settings app
+2. Select Notifications > Saucerer
+3. Turn off Allow Notifications,1. iPhone設定アプリを開く
+2. 通知 > Saucererを選択
+3. 通知を許可をオフにする,알림 끄기 방법
+notificationTurnOffWarning,알림을 끄면 타이머 완료 시 알림을 받을 수 없습니다,If you turn off notifications, you will not receive timer completion alerts,通知を無効にすると、タイマー完了時に通知を受け取れません,알림 끄기 경고
+notificationActivatedStatus,활성화됨,Activated,有効,활성화 상태
+notificationDeactivatedStatus,비활성화됨,Deactivated,無効,비활성화 상태
+notificationOpenSettings,설정 열기,Open Settings,設定を開く,설정 열기 버튼
+notificationEnableInSettings,설정에서 알림을 활성화해주세요,Please enable notifications in settings,設定で通知を有効にしてください,설정에서 알림 활성화 요청
+notificationPermissionDenied,알림 권한이 거부되었습니다,Notification permission denied,通知の権限が拒否されました,알림 권한 거부 메시지
+notificationTestSent,테스트 알림이 전송되었습니다,Test notification sent,テスト通知が送信されました,테스트 알림 전송 메시지
+notificationTest,알림 테스트,Test Notification,通知テスト,알림 테스트 기능
+timerNotificationChannelTitle,요리 타이머,Cooking Timer,料理タイマー,타이머 알림 채널 제목
+timerNotificationChannelDescription,요리 타이머 완료 알림,Cooking timer completion notifications,料理タイマー完了通知,타이머 알림 채널 설명
+timerNotificationCompleteTitle,🍳 {timerName} 완료!,🍳 {timerName} Complete!,🍳 {timerName} 完了！,타이머 완료 알림 제목
+timerNotificationCompleteBody,{duration} 타이머가 끝났습니다.,{duration} timer finished.,{duration}タイマーが終了しました。,타이머 완료 알림 내용
+timerNotificationTestChannelTitle,테스트 알림,Test Notifications,テスト通知,테스트 알림 채널 제목
+timerNotificationTestChannelDescription,테스트 알림 채널,Test notification channel,テスト通知チャンネル,테스트 알림 채널 설명
+timerNotificationTestTitle,🧪 테스트 알림,🧪 Test Notification,🧪 テスト通知,테스트 알림 제목
+timerNotificationTestBody,이것은 테스트 알림입니다. 알림이 정상적으로 작동하고 있습니다!,This is a test notification. Notifications are working properly!,これはテスト通知です。通知が正常に動作しています！,테스트 알림 내용
+generalErrorOccurred,오류가 발생했습니다,An error occurred,エラーが発生しました,일반 오류 메시지
+generalSaveFailed,저장 실패,Save failed,保存に失敗しました,저장 실패 메시지
+generalSaveFailedWithError,저장 실패: {error},Save failed: {error},保存に失敗しました: {error},저장 실패 오류 메시지
+generalCategoryManagement,카테고리 관리,Category Management,カテゴリ管理,카테고리 관리 메뉴
+generalAddCategory,카테고리 추가,Add Category,カテゴリを追加,카테고리 추가 버튼
+generalName,이름,Name,名前,이름 라벨
+generalDescription,설명,Description,説明,설명 라벨
+generalSaveOptions,저장 옵션,Save Options,保存オプション,저장 옵션 다이얼로그
+generalHowToSave,어떻게 저장하시겠습니까?,How would you like to save?,どのように保存しますか？,저장 방법 질문

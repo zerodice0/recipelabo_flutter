@@ -291,21 +291,21 @@ Google Cloud Console에서 서비스 계정 키를 다운로드하는 방법:
       await sheetsApi.spreadsheets.values.clear(
         ClearValuesRequest(),
         spreadsheetId,
-        '시트1!A:E',
+        'multi_language!A:E',
       );
 
       print('기존 데이터를 클리어했습니다.');
 
       // 새 데이터 업로드 (한글 시트명 사용)
       final valueRange = ValueRange(
-        range: '시트1!A1:E${values.length}',
+        range: 'multi_language!A1:E${values.length}',
         values: values,
       );
 
       await sheetsApi.spreadsheets.values.update(
         valueRange,
         spreadsheetId,
-        '시트1!A1:E${values.length}',
+        'multi_language!A1:E${values.length}',
         valueInputOption: 'RAW',
       );
 
