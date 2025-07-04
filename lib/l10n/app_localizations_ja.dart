@@ -69,7 +69,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get recipeEmptyState => 'まだレシピがありません';
 
   @override
-  String get recipeEmptyStateDescription => 'あなただけの特別な\nソースレシピを作ってみましょう！';
+  String get recipeEmptyStateDescription =>
+      '美味しいレシピを記録して\nあなただけのバージョンに発展させましょう！';
 
   @override
   String get recipeDeleteConfirm => 'このレシピを削除しますか？\n\nこの操作は元に戻せません。';
@@ -611,4 +612,15 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get generalHowToSave => 'どのように保存しますか？';
+
+  @override
+  String get ingredientNotFound => '材料が見つかりません';
+
+  @override
+  String ingredientSelectedCount(String count) {
+    return '選択された材料 ($count個)';
+  }
+
+  @override
+  String get ingredientClearAll => 'すべて削除';
 }

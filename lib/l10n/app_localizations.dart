@@ -223,7 +223,7 @@ abstract class AppLocalizations {
   /// 레시피 목록 비어있을 때 안내 메시지
   ///
   /// In en, this message translates to:
-  /// **'Create your own special\nsauce recipe!'**
+  /// **'Record delicious recipes and\ndevelop them into your own versions!'**
   String get recipeEmptyStateDescription;
 
   /// 레시피 삭제 확인 메시지
@@ -1221,6 +1221,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'How would you like to save?'**
   String get generalHowToSave;
+
+  /// 재료 검색 결과 없음 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'No ingredients found'**
+  String get ingredientNotFound;
+
+  /// 선택된 재료 개수 표시
+  ///
+  /// In en, this message translates to:
+  /// **'Selected ingredients ({count})'**
+  String ingredientSelectedCount(String count);
+
+  /// 전체 삭제 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Clear All'**
+  String get ingredientClearAll;
 }
 
 class _AppLocalizationsDelegate

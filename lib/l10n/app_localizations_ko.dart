@@ -69,7 +69,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get recipeEmptyState => '아직 레시피가 없습니다';
 
   @override
-  String get recipeEmptyStateDescription => '나만의 특별한 소스 레시피를\n만들어보세요!';
+  String get recipeEmptyStateDescription => '맛있는 레시피를 기록하고\n나만의 버전으로 발전시켜보세요!';
 
   @override
   String get recipeDeleteConfirm => '레시피를 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.';
@@ -611,4 +611,15 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get generalHowToSave => '어떻게 저장하시겠습니까?';
+
+  @override
+  String get ingredientNotFound => '재료를 찾을 수 없습니다';
+
+  @override
+  String ingredientSelectedCount(String count) {
+    return '선택된 재료 ($count개)';
+  }
+
+  @override
+  String get ingredientClearAll => '전체 삭제';
 }

@@ -70,7 +70,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recipeEmptyStateDescription =>
-      'Create your own special\nsauce recipe!';
+      'Record delicious recipes and\ndevelop them into your own versions!';
 
   @override
   String get recipeDeleteConfirm =>
@@ -626,4 +626,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get generalHowToSave => 'How would you like to save?';
+
+  @override
+  String get ingredientNotFound => 'No ingredients found';
+
+  @override
+  String ingredientSelectedCount(String count) {
+    return 'Selected ingredients ($count)';
+  }
+
+  @override
+  String get ingredientClearAll => 'Clear All';
 }

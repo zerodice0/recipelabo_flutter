@@ -20,7 +20,7 @@
   "recipeIngredients": "材料",
   "recipeCookingSteps": "調理手順",
   "recipeEmptyState": "まだレシピがありません",
-  "recipeEmptyStateDescription": "あなただけの特別な\nソースレシピを作ってみましょう！",
+  "recipeEmptyStateDescription": "美味しいレシピを記録して\nあなただけのバージョンに発展させましょう！",
   "recipeDeleteConfirm": "このレシピを削除しますか？\n\nこの操作は元に戻せません。",
   "recipeDeleteSuccess": "レシピが削除されました",
   "recipeDeleteFailed": "削除失敗",
@@ -186,5 +186,8 @@
   "generalName": "名前",
   "generalDescription": "説明",
   "generalSaveOptions": "保存オプション",
-  "generalHowToSave": "どのように保存しますか？"
+  "generalHowToSave": "どのように保存しますか？",
+  "ingredientNotFound": "材料が見つかりません",
+  "ingredientSelectedCount": "選択された材料 ({count}個)",
+  "ingredientClearAll": "すべて削除"
 }

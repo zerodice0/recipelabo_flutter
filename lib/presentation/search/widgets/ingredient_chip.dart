@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saucerer_flutter/l10n/app_localizations.dart';
 
 class IngredientChip extends StatelessWidget {
   final String ingredient;
@@ -92,7 +93,7 @@ class SelectedIngredientsChips extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '선택된 재료 (${selectedIngredients.length}개)',
+              AppLocalizations.of(context).ingredientSelectedCount(selectedIngredients.length.toString()),
               style: Theme.of(
                 context,
               ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -104,7 +105,7 @@ class SelectedIngredientsChips extends StatelessWidget {
                   visualDensity: VisualDensity.compact,
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                 ),
-                child: const Text('전체 삭제'),
+                child: Text(AppLocalizations.of(context).ingredientClearAll),
               ),
           ],
         ),
@@ -166,7 +167,7 @@ class AvailableIngredientsGrid extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                '재료를 찾을 수 없습니다',
+                AppLocalizations.of(context).ingredientNotFound,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),

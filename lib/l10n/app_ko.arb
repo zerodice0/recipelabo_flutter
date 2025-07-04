@@ -20,7 +20,7 @@
   "recipeIngredients": "재료",
   "recipeCookingSteps": "조리 과정",
   "recipeEmptyState": "아직 레시피가 없습니다",
-  "recipeEmptyStateDescription": "나만의 특별한 소스 레시피를\n만들어보세요!",
+  "recipeEmptyStateDescription": "맛있는 레시피를 기록하고\n나만의 버전으로 발전시켜보세요!",
   "recipeDeleteConfirm": "레시피를 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.",
   "recipeDeleteSuccess": "레시피가 삭제되었습니다",
   "recipeDeleteFailed": "삭제 실패",
@@ -186,5 +186,8 @@
   "generalName": "이름",
   "generalDescription": "설명",
   "generalSaveOptions": "저장 옵션",
-  "generalHowToSave": "어떻게 저장하시겠습니까?"
+  "generalHowToSave": "어떻게 저장하시겠습니까?",
+  "ingredientNotFound": "재료를 찾을 수 없습니다",
+  "ingredientSelectedCount": "선택된 재료 ({count}개)",
+  "ingredientClearAll": "전체 삭제"
 }

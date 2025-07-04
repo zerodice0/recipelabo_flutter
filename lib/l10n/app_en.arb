@@ -80,7 +80,7 @@
   "@recipeEmptyState": {
     "description": "레시피 목록 비어있을 때 메시지"
   },
-  "recipeEmptyStateDescription": "Create your own special\nsauce recipe!",
+  "recipeEmptyStateDescription": "Record delicious recipes and\ndevelop them into your own versions!",
   "@recipeEmptyStateDescription": {
     "description": "레시피 목록 비어있을 때 안내 메시지"
   },
@@ -855,5 +855,22 @@
   "generalHowToSave": "How would you like to save?",
   "@generalHowToSave": {
     "description": "저장 방법 질문"
+  },
+  "ingredientNotFound": "No ingredients found",
+  "@ingredientNotFound": {
+    "description": "재료 검색 결과 없음 메시지"
+  },
+  "ingredientSelectedCount": "Selected ingredients ({count})",
+  "@ingredientSelectedCount": {
+    "description": "선택된 재료 개수 표시",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "ingredientClearAll": "Clear All",
+  "@ingredientClearAll": {
+    "description": "전체 삭제 버튼"
   }
 }
