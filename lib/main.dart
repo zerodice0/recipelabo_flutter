@@ -42,7 +42,7 @@ class MyApp extends ConsumerWidget {
       locale: localeAsync.when(
         data: (supportedLocale) => supportedLocale.locale,
         loading: () => null,
-        error: (_, __) => null,
+        error: (error, stackTrace) => null,
       ),
       localeResolutionCallback: (locale, supportedLocales) {
         // 사용자가 언어를 선택한 경우

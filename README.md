@@ -29,52 +29,127 @@
 
 ## 🛠️ 기술 스택
 
-- **프레임워크**: Flutter
-- **언어**: Dart
+- **프레임워크**: Flutter 3.32.5
+- **언어**: Dart 3.8.1
 - **국제화**: Flutter 공식 국제화 패키지 (flutter_localizations)
-- **상태 관리**: Riverpod
-- **데이터베이스**: SQLite
+- **상태 관리**: Riverpod 2.5.1 + Riverpod Generator
+- **데이터베이스**: SQLite (sqflite)
 - **알림**: Flutter Local Notifications
+- **광고**: Google Mobile Ads (AdMob)
+- **코드 생성**: Freezed + JSON Serializable
+- **번역 관리**: Google Sheets API + 대화형 CLI 도구
 
 ## 🌐 국제화 (i18n) 개발 가이드
 
-소서러는 한국어, 영어, 일본어를 지원하는 다국어 앱입니다. 번역 관리를 위해 Google Sheets를 사용합니다.
+소서러는 한국어, 영어, 일본어를 지원하는 다국어 앱입니다. 번역 관리를 위해 Google Sheets를 사용하며, 편리한 쉘 스크립트를 제공합니다.
 
-### 번역 관리 워크플로우
+### 🚀 빠른 시작
 
-1. **Google Sheets에서 번역 편집**
-   - 번역 데이터는 Google Sheets에서 관리됩니다
-   - 각 언어별로 열이 구분되어 있습니다
+프로젝트 루트에서 다국어 관리 스크립트를 사용하세요:
 
-2. **번역 동기화**
+```bash
+# 🎯 대화형 메뉴 실행 (추천)
+./i18n.sh
+
+# 📋 명령줄에서 직접 실행
+./i18n.sh help              # 도움말 보기
+./i18n.sh workflow          # 전체 워크플로우 실행
+./i18n.sh scan              # 하드코딩 문자열 스캔
+./i18n.sh upload            # 번역 테이블 업로드
+./i18n.sh update            # ARB 파일 업데이트
+./i18n.sh generate          # Flutter 코드 생성
+```
+
+대화형 메뉴에서는 다음과 같은 옵션들을 선택할 수 있습니다:
+
+```
+🎯 원하는 작업을 선택하세요:
+
+  1) 📊 하드코딩된 문자열 스캔
+  2) 📤 개선된 번역 테이블을 Google Sheets에 업로드
+  3) 📤 기존 하드코딩 문자열을 Google Sheets에 업로드 (레거시)
+  4) 📥 Google Sheets에서 번역을 가져와 ARB 파일 업데이트
+  5) 👀 번역 업데이트 미리보기 (실제 변경 X)
+  6) ⚡ Flutter 다국어 코드 생성
+  7) 🔍 Google Sheets 구조 확인
+  8) 🚀 전체 워크플로우 실행
+  9) ❓ 도움말 보기
+  0) 🚪 종료
+```
+
+### 📋 사용 가능한 명령어
+
+| 명령어 | 설명 |
+|-------|------|
+| `scan` | 코드에서 하드코딩된 문자열 스캔 |
+| `upload` | 개선된 번역 테이블을 Google Sheets에 업로드 |
+| `upload-legacy` | 기존 하드코딩 문자열을 Google Sheets에 업로드 |
+| `update` | Google Sheets에서 번역을 가져와 ARB 파일 업데이트 |
+| `update --dry-run` | 번역 업데이트 미리보기 |
+| `generate` | Flutter 다국어 코드 생성 |
+| `check-sheets` | Google Sheets 구조 확인 |
+| `workflow` | 전체 워크플로우 실행 |
+
+### 🔧 필수 설정
+
+1. **Google Cloud Console 설정**
+   - Google Sheets API 활성화
+   - 서비스 계정 생성 및 키 다운로드
+
+2. **서비스 계정 키 배치**
    ```bash
-   # Google Sheets에서 ARB 파일로 동기화
-   dart run scripts/update_translations.dart
+   # 다운로드한 서비스 계정 키를 다음 위치에 저장
+   scripts/service-account-key.json
    ```
 
-3. **코드 생성**
+3. **Google Sheets 권한 설정**
+   - 서비스 계정 이메일에 스프레드시트 편집 권한 부여
+
+### 📚 번역 관리 워크플로우
+
+1. **번역 테이블 업로드**
    ```bash
-   # 번역 파일 기반으로 코드 생성
-   flutter packages pub run build_runner build --delete-conflicting-outputs
+   ./i18n.sh upload
    ```
 
-### 새로운 번역 키 추가
+2. **Google Sheets에서 번역 편집**
+   - [Saucerer Translations](https://docs.google.com/spreadsheets/d/1q3T5hPEshaAifT5K9g0L-2yqPH4zv62x-43Z1u-cZns) 에서 번역 수정
+
+3. **ARB 파일 업데이트**
+   ```bash
+   ./i18n.sh update
+   ```
+
+4. **Flutter 코드 생성**
+   ```bash
+   ./i18n.sh generate
+   ```
+
+### 🆕 새로운 번역 키 추가
 
 1. Google Sheets에 새로운 키와 번역 추가
-2. 동기화 스크립트 실행
-3. 코드에서 사용:
+2. ARB 파일 업데이트: `./i18n.sh update`
+3. Flutter 코드 생성: `./i18n.sh generate`
+4. 코드에서 사용:
    ```dart
    Text(AppLocalizations.of(context)!.yourNewKey)
    ```
 
-### 하드코딩된 문자열 스캔
-
-기존 코드에서 하드코딩된 문자열을 찾아 번역 키로 변환:
+### 🔍 하드코딩된 문자열 관리
 
 ```bash
 # 하드코딩된 문자열 스캔
-dart run scripts/scan_hardcoded_strings.dart
+./i18n.sh scan
+
+# 스캔 결과를 Google Sheets에 업로드
+./i18n.sh upload
 ```
+
+### ⚠️ 주의사항
+
+- 모든 스크립트는 프로젝트 루트에서 실행해야 합니다
+- 중요한 변경 전에는 git commit을 권장합니다
+- `--dry-run` 옵션으로 변경사항을 미리 확인할 수 있습니다
 
 ## 📄 라이선스
 

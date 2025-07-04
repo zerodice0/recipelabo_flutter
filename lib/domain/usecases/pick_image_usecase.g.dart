@@ -30,8 +30,9 @@ String _$imagePickerHash() => r'7877699a862be48e962306635347623c45e91971';
 final imagePickerProvider = AutoDisposeProvider<ImagePicker>.internal(
   imagePicker,
   name: r'imagePickerProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$imagePickerHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$imagePickerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -46,14 +47,14 @@ String _$imageStorageServiceHash() =>
 @ProviderFor(imageStorageService)
 final imageStorageServiceProvider =
     AutoDisposeProvider<ImageStorageService>.internal(
-  imageStorageService,
-  name: r'imageStorageServiceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$imageStorageServiceHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      imageStorageService,
+      name: r'imageStorageServiceProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$imageStorageServiceHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element

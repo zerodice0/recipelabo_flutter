@@ -50,8 +50,10 @@ Saucerer is a Flutter cross-platform mobile application for creating, sharing, a
 - **Image Handling**: Camera/gallery image selection and storage
 - **Data Consistency**: Tag/Chip-based input for typo prevention
 - **Offline-First**: Complete offline functionality
-- **Internationalization**: Complete i18n support for Korean, English, and Japanese
-- **Google Sheets Integration**: Translation management via Google Sheets
+- **Internationalization**: Complete i18n support for Korean, English, and Japanese (187 translation keys)
+- **Google Sheets Integration**: Translation management via Google Sheets with interactive CLI tools
+- **AdMob Integration**: Banner advertising with environment-based configuration
+- **Translation Management**: Interactive shell script for translation workflow automation
 
 ### 🚧 Partially Implemented
 - **Authentication**: Basic structure exists but actual authentication system not implemented
@@ -65,15 +67,22 @@ Saucerer is a Flutter cross-platform mobile application for creating, sharing, a
 
 ## Development Commands
 
+### Flutter Development
 - **Run app**: `flutter run`
 - **Run tests**: `flutter test`
 - **Analyze code**: `flutter analyze`
 - **Get dependencies**: `flutter pub get`
 - **Build APK**: `flutter build apk`
 - **Build iOS**: `flutter build ios`
+- **Generate code**: `flutter packages pub run build_runner build --delete-conflicting-outputs`
+
+### Internationalization Management
+- **Interactive i18n tool**: `./i18n.sh` (recommended)
 - **Generate translations**: `flutter gen-l10n`
-- **Scan hardcoded strings**: `dart run scripts/scan_hardcoded_strings.dart`
-- **Update translations from Google Sheets**: `dart run scripts/update_translations.dart`
+- **Scan hardcoded strings**: `./i18n.sh scan` or `dart run scripts/scan_hardcoded_strings.dart`
+- **Update translations from Google Sheets**: `./i18n.sh update` or `dart run scripts/update_translations.dart`
+- **Upload improved translations**: `./i18n.sh upload` or `dart run scripts/upload_improved_translations.dart`
+- **Full translation workflow**: `./i18n.sh workflow`
 
 ## Architecture
 
@@ -182,30 +191,29 @@ Robust & Scalable Architecture: To build a robust and scalable architecture. The
 To achieve the goals above, the following screens will be implemented.
 
 #### 1. Splash Screen
-
 Key Features: Display app logo on launch, check user authentication status, and automatically redirect to either the Main Screen or Login Screen.
+
 #### 2. Authentication Screens
-
 Key Features: Provide login and sign-up functionality using email/password authentication.
+
 #### 3. Main Screen (Recipe Group List)
-
 Key Features: Display a list of all user-created "Recipe Groups" in a card format (note: shows groups, not individual versions). Provide a guided "Empty State" UI for new users. Serve as the entry point for the ingredient-based search.
+
 #### 4. Recipe Detail Screen
-
 Key Features: Allow users to browse and select from all available versions within a specific "Recipe Group" (e.g., v1-Original, v2-Less Spicy). Display the detailed ingredient list for the selected version. Show a chronological list of all "Cooking Logs" (photos, memos) associated with that specific version.
+
 #### 5. Recipe Create/Edit Screen
-
 Key Features:
-Create new recipe groups and their initial versions.
-Modify an existing version and choose to either "Overwrite" it or "Save as a New Version."
-Add ingredients from a predefined list (tags/chips) and adjust quantities in "1/4 tablespoon" increments.
-Provide "In-Context Ingredient Creation" to add new, unlisted ingredients on the fly.
+- Create new recipe groups and their initial versions.
+- Modify an existing version and choose to either "Overwrite" it or "Save as a New Version."
+- Add ingredients from a predefined list (tags/chips) and adjust quantities in "1/4 tablespoon" increments.
+- Provide "In-Context Ingredient Creation" to add new, unlisted ingredients on the fly.
+
 #### 6. Cooking Log Create Screen
-
 Key Features: After cooking with a specific recipe version, allow the user to record and save a photo of the dish along with a dedicated memo (e.g., "Turned out great," "Add more vegetables next time").
+
 #### 7. Ingredient-based Search Screen
-
 Key Features: Display a comprehensive list of all ingredients as selectable chips. As the user selects chips, the list of recipe groups is filtered in real-time to show only those containing all the selected ingredients.
-#### 8. Profile/Settings Screen
 
+#### 8. Profile/Settings Screen
 Key Features: Provide user logout and account management. Include an "Ingredient List Management" feature for users to merge, delete, or correct any duplicate or misspelled ingredients that may result from the "In-Context Ingredient Creation" feature.

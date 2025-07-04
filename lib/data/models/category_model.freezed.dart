@@ -12,7 +12,8 @@ part of 'category_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 CategoryModel _$CategoryModelFromJson(Map<String, dynamic> json) {
   return _CategoryModel.fromJson(json);
@@ -46,21 +47,23 @@ mixin _$CategoryModel {
 /// @nodoc
 abstract class $CategoryModelCopyWith<$Res> {
   factory $CategoryModelCopyWith(
-          CategoryModel value, $Res Function(CategoryModel) then) =
-      _$CategoryModelCopyWithImpl<$Res, CategoryModel>;
+    CategoryModel value,
+    $Res Function(CategoryModel) then,
+  ) = _$CategoryModelCopyWithImpl<$Res, CategoryModel>;
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      String displayName,
-      String? description,
-      String? iconCode,
-      String? colorCode,
-      String type,
-      String createdAt,
-      String updatedAt,
-      int usageCount,
-      bool isActive});
+  $Res call({
+    String id,
+    String name,
+    String displayName,
+    String? description,
+    String? iconCode,
+    String? colorCode,
+    String type,
+    String createdAt,
+    String updatedAt,
+    int usageCount,
+    bool isActive,
+  });
 }
 
 /// @nodoc
@@ -90,52 +93,55 @@ class _$CategoryModelCopyWithImpl<$Res, $Val extends CategoryModel>
     Object? usageCount = null,
     Object? isActive = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      displayName: null == displayName
-          ? _value.displayName
-          : displayName // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      iconCode: freezed == iconCode
-          ? _value.iconCode
-          : iconCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      colorCode: freezed == colorCode
-          ? _value.colorCode
-          : colorCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      usageCount: null == usageCount
-          ? _value.usageCount
-          : usageCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      isActive: null == isActive
-          ? _value.isActive
-          : isActive // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            displayName: null == displayName
+                ? _value.displayName
+                : displayName // ignore: cast_nullable_to_non_nullable
+                      as String,
+            description: freezed == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            iconCode: freezed == iconCode
+                ? _value.iconCode
+                : iconCode // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            colorCode: freezed == colorCode
+                ? _value.colorCode
+                : colorCode // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            type: null == type
+                ? _value.type
+                : type // ignore: cast_nullable_to_non_nullable
+                      as String,
+            createdAt: null == createdAt
+                ? _value.createdAt
+                : createdAt // ignore: cast_nullable_to_non_nullable
+                      as String,
+            updatedAt: null == updatedAt
+                ? _value.updatedAt
+                : updatedAt // ignore: cast_nullable_to_non_nullable
+                      as String,
+            usageCount: null == usageCount
+                ? _value.usageCount
+                : usageCount // ignore: cast_nullable_to_non_nullable
+                      as int,
+            isActive: null == isActive
+                ? _value.isActive
+                : isActive // ignore: cast_nullable_to_non_nullable
+                      as bool,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -143,22 +149,24 @@ class _$CategoryModelCopyWithImpl<$Res, $Val extends CategoryModel>
 abstract class _$$CategoryModelImplCopyWith<$Res>
     implements $CategoryModelCopyWith<$Res> {
   factory _$$CategoryModelImplCopyWith(
-          _$CategoryModelImpl value, $Res Function(_$CategoryModelImpl) then) =
-      __$$CategoryModelImplCopyWithImpl<$Res>;
+    _$CategoryModelImpl value,
+    $Res Function(_$CategoryModelImpl) then,
+  ) = __$$CategoryModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      String displayName,
-      String? description,
-      String? iconCode,
-      String? colorCode,
-      String type,
-      String createdAt,
-      String updatedAt,
-      int usageCount,
-      bool isActive});
+  $Res call({
+    String id,
+    String name,
+    String displayName,
+    String? description,
+    String? iconCode,
+    String? colorCode,
+    String type,
+    String createdAt,
+    String updatedAt,
+    int usageCount,
+    bool isActive,
+  });
 }
 
 /// @nodoc
@@ -166,8 +174,9 @@ class __$$CategoryModelImplCopyWithImpl<$Res>
     extends _$CategoryModelCopyWithImpl<$Res, _$CategoryModelImpl>
     implements _$$CategoryModelImplCopyWith<$Res> {
   __$$CategoryModelImplCopyWithImpl(
-      _$CategoryModelImpl _value, $Res Function(_$CategoryModelImpl) _then)
-      : super(_value, _then);
+    _$CategoryModelImpl _value,
+    $Res Function(_$CategoryModelImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of CategoryModel
   /// with the given fields replaced by the non-null parameter values.
@@ -186,71 +195,73 @@ class __$$CategoryModelImplCopyWithImpl<$Res>
     Object? usageCount = null,
     Object? isActive = null,
   }) {
-    return _then(_$CategoryModelImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      displayName: null == displayName
-          ? _value.displayName
-          : displayName // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      iconCode: freezed == iconCode
-          ? _value.iconCode
-          : iconCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      colorCode: freezed == colorCode
-          ? _value.colorCode
-          : colorCode // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      usageCount: null == usageCount
-          ? _value.usageCount
-          : usageCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      isActive: null == isActive
-          ? _value.isActive
-          : isActive // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
+    return _then(
+      _$CategoryModelImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        displayName: null == displayName
+            ? _value.displayName
+            : displayName // ignore: cast_nullable_to_non_nullable
+                  as String,
+        description: freezed == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        iconCode: freezed == iconCode
+            ? _value.iconCode
+            : iconCode // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        colorCode: freezed == colorCode
+            ? _value.colorCode
+            : colorCode // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        type: null == type
+            ? _value.type
+            : type // ignore: cast_nullable_to_non_nullable
+                  as String,
+        createdAt: null == createdAt
+            ? _value.createdAt
+            : createdAt // ignore: cast_nullable_to_non_nullable
+                  as String,
+        updatedAt: null == updatedAt
+            ? _value.updatedAt
+            : updatedAt // ignore: cast_nullable_to_non_nullable
+                  as String,
+        usageCount: null == usageCount
+            ? _value.usageCount
+            : usageCount // ignore: cast_nullable_to_non_nullable
+                  as int,
+        isActive: null == isActive
+            ? _value.isActive
+            : isActive // ignore: cast_nullable_to_non_nullable
+                  as bool,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CategoryModelImpl extends _CategoryModel {
-  const _$CategoryModelImpl(
-      {required this.id,
-      required this.name,
-      required this.displayName,
-      this.description,
-      this.iconCode,
-      this.colorCode,
-      required this.type,
-      required this.createdAt,
-      required this.updatedAt,
-      this.usageCount = 0,
-      this.isActive = true})
-      : super._();
+  const _$CategoryModelImpl({
+    required this.id,
+    required this.name,
+    required this.displayName,
+    this.description,
+    this.iconCode,
+    this.colorCode,
+    required this.type,
+    required this.createdAt,
+    required this.updatedAt,
+    this.usageCount = 0,
+    this.isActive = true,
+  }) : super._();
 
   factory _$CategoryModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CategoryModelImplFromJson(json);
@@ -269,7 +280,7 @@ class _$CategoryModelImpl extends _CategoryModel {
   final String? colorCode;
   @override
   final String type;
-// 'predefined' or 'custom'
+  // 'predefined' or 'custom'
   @override
   final String createdAt;
   @override
@@ -315,18 +326,19 @@ class _$CategoryModelImpl extends _CategoryModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      displayName,
-      description,
-      iconCode,
-      colorCode,
-      type,
-      createdAt,
-      updatedAt,
-      usageCount,
-      isActive);
+    runtimeType,
+    id,
+    name,
+    displayName,
+    description,
+    iconCode,
+    colorCode,
+    type,
+    createdAt,
+    updatedAt,
+    usageCount,
+    isActive,
+  );
 
   /// Create a copy of CategoryModel
   /// with the given fields replaced by the non-null parameter values.
@@ -338,25 +350,24 @@ class _$CategoryModelImpl extends _CategoryModel {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CategoryModelImplToJson(
-      this,
-    );
+    return _$$CategoryModelImplToJson(this);
   }
 }
 
 abstract class _CategoryModel extends CategoryModel {
-  const factory _CategoryModel(
-      {required final String id,
-      required final String name,
-      required final String displayName,
-      final String? description,
-      final String? iconCode,
-      final String? colorCode,
-      required final String type,
-      required final String createdAt,
-      required final String updatedAt,
-      final int usageCount,
-      final bool isActive}) = _$CategoryModelImpl;
+  const factory _CategoryModel({
+    required final String id,
+    required final String name,
+    required final String displayName,
+    final String? description,
+    final String? iconCode,
+    final String? colorCode,
+    required final String type,
+    required final String createdAt,
+    required final String updatedAt,
+    final int usageCount,
+    final bool isActive,
+  }) = _$CategoryModelImpl;
   const _CategoryModel._() : super._();
 
   factory _CategoryModel.fromJson(Map<String, dynamic> json) =

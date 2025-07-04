@@ -12,7 +12,8 @@ part of 'ingredient_master_entity.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$IngredientMasterEntity {
@@ -36,24 +37,28 @@ mixin _$IngredientMasterEntity {
 
 /// @nodoc
 abstract class $IngredientMasterEntityCopyWith<$Res> {
-  factory $IngredientMasterEntityCopyWith(IngredientMasterEntity value,
-          $Res Function(IngredientMasterEntity) then) =
-      _$IngredientMasterEntityCopyWithImpl<$Res, IngredientMasterEntity>;
+  factory $IngredientMasterEntityCopyWith(
+    IngredientMasterEntity value,
+    $Res Function(IngredientMasterEntity) then,
+  ) = _$IngredientMasterEntityCopyWithImpl<$Res, IngredientMasterEntity>;
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      String categoryId,
-      String? subCategory,
-      String? description,
-      DateTime createdAt,
-      DateTime updatedAt,
-      int usageCount});
+  $Res call({
+    String id,
+    String name,
+    String categoryId,
+    String? subCategory,
+    String? description,
+    DateTime createdAt,
+    DateTime updatedAt,
+    int usageCount,
+  });
 }
 
 /// @nodoc
-class _$IngredientMasterEntityCopyWithImpl<$Res,
-        $Val extends IngredientMasterEntity>
+class _$IngredientMasterEntityCopyWithImpl<
+  $Res,
+  $Val extends IngredientMasterEntity
+>
     implements $IngredientMasterEntityCopyWith<$Res> {
   _$IngredientMasterEntityCopyWithImpl(this._value, this._then);
 
@@ -76,40 +81,43 @@ class _$IngredientMasterEntityCopyWithImpl<$Res,
     Object? updatedAt = null,
     Object? usageCount = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      categoryId: null == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as String,
-      subCategory: freezed == subCategory
-          ? _value.subCategory
-          : subCategory // ignore: cast_nullable_to_non_nullable
-              as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      usageCount: null == usageCount
-          ? _value.usageCount
-          : usageCount // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            categoryId: null == categoryId
+                ? _value.categoryId
+                : categoryId // ignore: cast_nullable_to_non_nullable
+                      as String,
+            subCategory: freezed == subCategory
+                ? _value.subCategory
+                : subCategory // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            description: freezed == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            createdAt: null == createdAt
+                ? _value.createdAt
+                : createdAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            updatedAt: null == updatedAt
+                ? _value.updatedAt
+                : updatedAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            usageCount: null == usageCount
+                ? _value.usageCount
+                : usageCount // ignore: cast_nullable_to_non_nullable
+                      as int,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -117,31 +125,32 @@ class _$IngredientMasterEntityCopyWithImpl<$Res,
 abstract class _$$IngredientMasterEntityImplCopyWith<$Res>
     implements $IngredientMasterEntityCopyWith<$Res> {
   factory _$$IngredientMasterEntityImplCopyWith(
-          _$IngredientMasterEntityImpl value,
-          $Res Function(_$IngredientMasterEntityImpl) then) =
-      __$$IngredientMasterEntityImplCopyWithImpl<$Res>;
+    _$IngredientMasterEntityImpl value,
+    $Res Function(_$IngredientMasterEntityImpl) then,
+  ) = __$$IngredientMasterEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      String categoryId,
-      String? subCategory,
-      String? description,
-      DateTime createdAt,
-      DateTime updatedAt,
-      int usageCount});
+  $Res call({
+    String id,
+    String name,
+    String categoryId,
+    String? subCategory,
+    String? description,
+    DateTime createdAt,
+    DateTime updatedAt,
+    int usageCount,
+  });
 }
 
 /// @nodoc
 class __$$IngredientMasterEntityImplCopyWithImpl<$Res>
-    extends _$IngredientMasterEntityCopyWithImpl<$Res,
-        _$IngredientMasterEntityImpl>
+    extends
+        _$IngredientMasterEntityCopyWithImpl<$Res, _$IngredientMasterEntityImpl>
     implements _$$IngredientMasterEntityImplCopyWith<$Res> {
   __$$IngredientMasterEntityImplCopyWithImpl(
-      _$IngredientMasterEntityImpl _value,
-      $Res Function(_$IngredientMasterEntityImpl) _then)
-      : super(_value, _then);
+    _$IngredientMasterEntityImpl _value,
+    $Res Function(_$IngredientMasterEntityImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of IngredientMasterEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -157,56 +166,58 @@ class __$$IngredientMasterEntityImplCopyWithImpl<$Res>
     Object? updatedAt = null,
     Object? usageCount = null,
   }) {
-    return _then(_$IngredientMasterEntityImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      categoryId: null == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as String,
-      subCategory: freezed == subCategory
-          ? _value.subCategory
-          : subCategory // ignore: cast_nullable_to_non_nullable
-              as String?,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      usageCount: null == usageCount
-          ? _value.usageCount
-          : usageCount // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
+    return _then(
+      _$IngredientMasterEntityImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        categoryId: null == categoryId
+            ? _value.categoryId
+            : categoryId // ignore: cast_nullable_to_non_nullable
+                  as String,
+        subCategory: freezed == subCategory
+            ? _value.subCategory
+            : subCategory // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        description: freezed == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        createdAt: null == createdAt
+            ? _value.createdAt
+            : createdAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        updatedAt: null == updatedAt
+            ? _value.updatedAt
+            : updatedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        usageCount: null == usageCount
+            ? _value.usageCount
+            : usageCount // ignore: cast_nullable_to_non_nullable
+                  as int,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$IngredientMasterEntityImpl extends _IngredientMasterEntity {
-  const _$IngredientMasterEntityImpl(
-      {required this.id,
-      required this.name,
-      required this.categoryId,
-      this.subCategory,
-      this.description,
-      required this.createdAt,
-      required this.updatedAt,
-      this.usageCount = 0})
-      : super._();
+  const _$IngredientMasterEntityImpl({
+    required this.id,
+    required this.name,
+    required this.categoryId,
+    this.subCategory,
+    this.description,
+    required this.createdAt,
+    required this.updatedAt,
+    this.usageCount = 0,
+  }) : super._();
 
   @override
   final String id;
@@ -214,10 +225,10 @@ class _$IngredientMasterEntityImpl extends _IngredientMasterEntity {
   final String name;
   @override
   final String categoryId;
-// CategoryEntity의 ID 참조
+  // CategoryEntity의 ID 참조
   @override
   final String? subCategory;
-// 세부 카테고리 (예: 단위의 경우 '무게', '부피', '개수', '기타')
+  // 세부 카테고리 (예: 단위의 경우 '무게', '부피', '개수', '기타')
   @override
   final String? description;
   @override
@@ -255,8 +266,17 @@ class _$IngredientMasterEntityImpl extends _IngredientMasterEntity {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, categoryId,
-      subCategory, description, createdAt, updatedAt, usageCount);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    name,
+    categoryId,
+    subCategory,
+    description,
+    createdAt,
+    updatedAt,
+    usageCount,
+  );
 
   /// Create a copy of IngredientMasterEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -264,20 +284,24 @@ class _$IngredientMasterEntityImpl extends _IngredientMasterEntity {
   @override
   @pragma('vm:prefer-inline')
   _$$IngredientMasterEntityImplCopyWith<_$IngredientMasterEntityImpl>
-      get copyWith => __$$IngredientMasterEntityImplCopyWithImpl<
-          _$IngredientMasterEntityImpl>(this, _$identity);
+  get copyWith =>
+      __$$IngredientMasterEntityImplCopyWithImpl<_$IngredientMasterEntityImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _IngredientMasterEntity extends IngredientMasterEntity {
-  const factory _IngredientMasterEntity(
-      {required final String id,
-      required final String name,
-      required final String categoryId,
-      final String? subCategory,
-      final String? description,
-      required final DateTime createdAt,
-      required final DateTime updatedAt,
-      final int usageCount}) = _$IngredientMasterEntityImpl;
+  const factory _IngredientMasterEntity({
+    required final String id,
+    required final String name,
+    required final String categoryId,
+    final String? subCategory,
+    final String? description,
+    required final DateTime createdAt,
+    required final DateTime updatedAt,
+    final int usageCount,
+  }) = _$IngredientMasterEntityImpl;
   const _IngredientMasterEntity._() : super._();
 
   @override
@@ -302,5 +326,5 @@ abstract class _IngredientMasterEntity extends IngredientMasterEntity {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$IngredientMasterEntityImplCopyWith<_$IngredientMasterEntityImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }

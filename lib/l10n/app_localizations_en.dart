@@ -69,10 +69,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recipeEmptyState => 'No recipes yet';
 
   @override
-  String get recipeEmptyStateDescription => 'Create your own special\nsauce recipe!';
+  String get recipeEmptyStateDescription =>
+      'Create your own special\nsauce recipe!';
 
   @override
-  String get recipeDeleteConfirm => 'Are you sure you want to delete this recipe?\n\nThis action cannot be undone.';
+  String get recipeDeleteConfirm =>
+      'Are you sure you want to delete this recipe?\n\nThis action cannot be undone.';
 
   @override
   String get recipeDeleteSuccess => 'Recipe has been deleted';
@@ -123,7 +125,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get versionDelete => 'Delete Version';
 
   @override
-  String get versionDeleteConfirm => 'Are you sure you want to delete this version?';
+  String get versionDeleteConfirm =>
+      'Are you sure you want to delete this version?';
 
   @override
   String versionDeleteError(String error) {
@@ -139,7 +142,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get versionKeepExisting => 'Keep the existing version and create a new version';
+  String get versionKeepExisting =>
+      'Keep the existing version and create a new version';
 
   @override
   String versionUpdateDescription(String versionName) {
@@ -298,7 +302,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timerPresetPastaCooking => 'Pasta Cooking';
 
   @override
-  String get timerPresetPastaCookingDescription => 'Standard pasta cooking time';
+  String get timerPresetPastaCookingDescription =>
+      'Standard pasta cooking time';
 
   @override
   String get timerPresetHardBoiledEgg => 'Hard-boiled Egg';
@@ -370,7 +375,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cookingLogMemo => 'Memo';
 
   @override
-  String get cookingLogMemoHint => 'Write down your thoughts or improvements while cooking';
+  String get cookingLogMemoHint =>
+      'Write down your thoughts or improvements while cooking';
 
   @override
   String get cookingLogRecipeInfo => 'Recipe Information';
@@ -393,7 +399,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get searchReset => 'Reset Search';
 
   @override
-  String get searchNoResults => 'No recipes can be made\nwith selected ingredients';
+  String get searchNoResults =>
+      'No recipes can be made\nwith selected ingredients';
 
   @override
   String searchRecipesFound(String count) {
@@ -407,7 +414,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsSeasoningUnitManagement => 'Seasoning/Unit Management';
 
   @override
-  String get settingsSeasoningUnitDescription => 'Add, edit, delete seasonings/units';
+  String get settingsSeasoningUnitDescription =>
+      'Add, edit, delete seasonings/units';
 
   @override
   String get settingsAppInfo => 'App Info';
@@ -510,13 +518,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notificationBackgroundRefresh => 'Background App Refresh';
 
   @override
-  String get notificationBackgroundRefreshDescription => 'Set up for accurate timer notifications';
+  String get notificationBackgroundRefreshDescription =>
+      'Set up for accurate timer notifications';
 
   @override
   String get notificationActivated => 'Timer notifications activated';
 
   @override
-  String get notificationDenied => 'Notification permission denied. You can manually activate it in system settings';
+  String get notificationDenied =>
+      'Notification permission denied. You can manually activate it in system settings';
 
   @override
   String get notificationSettings => 'Notification Settings';
@@ -528,10 +538,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notificationTurnOff => 'To turn off notifications:';
 
   @override
-  String get notificationTurnOffInstructions => '1. Open iPhone Settings app\n2. Select Notifications > Saucerer\n3. Turn off Allow Notifications';
+  String get notificationTurnOffInstructions =>
+      '1. Open iPhone Settings app\n2. Select Notifications > Saucerer\n3. Turn off Allow Notifications';
 
   @override
-  String get notificationTurnOffWarning => 'If you turn off notifications, you will not receive timer completion alerts';
+  String get notificationTurnOffWarning =>
+      'If you turn off notifications, you will not receive timer completion alerts';
 
   @override
   String get notificationActivatedStatus => 'Activated';
@@ -543,7 +555,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notificationOpenSettings => 'Open Settings';
 
   @override
-  String get notificationEnableInSettings => 'Please enable notifications in settings';
+  String get notificationEnableInSettings =>
+      'Please enable notifications in settings';
 
   @override
   String get notificationPermissionDenied => 'Notification permission denied';
@@ -558,7 +571,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timerNotificationChannelTitle => 'Cooking Timer';
 
   @override
-  String get timerNotificationChannelDescription => 'Cooking timer completion notifications';
+  String get timerNotificationChannelDescription =>
+      'Cooking timer completion notifications';
 
   @override
   String timerNotificationCompleteTitle(String timerName) {
@@ -574,13 +588,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timerNotificationTestChannelTitle => 'Test Notifications';
 
   @override
-  String get timerNotificationTestChannelDescription => 'Test notification channel';
+  String get timerNotificationTestChannelDescription =>
+      'Test notification channel';
 
   @override
   String get timerNotificationTestTitle => '🧪 Test Notification';
 
   @override
-  String get timerNotificationTestBody => 'This is a test notification. Notifications are working properly!';
+  String get timerNotificationTestBody =>
+      'This is a test notification. Notifications are working properly!';
 
   @override
   String get generalErrorOccurred => 'An error occurred';

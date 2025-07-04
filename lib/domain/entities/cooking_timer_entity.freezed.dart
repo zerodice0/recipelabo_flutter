@@ -12,7 +12,8 @@ part of 'cooking_timer_entity.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$CookingTimerEntity {
@@ -39,21 +40,23 @@ mixin _$CookingTimerEntity {
 /// @nodoc
 abstract class $CookingTimerEntityCopyWith<$Res> {
   factory $CookingTimerEntityCopyWith(
-          CookingTimerEntity value, $Res Function(CookingTimerEntity) then) =
-      _$CookingTimerEntityCopyWithImpl<$Res, CookingTimerEntity>;
+    CookingTimerEntity value,
+    $Res Function(CookingTimerEntity) then,
+  ) = _$CookingTimerEntityCopyWithImpl<$Res, CookingTimerEntity>;
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      int totalSeconds,
-      int remainingSeconds,
-      DateTime startTime,
-      DateTime? endTime,
-      TimerStatus status,
-      String? description,
-      String? icon,
-      String? recipeId,
-      String? stepId});
+  $Res call({
+    String id,
+    String name,
+    int totalSeconds,
+    int remainingSeconds,
+    DateTime startTime,
+    DateTime? endTime,
+    TimerStatus status,
+    String? description,
+    String? icon,
+    String? recipeId,
+    String? stepId,
+  });
 }
 
 /// @nodoc
@@ -83,84 +86,90 @@ class _$CookingTimerEntityCopyWithImpl<$Res, $Val extends CookingTimerEntity>
     Object? recipeId = freezed,
     Object? stepId = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      totalSeconds: null == totalSeconds
-          ? _value.totalSeconds
-          : totalSeconds // ignore: cast_nullable_to_non_nullable
-              as int,
-      remainingSeconds: null == remainingSeconds
-          ? _value.remainingSeconds
-          : remainingSeconds // ignore: cast_nullable_to_non_nullable
-              as int,
-      startTime: null == startTime
-          ? _value.startTime
-          : startTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      endTime: freezed == endTime
-          ? _value.endTime
-          : endTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as TimerStatus,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      icon: freezed == icon
-          ? _value.icon
-          : icon // ignore: cast_nullable_to_non_nullable
-              as String?,
-      recipeId: freezed == recipeId
-          ? _value.recipeId
-          : recipeId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      stepId: freezed == stepId
-          ? _value.stepId
-          : stepId // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            totalSeconds: null == totalSeconds
+                ? _value.totalSeconds
+                : totalSeconds // ignore: cast_nullable_to_non_nullable
+                      as int,
+            remainingSeconds: null == remainingSeconds
+                ? _value.remainingSeconds
+                : remainingSeconds // ignore: cast_nullable_to_non_nullable
+                      as int,
+            startTime: null == startTime
+                ? _value.startTime
+                : startTime // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            endTime: freezed == endTime
+                ? _value.endTime
+                : endTime // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
+            status: null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                      as TimerStatus,
+            description: freezed == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            icon: freezed == icon
+                ? _value.icon
+                : icon // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            recipeId: freezed == recipeId
+                ? _value.recipeId
+                : recipeId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            stepId: freezed == stepId
+                ? _value.stepId
+                : stepId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CookingTimerEntityImplCopyWith<$Res>
     implements $CookingTimerEntityCopyWith<$Res> {
-  factory _$$CookingTimerEntityImplCopyWith(_$CookingTimerEntityImpl value,
-          $Res Function(_$CookingTimerEntityImpl) then) =
-      __$$CookingTimerEntityImplCopyWithImpl<$Res>;
+  factory _$$CookingTimerEntityImplCopyWith(
+    _$CookingTimerEntityImpl value,
+    $Res Function(_$CookingTimerEntityImpl) then,
+  ) = __$$CookingTimerEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      int totalSeconds,
-      int remainingSeconds,
-      DateTime startTime,
-      DateTime? endTime,
-      TimerStatus status,
-      String? description,
-      String? icon,
-      String? recipeId,
-      String? stepId});
+  $Res call({
+    String id,
+    String name,
+    int totalSeconds,
+    int remainingSeconds,
+    DateTime startTime,
+    DateTime? endTime,
+    TimerStatus status,
+    String? description,
+    String? icon,
+    String? recipeId,
+    String? stepId,
+  });
 }
 
 /// @nodoc
 class __$$CookingTimerEntityImplCopyWithImpl<$Res>
     extends _$CookingTimerEntityCopyWithImpl<$Res, _$CookingTimerEntityImpl>
     implements _$$CookingTimerEntityImplCopyWith<$Res> {
-  __$$CookingTimerEntityImplCopyWithImpl(_$CookingTimerEntityImpl _value,
-      $Res Function(_$CookingTimerEntityImpl) _then)
-      : super(_value, _then);
+  __$$CookingTimerEntityImplCopyWithImpl(
+    _$CookingTimerEntityImpl _value,
+    $Res Function(_$CookingTimerEntityImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of CookingTimerEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -179,89 +188,91 @@ class __$$CookingTimerEntityImplCopyWithImpl<$Res>
     Object? recipeId = freezed,
     Object? stepId = freezed,
   }) {
-    return _then(_$CookingTimerEntityImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      totalSeconds: null == totalSeconds
-          ? _value.totalSeconds
-          : totalSeconds // ignore: cast_nullable_to_non_nullable
-              as int,
-      remainingSeconds: null == remainingSeconds
-          ? _value.remainingSeconds
-          : remainingSeconds // ignore: cast_nullable_to_non_nullable
-              as int,
-      startTime: null == startTime
-          ? _value.startTime
-          : startTime // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      endTime: freezed == endTime
-          ? _value.endTime
-          : endTime // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as TimerStatus,
-      description: freezed == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      icon: freezed == icon
-          ? _value.icon
-          : icon // ignore: cast_nullable_to_non_nullable
-              as String?,
-      recipeId: freezed == recipeId
-          ? _value.recipeId
-          : recipeId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      stepId: freezed == stepId
-          ? _value.stepId
-          : stepId // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+    return _then(
+      _$CookingTimerEntityImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        totalSeconds: null == totalSeconds
+            ? _value.totalSeconds
+            : totalSeconds // ignore: cast_nullable_to_non_nullable
+                  as int,
+        remainingSeconds: null == remainingSeconds
+            ? _value.remainingSeconds
+            : remainingSeconds // ignore: cast_nullable_to_non_nullable
+                  as int,
+        startTime: null == startTime
+            ? _value.startTime
+            : startTime // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        endTime: freezed == endTime
+            ? _value.endTime
+            : endTime // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+        status: null == status
+            ? _value.status
+            : status // ignore: cast_nullable_to_non_nullable
+                  as TimerStatus,
+        description: freezed == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        icon: freezed == icon
+            ? _value.icon
+            : icon // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        recipeId: freezed == recipeId
+            ? _value.recipeId
+            : recipeId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        stepId: freezed == stepId
+            ? _value.stepId
+            : stepId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$CookingTimerEntityImpl extends _CookingTimerEntity {
-  const _$CookingTimerEntityImpl(
-      {required this.id,
-      required this.name,
-      required this.totalSeconds,
-      required this.remainingSeconds,
-      required this.startTime,
-      this.endTime,
-      required this.status,
-      this.description,
-      this.icon,
-      this.recipeId,
-      this.stepId})
-      : super._();
+  const _$CookingTimerEntityImpl({
+    required this.id,
+    required this.name,
+    required this.totalSeconds,
+    required this.remainingSeconds,
+    required this.startTime,
+    this.endTime,
+    required this.status,
+    this.description,
+    this.icon,
+    this.recipeId,
+    this.stepId,
+  }) : super._();
 
   @override
   final String id;
   @override
   final String name;
-// 타이머 이름
+  // 타이머 이름
   @override
   final int totalSeconds;
-// 전체 시간 (초)
+  // 전체 시간 (초)
   @override
   final int remainingSeconds;
-// 남은 시간 (초)
+  // 남은 시간 (초)
   @override
   final DateTime startTime;
-// 시작 시간
+  // 시작 시간
   @override
   final DateTime? endTime;
-// 종료 시간 (계산된 값)
+  // 종료 시간 (계산된 값)
   @override
   final TimerStatus status;
   @override
@@ -270,7 +281,7 @@ class _$CookingTimerEntityImpl extends _CookingTimerEntity {
   final String? icon;
   @override
   final String? recipeId;
-// 연결된 레시피 ID (선택사항)
+  // 연결된 레시피 ID (선택사항)
   @override
   final String? stepId;
 
@@ -304,18 +315,19 @@ class _$CookingTimerEntityImpl extends _CookingTimerEntity {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      totalSeconds,
-      remainingSeconds,
-      startTime,
-      endTime,
-      status,
-      description,
-      icon,
-      recipeId,
-      stepId);
+    runtimeType,
+    id,
+    name,
+    totalSeconds,
+    remainingSeconds,
+    startTime,
+    endTime,
+    status,
+    description,
+    icon,
+    recipeId,
+    stepId,
+  );
 
   /// Create a copy of CookingTimerEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -324,22 +336,25 @@ class _$CookingTimerEntityImpl extends _CookingTimerEntity {
   @pragma('vm:prefer-inline')
   _$$CookingTimerEntityImplCopyWith<_$CookingTimerEntityImpl> get copyWith =>
       __$$CookingTimerEntityImplCopyWithImpl<_$CookingTimerEntityImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 }
 
 abstract class _CookingTimerEntity extends CookingTimerEntity {
-  const factory _CookingTimerEntity(
-      {required final String id,
-      required final String name,
-      required final int totalSeconds,
-      required final int remainingSeconds,
-      required final DateTime startTime,
-      final DateTime? endTime,
-      required final TimerStatus status,
-      final String? description,
-      final String? icon,
-      final String? recipeId,
-      final String? stepId}) = _$CookingTimerEntityImpl;
+  const factory _CookingTimerEntity({
+    required final String id,
+    required final String name,
+    required final int totalSeconds,
+    required final int remainingSeconds,
+    required final DateTime startTime,
+    final DateTime? endTime,
+    required final TimerStatus status,
+    final String? description,
+    final String? icon,
+    final String? recipeId,
+    final String? stepId,
+  }) = _$CookingTimerEntityImpl;
   const _CookingTimerEntity._() : super._();
 
   @override

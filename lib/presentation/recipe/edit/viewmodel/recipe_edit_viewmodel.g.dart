@@ -34,9 +34,7 @@ abstract class _$RecipeEditViewModel
     extends BuildlessAutoDisposeNotifier<RecipeEditState> {
   late final String? recipeId;
 
-  RecipeEditState build(
-    String? recipeId,
-  );
+  RecipeEditState build(String? recipeId);
 }
 
 /// See also [RecipeEditViewModel].
@@ -49,21 +47,15 @@ class RecipeEditViewModelFamily extends Family<RecipeEditState> {
   const RecipeEditViewModelFamily();
 
   /// See also [RecipeEditViewModel].
-  RecipeEditViewModelProvider call(
-    String? recipeId,
-  ) {
-    return RecipeEditViewModelProvider(
-      recipeId,
-    );
+  RecipeEditViewModelProvider call(String? recipeId) {
+    return RecipeEditViewModelProvider(recipeId);
   }
 
   @override
   RecipeEditViewModelProvider getProviderOverride(
     covariant RecipeEditViewModelProvider provider,
   ) {
-    return call(
-      provider.recipeId,
-    );
+    return call(provider.recipeId);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -82,24 +74,23 @@ class RecipeEditViewModelFamily extends Family<RecipeEditState> {
 }
 
 /// See also [RecipeEditViewModel].
-class RecipeEditViewModelProvider extends AutoDisposeNotifierProviderImpl<
-    RecipeEditViewModel, RecipeEditState> {
+class RecipeEditViewModelProvider
+    extends
+        AutoDisposeNotifierProviderImpl<RecipeEditViewModel, RecipeEditState> {
   /// See also [RecipeEditViewModel].
-  RecipeEditViewModelProvider(
-    String? recipeId,
-  ) : this._internal(
-          () => RecipeEditViewModel()..recipeId = recipeId,
-          from: recipeEditViewModelProvider,
-          name: r'recipeEditViewModelProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$recipeEditViewModelHash,
-          dependencies: RecipeEditViewModelFamily._dependencies,
-          allTransitiveDependencies:
-              RecipeEditViewModelFamily._allTransitiveDependencies,
-          recipeId: recipeId,
-        );
+  RecipeEditViewModelProvider(String? recipeId)
+    : this._internal(
+        () => RecipeEditViewModel()..recipeId = recipeId,
+        from: recipeEditViewModelProvider,
+        name: r'recipeEditViewModelProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$recipeEditViewModelHash,
+        dependencies: RecipeEditViewModelFamily._dependencies,
+        allTransitiveDependencies:
+            RecipeEditViewModelFamily._allTransitiveDependencies,
+        recipeId: recipeId,
+      );
 
   RecipeEditViewModelProvider._internal(
     super._createNotifier, {
@@ -114,12 +105,8 @@ class RecipeEditViewModelProvider extends AutoDisposeNotifierProviderImpl<
   final String? recipeId;
 
   @override
-  RecipeEditState runNotifierBuild(
-    covariant RecipeEditViewModel notifier,
-  ) {
-    return notifier.build(
-      recipeId,
-    );
+  RecipeEditState runNotifierBuild(covariant RecipeEditViewModel notifier) {
+    return notifier.build(recipeId);
   }
 
   @override
@@ -140,7 +127,7 @@ class RecipeEditViewModelProvider extends AutoDisposeNotifierProviderImpl<
 
   @override
   AutoDisposeNotifierProviderElement<RecipeEditViewModel, RecipeEditState>
-      createElement() {
+  createElement() {
     return _RecipeEditViewModelProviderElement(this);
   }
 
@@ -167,12 +154,14 @@ mixin RecipeEditViewModelRef
 }
 
 class _RecipeEditViewModelProviderElement
-    extends AutoDisposeNotifierProviderElement<RecipeEditViewModel,
-        RecipeEditState> with RecipeEditViewModelRef {
+    extends
+        AutoDisposeNotifierProviderElement<RecipeEditViewModel, RecipeEditState>
+    with RecipeEditViewModelRef {
   _RecipeEditViewModelProviderElement(super.provider);
 
   @override
   String? get recipeId => (origin as RecipeEditViewModelProvider).recipeId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -40,11 +40,11 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
     try {
       debugPrint('=== TIMER PRESET LOADING DEBUG ===');
       debugPrint('Starting to load presets...');
-      
+
       // 기본 프리셋을 데이터베이스에 초기화 (없는 경우만)
       await _initializeDefaultPresets();
       debugPrint('Default presets initialized in database');
-      
+
       // 데이터베이스에서 모든 프리셋 조회
       final allPresets = await ref.read(getAllPresetsUsecaseProvider).call();
       debugPrint('All presets loaded from database: ${allPresets.length}');
@@ -53,19 +53,20 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
         setState(() {
           _presets = allPresets;
         });
-        
+
         debugPrint('Presets set in state: ${_presets.length}');
         for (int i = 0; i < _presets.length; i++) {
-          debugPrint('Preset $i: ${_presets[i].name} (${_presets[i].formattedDuration})');
+          debugPrint(
+              'Preset $i: ${_presets[i].name} (${_presets[i].formattedDuration})');
         }
       }
-      
+
       debugPrint('=== TIMER PRESET LOADING COMPLETE ===');
     } catch (e) {
       debugPrint('Failed to load presets: $e');
       debugPrint('Error type: ${e.runtimeType}');
       debugPrint('Stack trace: ${StackTrace.current}');
-      
+
       // 실패 시 하드코딩된 기본 프리셋만 사용
       if (mounted) {
         try {
@@ -83,65 +84,65 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
 
   Future<void> _initializeDefaultPresets() async {
     if (!mounted) return;
-    
+
     final l10n = AppLocalizations.of(context);
     final defaultPresets = [
       TimerPresetEntity(
         id: '1',
-        name: l10n.pastaCooking,
+        name: l10n.timerPresetPastaCooking,
         durationMinutes: 7,
         durationSeconds: 0,
-        description: l10n.pastaCookingDescription,
+        description: l10n.timerPresetPastaCookingDescription,
         icon: 'pasta',
         createdAt: DateTime.now(),
         isDefault: true,
       ),
       TimerPresetEntity(
         id: '2',
-        name: l10n.hardBoiledEgg,
+        name: l10n.timerPresetHardBoiledEgg,
         durationMinutes: 8,
         durationSeconds: 0,
-        description: l10n.hardBoiledEggDescription,
+        description: l10n.timerPresetHardBoiledEggDescription,
         icon: 'egg',
         createdAt: DateTime.now(),
         isDefault: true,
       ),
       TimerPresetEntity(
         id: '3',
-        name: l10n.softBoiledEgg,
+        name: l10n.timerPresetSoftBoiledEgg,
         durationMinutes: 6,
         durationSeconds: 0,
-        description: l10n.softBoiledEggDescription,
+        description: l10n.timerPresetSoftBoiledEggDescription,
         icon: 'egg',
         createdAt: DateTime.now(),
         isDefault: true,
       ),
       TimerPresetEntity(
         id: '4',
-        name: l10n.instantNoodles,
+        name: l10n.timerPresetInstantNoodles,
         durationMinutes: 3,
         durationSeconds: 0,
-        description: l10n.instantNoodlesDescription,
+        description: l10n.timerPresetInstantNoodlesDescription,
         icon: 'noodles',
         createdAt: DateTime.now(),
         isDefault: true,
       ),
       TimerPresetEntity(
         id: '5',
-        name: l10n.teaBrewing,
+        name: l10n.timerPresetTeaBrewing,
         durationMinutes: 3,
         durationSeconds: 0,
-        description: l10n.teaBrewingDescription,
+        description: l10n.timerPresetTeaBrewingDescription,
         icon: 'tea',
         createdAt: DateTime.now(),
         isDefault: true,
       ),
       TimerPresetEntity(
         id: '6',
-        name: l10n.steakCooking,
+        name: l10n.timerPresetSteakCooking,
         durationMinutes: 4,
         durationSeconds: 0,
-        description: l10n.steakCookingDescription,
+        description: l10n.timerPresetSteakCookingDescription,
         icon: 'steak',
         createdAt: DateTime.now(),
         isDefault: true,
@@ -167,65 +168,65 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
 
   Future<List<TimerPresetEntity>> _createHardcodedPresets() async {
     if (!mounted) return [];
-    
+
     final l10n = AppLocalizations.of(context);
     return [
       TimerPresetEntity(
         id: '1',
-        name: l10n.pastaCooking,
+        name: l10n.timerPresetPastaCooking,
         durationMinutes: 7,
         durationSeconds: 0,
-        description: l10n.pastaCookingDescription,
+        description: l10n.timerPresetPastaCookingDescription,
         icon: 'pasta',
         createdAt: DateTime.now(),
         isDefault: true,
       ),
       TimerPresetEntity(
         id: '2',
-        name: l10n.hardBoiledEgg,
+        name: l10n.timerPresetHardBoiledEgg,
         durationMinutes: 8,
         durationSeconds: 0,
-        description: l10n.hardBoiledEggDescription,
+        description: l10n.timerPresetHardBoiledEggDescription,
         icon: 'egg',
         createdAt: DateTime.now(),
         isDefault: true,
       ),
       TimerPresetEntity(
         id: '3',
-        name: l10n.softBoiledEgg,
+        name: l10n.timerPresetSoftBoiledEgg,
         durationMinutes: 6,
         durationSeconds: 0,
-        description: l10n.softBoiledEggDescription,
+        description: l10n.timerPresetSoftBoiledEggDescription,
         icon: 'egg',
         createdAt: DateTime.now(),
         isDefault: true,
       ),
       TimerPresetEntity(
         id: '4',
-        name: l10n.instantNoodles,
+        name: l10n.timerPresetInstantNoodles,
         durationMinutes: 3,
         durationSeconds: 0,
-        description: l10n.instantNoodlesDescription,
+        description: l10n.timerPresetInstantNoodlesDescription,
         icon: 'noodles',
         createdAt: DateTime.now(),
         isDefault: true,
       ),
       TimerPresetEntity(
         id: '5',
-        name: l10n.teaBrewing,
+        name: l10n.timerPresetTeaBrewing,
         durationMinutes: 3,
         durationSeconds: 0,
-        description: l10n.teaBrewingDescription,
+        description: l10n.timerPresetTeaBrewingDescription,
         icon: 'tea',
         createdAt: DateTime.now(),
         isDefault: true,
       ),
       TimerPresetEntity(
         id: '6',
-        name: l10n.steakCooking,
+        name: l10n.timerPresetSteakCooking,
         durationMinutes: 4,
         durationSeconds: 0,
-        description: l10n.steakCookingDescription,
+        description: l10n.timerPresetSteakCookingDescription,
         icon: 'steak',
         createdAt: DateTime.now(),
         isDefault: true,
@@ -291,7 +292,8 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
           // 설정 화면으로 이동하는 로직 추가 가능
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(AppLocalizations.of(context).enableNotificationInSettings),
+              content: Text(
+                  AppLocalizations.of(context).notificationEnableInSettings),
               duration: const Duration(seconds: 3),
             ),
           );
@@ -313,7 +315,8 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
         } else if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(AppLocalizations.of(context).notificationPermissionDenied),
+              content: Text(
+                  AppLocalizations.of(context).notificationPermissionDenied),
               backgroundColor: AppColors.primaryOrange,
               duration: const Duration(seconds: 3),
             ),
@@ -351,7 +354,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.cookingTimer),
+        title: Text(l10n.timerNotificationChannelTitle),
         backgroundColor: AppColors.primaryOrange,
         foregroundColor: AppColors.warmWhite,
         actions: [
@@ -363,7 +366,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(l10n.testNotificationSent),
+                    content: Text(l10n.notificationTestSent),
                     duration: const Duration(seconds: 2),
                   ),
                 );
@@ -380,7 +383,9 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                l10n.timersRunning(_timerService.activeTimerCount),
+                l10n.timerRunning(
+                  _timerService.activeTimerCount.toString(),
+                ),
                 style: const TextStyle(
                   color: AppColors.warmWhite,
                   fontSize: 12,
@@ -399,7 +404,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  l10n.runningTimers,
+                  l10n.timerRunningList,
                   style: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: AppColors.textBrown,
@@ -437,14 +442,14 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
                   _loadPresets(); // 프리셋 목록 새로고침
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(l10n.presetDeleted(preset.name)),
+                      content: Text(l10n.timerPresetDeleted(preset.name)),
                       backgroundColor: AppColors.supportGreen,
                     ),
                   );
                 } else if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(l10n.cannotDeleteDefaultPreset),
+                      content: Text(l10n.timerPresetCannotDeleteDefault),
                       backgroundColor: AppColors.primaryOrange,
                     ),
                   );
@@ -479,7 +484,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
             size: 24,
           ),
           label: Text(
-            l10n.customTimer,
+            l10n.timerCustom,
             style: const TextStyle(
               color: AppColors.warmWhite,
               fontWeight: FontWeight.w600,
@@ -519,18 +524,18 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
 
   Future<void> _createTimer() async {
     final l10n = AppLocalizations.of(context);
-    
+
     if (_nameController.text.trim().isEmpty) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(l10n.enterTimerName)));
+      ).showSnackBar(SnackBar(content: Text(l10n.timerNameRequired)));
       return;
     }
 
     if (_minutes == 0 && _seconds == 0) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(l10n.setTime)));
+      ).showSnackBar(SnackBar(content: Text(l10n.timerTimeRequired)));
       return;
     }
 
@@ -556,7 +561,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
         if (!success && mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(l10n.presetAlreadyExists),
+              content: Text(l10n.timerPresetAlreadyExists),
               backgroundColor: AppColors.primaryOrange,
             ),
           );
@@ -569,7 +574,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(l10n.presetSaved(name)),
+              content: Text(l10n.timerPresetSaved(name)),
               backgroundColor: AppColors.supportGreen,
             ),
           );
@@ -578,7 +583,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(l10n.failedToSavePreset),
+              content: Text(l10n.timerPresetSaveFailed),
               backgroundColor: AppColors.error,
             ),
           );
@@ -609,7 +614,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
     final l10n = AppLocalizations.of(context);
 
     return AlertDialog(
-      title: Text(l10n.createCustomTimer),
+      title: Text(l10n.timerCreateCustom),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -627,7 +632,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
 
             // 시간 설정
             Text(
-              l10n.timeSetting,
+              l10n.timerTimeSetting,
               style: theme.textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
@@ -640,7 +645,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
                 Expanded(
                   child: Column(
                     children: [
-                      Text(l10n.minutes, style: theme.textTheme.bodySmall),
+                      Text(l10n.timerMinutes, style: theme.textTheme.bodySmall),
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: AppColors.accent),
@@ -682,7 +687,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
                 Expanded(
                   child: Column(
                     children: [
-                      Text(l10n.seconds, style: theme.textTheme.bodySmall),
+                      Text(l10n.timerSeconds, style: theme.textTheme.bodySmall),
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: AppColors.accent),
@@ -727,7 +732,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
             TextField(
               controller: _descriptionController,
               decoration: InputDecoration(
-                labelText: l10n.descriptionOptional,
+                labelText: l10n.timerDescriptionOptional,
                 hintText: l10n.timerDescriptionHint,
               ),
               maxLines: 2,
@@ -761,7 +766,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          l10n.saveAsPreset,
+                          l10n.timerPresetSave,
                           style: theme.textTheme.titleSmall?.copyWith(
                             fontWeight: FontWeight.w600,
                             color: AppColors.textBrown,
@@ -769,7 +774,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          l10n.saveAsPresetDescription,
+                          l10n.timerPresetSaveDescription,
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: AppColors.textBrown.withValues(alpha: 0.7),
                           ),
@@ -786,9 +791,12 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(l10n.cancel),
+          child: Text(l10n.actionCancel),
         ),
-        ElevatedButton(onPressed: _createTimer, child: Text(l10n.start)),
+        ElevatedButton(
+          onPressed: _createTimer,
+          child: Text(l10n.actionStart),
+        ),
       ],
     );
   }

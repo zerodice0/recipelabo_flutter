@@ -1,189 +1,290 @@
 # GEMINI.md
 
-This file provides guidance to Gemini when working with code in this repository.
+이 파일은 Gemini AI 시스템이 이 프로젝트에서 작업할 때 참고할 수 있는 가이드라인을 제공합니다.
 
-## Language Instructions
+## 🌐 언어 정책
 
-- **Always respond in Korean (한글)** when communicating with users
-- Provide explanations, error messages, and all text responses in Korean
-- Code comments and documentation should be in Korean when added
+- **기본 응답 언어**: 한국어 (모든 설명, 오류 메시지, 텍스트 응답)
+- **코드 주석**: 새로 추가되는 주석은 한국어로 작성
+- **문서화**: 프로젝트 문서는 한국어 우선, 필요시 영어 병기
 
-## Project Overview
+## 📱 프로젝트 개요
 
-Saucerer is a Flutter cross-platform mobile application for creating, sharing, and discovering sauce recipes. The project follows Clean Architecture principles with clear separation between data, domain, and presentation layers.
+**Saucerer (소서러)**는 개인화된 소스 레시피 생성, 진화, 관리를 위한 Flutter 크로스플랫폼 모바일 애플리케이션입니다.
 
-## Current Implementation Status
+### 핵심 기능
+- 📝 **레시피 버전 관리**: 기존 레시피를 덮어쓰지 않고 새 버전으로 진화
+- 🔍 **재료 기반 검색**: 보유 재료로 만들 수 있는 레시피 실시간 검색
+- ⏰ **요리 타이머**: 백그라운드 알림 지원하는 다중 타이머
+- 📸 **요리 로그**: 사진과 메모로 요리 결과 기록
+- 🌍 **다국어 지원**: 한국어, 영어, 일본어 (187개 번역 키)
+- 📱 **AdMob 광고**: 환경 변수 기반 배너 광고 통합
 
-### ✅ Completed Features
+## 🏗️ 아키텍처 원칙
 
-#### Core App Structure
-- **MainNavigationScreen**: 4-tab navigation (recipes, search, timer, settings)
-- **Clean Architecture**: Domain, Data, Presentation layer separation
-- **SQLite Database**: Version 14, complete offline support
-- **Dependency Injection**: Riverpod-based DI system
+### Clean Architecture 구조
+```
+lib/
+├── core/          # 공통 설정, 서비스, DI
+├── data/          # 모델, 데이터소스, 리포지토리 구현
+├── domain/        # 엔티티, 리포지토리 인터페이스, 유스케이스
+└── presentation/  # UI, ViewModels, 위젯
+```
 
-#### Recipe Management
-- **RecipeListScreen**: Recipe list screen with empty state UI
-- **RecipeDetailScreen**: Version selection and detailed information display
-- **RecipeEditScreen**: Recipe creation/editing with version management
-- **Recipe Versioning**: Version names, genealogy tracking, change log support
-- **Version Management**: New version creation, existing version overwrite, version deletion
+### 주요 기술 스택
+- **Flutter**: 3.32.5 (Dart 3.8.1)
+- **상태 관리**: Riverpod 2.5.1 + Riverpod Generator
+- **데이터베이스**: SQLite (sqflite)
+- **코드 생성**: Freezed + JSON Serializable
+- **다국어**: Flutter Intl + Google Sheets API
+- **광고**: Google Mobile Ads
 
-#### Search & Discovery
-- **IngredientSearchScreen**: Ingredient-based real-time search
-- **Tag/Chip System**: Chip-based UI for ingredient selection
-- **Real-time Filtering**: Filter recipes by selected ingredients
+## 🛠️ 개발 가이드라인
 
-#### Cooking Features
-- **CookingLogCreateScreen**: Post-cooking photo and memo recording
-- **TimerScreen**: Multiple timer support with background notifications
-- **Timer Presets**: Built-in timer presets (pasta, eggs, etc.)
-- **Step-by-Step Cooking**: Cooking step widgets with timer integration
+### 1. 코딩 규칙
 
-#### Data Management
-- **SeasoningManagementScreen**: Seasoning/master data management
-- **Image Storage**: Local image storage and management system
-- **Unit System**: Various unit support and conversion
+#### 파일 명명 규칙
+- **화면**: `*_screen.dart` (예: `recipe_list_screen.dart`)
+- **위젯**: `*_widget.dart` (예: `recipe_card_widget.dart`)
+- **ViewModel**: `*_viewmodel.dart` (예: `recipe_list_viewmodel.dart`)
+- **엔티티**: `*_entity.dart` (예: `recipe_entity.dart`)
+- **모델**: `*_model.dart` (예: `recipe_model.dart`)
+- **유스케이스**: `*_usecase.dart` (예: `get_recipes_usecase.dart`)
 
-#### Technical Features
-- **Background Notifications**: Utilizing flutter_local_notifications
-- **Image Handling**: Camera/gallery image selection and storage
-- **Data Consistency**: Tag/Chip-based input for typo prevention
-- **Offline-First**: Complete offline functionality
-- **Internationalization**: Full i18n support for Korean, English, and Japanese using flutter_localizations
-- **Translation Management**: Google Sheets-based translation workflow for easy collaboration
+#### 코드 스타일
+- **Dart 3.8.1** 문법 활용
+- **Freezed** 사용: 모든 데이터 클래스와 상태 객체
+- **Riverpod Generator** 사용: 타입 안전성 확보
+- **null safety** 엄격 적용
+- **린트 규칙**: flutter_lints 6.0.0 준수
 
-### 🚧 Partially Implemented
-- **Authentication**: Basic structure exists but actual authentication system not implemented
-- **Profile/Settings**: Only seasoning management implemented, user profile features incomplete
+#### 상태 관리 패턴
+```dart
+// ✅ 올바른 ViewModell 패턴
+@riverpod
+class RecipeListViewmodel extends _$RecipeListViewmodel {
+  @override
+  RecipeListState build() => const RecipeListState();
+  
+  Future<void> loadRecipes() async {
+    state = state.copyWith(isLoading: true);
+    try {
+      final recipes = await ref.read(getRecipesUsecaseProvider)();
+      state = state.copyWith(
+        recipes: recipes,
+        isLoading: false,
+      );
+    } catch (error) {
+      state = state.copyWith(
+        error: error.toString(),
+        isLoading: false,
+      );
+    }
+  }
+}
+```
 
-### ❌ Not Implemented
-- **Splash Screen**: Launch screen not implemented
-- **User Authentication**: Login/signup functionality not implemented
-- **Remote Sync**: Server synchronization not implemented (Local-First state)
-- **Sharing Features**: Recipe sharing functionality not implemented
+### 2. 프로젝트 구조 패턴
 
-## Development Commands
+#### MVVM 패턴 적용
+- **View**: UI만 담당, 비즈니스 로직 금지
+- **ViewModel**: UI 상태 관리, Use Case 호출
+- **Model**: 데이터 구조 정의 (Freezed 사용)
 
-- **Run app**: `flutter run`
-- **Run tests**: `flutter test`
-- **Analyze code**: `flutter analyze`
-- **Get dependencies**: `flutter pub get`
-- **Build APK**: `flutter build apk`
-- **Build iOS**: `flutter build ios`
-- **Run build_runner**: `flutter pub run build_runner build --delete-conflicting-outputs`
-- **Update translations**: `dart run scripts/update_translations.dart`
-- **Scan hardcoded strings**: `dart run scripts/scan_hardcoded_strings.dart`
+#### Repository 패턴
+- **Domain**: 추상 인터페이스 정의
+- **Data**: 구체적 구현체 제공
+- **Dependency Injection**: Riverpod으로 의존성 주입
 
-## Architecture
+### 3. 데이터베이스 작업
 
-The project follows Clean Architecture with these key layers, as detailed in [ARCHITECTURE.md](./ARCHITECTURE.md):
+#### SQLite 스키마 관리
+- **현재 버전**: 14
+- **마이그레이션**: `database_helper.dart`에서 관리
+- **테이블 추가/수정**: 버전 증가 후 마이그레이션 로직 구현
 
-### Core Layer (`lib/core/`)
-- **config/**: App configuration including themes, recipe card widgets
-- **di/**: Dependency injection setup (Riverpod providers)
-- **routes/**: Navigation and routing configuration (GoRouter)
-- **services/**: Core services (ImageStorageService, TimerService)
+#### 데이터 액세스 패턴
+```dart
+// ✅ 올바른 데이터 소스 패턴
+abstract class RecipeLocalDataSource {
+  Future<List<RecipeModel>> getAllRecipes();
+  Future<RecipeModel?> getRecipeById(String id);
+  Future<void> insertRecipe(RecipeModel recipe);
+  Future<void> updateRecipe(RecipeModel recipe);
+  Future<void> deleteRecipe(String id);
+}
+```
 
-### Internationalization Layer (`lib/l10n/`)
-- **app_en.arb**: English translations (template file)
-- **app_ko.arb**: Korean translations
-- **app_ja.arb**: Japanese translations
-- **app_localizations.dart**: Generated localization code
+## 🌐 다국어 개발 워크플로우
 
-### Data Layer (`lib/data/`)
-- **datasources/local/**: SQLite database helpers and local data sources
-  - `database_helper.dart`: SQLite DB schema and management (v14)
-  - `recipe_local_data_source.dart`: Recipe data CRUD operations
-  - `ingredient_local_data_source.dart`: Ingredient data management
-  - `cooking_log_local_data_source.dart`: Cooking log management
-  - `seasoning_local_data_source.dart`: Seasoning master data
-  - `timer_preset_datasource.dart`: Timer preset management
-- **models/**: Freezed-based data models with JSON serialization
-- **repositories/**: Repository pattern implementations
+### 대화형 CLI 도구 사용
+```bash
+# 대화형 메뉴 실행 (권장)
+./i18n.sh
 
-### Domain Layer (`lib/domain/`)
-- **entities/**: Freezed-based business entities
-  - `recipe_entity.dart`, `recipe_version_entity.dart`: Recipe and version management
-  - `ingredient_entity.dart`, `step_entity.dart`: Ingredients and cooking steps
-  - `cooking_log_entity.dart`: Cooking records
-  - `seasoning_entity.dart`: Seasoning information
-  - `cooking_timer_entity.dart`, `timer_preset_entity.dart`: Timer-related entities
-- **repositories/**: Abstract repository interfaces
-- **usecases/**: 40+ specific business logic Use Cases
+# 개별 명령어
+./i18n.sh scan              # 하드코딩 문자열 스캔
+./i18n.sh upload            # Google Sheets에 번역 업로드
+./i18n.sh update            # ARB 파일 업데이트
+./i18n.sh generate          # Flutter 코드 생성
+./i18n.sh workflow          # 전체 프로세스 실행
+```
 
-### Presentation Layer (`lib/presentation/`)
-- **main/**: Main navigation screen
-- **recipe/**: Recipe-related UI components
-  - **list/**: Recipe list screen with empty state UI
-  - **detail/**: Recipe detail screen with version management
-  - **edit/**: Recipe creation/editing screen
-  - **widgets/**: Reusable recipe widgets
-  - **providers/**: Ingredient and unit-related providers
-- **search/**: Ingredient-based search functionality
-- **cooking_log/**: Cooking log creation screen
-- **seasoning/**: Seasoning management screen
-- **timer/**: Timer screen and widgets
+### 번역 키 네이밍 규칙
+- **기능별 접두사**: `navigation*`, `action*`, `recipe*`, `timer*` 등
+- **의미 기반**: `navigationRecipes` (❌ `recipes`)
+- **camelCase** 사용
+- **설명 포함**: Google Sheets에 컨텍스트 설명 추가
 
-## Key Patterns & Conventions
+### 새 번역 키 추가 절차
+1. 코드에서 하드코딩 문자열 사용 (개발 단계)
+2. `./i18n.sh scan`으로 하드코딩 문자열 발견
+3. `scripts/improved_translations.dart`에 의미있는 키 추가
+4. `./i18n.sh upload`로 Google Sheets 업로드
+5. Google Sheets에서 번역 완료
+6. `./i18n.sh update`로 ARB 파일 동기화
+7. 코드에서 `AppLocalizations.of(context).newKey` 사용
 
-- **State Management**: Use **Riverpod** with the `@riverpod` annotation for providers. Prefer `AsyncNotifierProvider` and `NotifierProvider`. Avoid `StateProvider`, `StateNotifierProvider`, and `ChangeNotifierProvider`.
-- **Immutability**: Use **Freezed** for creating immutable state classes and unions.
-- **Navigation**: Use **GoRouter** or **auto_route** for navigation and deep linking.
-- **Asynchronous Operations**: Use `AsyncValue` for handling loading and error states in UI.
-- **Error Handling**: Display errors directly in the UI using `SelectableText.rich` with a red color. Avoid `SnackBars`.
-- **Styling**: Use `Theme.of(context)` for consistent styling.
-- **JSON Serialization**: Use `@JsonSerializable(fieldRename: FieldRename.snake)` for models.
-- **Database Model**: Include `createdAt`, `updatedAt`, and `isDeleted` fields in database tables.
-- **Code Generation**: Utilize `build_runner` for Freezed, Riverpod, and JSON serialization.
-- **Widget Structure**: Create small, private widget classes instead of helper methods.
-- **Performance**: Use `const` widgets, `ListView.builder`, and `cached_network_image`.
-- **Code Style**:
-    - Keep lines under 80 characters.
-    - Use trailing commas.
-    - Use arrow syntax for simple one-line functions/methods.
-    - Use `log` for debugging instead of `print`.
+## 🧪 테스트 가이드라인
 
+### 테스트 실행
+```bash
+flutter test                    # 전체 테스트
+flutter test test/unit/         # 단위 테스트만
+flutter test test/widget/       # 위젯 테스트만
+```
 
-## Project Overview
+### 테스트 작성 권장사항
+- **단위 테스트**: Use Case, Repository 우선
+- **위젯 테스트**: 주요 화면 및 위젯
+- **통합 테스트**: 핵심 사용자 플로우
+- **Mock 사용**: `mockito` 패키지 활용
 
-### 1. Project Goals
-The objective of this project is to develop a personalized mobile application that allows users to systematically create, evolve, and manage their own sauce recipes. The core goals are as follows:
+## 🚀 빌드 및 배포
 
-Personalized Recipe Asset Management: To enable users to meticulously record their unique sauce recipes down to the precise ingredient and quantity, allowing them to build and permanently store a digital library of personal recipe assets.
-Evolutionary Recipe Development: To facilitate the gradual evolution of recipes. Through a "Recipe Versioning" and "Cooking Log" system, users can fork new versions from existing recipes based on their real-world cooking experiences (e.g., "a bit too salty," "use less sugar next time"), rather than overwriting them. This preserves the entire developmental history of a recipe.
-Frictionless User Experience: To provide a frictionless user experience. The app will feature "In-Context Ingredient Creation," allowing users to add new ingredients without disrupting their recipe creation workflow. A "Tag/Chip-Based Input" system will prevent typos and ensure data consistency, allowing users to focus solely on the task of recording their recipes.
-Data-Driven Discovery: To enable data-driven meal discovery. Users can instantly search for recipes they can make with the ingredients they currently have, effectively answering the question, "What can I cook today?"
-Robust & Scalable Architecture: To build a robust and scalable architecture. The project will initially adopt a "Local-First" approach, ensuring full offline functionality and fast performance. By implementing Clean Architecture, the app will be flexible and prepared for future expansion, such as introducing server-side data synchronization and sharing features.
+### 개발 명령어
+```bash
+# 의존성 설치
+flutter pub get
 
-### 2. Screens to Implement
-To achieve the goals above, the following screens will be implemented.
+# 코드 생성
+flutter packages pub run build_runner build --delete-conflicting-outputs
 
-#### 1. Splash Screen
+# 분석 및 포맷팅
+flutter analyze
+dart format .
 
-Key Features: Display app logo on launch, check user authentication status, and automatically redirect to either the Main Screen or Login Screen.
-#### 2. Authentication Screens
+# 실행
+flutter run
+```
 
-Key Features: Provide login and sign-up functionality using email/password authentication.
-#### 3. Main Screen (Recipe Group List)
+### 빌드 명령어
+```bash
+# Android APK
+flutter build apk
 
-Key Features: Display a list of all user-created "Recipe Groups" in a card format (note: shows groups, not individual versions). Provide a guided "Empty State" UI for new users. Serve as the entry point for the ingredient-based search.
-#### 4. Recipe Detail Screen
+# iOS 빌드
+flutter build ios
 
-Key Features: Allow users to browse and select from all available versions within a specific "Recipe Group" (e.g., v1-Original, v2-Less Spicy). Display the detailed ingredient list for the selected version. Show a chronological list of all "Cooking Logs" (photos, memos) associated with that specific version.
-#### 5. Recipe Create/Edit Screen
+# 번들 사이즈 분석
+flutter build apk --analyze-size
+```
 
-Key Features:
-Create new recipe groups and their initial versions.
-Modify an existing version and choose to either "Overwrite" it or "Save as a New Version."
-Add ingredients from a predefined list (tags/chips) and adjust quantities in "1/4 tablespoon" increments.
-Provide "In-Context Ingredient Creation" to add new, unlisted ingredients on the fly.
-#### 6. Cooking Log Create Screen
+## 📁 주요 파일 및 폴더
 
-Key Features: After cooking with a specific recipe version, allow the user to record and save a photo of the dish along with a dedicated memo (e.g., "Turned out great," "Add more vegetables next time").
-#### 7. Ingredient-based Search Screen
+### 필수 파일
+- `pubspec.yaml`: 의존성 관리
+- `l10n.yaml`: 다국어 설정
+- `analysis_options.yaml`: 린트 규칙
+- `.env`: 환경변수 (Git에 포함하지 않음)
+- `i18n.sh`: 다국어 관리 CLI 도구
 
-Key Features: Display a comprehensive list of all ingredients as selectable chips. As the user selects chips, the list of recipe groups is filtered in real-time to show only those containing all the selected ingredients.
-#### 8. Profile/Settings Screen
+### 핵심 폴더
+- `lib/core/di/`: Riverpod 프로바이더 정의
+- `lib/data/datasources/local/`: SQLite 데이터 액세스
+- `lib/domain/usecases/`: 비즈니스 로직 캡슐화
+- `lib/presentation/*/viewmodel/`: 화면별 상태 관리
+- `scripts/`: 번역 관리 및 유틸리티 스크립트
 
-Key Features: Provide user logout and account management. Include an "Ingredient List Management" feature for users to merge, delete, or correct any duplicate or misspelled ingredients that may result from the "In-Context Ingredient Creation" feature.
+## ⚠️ 주의사항
+
+### 금지 사항
+- **절대 경로 하드코딩**: 상대 경로 사용
+- **비즈니스 로직을 Widget에**: ViewModel에 위임
+- **직접 데이터베이스 액세스**: Repository 패턴 준수
+- **하드코딩된 문자열**: AppLocalizations 사용
+- **Secret 정보 커밋**: .env 파일 활용
+
+### 권장 사항
+- **작은 단위 커밋**: 기능별로 나누어 커밋
+- **Conventional Commits**: feat:, fix:, docs: 등 사용
+- **코드 리뷰**: Pull Request 활용
+- **테스트 작성**: 새 기능 개발 시 테스트 함께 작성
+
+## 🔧 문제 해결
+
+### 자주 발생하는 문제
+
+#### 1. Freezed 코드 생성 문제
+```bash
+flutter packages pub run build_runner clean
+flutter packages pub run build_runner build --delete-conflicting-outputs
+```
+
+#### 2. 다국어 키 누락
+```bash
+./i18n.sh scan          # 하드코딩 문자열 확인
+./i18n.sh update        # Google Sheets에서 최신 번역 가져오기
+```
+
+#### 3. 의존성 충돌
+```bash
+flutter pub deps        # 의존성 트리 확인
+flutter pub upgrade     # 안전한 업그레이드
+```
+
+#### 4. 빌드 오류
+```bash
+flutter clean           # 빌드 캐시 정리
+flutter pub get         # 의존성 재설치
+flutter analyze         # 린트 오류 확인
+```
+
+### 디버깅 도구
+- **Flutter Inspector**: 위젯 트리 분석
+- **Riverpod Inspector**: 상태 관리 디버깅
+- **SQLite Browser**: 데이터베이스 검사
+- **Flutter DevTools**: 성능 및 메모리 분석
+
+## 🎯 현재 구현 상태
+
+### ✅ 완료된 기능
+- **Core App Structure**: 4-tab 네비게이션, Clean Architecture, SQLite DB v14
+- **Recipe Management**: 레시피 CRUD, 버전 관리, 상세 정보
+- **Search & Discovery**: 재료 기반 실시간 검색, 칩 시스템
+- **Cooking Features**: 요리 로그, 다중 타이머, 백그라운드 알림
+- **Data Management**: 양념 관리, 이미지 저장, 단위 시스템
+- **Internationalization**: 187개 번역 키, Google Sheets 통합, 대화형 CLI
+- **AdMob Integration**: 환경 변수 기반 배너 광고
+
+### 🚧 부분 구현
+- **Authentication**: 기본 구조 존재, 실제 인증 시스템 미구현
+- **Profile/Settings**: 양념 관리만 구현, 사용자 프로필 기능 미완성
+
+### ❌ 미구현
+- **Splash Screen**: 런치 스크린 미구현
+- **User Authentication**: 로그인/회원가입 기능 미구현
+- **Remote Sync**: 서버 동기화 미구현 (Local-First 상태)
+- **Sharing Features**: 레시피 공유 기능 미구현
+
+## 📚 추가 자료
+
+- [Flutter 공식 문서](https://flutter.dev/docs)
+- [Riverpod 공식 문서](https://riverpod.dev)
+- [Freezed 패키지](https://pub.dev/packages/freezed)
+- [Clean Architecture 가이드](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+- [Google Sheets API](https://developers.google.com/sheets/api)
+
+---
+
+이 가이드라인을 준수하여 일관성 있고 유지보수 가능한 코드를 작성해주세요. 추가 질문이나 명확하지 않은 부분이 있다면 프로젝트 문서 또는 기존 코드를 참고하시기 바랍니다.

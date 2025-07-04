@@ -62,12 +62,15 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
 
   String _suggestCategory(String unitName) {
     final name = unitName.toLowerCase();
-    
-    if (['g', 'kg', '그램', '킬로그램', 'gram', 'kilogram'].any((w) => name.contains(w))) {
+
+    if (['g', 'kg', '그램', '킬로그램', 'gram', 'kilogram']
+        .any((w) => name.contains(w))) {
       return '무게';
-    } else if (['ml', 'l', '밀리리터', '리터', '컵', '큰술', '작은술', 't', 'cup', 'liter'].any((w) => name.contains(w))) {
+    } else if (['ml', 'l', '밀리리터', '리터', '컵', '큰술', '작은술', 't', 'cup', 'liter']
+        .any((w) => name.contains(w))) {
       return '부피';
-    } else if (['개', '마리', '알', '쪽', '장', '봉지', '캔', '병', '조각'].any((w) => name.contains(w))) {
+    } else if (['개', '마리', '알', '쪽', '장', '봉지', '캔', '병', '조각']
+        .any((w) => name.contains(w))) {
       return '개수';
     } else {
       return '기타';
@@ -93,7 +96,7 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  AppLocalizations.of(context).selectUnit,
+                  AppLocalizations.of(context).ingredientSelectUnit,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppColors.textBrown,
@@ -184,7 +187,8 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
                                   vertical: 2,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: AppColors.textBrown.withValues(alpha: 0.1),
+                                  color: AppColors.textBrown
+                                      .withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                                 child: Text(
@@ -209,7 +213,7 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
         TextButton(
           onPressed: widget.onCancel,
           child: Text(
-            AppLocalizations.of(context).cancel,
+            AppLocalizations.of(context).actionCancel,
             style: TextStyle(color: AppColors.textBrown.withValues(alpha: 0.7)),
           ),
         ),
@@ -224,7 +228,7 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
               borderRadius: BorderRadius.circular(8),
             ),
           ),
-          child: Text(AppLocalizations.of(context).save),
+          child: Text(AppLocalizations.of(context).actionSave),
         ),
       ],
     );

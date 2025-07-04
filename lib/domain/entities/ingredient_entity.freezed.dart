@@ -12,7 +12,8 @@ part of 'ingredient_entity.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$IngredientEntity {
@@ -32,15 +33,17 @@ mixin _$IngredientEntity {
 /// @nodoc
 abstract class $IngredientEntityCopyWith<$Res> {
   factory $IngredientEntityCopyWith(
-          IngredientEntity value, $Res Function(IngredientEntity) then) =
-      _$IngredientEntityCopyWithImpl<$Res, IngredientEntity>;
+    IngredientEntity value,
+    $Res Function(IngredientEntity) then,
+  ) = _$IngredientEntityCopyWithImpl<$Res, IngredientEntity>;
   @useResult
-  $Res call(
-      {String id,
-      String? recipeVersionId,
-      String name,
-      double quantity,
-      String unit});
+  $Res call({
+    String id,
+    String? recipeVersionId,
+    String name,
+    double quantity,
+    String unit,
+  });
 }
 
 /// @nodoc
@@ -64,54 +67,60 @@ class _$IngredientEntityCopyWithImpl<$Res, $Val extends IngredientEntity>
     Object? quantity = null,
     Object? unit = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      recipeVersionId: freezed == recipeVersionId
-          ? _value.recipeVersionId
-          : recipeVersionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      quantity: null == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as double,
-      unit: null == unit
-          ? _value.unit
-          : unit // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            recipeVersionId: freezed == recipeVersionId
+                ? _value.recipeVersionId
+                : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            quantity: null == quantity
+                ? _value.quantity
+                : quantity // ignore: cast_nullable_to_non_nullable
+                      as double,
+            unit: null == unit
+                ? _value.unit
+                : unit // ignore: cast_nullable_to_non_nullable
+                      as String,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$IngredientEntityImplCopyWith<$Res>
     implements $IngredientEntityCopyWith<$Res> {
-  factory _$$IngredientEntityImplCopyWith(_$IngredientEntityImpl value,
-          $Res Function(_$IngredientEntityImpl) then) =
-      __$$IngredientEntityImplCopyWithImpl<$Res>;
+  factory _$$IngredientEntityImplCopyWith(
+    _$IngredientEntityImpl value,
+    $Res Function(_$IngredientEntityImpl) then,
+  ) = __$$IngredientEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String? recipeVersionId,
-      String name,
-      double quantity,
-      String unit});
+  $Res call({
+    String id,
+    String? recipeVersionId,
+    String name,
+    double quantity,
+    String unit,
+  });
 }
 
 /// @nodoc
 class __$$IngredientEntityImplCopyWithImpl<$Res>
     extends _$IngredientEntityCopyWithImpl<$Res, _$IngredientEntityImpl>
     implements _$$IngredientEntityImplCopyWith<$Res> {
-  __$$IngredientEntityImplCopyWithImpl(_$IngredientEntityImpl _value,
-      $Res Function(_$IngredientEntityImpl) _then)
-      : super(_value, _then);
+  __$$IngredientEntityImplCopyWithImpl(
+    _$IngredientEntityImpl _value,
+    $Res Function(_$IngredientEntityImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of IngredientEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -124,40 +133,43 @@ class __$$IngredientEntityImplCopyWithImpl<$Res>
     Object? quantity = null,
     Object? unit = null,
   }) {
-    return _then(_$IngredientEntityImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      recipeVersionId: freezed == recipeVersionId
-          ? _value.recipeVersionId
-          : recipeVersionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      quantity: null == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as double,
-      unit: null == unit
-          ? _value.unit
-          : unit // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
+    return _then(
+      _$IngredientEntityImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        recipeVersionId: freezed == recipeVersionId
+            ? _value.recipeVersionId
+            : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        quantity: null == quantity
+            ? _value.quantity
+            : quantity // ignore: cast_nullable_to_non_nullable
+                  as double,
+        unit: null == unit
+            ? _value.unit
+            : unit // ignore: cast_nullable_to_non_nullable
+                  as String,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$IngredientEntityImpl implements _IngredientEntity {
-  const _$IngredientEntityImpl(
-      {required this.id,
-      this.recipeVersionId,
-      required this.name,
-      required this.quantity,
-      required this.unit});
+  const _$IngredientEntityImpl({
+    required this.id,
+    this.recipeVersionId,
+    required this.name,
+    required this.quantity,
+    required this.unit,
+  });
 
   @override
   final String id;
@@ -200,16 +212,19 @@ class _$IngredientEntityImpl implements _IngredientEntity {
   @pragma('vm:prefer-inline')
   _$$IngredientEntityImplCopyWith<_$IngredientEntityImpl> get copyWith =>
       __$$IngredientEntityImplCopyWithImpl<_$IngredientEntityImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 }
 
 abstract class _IngredientEntity implements IngredientEntity {
-  const factory _IngredientEntity(
-      {required final String id,
-      final String? recipeVersionId,
-      required final String name,
-      required final double quantity,
-      required final String unit}) = _$IngredientEntityImpl;
+  const factory _IngredientEntity({
+    required final String id,
+    final String? recipeVersionId,
+    required final String name,
+    required final double quantity,
+    required final String unit,
+  }) = _$IngredientEntityImpl;
 
   @override
   String get id;

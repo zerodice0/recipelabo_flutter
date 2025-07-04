@@ -65,14 +65,14 @@ String _$cookingLogLocalDataSourceHash() =>
 @ProviderFor(cookingLogLocalDataSource)
 final cookingLogLocalDataSourceProvider =
     Provider<CookingLogLocalDataSource>.internal(
-  cookingLogLocalDataSource,
-  name: r'cookingLogLocalDataSourceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$cookingLogLocalDataSourceHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      cookingLogLocalDataSource,
+      name: r'cookingLogLocalDataSourceProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$cookingLogLocalDataSourceHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
@@ -102,14 +102,14 @@ String _$ingredientLocalDataSourceHash() =>
 @ProviderFor(ingredientLocalDataSource)
 final ingredientLocalDataSourceProvider =
     Provider<IngredientLocalDataSource>.internal(
-  ingredientLocalDataSource,
-  name: r'ingredientLocalDataSourceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$ingredientLocalDataSourceHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      ingredientLocalDataSource,
+      name: r'ingredientLocalDataSourceProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$ingredientLocalDataSourceHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
@@ -139,14 +139,14 @@ String _$seasoningLocalDataSourceHash() =>
 @ProviderFor(seasoningLocalDataSource)
 final seasoningLocalDataSourceProvider =
     Provider<SeasoningLocalDataSource>.internal(
-  seasoningLocalDataSource,
-  name: r'seasoningLocalDataSourceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$seasoningLocalDataSourceHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      seasoningLocalDataSource,
+      name: r'seasoningLocalDataSourceProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$seasoningLocalDataSourceHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
@@ -158,14 +158,14 @@ String _$ingredientMasterRepositoryHash() =>
 @ProviderFor(ingredientMasterRepository)
 final ingredientMasterRepositoryProvider =
     Provider<IngredientMasterRepository>.internal(
-  ingredientMasterRepository,
-  name: r'ingredientMasterRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$ingredientMasterRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      ingredientMasterRepository,
+      name: r'ingredientMasterRepositoryProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$ingredientMasterRepositoryHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
@@ -231,14 +231,14 @@ String _$saveCustomPresetUsecaseHash() =>
 @ProviderFor(saveCustomPresetUsecase)
 final saveCustomPresetUsecaseProvider =
     Provider<SaveCustomPresetUsecase>.internal(
-  saveCustomPresetUsecase,
-  name: r'saveCustomPresetUsecaseProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$saveCustomPresetUsecaseHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      saveCustomPresetUsecase,
+      name: r'saveCustomPresetUsecaseProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$saveCustomPresetUsecaseHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
@@ -250,14 +250,14 @@ String _$deleteCustomPresetUsecaseHash() =>
 @ProviderFor(deleteCustomPresetUsecase)
 final deleteCustomPresetUsecaseProvider =
     Provider<DeleteCustomPresetUsecase>.internal(
-  deleteCustomPresetUsecase,
-  name: r'deleteCustomPresetUsecaseProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$deleteCustomPresetUsecaseHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      deleteCustomPresetUsecase,
+      name: r'deleteCustomPresetUsecaseProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$deleteCustomPresetUsecaseHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
@@ -269,18 +269,18 @@ String _$incrementPresetUsageUsecaseHash() =>
 @ProviderFor(incrementPresetUsageUsecase)
 final incrementPresetUsageUsecaseProvider =
     Provider<IncrementPresetUsageUsecase>.internal(
-  incrementPresetUsageUsecase,
-  name: r'incrementPresetUsageUsecaseProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$incrementPresetUsageUsecaseHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      incrementPresetUsageUsecase,
+      name: r'incrementPresetUsageUsecaseProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$incrementPresetUsageUsecaseHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef IncrementPresetUsageUsecaseRef
-    = ProviderRef<IncrementPresetUsageUsecase>;
+typedef IncrementPresetUsageUsecaseRef =
+    ProviderRef<IncrementPresetUsageUsecase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

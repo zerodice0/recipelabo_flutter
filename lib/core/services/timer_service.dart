@@ -69,11 +69,11 @@ class TimerService extends ChangeNotifier {
 
       // 정확한 알람 권한 요청
       await androidPlugin?.requestExactAlarmsPermission();
-      
+
       // 알림 권한 요청
       final result = await androidPlugin?.requestNotificationsPermission();
       _hasNotificationPermission = result ?? false;
-      
+
       return _hasNotificationPermission;
     } else if (Platform.isIOS) {
       // iOS 권한 요청
@@ -85,7 +85,7 @@ class TimerService extends ChangeNotifier {
             badge: true,
             sound: true,
           );
-      
+
       _hasNotificationPermission = result ?? false;
       return _hasNotificationPermission;
     }
@@ -103,7 +103,7 @@ class TimerService extends ChangeNotifier {
       final androidPlugin = _flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>();
-      
+
       final granted = await androidPlugin?.areNotificationsEnabled();
       _hasNotificationPermission = granted ?? false;
       return _hasNotificationPermission;
@@ -122,16 +122,17 @@ class TimerService extends ChangeNotifier {
   }
 
   /// 타이머 시작
-  Future<void> startTimer(CookingTimerEntity timer, [BuildContext? context]) async {
+  Future<void> startTimer(CookingTimerEntity timer,
+      [BuildContext? context]) async {
     debugPrint('=== TIMER START DEBUG ===');
     debugPrint('Timer ID: ${timer.id}');
     debugPrint('Timer name: ${timer.name}');
     debugPrint('Timer duration: ${timer.totalSeconds} seconds');
-    
+
     // 알림 권한 확인
     final permissionStatus = await checkNotificationPermission();
     debugPrint('Notification permission: $permissionStatus');
-    
+
     // 기존 타이머가 있다면 정지
     stopTimer(timer.id);
 
@@ -150,14 +151,17 @@ class TimerService extends ChangeNotifier {
     if (_hasNotificationPermission) {
       debugPrint('Scheduling notification...');
       if (context != null && context.mounted) {
-        await _scheduleNotification(timer.id, timer.name, timer.formattedTotalTime, completionTime, context);
+        await _scheduleNotification(timer.id, timer.name,
+            timer.formattedTotalTime, completionTime, context);
       } else {
-        await _scheduleNotification(timer.id, timer.name, timer.formattedTotalTime, completionTime, null);
+        await _scheduleNotification(timer.id, timer.name,
+            timer.formattedTotalTime, completionTime, null);
       }
     } else {
-      debugPrint('Notification permission not granted, skipping notification scheduling');
+      debugPrint(
+          'Notification permission not granted, skipping notification scheduling');
     }
-    
+
     // 추가: 대체 방안으로 앱 내에서 Timer 기반 노티피케이션도 설정
     debugPrint('Setting up fallback timer-based notification...');
     Timer(Duration(seconds: timer.totalSeconds), () async {
@@ -181,30 +185,34 @@ class TimerService extends ChangeNotifier {
   }
 
   /// 스케줄된 로컬 노티피케이션 설정
-  Future<void> _scheduleNotification(String timerId, String timerName, String duration, DateTime scheduledTime, [BuildContext? context]) async {
+  Future<void> _scheduleNotification(
+      String timerId, String timerName, String duration, DateTime scheduledTime,
+      [BuildContext? context]) async {
     debugPrint('=== SCHEDULE NOTIFICATION DEBUG ===');
     debugPrint('Timer ID: $timerId');
     debugPrint('Timer Name: $timerName');
     debugPrint('Duration: $duration');
     debugPrint('Scheduled Time: $scheduledTime');
     debugPrint('Current Time: ${DateTime.now()}');
-    debugPrint('Time difference: ${scheduledTime.difference(DateTime.now()).inSeconds} seconds');
-    
+    debugPrint(
+        'Time difference: ${scheduledTime.difference(DateTime.now()).inSeconds} seconds');
+
     try {
       // 다국어화를 위해 기본 텍스트 사용 (context가 없는 경우)
       final channelName = (context != null && context.mounted)
-          ? AppLocalizations.of(context).cookingTimerChannel 
+          ? AppLocalizations.of(context).timerCooking
           : '요리 타이머';
       final channelDescription = (context != null && context.mounted)
-          ? AppLocalizations.of(context).timerNotificationDescription
+          ? AppLocalizations.of(context).timerNotificationChannelDescription
           : '요리 타이머 완료 알림';
       final notificationTitle = (context != null && context.mounted)
-          ? AppLocalizations.of(context).timerCompleteTitle(timerName)
+          ? AppLocalizations.of(context)
+              .timerNotificationCompleteTitle(timerName)
           : '🍳 $timerName 완료!';
       final notificationBody = (context != null && context.mounted)
-          ? AppLocalizations.of(context).timerCompleteBody(duration)
+          ? AppLocalizations.of(context).timerNotificationCompleteBody(duration)
           : '$duration 타이머가 끝났습니다.';
-      
+
       final AndroidNotificationDetails androidNotificationDetails =
           AndroidNotificationDetails(
         'cooking_timer_channel',
@@ -241,12 +249,13 @@ class TimerService extends ChangeNotifier {
         notificationBody,
         tzDateTime, // timezone 패키지 사용
         notificationDetails,
-        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle, // 정확한 시간에 알림
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+        androidScheduleMode:
+            AndroidScheduleMode.exactAllowWhileIdle, // 정확한 시간에 알림
         payload: timerId,
       );
-      
-      debugPrint('✅ Scheduled notification successfully for $timerName at $scheduledTime');
+
+      debugPrint(
+          '✅ Scheduled notification successfully for $timerName at $scheduledTime');
     } catch (e) {
       debugPrint('❌ Failed to schedule notification: $e');
       debugPrint('Error type: ${e.runtimeType}');
@@ -282,7 +291,7 @@ class TimerService extends ChangeNotifier {
   Future<void> _completeTimer(String timerId) async {
     debugPrint('=== TIMER COMPLETION DEBUG ===');
     debugPrint('Completing timer: $timerId');
-    
+
     final timer = _runningTimers[timerId];
     if (timer == null) {
       debugPrint('Timer not found in running timers');
@@ -301,7 +310,7 @@ class TimerService extends ChangeNotifier {
     // 로컬 알림 전송 (즉시 알림 - 백업용)
     debugPrint('Showing immediate completion notification...');
     await _showCompletionNotification(timer);
-    
+
     // 추가: 스케줄된 노티피케이션이 실패했을 경우를 대비해 강제로 한 번 더 전송
     if (_hasNotificationPermission) {
       debugPrint('Sending backup immediate notification...');
@@ -348,7 +357,7 @@ class TimerService extends ChangeNotifier {
     debugPrint('=== NOTIFICATION DEBUG ===');
     debugPrint('Attempting to show notification for: ${timer.name}');
     debugPrint('Has notification permission: $_hasNotificationPermission');
-    
+
     // 알림 권한이 없으면 알림을 보내지 않음
     if (!_hasNotificationPermission) {
       debugPrint('Notification permission not granted, skipping notification');
@@ -386,7 +395,7 @@ class TimerService extends ChangeNotifier {
       debugPrint('Showing notification with ID: ${timer.id.hashCode}');
       debugPrint('Notification title: 🍳 ${timer.name} 완료!');
       debugPrint('Notification body: ${timer.formattedTotalTime} 타이머가 끝났습니다.');
-      
+
       await _flutterLocalNotificationsPlugin.show(
         timer.id.hashCode, // 고유 ID
         '🍳 ${timer.name} 완료!',
@@ -394,7 +403,7 @@ class TimerService extends ChangeNotifier {
         notificationDetails,
         payload: timer.id,
       );
-      
+
       debugPrint('Notification sent successfully');
     } catch (e) {
       debugPrint('Failed to show notification: $e');
@@ -410,10 +419,10 @@ class TimerService extends ChangeNotifier {
     if (activeTimer != null && timer != null) {
       activeTimer.cancel();
       _activeTimers.remove(timerId);
-      
+
       // 스케줄된 노티피케이션 취소
       _cancelScheduledNotification(timerId);
-      
+
       _runningTimers[timerId] = timer.copyWith(status: TimerStatus.paused);
       notifyListeners();
     }
@@ -492,42 +501,41 @@ class TimerService extends ChangeNotifier {
       .length;
 
   /// 완료된 타이머 개수
-  int get completedTimerCount => _runningTimers.values
-      .where((timer) => timer.isCompleted)
-      .length;
+  int get completedTimerCount =>
+      _runningTimers.values.where((timer) => timer.isCompleted).length;
 
   /// 테스트용 즉시 노티피케이션 전송
   Future<void> testNotification([BuildContext? context]) async {
     debugPrint('=== TEST NOTIFICATION ===');
-    
+
     if (!_isInitialized) {
       await initialize();
     }
-    
+
     // 권한 확인
     final hasPermission = await checkNotificationPermission();
     debugPrint('Permission status for test: $hasPermission');
-    
+
     if (!hasPermission) {
       debugPrint('No permission, requesting...');
       await requestNotificationPermission();
     }
-    
+
     try {
       // 다국어화를 위해 기본 텍스트 사용 (context가 없는 경우)
       final channelName = (context != null && context.mounted)
-          ? AppLocalizations.of(context).testNotificationChannel 
+          ? AppLocalizations.of(context).timerNotificationTestChannelTitle
           : '테스트 알림';
       final channelDescription = (context != null && context.mounted)
-          ? AppLocalizations.of(context).testNotificationDescription
+          ? AppLocalizations.of(context).timerNotificationTestChannelDescription
           : '노티피케이션 테스트용';
       final notificationTitle = (context != null && context.mounted)
-          ? AppLocalizations.of(context).testNotificationTitle
+          ? AppLocalizations.of(context).timerNotificationTestTitle
           : '🔔 테스트 알림';
       final notificationBody = (context != null && context.mounted)
-          ? AppLocalizations.of(context).testNotificationBody
+          ? AppLocalizations.of(context).timerNotificationTestBody
           : '노티피케이션이 정상적으로 작동합니다!';
-      
+
       final AndroidNotificationDetails androidNotificationDetails =
           AndroidNotificationDetails(
         'cooking_timer_test_channel',
@@ -560,12 +568,12 @@ class TimerService extends ChangeNotifier {
         notificationDetails,
         payload: 'test',
       );
-      
+
       debugPrint('Test notification sent successfully');
     } catch (e) {
       debugPrint('Test notification failed: $e');
     }
-    
+
     debugPrint('=== TEST NOTIFICATION COMPLETE ===');
   }
 

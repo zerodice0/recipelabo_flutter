@@ -11,16 +11,19 @@ String _$recipeListViewModelHash() =>
 
 /// See also [RecipeListViewModel].
 @ProviderFor(RecipeListViewModel)
-final recipeListViewModelProvider = AutoDisposeAsyncNotifierProvider<
-    RecipeListViewModel, List<RecipeEntity>>.internal(
-  RecipeListViewModel.new,
-  name: r'recipeListViewModelProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$recipeListViewModelHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final recipeListViewModelProvider =
+    AutoDisposeAsyncNotifierProvider<
+      RecipeListViewModel,
+      List<RecipeEntity>
+    >.internal(
+      RecipeListViewModel.new,
+      name: r'recipeListViewModelProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$recipeListViewModelHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$RecipeListViewModel = AutoDisposeAsyncNotifier<List<RecipeEntity>>;
 // ignore_for_file: type=lint

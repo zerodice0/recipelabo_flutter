@@ -12,7 +12,8 @@ part of 'cooking_log_entity.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$CookingLogEntity {
@@ -35,18 +36,20 @@ mixin _$CookingLogEntity {
 /// @nodoc
 abstract class $CookingLogEntityCopyWith<$Res> {
   factory $CookingLogEntityCopyWith(
-          CookingLogEntity value, $Res Function(CookingLogEntity) then) =
-      _$CookingLogEntityCopyWithImpl<$Res, CookingLogEntity>;
+    CookingLogEntity value,
+    $Res Function(CookingLogEntity) then,
+  ) = _$CookingLogEntityCopyWithImpl<$Res, CookingLogEntity>;
   @useResult
-  $Res call(
-      {String id,
-      String recipeVersionId,
-      String authorId,
-      String title,
-      String? memo,
-      String? imageUrl,
-      DateTime cookedAt,
-      DateTime createdAt});
+  $Res call({
+    String id,
+    String recipeVersionId,
+    String authorId,
+    String title,
+    String? memo,
+    String? imageUrl,
+    DateTime cookedAt,
+    DateTime createdAt,
+  });
 }
 
 /// @nodoc
@@ -73,69 +76,75 @@ class _$CookingLogEntityCopyWithImpl<$Res, $Val extends CookingLogEntity>
     Object? cookedAt = null,
     Object? createdAt = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      recipeVersionId: null == recipeVersionId
-          ? _value.recipeVersionId
-          : recipeVersionId // ignore: cast_nullable_to_non_nullable
-              as String,
-      authorId: null == authorId
-          ? _value.authorId
-          : authorId // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      memo: freezed == memo
-          ? _value.memo
-          : memo // ignore: cast_nullable_to_non_nullable
-              as String?,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      cookedAt: null == cookedAt
-          ? _value.cookedAt
-          : cookedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            recipeVersionId: null == recipeVersionId
+                ? _value.recipeVersionId
+                : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                      as String,
+            authorId: null == authorId
+                ? _value.authorId
+                : authorId // ignore: cast_nullable_to_non_nullable
+                      as String,
+            title: null == title
+                ? _value.title
+                : title // ignore: cast_nullable_to_non_nullable
+                      as String,
+            memo: freezed == memo
+                ? _value.memo
+                : memo // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            imageUrl: freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            cookedAt: null == cookedAt
+                ? _value.cookedAt
+                : cookedAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            createdAt: null == createdAt
+                ? _value.createdAt
+                : createdAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CookingLogEntityImplCopyWith<$Res>
     implements $CookingLogEntityCopyWith<$Res> {
-  factory _$$CookingLogEntityImplCopyWith(_$CookingLogEntityImpl value,
-          $Res Function(_$CookingLogEntityImpl) then) =
-      __$$CookingLogEntityImplCopyWithImpl<$Res>;
+  factory _$$CookingLogEntityImplCopyWith(
+    _$CookingLogEntityImpl value,
+    $Res Function(_$CookingLogEntityImpl) then,
+  ) = __$$CookingLogEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String recipeVersionId,
-      String authorId,
-      String title,
-      String? memo,
-      String? imageUrl,
-      DateTime cookedAt,
-      DateTime createdAt});
+  $Res call({
+    String id,
+    String recipeVersionId,
+    String authorId,
+    String title,
+    String? memo,
+    String? imageUrl,
+    DateTime cookedAt,
+    DateTime createdAt,
+  });
 }
 
 /// @nodoc
 class __$$CookingLogEntityImplCopyWithImpl<$Res>
     extends _$CookingLogEntityCopyWithImpl<$Res, _$CookingLogEntityImpl>
     implements _$$CookingLogEntityImplCopyWith<$Res> {
-  __$$CookingLogEntityImplCopyWithImpl(_$CookingLogEntityImpl _value,
-      $Res Function(_$CookingLogEntityImpl) _then)
-      : super(_value, _then);
+  __$$CookingLogEntityImplCopyWithImpl(
+    _$CookingLogEntityImpl _value,
+    $Res Function(_$CookingLogEntityImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of CookingLogEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -151,55 +160,58 @@ class __$$CookingLogEntityImplCopyWithImpl<$Res>
     Object? cookedAt = null,
     Object? createdAt = null,
   }) {
-    return _then(_$CookingLogEntityImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      recipeVersionId: null == recipeVersionId
-          ? _value.recipeVersionId
-          : recipeVersionId // ignore: cast_nullable_to_non_nullable
-              as String,
-      authorId: null == authorId
-          ? _value.authorId
-          : authorId // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      memo: freezed == memo
-          ? _value.memo
-          : memo // ignore: cast_nullable_to_non_nullable
-              as String?,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      cookedAt: null == cookedAt
-          ? _value.cookedAt
-          : cookedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ));
+    return _then(
+      _$CookingLogEntityImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        recipeVersionId: null == recipeVersionId
+            ? _value.recipeVersionId
+            : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                  as String,
+        authorId: null == authorId
+            ? _value.authorId
+            : authorId // ignore: cast_nullable_to_non_nullable
+                  as String,
+        title: null == title
+            ? _value.title
+            : title // ignore: cast_nullable_to_non_nullable
+                  as String,
+        memo: freezed == memo
+            ? _value.memo
+            : memo // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        imageUrl: freezed == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        cookedAt: null == cookedAt
+            ? _value.cookedAt
+            : cookedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        createdAt: null == createdAt
+            ? _value.createdAt
+            : createdAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$CookingLogEntityImpl implements _CookingLogEntity {
-  const _$CookingLogEntityImpl(
-      {required this.id,
-      required this.recipeVersionId,
-      required this.authorId,
-      required this.title,
-      this.memo,
-      this.imageUrl,
-      required this.cookedAt,
-      required this.createdAt});
+  const _$CookingLogEntityImpl({
+    required this.id,
+    required this.recipeVersionId,
+    required this.authorId,
+    required this.title,
+    this.memo,
+    this.imageUrl,
+    required this.cookedAt,
+    required this.createdAt,
+  });
 
   @override
   final String id;
@@ -244,8 +256,17 @@ class _$CookingLogEntityImpl implements _CookingLogEntity {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, recipeVersionId, authorId,
-      title, memo, imageUrl, cookedAt, createdAt);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    recipeVersionId,
+    authorId,
+    title,
+    memo,
+    imageUrl,
+    cookedAt,
+    createdAt,
+  );
 
   /// Create a copy of CookingLogEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -254,19 +275,22 @@ class _$CookingLogEntityImpl implements _CookingLogEntity {
   @pragma('vm:prefer-inline')
   _$$CookingLogEntityImplCopyWith<_$CookingLogEntityImpl> get copyWith =>
       __$$CookingLogEntityImplCopyWithImpl<_$CookingLogEntityImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 }
 
 abstract class _CookingLogEntity implements CookingLogEntity {
-  const factory _CookingLogEntity(
-      {required final String id,
-      required final String recipeVersionId,
-      required final String authorId,
-      required final String title,
-      final String? memo,
-      final String? imageUrl,
-      required final DateTime cookedAt,
-      required final DateTime createdAt}) = _$CookingLogEntityImpl;
+  const factory _CookingLogEntity({
+    required final String id,
+    required final String recipeVersionId,
+    required final String authorId,
+    required final String title,
+    final String? memo,
+    final String? imageUrl,
+    required final DateTime cookedAt,
+    required final DateTime createdAt,
+  }) = _$CookingLogEntityImpl;
 
   @override
   String get id;

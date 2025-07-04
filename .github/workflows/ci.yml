@@ -21,20 +21,24 @@ jobs:
         channel: 'stable'
         
     - name: Create .env file
+      env:
+        ANDROID_BANNER_AD_ID: ${{ secrets.SAUCERER_ANDROID_BANNER_AD_ID }}
+        IOS_BANNER_AD_ID: ${{ secrets.SAUCERER_IOS_BANNER_AD_ID }}
+        GOOGLE_SHEETS_API_KEY: ${{ secrets.SAUCERER_GOOGLE_SHEETS_API_KEY }}
       run: |
         echo "# Saucerer Flutter 프로젝트 환경변수" > .env
         echo "# GitHub Actions에서 자동 생성됨" >> .env
         echo "" >> .env
         echo "# AdMob 광고 ID 설정" >> .env
-        echo "SAUCERER_ANDROID_BANNER_AD_ID=${{ secrets.SAUCERER_ANDROID_BANNER_AD_ID }}" >> .env
-        echo "SAUCERER_IOS_BANNER_AD_ID=${{ secrets.SAUCERER_IOS_BANNER_AD_ID }}" >> .env
+        echo "SAUCERER_ANDROID_BANNER_AD_ID=${ANDROID_BANNER_AD_ID}" >> .env
+        echo "SAUCERER_IOS_BANNER_AD_ID=${IOS_BANNER_AD_ID}" >> .env
         echo "" >> .env
         echo "# 테스트 광고 ID (Google에서 제공하는 공용 테스트 ID)" >> .env
         echo "SAUCERER_TEST_ANDROID_BANNER_AD_ID=ca-app-pub-3940256099942544/6300978111" >> .env
         echo "SAUCERER_TEST_IOS_BANNER_AD_ID=ca-app-pub-3940256099942544/2934735716" >> .env
         echo "" >> .env
         echo "# Google Sheets API 설정 (번역 관리용)" >> .env
-        echo "SAUCERER_GOOGLE_SHEETS_API_KEY=${{ secrets.SAUCERER_GOOGLE_SHEETS_API_KEY }}" >> .env
+        echo "SAUCERER_GOOGLE_SHEETS_API_KEY=${GOOGLE_SHEETS_API_KEY}" >> .env
         echo "" >> .env
         
     - name: Get dependencies

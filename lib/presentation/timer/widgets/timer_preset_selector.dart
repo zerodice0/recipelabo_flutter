@@ -57,54 +57,54 @@ class TimerPresetSelector extends StatelessWidget {
   void _showDeleteDialog(BuildContext context, TimerPresetEntity preset) {
     showDialog(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            title: Text(
-              AppLocalizations.of(context).deletePreset,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: AppColors.textBrown,
-              ),
-            ),
-            content: Text(
-              AppLocalizations.of(context).confirmDeletePreset(preset.name),
-              style: TextStyle(color: AppColors.textBrown),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                style: TextButton.styleFrom(
-                  foregroundColor: AppColors.textBrown.withValues(alpha: 0.7),
-                ),
-                child: Text(AppLocalizations.of(context).cancel),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  onPresetDeleted?.call(preset);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryOrange,
-                  foregroundColor: AppColors.warmWhite,
-                ),
-                child: Text(AppLocalizations.of(context).delete),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        title: Text(
+          AppLocalizations.of(context).timerPresetDelete,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.textBrown,
           ),
+        ),
+        content: Text(
+          AppLocalizations.of(context).timerPresetDeleteConfirm(preset.name),
+          style: TextStyle(color: AppColors.textBrown),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            style: TextButton.styleFrom(
+              foregroundColor: AppColors.textBrown.withValues(alpha: 0.7),
+            ),
+            child: Text(AppLocalizations.of(context).actionCancel),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              onPresetDeleted?.call(preset);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primaryOrange,
+              foregroundColor: AppColors.warmWhite,
+            ),
+            child: Text(AppLocalizations.of(context).actionDelete),
+          ),
+        ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     debugPrint('=== TIMER PRESET SELECTOR DEBUG ===');
     debugPrint('Presets count: ${presets.length}');
     for (int i = 0; i < presets.length; i++) {
-      debugPrint('Preset $i: ${presets[i].name} - ${presets[i].formattedDuration}');
+      debugPrint(
+          'Preset $i: ${presets[i].name} - ${presets[i].formattedDuration}');
     }
     debugPrint('=== TIMER PRESET SELECTOR DEBUG END ===');
 
@@ -118,7 +118,7 @@ class TimerPresetSelector extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                AppLocalizations.of(context).frequentlyUsedTimers,
+                AppLocalizations.of(context).timerFrequentlyUsed,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: AppColors.textBrown,
@@ -128,7 +128,7 @@ class TimerPresetSelector extends StatelessWidget {
                 TextButton.icon(
                   onPressed: onAddCustomTimer,
                   icon: const Icon(Icons.add, size: 18),
-                  label: Text(AppLocalizations.of(context).customTimer),
+                  label: Text(AppLocalizations.of(context).timerCustom),
                   style: TextButton.styleFrom(
                     foregroundColor: AppColors.primaryOrange,
                   ),
@@ -203,8 +203,8 @@ class TimerPresetSelector extends StatelessWidget {
                               // 커스텀 프리셋인 경우 삭제 버튼 표시
                               if (!preset.isDefault && onPresetDeleted != null)
                                 GestureDetector(
-                                  onTap:
-                                      () => _showDeleteDialog(context, preset),
+                                  onTap: () =>
+                                      _showDeleteDialog(context, preset),
                                   child: Container(
                                     padding: const EdgeInsets.all(4),
                                     child: Icon(
@@ -261,7 +261,9 @@ class TimerPresetSelector extends StatelessWidget {
                                 // 사용 횟수 (기본 프리셋이 아닌 경우)
                                 if (!preset.isDefault && preset.usageCount > 0)
                                   Text(
-                                    AppLocalizations.of(context).usedTimes(preset.usageCount),
+                                    AppLocalizations.of(context).unitUsedTimes(
+                                      preset.usageCount.toString(),
+                                    ),
                                     style: theme.textTheme.bodySmall?.copyWith(
                                       color: AppColors.textBrown.withValues(
                                         alpha: 0.6,

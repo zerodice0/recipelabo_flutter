@@ -12,7 +12,8 @@ part of 'step_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 StepModel _$StepModelFromJson(Map<String, dynamic> json) {
   return _StepModel.fromJson(json);
@@ -44,15 +45,16 @@ abstract class $StepModelCopyWith<$Res> {
   factory $StepModelCopyWith(StepModel value, $Res Function(StepModel) then) =
       _$StepModelCopyWithImpl<$Res, StepModel>;
   @useResult
-  $Res call(
-      {String id,
-      String? recipeVersionId,
-      int stepNumber,
-      String description,
-      String? imageUrl,
-      DateTime createdAt,
-      DateTime updatedAt,
-      bool isDeleted});
+  $Res call({
+    String id,
+    String? recipeVersionId,
+    int stepNumber,
+    String description,
+    String? imageUrl,
+    DateTime createdAt,
+    DateTime updatedAt,
+    bool isDeleted,
+  });
 }
 
 /// @nodoc
@@ -79,40 +81,43 @@ class _$StepModelCopyWithImpl<$Res, $Val extends StepModel>
     Object? updatedAt = null,
     Object? isDeleted = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      recipeVersionId: freezed == recipeVersionId
-          ? _value.recipeVersionId
-          : recipeVersionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      stepNumber: null == stepNumber
-          ? _value.stepNumber
-          : stepNumber // ignore: cast_nullable_to_non_nullable
-              as int,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      isDeleted: null == isDeleted
-          ? _value.isDeleted
-          : isDeleted // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            recipeVersionId: freezed == recipeVersionId
+                ? _value.recipeVersionId
+                : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            stepNumber: null == stepNumber
+                ? _value.stepNumber
+                : stepNumber // ignore: cast_nullable_to_non_nullable
+                      as int,
+            description: null == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String,
+            imageUrl: freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            createdAt: null == createdAt
+                ? _value.createdAt
+                : createdAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            updatedAt: null == updatedAt
+                ? _value.updatedAt
+                : updatedAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            isDeleted: null == isDeleted
+                ? _value.isDeleted
+                : isDeleted // ignore: cast_nullable_to_non_nullable
+                      as bool,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -120,19 +125,21 @@ class _$StepModelCopyWithImpl<$Res, $Val extends StepModel>
 abstract class _$$StepModelImplCopyWith<$Res>
     implements $StepModelCopyWith<$Res> {
   factory _$$StepModelImplCopyWith(
-          _$StepModelImpl value, $Res Function(_$StepModelImpl) then) =
-      __$$StepModelImplCopyWithImpl<$Res>;
+    _$StepModelImpl value,
+    $Res Function(_$StepModelImpl) then,
+  ) = __$$StepModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String? recipeVersionId,
-      int stepNumber,
-      String description,
-      String? imageUrl,
-      DateTime createdAt,
-      DateTime updatedAt,
-      bool isDeleted});
+  $Res call({
+    String id,
+    String? recipeVersionId,
+    int stepNumber,
+    String description,
+    String? imageUrl,
+    DateTime createdAt,
+    DateTime updatedAt,
+    bool isDeleted,
+  });
 }
 
 /// @nodoc
@@ -140,8 +147,9 @@ class __$$StepModelImplCopyWithImpl<$Res>
     extends _$StepModelCopyWithImpl<$Res, _$StepModelImpl>
     implements _$$StepModelImplCopyWith<$Res> {
   __$$StepModelImplCopyWithImpl(
-      _$StepModelImpl _value, $Res Function(_$StepModelImpl) _then)
-      : super(_value, _then);
+    _$StepModelImpl _value,
+    $Res Function(_$StepModelImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of StepModel
   /// with the given fields replaced by the non-null parameter values.
@@ -157,55 +165,58 @@ class __$$StepModelImplCopyWithImpl<$Res>
     Object? updatedAt = null,
     Object? isDeleted = null,
   }) {
-    return _then(_$StepModelImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      recipeVersionId: freezed == recipeVersionId
-          ? _value.recipeVersionId
-          : recipeVersionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      stepNumber: null == stepNumber
-          ? _value.stepNumber
-          : stepNumber // ignore: cast_nullable_to_non_nullable
-              as int,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      isDeleted: null == isDeleted
-          ? _value.isDeleted
-          : isDeleted // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
+    return _then(
+      _$StepModelImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        recipeVersionId: freezed == recipeVersionId
+            ? _value.recipeVersionId
+            : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        stepNumber: null == stepNumber
+            ? _value.stepNumber
+            : stepNumber // ignore: cast_nullable_to_non_nullable
+                  as int,
+        description: null == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String,
+        imageUrl: freezed == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        createdAt: null == createdAt
+            ? _value.createdAt
+            : createdAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        updatedAt: null == updatedAt
+            ? _value.updatedAt
+            : updatedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        isDeleted: null == isDeleted
+            ? _value.isDeleted
+            : isDeleted // ignore: cast_nullable_to_non_nullable
+                  as bool,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$StepModelImpl implements _StepModel {
-  const _$StepModelImpl(
-      {required this.id,
-      this.recipeVersionId,
-      required this.stepNumber,
-      required this.description,
-      this.imageUrl,
-      required this.createdAt,
-      required this.updatedAt,
-      this.isDeleted = false});
+  const _$StepModelImpl({
+    required this.id,
+    this.recipeVersionId,
+    required this.stepNumber,
+    required this.description,
+    this.imageUrl,
+    required this.createdAt,
+    required this.updatedAt,
+    this.isDeleted = false,
+  });
 
   factory _$StepModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$StepModelImplFromJson(json);
@@ -257,8 +268,17 @@ class _$StepModelImpl implements _StepModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, recipeVersionId, stepNumber,
-      description, imageUrl, createdAt, updatedAt, isDeleted);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    recipeVersionId,
+    stepNumber,
+    description,
+    imageUrl,
+    createdAt,
+    updatedAt,
+    isDeleted,
+  );
 
   /// Create a copy of StepModel
   /// with the given fields replaced by the non-null parameter values.
@@ -270,22 +290,21 @@ class _$StepModelImpl implements _StepModel {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$StepModelImplToJson(
-      this,
-    );
+    return _$$StepModelImplToJson(this);
   }
 }
 
 abstract class _StepModel implements StepModel {
-  const factory _StepModel(
-      {required final String id,
-      final String? recipeVersionId,
-      required final int stepNumber,
-      required final String description,
-      final String? imageUrl,
-      required final DateTime createdAt,
-      required final DateTime updatedAt,
-      final bool isDeleted}) = _$StepModelImpl;
+  const factory _StepModel({
+    required final String id,
+    final String? recipeVersionId,
+    required final int stepNumber,
+    required final String description,
+    final String? imageUrl,
+    required final DateTime createdAt,
+    required final DateTime updatedAt,
+    final bool isDeleted,
+  }) = _$StepModelImpl;
 
   factory _StepModel.fromJson(Map<String, dynamic> json) =
       _$StepModelImpl.fromJson;

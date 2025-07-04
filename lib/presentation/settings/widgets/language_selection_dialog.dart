@@ -12,12 +12,12 @@ class LanguageSelectionDialog extends ConsumerWidget {
     final localeNotifier = ref.read(localeNotifierProvider.notifier);
 
     return AlertDialog(
-      title: Text(AppLocalizations.of(context).languageSettings),
+      title: Text(AppLocalizations.of(context).settingsLanguage),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            AppLocalizations.of(context).selectLanguage,
+            AppLocalizations.of(context).settingsSelectLanguage,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 16),
@@ -33,7 +33,8 @@ class LanguageSelectionDialog extends ConsumerWidget {
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(AppLocalizations.of(context).languageChanged),
+                        content: Text(AppLocalizations.of(context)
+                            .settingsLanguageChanged),
                         duration: const Duration(seconds: 2),
                       ),
                     );
@@ -48,7 +49,7 @@ class LanguageSelectionDialog extends ConsumerWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context).cancel),
+          child: Text(AppLocalizations.of(context).actionCancel),
         ),
       ],
     );
@@ -58,13 +59,13 @@ class LanguageSelectionDialog extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     switch (locale) {
       case SupportedLocale.system:
-        return l10n.systemLanguage;
+        return l10n.settingsLanguageSystem;
       case SupportedLocale.korean:
-        return l10n.korean;
+        return l10n.settingsLanguageKorean;
       case SupportedLocale.english:
-        return l10n.english;
+        return l10n.settingsLanguageEnglish;
       case SupportedLocale.japanese:
-        return l10n.japanese;
+        return l10n.settingsLanguageJapanese;
     }
   }
 }

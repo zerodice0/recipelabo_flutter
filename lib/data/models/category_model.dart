@@ -34,7 +34,8 @@ class CategoryModel with _$CategoryModel {
       description: description,
       iconCode: iconCode,
       colorCode: colorCode,
-      type: type == 'predefined' ? CategoryType.predefined : CategoryType.custom,
+      type:
+          type == 'predefined' ? CategoryType.predefined : CategoryType.custom,
       createdAt: DateTime.parse(createdAt),
       updatedAt: DateTime.parse(updatedAt),
       usageCount: usageCount,

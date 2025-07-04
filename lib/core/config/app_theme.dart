@@ -61,7 +61,7 @@ class AppTheme {
       ),
 
       // Card 테마
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 2,
         shadowColor: AppColors.primaryOrange.withValues(alpha: 0.1),
         color: colorScheme.surface,
@@ -172,7 +172,7 @@ class AppTheme {
       ),
 
       // Dialog 테마
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: colorScheme.surface,
         surfaceTintColor: AppColors.accent.withValues(alpha: 0.05),
         elevation: 8,
@@ -278,7 +278,7 @@ class AppTheme {
         iconTheme: IconThemeData(color: colorScheme.onSurface, size: 24),
       ),
 
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 2,
         shadowColor: Colors.black.withValues(alpha: 0.3),
         color: colorScheme.surface,

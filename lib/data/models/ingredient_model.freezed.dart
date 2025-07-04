@@ -12,7 +12,8 @@ part of 'ingredient_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 IngredientModel _$IngredientModelFromJson(Map<String, dynamic> json) {
   return _IngredientModel.fromJson(json);
@@ -42,18 +43,20 @@ mixin _$IngredientModel {
 /// @nodoc
 abstract class $IngredientModelCopyWith<$Res> {
   factory $IngredientModelCopyWith(
-          IngredientModel value, $Res Function(IngredientModel) then) =
-      _$IngredientModelCopyWithImpl<$Res, IngredientModel>;
+    IngredientModel value,
+    $Res Function(IngredientModel) then,
+  ) = _$IngredientModelCopyWithImpl<$Res, IngredientModel>;
   @useResult
-  $Res call(
-      {String id,
-      String? recipeVersionId,
-      String name,
-      double quantity,
-      String unit,
-      DateTime createdAt,
-      DateTime updatedAt,
-      bool isDeleted});
+  $Res call({
+    String id,
+    String? recipeVersionId,
+    String name,
+    double quantity,
+    String unit,
+    DateTime createdAt,
+    DateTime updatedAt,
+    bool isDeleted,
+  });
 }
 
 /// @nodoc
@@ -80,60 +83,65 @@ class _$IngredientModelCopyWithImpl<$Res, $Val extends IngredientModel>
     Object? updatedAt = null,
     Object? isDeleted = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      recipeVersionId: freezed == recipeVersionId
-          ? _value.recipeVersionId
-          : recipeVersionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      quantity: null == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as double,
-      unit: null == unit
-          ? _value.unit
-          : unit // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      isDeleted: null == isDeleted
-          ? _value.isDeleted
-          : isDeleted // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            recipeVersionId: freezed == recipeVersionId
+                ? _value.recipeVersionId
+                : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            quantity: null == quantity
+                ? _value.quantity
+                : quantity // ignore: cast_nullable_to_non_nullable
+                      as double,
+            unit: null == unit
+                ? _value.unit
+                : unit // ignore: cast_nullable_to_non_nullable
+                      as String,
+            createdAt: null == createdAt
+                ? _value.createdAt
+                : createdAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            updatedAt: null == updatedAt
+                ? _value.updatedAt
+                : updatedAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            isDeleted: null == isDeleted
+                ? _value.isDeleted
+                : isDeleted // ignore: cast_nullable_to_non_nullable
+                      as bool,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$IngredientModelImplCopyWith<$Res>
     implements $IngredientModelCopyWith<$Res> {
-  factory _$$IngredientModelImplCopyWith(_$IngredientModelImpl value,
-          $Res Function(_$IngredientModelImpl) then) =
-      __$$IngredientModelImplCopyWithImpl<$Res>;
+  factory _$$IngredientModelImplCopyWith(
+    _$IngredientModelImpl value,
+    $Res Function(_$IngredientModelImpl) then,
+  ) = __$$IngredientModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String? recipeVersionId,
-      String name,
-      double quantity,
-      String unit,
-      DateTime createdAt,
-      DateTime updatedAt,
-      bool isDeleted});
+  $Res call({
+    String id,
+    String? recipeVersionId,
+    String name,
+    double quantity,
+    String unit,
+    DateTime createdAt,
+    DateTime updatedAt,
+    bool isDeleted,
+  });
 }
 
 /// @nodoc
@@ -141,8 +149,9 @@ class __$$IngredientModelImplCopyWithImpl<$Res>
     extends _$IngredientModelCopyWithImpl<$Res, _$IngredientModelImpl>
     implements _$$IngredientModelImplCopyWith<$Res> {
   __$$IngredientModelImplCopyWithImpl(
-      _$IngredientModelImpl _value, $Res Function(_$IngredientModelImpl) _then)
-      : super(_value, _then);
+    _$IngredientModelImpl _value,
+    $Res Function(_$IngredientModelImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of IngredientModel
   /// with the given fields replaced by the non-null parameter values.
@@ -158,55 +167,58 @@ class __$$IngredientModelImplCopyWithImpl<$Res>
     Object? updatedAt = null,
     Object? isDeleted = null,
   }) {
-    return _then(_$IngredientModelImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      recipeVersionId: freezed == recipeVersionId
-          ? _value.recipeVersionId
-          : recipeVersionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      quantity: null == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as double,
-      unit: null == unit
-          ? _value.unit
-          : unit // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      isDeleted: null == isDeleted
-          ? _value.isDeleted
-          : isDeleted // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
+    return _then(
+      _$IngredientModelImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        recipeVersionId: freezed == recipeVersionId
+            ? _value.recipeVersionId
+            : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        quantity: null == quantity
+            ? _value.quantity
+            : quantity // ignore: cast_nullable_to_non_nullable
+                  as double,
+        unit: null == unit
+            ? _value.unit
+            : unit // ignore: cast_nullable_to_non_nullable
+                  as String,
+        createdAt: null == createdAt
+            ? _value.createdAt
+            : createdAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        updatedAt: null == updatedAt
+            ? _value.updatedAt
+            : updatedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        isDeleted: null == isDeleted
+            ? _value.isDeleted
+            : isDeleted // ignore: cast_nullable_to_non_nullable
+                  as bool,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$IngredientModelImpl implements _IngredientModel {
-  const _$IngredientModelImpl(
-      {required this.id,
-      this.recipeVersionId,
-      required this.name,
-      required this.quantity,
-      required this.unit,
-      required this.createdAt,
-      required this.updatedAt,
-      this.isDeleted = false});
+  const _$IngredientModelImpl({
+    required this.id,
+    this.recipeVersionId,
+    required this.name,
+    required this.quantity,
+    required this.unit,
+    required this.createdAt,
+    required this.updatedAt,
+    this.isDeleted = false,
+  });
 
   factory _$IngredientModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$IngredientModelImplFromJson(json);
@@ -256,8 +268,17 @@ class _$IngredientModelImpl implements _IngredientModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, recipeVersionId, name,
-      quantity, unit, createdAt, updatedAt, isDeleted);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    recipeVersionId,
+    name,
+    quantity,
+    unit,
+    createdAt,
+    updatedAt,
+    isDeleted,
+  );
 
   /// Create a copy of IngredientModel
   /// with the given fields replaced by the non-null parameter values.
@@ -266,26 +287,27 @@ class _$IngredientModelImpl implements _IngredientModel {
   @pragma('vm:prefer-inline')
   _$$IngredientModelImplCopyWith<_$IngredientModelImpl> get copyWith =>
       __$$IngredientModelImplCopyWithImpl<_$IngredientModelImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$IngredientModelImplToJson(
-      this,
-    );
+    return _$$IngredientModelImplToJson(this);
   }
 }
 
 abstract class _IngredientModel implements IngredientModel {
-  const factory _IngredientModel(
-      {required final String id,
-      final String? recipeVersionId,
-      required final String name,
-      required final double quantity,
-      required final String unit,
-      required final DateTime createdAt,
-      required final DateTime updatedAt,
-      final bool isDeleted}) = _$IngredientModelImpl;
+  const factory _IngredientModel({
+    required final String id,
+    final String? recipeVersionId,
+    required final String name,
+    required final double quantity,
+    required final String unit,
+    required final DateTime createdAt,
+    required final DateTime updatedAt,
+    final bool isDeleted,
+  }) = _$IngredientModelImpl;
 
   factory _IngredientModel.fromJson(Map<String, dynamic> json) =
       _$IngredientModelImpl.fromJson;

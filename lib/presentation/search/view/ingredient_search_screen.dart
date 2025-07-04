@@ -36,13 +36,14 @@ class _IngredientSearchScreenState
       child: Scaffold(
         appBar: widget.showAppBar
             ? AppBar(
-                title: Text(AppLocalizations.of(context).searchByIngredients),
+                title: Text(
+                    AppLocalizations.of(context).ingredientSearchByIngredients),
                 actions: [
                   if (state.selectedIngredients.isNotEmpty)
                     IconButton(
                       icon: const Icon(Icons.clear_all),
                       onPressed: () => viewModel.resetSearch(),
-                      tooltip: AppLocalizations.of(context).resetSearch,
+                      tooltip: AppLocalizations.of(context).searchReset,
                     ),
                   PopupMenuButton<String>(
                     onSelected: (value) {
@@ -58,13 +59,13 @@ class _IngredientSearchScreenState
                     itemBuilder: (context) => [
                       PopupMenuItem(
                         value: 'show_popular',
-                        child: Text(AppLocalizations.of(context)
-                            .showPopularIngredients),
+                        child: Text(
+                            AppLocalizations.of(context).ingredientShowPopular),
                       ),
                       PopupMenuItem(
                         value: 'show_all',
                         child: Text(
-                            AppLocalizations.of(context).showAllIngredients),
+                            AppLocalizations.of(context).ingredientShowAll),
                       ),
                     ],
                   ),
@@ -90,7 +91,7 @@ class _IngredientSearchScreenState
       child: SearchBar(
         controller: _searchController,
         focusNode: _searchFocusNode,
-        hintText: AppLocalizations.of(context).searchIngredientsHint,
+        hintText: AppLocalizations.of(context).ingredientSearchHint,
         leading: const Icon(Icons.search),
         trailing: [
           if (_searchController.text.isNotEmpty)
@@ -131,7 +132,7 @@ class _IngredientSearchScreenState
               ),
               const SizedBox(height: 16),
               Text(
-                AppLocalizations.of(context).errorOccurred,
+                AppLocalizations.of(context).generalErrorOccurred,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 8),
@@ -143,7 +144,7 @@ class _IngredientSearchScreenState
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () => viewModel.resetSearch(),
-                child: Text(AppLocalizations.of(context).retry),
+                child: Text(AppLocalizations.of(context).actionRetry),
               ),
             ],
           ),
@@ -227,7 +228,7 @@ class _IngredientSearchScreenState
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  AppLocalizations.of(context).noRecipesFound,
+                  AppLocalizations.of(context).searchNoResults,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
@@ -240,8 +241,9 @@ class _IngredientSearchScreenState
           Column(
             children: [
               Text(
-                AppLocalizations.of(context)
-                    .recipesFound(state.filteredRecipes.length),
+                AppLocalizations.of(context).searchRecipesFound(
+                  state.filteredRecipes.length.toString(),
+                ),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.w500,
@@ -301,8 +303,8 @@ class _IngredientSearchScreenState
       children: [
         Text(
           state.searchQuery.isEmpty
-              ? AppLocalizations.of(context).popularIngredients
-              : AppLocalizations.of(context).searchResultsIngredients,
+              ? AppLocalizations.of(context).ingredientPopular
+              : AppLocalizations.of(context).ingredientSearchResults,
           style: Theme.of(
             context,
           ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),

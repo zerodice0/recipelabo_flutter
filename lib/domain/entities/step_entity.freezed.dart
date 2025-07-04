@@ -12,7 +12,8 @@ part of 'step_entity.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$StepEntity {
@@ -35,18 +36,20 @@ mixin _$StepEntity {
 /// @nodoc
 abstract class $StepEntityCopyWith<$Res> {
   factory $StepEntityCopyWith(
-          StepEntity value, $Res Function(StepEntity) then) =
-      _$StepEntityCopyWithImpl<$Res, StepEntity>;
+    StepEntity value,
+    $Res Function(StepEntity) then,
+  ) = _$StepEntityCopyWithImpl<$Res, StepEntity>;
   @useResult
-  $Res call(
-      {String id,
-      String? recipeVersionId,
-      int stepNumber,
-      String description,
-      String? imageUrl,
-      int? timerMinutes,
-      int? timerSeconds,
-      String? timerName});
+  $Res call({
+    String id,
+    String? recipeVersionId,
+    int stepNumber,
+    String description,
+    String? imageUrl,
+    int? timerMinutes,
+    int? timerSeconds,
+    String? timerName,
+  });
 }
 
 /// @nodoc
@@ -73,40 +76,43 @@ class _$StepEntityCopyWithImpl<$Res, $Val extends StepEntity>
     Object? timerSeconds = freezed,
     Object? timerName = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      recipeVersionId: freezed == recipeVersionId
-          ? _value.recipeVersionId
-          : recipeVersionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      stepNumber: null == stepNumber
-          ? _value.stepNumber
-          : stepNumber // ignore: cast_nullable_to_non_nullable
-              as int,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      timerMinutes: freezed == timerMinutes
-          ? _value.timerMinutes
-          : timerMinutes // ignore: cast_nullable_to_non_nullable
-              as int?,
-      timerSeconds: freezed == timerSeconds
-          ? _value.timerSeconds
-          : timerSeconds // ignore: cast_nullable_to_non_nullable
-              as int?,
-      timerName: freezed == timerName
-          ? _value.timerName
-          : timerName // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            recipeVersionId: freezed == recipeVersionId
+                ? _value.recipeVersionId
+                : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            stepNumber: null == stepNumber
+                ? _value.stepNumber
+                : stepNumber // ignore: cast_nullable_to_non_nullable
+                      as int,
+            description: null == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String,
+            imageUrl: freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            timerMinutes: freezed == timerMinutes
+                ? _value.timerMinutes
+                : timerMinutes // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            timerSeconds: freezed == timerSeconds
+                ? _value.timerSeconds
+                : timerSeconds // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            timerName: freezed == timerName
+                ? _value.timerName
+                : timerName // ignore: cast_nullable_to_non_nullable
+                      as String?,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -114,19 +120,21 @@ class _$StepEntityCopyWithImpl<$Res, $Val extends StepEntity>
 abstract class _$$StepEntityImplCopyWith<$Res>
     implements $StepEntityCopyWith<$Res> {
   factory _$$StepEntityImplCopyWith(
-          _$StepEntityImpl value, $Res Function(_$StepEntityImpl) then) =
-      __$$StepEntityImplCopyWithImpl<$Res>;
+    _$StepEntityImpl value,
+    $Res Function(_$StepEntityImpl) then,
+  ) = __$$StepEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String? recipeVersionId,
-      int stepNumber,
-      String description,
-      String? imageUrl,
-      int? timerMinutes,
-      int? timerSeconds,
-      String? timerName});
+  $Res call({
+    String id,
+    String? recipeVersionId,
+    int stepNumber,
+    String description,
+    String? imageUrl,
+    int? timerMinutes,
+    int? timerSeconds,
+    String? timerName,
+  });
 }
 
 /// @nodoc
@@ -134,8 +142,9 @@ class __$$StepEntityImplCopyWithImpl<$Res>
     extends _$StepEntityCopyWithImpl<$Res, _$StepEntityImpl>
     implements _$$StepEntityImplCopyWith<$Res> {
   __$$StepEntityImplCopyWithImpl(
-      _$StepEntityImpl _value, $Res Function(_$StepEntityImpl) _then)
-      : super(_value, _then);
+    _$StepEntityImpl _value,
+    $Res Function(_$StepEntityImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of StepEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -151,55 +160,58 @@ class __$$StepEntityImplCopyWithImpl<$Res>
     Object? timerSeconds = freezed,
     Object? timerName = freezed,
   }) {
-    return _then(_$StepEntityImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      recipeVersionId: freezed == recipeVersionId
-          ? _value.recipeVersionId
-          : recipeVersionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      stepNumber: null == stepNumber
-          ? _value.stepNumber
-          : stepNumber // ignore: cast_nullable_to_non_nullable
-              as int,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
-      timerMinutes: freezed == timerMinutes
-          ? _value.timerMinutes
-          : timerMinutes // ignore: cast_nullable_to_non_nullable
-              as int?,
-      timerSeconds: freezed == timerSeconds
-          ? _value.timerSeconds
-          : timerSeconds // ignore: cast_nullable_to_non_nullable
-              as int?,
-      timerName: freezed == timerName
-          ? _value.timerName
-          : timerName // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+    return _then(
+      _$StepEntityImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        recipeVersionId: freezed == recipeVersionId
+            ? _value.recipeVersionId
+            : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        stepNumber: null == stepNumber
+            ? _value.stepNumber
+            : stepNumber // ignore: cast_nullable_to_non_nullable
+                  as int,
+        description: null == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String,
+        imageUrl: freezed == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        timerMinutes: freezed == timerMinutes
+            ? _value.timerMinutes
+            : timerMinutes // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        timerSeconds: freezed == timerSeconds
+            ? _value.timerSeconds
+            : timerSeconds // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        timerName: freezed == timerName
+            ? _value.timerName
+            : timerName // ignore: cast_nullable_to_non_nullable
+                  as String?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$StepEntityImpl implements _StepEntity {
-  const _$StepEntityImpl(
-      {required this.id,
-      this.recipeVersionId,
-      required this.stepNumber,
-      required this.description,
-      this.imageUrl,
-      this.timerMinutes,
-      this.timerSeconds,
-      this.timerName});
+  const _$StepEntityImpl({
+    required this.id,
+    this.recipeVersionId,
+    required this.stepNumber,
+    required this.description,
+    this.imageUrl,
+    this.timerMinutes,
+    this.timerSeconds,
+    this.timerName,
+  });
 
   @override
   final String id;
@@ -213,10 +225,10 @@ class _$StepEntityImpl implements _StepEntity {
   final String? imageUrl;
   @override
   final int? timerMinutes;
-// 타이머 시간 (분)
+  // 타이머 시간 (분)
   @override
   final int? timerSeconds;
-// 타이머 시간 (초)
+  // 타이머 시간 (초)
   @override
   final String? timerName;
 
@@ -248,8 +260,17 @@ class _$StepEntityImpl implements _StepEntity {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, recipeVersionId, stepNumber,
-      description, imageUrl, timerMinutes, timerSeconds, timerName);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    recipeVersionId,
+    stepNumber,
+    description,
+    imageUrl,
+    timerMinutes,
+    timerSeconds,
+    timerName,
+  );
 
   /// Create a copy of StepEntity
   /// with the given fields replaced by the non-null parameter values.
@@ -261,15 +282,16 @@ class _$StepEntityImpl implements _StepEntity {
 }
 
 abstract class _StepEntity implements StepEntity {
-  const factory _StepEntity(
-      {required final String id,
-      final String? recipeVersionId,
-      required final int stepNumber,
-      required final String description,
-      final String? imageUrl,
-      final int? timerMinutes,
-      final int? timerSeconds,
-      final String? timerName}) = _$StepEntityImpl;
+  const factory _StepEntity({
+    required final String id,
+    final String? recipeVersionId,
+    required final int stepNumber,
+    required final String description,
+    final String? imageUrl,
+    final int? timerMinutes,
+    final int? timerSeconds,
+    final String? timerName,
+  }) = _$StepEntityImpl;
 
   @override
   String get id;

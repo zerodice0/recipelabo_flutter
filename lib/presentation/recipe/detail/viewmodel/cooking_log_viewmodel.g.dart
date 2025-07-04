@@ -41,21 +41,15 @@ class CookingLogViewModelFamily
   const CookingLogViewModelFamily();
 
   /// See also [cookingLogViewModel].
-  CookingLogViewModelProvider call(
-    String recipeVersionId,
-  ) {
-    return CookingLogViewModelProvider(
-      recipeVersionId,
-    );
+  CookingLogViewModelProvider call(String recipeVersionId) {
+    return CookingLogViewModelProvider(recipeVersionId);
   }
 
   @override
   CookingLogViewModelProvider getProviderOverride(
     covariant CookingLogViewModelProvider provider,
   ) {
-    return call(
-      provider.recipeVersionId,
-    );
+    return call(provider.recipeVersionId);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -77,24 +71,20 @@ class CookingLogViewModelFamily
 class CookingLogViewModelProvider
     extends AutoDisposeFutureProvider<List<CookingLogEntity>> {
   /// See also [cookingLogViewModel].
-  CookingLogViewModelProvider(
-    String recipeVersionId,
-  ) : this._internal(
-          (ref) => cookingLogViewModel(
-            ref as CookingLogViewModelRef,
-            recipeVersionId,
-          ),
-          from: cookingLogViewModelProvider,
-          name: r'cookingLogViewModelProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$cookingLogViewModelHash,
-          dependencies: CookingLogViewModelFamily._dependencies,
-          allTransitiveDependencies:
-              CookingLogViewModelFamily._allTransitiveDependencies,
-          recipeVersionId: recipeVersionId,
-        );
+  CookingLogViewModelProvider(String recipeVersionId)
+    : this._internal(
+        (ref) =>
+            cookingLogViewModel(ref as CookingLogViewModelRef, recipeVersionId),
+        from: cookingLogViewModelProvider,
+        name: r'cookingLogViewModelProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$cookingLogViewModelHash,
+        dependencies: CookingLogViewModelFamily._dependencies,
+        allTransitiveDependencies:
+            CookingLogViewModelFamily._allTransitiveDependencies,
+        recipeVersionId: recipeVersionId,
+      );
 
   CookingLogViewModelProvider._internal(
     super._createNotifier, {
@@ -111,7 +101,7 @@ class CookingLogViewModelProvider
   @override
   Override overrideWith(
     FutureOr<List<CookingLogEntity>> Function(CookingLogViewModelRef provider)
-        create,
+    create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -164,5 +154,6 @@ class _CookingLogViewModelProviderElement
   String get recipeVersionId =>
       (origin as CookingLogViewModelProvider).recipeVersionId;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

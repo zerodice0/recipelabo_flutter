@@ -12,7 +12,8 @@ part of 'recipe_edit_viewmodel.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$RecipeEditState {
@@ -46,27 +47,29 @@ mixin _$RecipeEditState {
 /// @nodoc
 abstract class $RecipeEditStateCopyWith<$Res> {
   factory $RecipeEditStateCopyWith(
-          RecipeEditState value, $Res Function(RecipeEditState) then) =
-      _$RecipeEditStateCopyWithImpl<$Res, RecipeEditState>;
+    RecipeEditState value,
+    $Res Function(RecipeEditState) then,
+  ) = _$RecipeEditStateCopyWithImpl<$Res, RecipeEditState>;
   @useResult
-  $Res call(
-      {String name,
-      String description,
-      List<IngredientEntity> ingredients,
-      List<StepEntity> steps,
-      AsyncValue<void> saveState,
-      bool isLoading,
-      bool isEditMode,
-      String? recipeId,
-      String? recipeVersionId,
-      String? initialVersionId,
-      String? error,
-      bool showSaveOptions,
-      bool createNewVersion,
-      String changeLog,
-      String versionName,
-      RecipeEntity? originalRecipe,
-      List<RecipeVersionEntity>? allVersions});
+  $Res call({
+    String name,
+    String description,
+    List<IngredientEntity> ingredients,
+    List<StepEntity> steps,
+    AsyncValue<void> saveState,
+    bool isLoading,
+    bool isEditMode,
+    String? recipeId,
+    String? recipeVersionId,
+    String? initialVersionId,
+    String? error,
+    bool showSaveOptions,
+    bool createNewVersion,
+    String changeLog,
+    String versionName,
+    RecipeEntity? originalRecipe,
+    List<RecipeVersionEntity>? allVersions,
+  });
 
   $RecipeEntityCopyWith<$Res>? get originalRecipe;
 }
@@ -104,76 +107,79 @@ class _$RecipeEditStateCopyWithImpl<$Res, $Val extends RecipeEditState>
     Object? originalRecipe = freezed,
     Object? allVersions = freezed,
   }) {
-    return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      ingredients: null == ingredients
-          ? _value.ingredients
-          : ingredients // ignore: cast_nullable_to_non_nullable
-              as List<IngredientEntity>,
-      steps: null == steps
-          ? _value.steps
-          : steps // ignore: cast_nullable_to_non_nullable
-              as List<StepEntity>,
-      saveState: null == saveState
-          ? _value.saveState
-          : saveState // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<void>,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isEditMode: null == isEditMode
-          ? _value.isEditMode
-          : isEditMode // ignore: cast_nullable_to_non_nullable
-              as bool,
-      recipeId: freezed == recipeId
-          ? _value.recipeId
-          : recipeId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      recipeVersionId: freezed == recipeVersionId
-          ? _value.recipeVersionId
-          : recipeVersionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      initialVersionId: freezed == initialVersionId
-          ? _value.initialVersionId
-          : initialVersionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String?,
-      showSaveOptions: null == showSaveOptions
-          ? _value.showSaveOptions
-          : showSaveOptions // ignore: cast_nullable_to_non_nullable
-              as bool,
-      createNewVersion: null == createNewVersion
-          ? _value.createNewVersion
-          : createNewVersion // ignore: cast_nullable_to_non_nullable
-              as bool,
-      changeLog: null == changeLog
-          ? _value.changeLog
-          : changeLog // ignore: cast_nullable_to_non_nullable
-              as String,
-      versionName: null == versionName
-          ? _value.versionName
-          : versionName // ignore: cast_nullable_to_non_nullable
-              as String,
-      originalRecipe: freezed == originalRecipe
-          ? _value.originalRecipe
-          : originalRecipe // ignore: cast_nullable_to_non_nullable
-              as RecipeEntity?,
-      allVersions: freezed == allVersions
-          ? _value.allVersions
-          : allVersions // ignore: cast_nullable_to_non_nullable
-              as List<RecipeVersionEntity>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            description: null == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String,
+            ingredients: null == ingredients
+                ? _value.ingredients
+                : ingredients // ignore: cast_nullable_to_non_nullable
+                      as List<IngredientEntity>,
+            steps: null == steps
+                ? _value.steps
+                : steps // ignore: cast_nullable_to_non_nullable
+                      as List<StepEntity>,
+            saveState: null == saveState
+                ? _value.saveState
+                : saveState // ignore: cast_nullable_to_non_nullable
+                      as AsyncValue<void>,
+            isLoading: null == isLoading
+                ? _value.isLoading
+                : isLoading // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            isEditMode: null == isEditMode
+                ? _value.isEditMode
+                : isEditMode // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            recipeId: freezed == recipeId
+                ? _value.recipeId
+                : recipeId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            recipeVersionId: freezed == recipeVersionId
+                ? _value.recipeVersionId
+                : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            initialVersionId: freezed == initialVersionId
+                ? _value.initialVersionId
+                : initialVersionId // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            error: freezed == error
+                ? _value.error
+                : error // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            showSaveOptions: null == showSaveOptions
+                ? _value.showSaveOptions
+                : showSaveOptions // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            createNewVersion: null == createNewVersion
+                ? _value.createNewVersion
+                : createNewVersion // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            changeLog: null == changeLog
+                ? _value.changeLog
+                : changeLog // ignore: cast_nullable_to_non_nullable
+                      as String,
+            versionName: null == versionName
+                ? _value.versionName
+                : versionName // ignore: cast_nullable_to_non_nullable
+                      as String,
+            originalRecipe: freezed == originalRecipe
+                ? _value.originalRecipe
+                : originalRecipe // ignore: cast_nullable_to_non_nullable
+                      as RecipeEntity?,
+            allVersions: freezed == allVersions
+                ? _value.allVersions
+                : allVersions // ignore: cast_nullable_to_non_nullable
+                      as List<RecipeVersionEntity>?,
+          )
+          as $Val,
+    );
   }
 
   /// Create a copy of RecipeEditState
@@ -194,29 +200,31 @@ class _$RecipeEditStateCopyWithImpl<$Res, $Val extends RecipeEditState>
 /// @nodoc
 abstract class _$$RecipeEditStateImplCopyWith<$Res>
     implements $RecipeEditStateCopyWith<$Res> {
-  factory _$$RecipeEditStateImplCopyWith(_$RecipeEditStateImpl value,
-          $Res Function(_$RecipeEditStateImpl) then) =
-      __$$RecipeEditStateImplCopyWithImpl<$Res>;
+  factory _$$RecipeEditStateImplCopyWith(
+    _$RecipeEditStateImpl value,
+    $Res Function(_$RecipeEditStateImpl) then,
+  ) = __$$RecipeEditStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String name,
-      String description,
-      List<IngredientEntity> ingredients,
-      List<StepEntity> steps,
-      AsyncValue<void> saveState,
-      bool isLoading,
-      bool isEditMode,
-      String? recipeId,
-      String? recipeVersionId,
-      String? initialVersionId,
-      String? error,
-      bool showSaveOptions,
-      bool createNewVersion,
-      String changeLog,
-      String versionName,
-      RecipeEntity? originalRecipe,
-      List<RecipeVersionEntity>? allVersions});
+  $Res call({
+    String name,
+    String description,
+    List<IngredientEntity> ingredients,
+    List<StepEntity> steps,
+    AsyncValue<void> saveState,
+    bool isLoading,
+    bool isEditMode,
+    String? recipeId,
+    String? recipeVersionId,
+    String? initialVersionId,
+    String? error,
+    bool showSaveOptions,
+    bool createNewVersion,
+    String changeLog,
+    String versionName,
+    RecipeEntity? originalRecipe,
+    List<RecipeVersionEntity>? allVersions,
+  });
 
   @override
   $RecipeEntityCopyWith<$Res>? get originalRecipe;
@@ -227,8 +235,9 @@ class __$$RecipeEditStateImplCopyWithImpl<$Res>
     extends _$RecipeEditStateCopyWithImpl<$Res, _$RecipeEditStateImpl>
     implements _$$RecipeEditStateImplCopyWith<$Res> {
   __$$RecipeEditStateImplCopyWithImpl(
-      _$RecipeEditStateImpl _value, $Res Function(_$RecipeEditStateImpl) _then)
-      : super(_value, _then);
+    _$RecipeEditStateImpl _value,
+    $Res Function(_$RecipeEditStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of RecipeEditState
   /// with the given fields replaced by the non-null parameter values.
@@ -253,76 +262,78 @@ class __$$RecipeEditStateImplCopyWithImpl<$Res>
     Object? originalRecipe = freezed,
     Object? allVersions = freezed,
   }) {
-    return _then(_$RecipeEditStateImpl(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      ingredients: null == ingredients
-          ? _value._ingredients
-          : ingredients // ignore: cast_nullable_to_non_nullable
-              as List<IngredientEntity>,
-      steps: null == steps
-          ? _value._steps
-          : steps // ignore: cast_nullable_to_non_nullable
-              as List<StepEntity>,
-      saveState: null == saveState
-          ? _value.saveState
-          : saveState // ignore: cast_nullable_to_non_nullable
-              as AsyncValue<void>,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isEditMode: null == isEditMode
-          ? _value.isEditMode
-          : isEditMode // ignore: cast_nullable_to_non_nullable
-              as bool,
-      recipeId: freezed == recipeId
-          ? _value.recipeId
-          : recipeId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      recipeVersionId: freezed == recipeVersionId
-          ? _value.recipeVersionId
-          : recipeVersionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      initialVersionId: freezed == initialVersionId
-          ? _value.initialVersionId
-          : initialVersionId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String?,
-      showSaveOptions: null == showSaveOptions
-          ? _value.showSaveOptions
-          : showSaveOptions // ignore: cast_nullable_to_non_nullable
-              as bool,
-      createNewVersion: null == createNewVersion
-          ? _value.createNewVersion
-          : createNewVersion // ignore: cast_nullable_to_non_nullable
-              as bool,
-      changeLog: null == changeLog
-          ? _value.changeLog
-          : changeLog // ignore: cast_nullable_to_non_nullable
-              as String,
-      versionName: null == versionName
-          ? _value.versionName
-          : versionName // ignore: cast_nullable_to_non_nullable
-              as String,
-      originalRecipe: freezed == originalRecipe
-          ? _value.originalRecipe
-          : originalRecipe // ignore: cast_nullable_to_non_nullable
-              as RecipeEntity?,
-      allVersions: freezed == allVersions
-          ? _value._allVersions
-          : allVersions // ignore: cast_nullable_to_non_nullable
-              as List<RecipeVersionEntity>?,
-    ));
+    return _then(
+      _$RecipeEditStateImpl(
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        description: null == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String,
+        ingredients: null == ingredients
+            ? _value._ingredients
+            : ingredients // ignore: cast_nullable_to_non_nullable
+                  as List<IngredientEntity>,
+        steps: null == steps
+            ? _value._steps
+            : steps // ignore: cast_nullable_to_non_nullable
+                  as List<StepEntity>,
+        saveState: null == saveState
+            ? _value.saveState
+            : saveState // ignore: cast_nullable_to_non_nullable
+                  as AsyncValue<void>,
+        isLoading: null == isLoading
+            ? _value.isLoading
+            : isLoading // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        isEditMode: null == isEditMode
+            ? _value.isEditMode
+            : isEditMode // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        recipeId: freezed == recipeId
+            ? _value.recipeId
+            : recipeId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        recipeVersionId: freezed == recipeVersionId
+            ? _value.recipeVersionId
+            : recipeVersionId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        initialVersionId: freezed == initialVersionId
+            ? _value.initialVersionId
+            : initialVersionId // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        error: freezed == error
+            ? _value.error
+            : error // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        showSaveOptions: null == showSaveOptions
+            ? _value.showSaveOptions
+            : showSaveOptions // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        createNewVersion: null == createNewVersion
+            ? _value.createNewVersion
+            : createNewVersion // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        changeLog: null == changeLog
+            ? _value.changeLog
+            : changeLog // ignore: cast_nullable_to_non_nullable
+                  as String,
+        versionName: null == versionName
+            ? _value.versionName
+            : versionName // ignore: cast_nullable_to_non_nullable
+                  as String,
+        originalRecipe: freezed == originalRecipe
+            ? _value.originalRecipe
+            : originalRecipe // ignore: cast_nullable_to_non_nullable
+                  as RecipeEntity?,
+        allVersions: freezed == allVersions
+            ? _value._allVersions
+            : allVersions // ignore: cast_nullable_to_non_nullable
+                  as List<RecipeVersionEntity>?,
+      ),
+    );
   }
 }
 
@@ -331,27 +342,27 @@ class __$$RecipeEditStateImplCopyWithImpl<$Res>
 class _$RecipeEditStateImpl
     with DiagnosticableTreeMixin
     implements _RecipeEditState {
-  const _$RecipeEditStateImpl(
-      {this.name = '',
-      this.description = '',
-      final List<IngredientEntity> ingredients = const [],
-      final List<StepEntity> steps = const [],
-      this.saveState = const AsyncValue.data(null),
-      this.isLoading = false,
-      this.isEditMode = false,
-      this.recipeId,
-      this.recipeVersionId,
-      this.initialVersionId,
-      this.error,
-      this.showSaveOptions = false,
-      this.createNewVersion = true,
-      this.changeLog = '',
-      this.versionName = '',
-      this.originalRecipe,
-      final List<RecipeVersionEntity>? allVersions})
-      : _ingredients = ingredients,
-        _steps = steps,
-        _allVersions = allVersions;
+  const _$RecipeEditStateImpl({
+    this.name = '',
+    this.description = '',
+    final List<IngredientEntity> ingredients = const [],
+    final List<StepEntity> steps = const [],
+    this.saveState = const AsyncValue.data(null),
+    this.isLoading = false,
+    this.isEditMode = false,
+    this.recipeId,
+    this.recipeVersionId,
+    this.initialVersionId,
+    this.error,
+    this.showSaveOptions = false,
+    this.createNewVersion = true,
+    this.changeLog = '',
+    this.versionName = '',
+    this.originalRecipe,
+    final List<RecipeVersionEntity>? allVersions,
+  }) : _ingredients = ingredients,
+       _steps = steps,
+       _allVersions = allVersions;
 
   @override
   @JsonKey()
@@ -392,7 +403,7 @@ class _$RecipeEditStateImpl
   final String? recipeVersionId;
   @override
   final String? initialVersionId;
-// 편집할 특정 버전 ID
+  // 편집할 특정 버전 ID
   @override
   final String? error;
   @override
@@ -407,7 +418,7 @@ class _$RecipeEditStateImpl
   @override
   @JsonKey()
   final String versionName;
-// 사용자 정의 버전명
+  // 사용자 정의 버전명
   @override
   final RecipeEntity? originalRecipe;
   final List<RecipeVersionEntity>? _allVersions;
@@ -457,8 +468,10 @@ class _$RecipeEditStateImpl
             (identical(other.name, name) || other.name == name) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            const DeepCollectionEquality()
-                .equals(other._ingredients, _ingredients) &&
+            const DeepCollectionEquality().equals(
+              other._ingredients,
+              _ingredients,
+            ) &&
             const DeepCollectionEquality().equals(other._steps, _steps) &&
             (identical(other.saveState, saveState) ||
                 other.saveState == saveState) &&
@@ -483,30 +496,33 @@ class _$RecipeEditStateImpl
                 other.versionName == versionName) &&
             (identical(other.originalRecipe, originalRecipe) ||
                 other.originalRecipe == originalRecipe) &&
-            const DeepCollectionEquality()
-                .equals(other._allVersions, _allVersions));
+            const DeepCollectionEquality().equals(
+              other._allVersions,
+              _allVersions,
+            ));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      name,
-      description,
-      const DeepCollectionEquality().hash(_ingredients),
-      const DeepCollectionEquality().hash(_steps),
-      saveState,
-      isLoading,
-      isEditMode,
-      recipeId,
-      recipeVersionId,
-      initialVersionId,
-      error,
-      showSaveOptions,
-      createNewVersion,
-      changeLog,
-      versionName,
-      originalRecipe,
-      const DeepCollectionEquality().hash(_allVersions));
+    runtimeType,
+    name,
+    description,
+    const DeepCollectionEquality().hash(_ingredients),
+    const DeepCollectionEquality().hash(_steps),
+    saveState,
+    isLoading,
+    isEditMode,
+    recipeId,
+    recipeVersionId,
+    initialVersionId,
+    error,
+    showSaveOptions,
+    createNewVersion,
+    changeLog,
+    versionName,
+    originalRecipe,
+    const DeepCollectionEquality().hash(_allVersions),
+  );
 
   /// Create a copy of RecipeEditState
   /// with the given fields replaced by the non-null parameter values.
@@ -515,28 +531,31 @@ class _$RecipeEditStateImpl
   @pragma('vm:prefer-inline')
   _$$RecipeEditStateImplCopyWith<_$RecipeEditStateImpl> get copyWith =>
       __$$RecipeEditStateImplCopyWithImpl<_$RecipeEditStateImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 }
 
 abstract class _RecipeEditState implements RecipeEditState {
-  const factory _RecipeEditState(
-      {final String name,
-      final String description,
-      final List<IngredientEntity> ingredients,
-      final List<StepEntity> steps,
-      final AsyncValue<void> saveState,
-      final bool isLoading,
-      final bool isEditMode,
-      final String? recipeId,
-      final String? recipeVersionId,
-      final String? initialVersionId,
-      final String? error,
-      final bool showSaveOptions,
-      final bool createNewVersion,
-      final String changeLog,
-      final String versionName,
-      final RecipeEntity? originalRecipe,
-      final List<RecipeVersionEntity>? allVersions}) = _$RecipeEditStateImpl;
+  const factory _RecipeEditState({
+    final String name,
+    final String description,
+    final List<IngredientEntity> ingredients,
+    final List<StepEntity> steps,
+    final AsyncValue<void> saveState,
+    final bool isLoading,
+    final bool isEditMode,
+    final String? recipeId,
+    final String? recipeVersionId,
+    final String? initialVersionId,
+    final String? error,
+    final bool showSaveOptions,
+    final bool createNewVersion,
+    final String changeLog,
+    final String versionName,
+    final RecipeEntity? originalRecipe,
+    final List<RecipeVersionEntity>? allVersions,
+  }) = _$RecipeEditStateImpl;
 
   @override
   String get name;

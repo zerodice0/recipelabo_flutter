@@ -12,7 +12,8 @@ part of 'ingredient_search_viewmodel.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$IngredientSearchState {
@@ -33,23 +34,27 @@ mixin _$IngredientSearchState {
 
 /// @nodoc
 abstract class $IngredientSearchStateCopyWith<$Res> {
-  factory $IngredientSearchStateCopyWith(IngredientSearchState value,
-          $Res Function(IngredientSearchState) then) =
-      _$IngredientSearchStateCopyWithImpl<$Res, IngredientSearchState>;
+  factory $IngredientSearchStateCopyWith(
+    IngredientSearchState value,
+    $Res Function(IngredientSearchState) then,
+  ) = _$IngredientSearchStateCopyWithImpl<$Res, IngredientSearchState>;
   @useResult
-  $Res call(
-      {List<String> availableIngredients,
-      List<String> selectedIngredients,
-      List<RecipeEntity> filteredRecipes,
-      String searchQuery,
-      bool isLoading,
-      bool isSearchingRecipes,
-      String? error});
+  $Res call({
+    List<String> availableIngredients,
+    List<String> selectedIngredients,
+    List<RecipeEntity> filteredRecipes,
+    String searchQuery,
+    bool isLoading,
+    bool isSearchingRecipes,
+    String? error,
+  });
 }
 
 /// @nodoc
-class _$IngredientSearchStateCopyWithImpl<$Res,
-        $Val extends IngredientSearchState>
+class _$IngredientSearchStateCopyWithImpl<
+  $Res,
+  $Val extends IngredientSearchState
+>
     implements $IngredientSearchStateCopyWith<$Res> {
   _$IngredientSearchStateCopyWithImpl(this._value, this._then);
 
@@ -71,36 +76,39 @@ class _$IngredientSearchStateCopyWithImpl<$Res,
     Object? isSearchingRecipes = null,
     Object? error = freezed,
   }) {
-    return _then(_value.copyWith(
-      availableIngredients: null == availableIngredients
-          ? _value.availableIngredients
-          : availableIngredients // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      selectedIngredients: null == selectedIngredients
-          ? _value.selectedIngredients
-          : selectedIngredients // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      filteredRecipes: null == filteredRecipes
-          ? _value.filteredRecipes
-          : filteredRecipes // ignore: cast_nullable_to_non_nullable
-              as List<RecipeEntity>,
-      searchQuery: null == searchQuery
-          ? _value.searchQuery
-          : searchQuery // ignore: cast_nullable_to_non_nullable
-              as String,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isSearchingRecipes: null == isSearchingRecipes
-          ? _value.isSearchingRecipes
-          : isSearchingRecipes // ignore: cast_nullable_to_non_nullable
-              as bool,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            availableIngredients: null == availableIngredients
+                ? _value.availableIngredients
+                : availableIngredients // ignore: cast_nullable_to_non_nullable
+                      as List<String>,
+            selectedIngredients: null == selectedIngredients
+                ? _value.selectedIngredients
+                : selectedIngredients // ignore: cast_nullable_to_non_nullable
+                      as List<String>,
+            filteredRecipes: null == filteredRecipes
+                ? _value.filteredRecipes
+                : filteredRecipes // ignore: cast_nullable_to_non_nullable
+                      as List<RecipeEntity>,
+            searchQuery: null == searchQuery
+                ? _value.searchQuery
+                : searchQuery // ignore: cast_nullable_to_non_nullable
+                      as String,
+            isLoading: null == isLoading
+                ? _value.isLoading
+                : isLoading // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            isSearchingRecipes: null == isSearchingRecipes
+                ? _value.isSearchingRecipes
+                : isSearchingRecipes // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            error: freezed == error
+                ? _value.error
+                : error // ignore: cast_nullable_to_non_nullable
+                      as String?,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -108,29 +116,31 @@ class _$IngredientSearchStateCopyWithImpl<$Res,
 abstract class _$$IngredientSearchStateImplCopyWith<$Res>
     implements $IngredientSearchStateCopyWith<$Res> {
   factory _$$IngredientSearchStateImplCopyWith(
-          _$IngredientSearchStateImpl value,
-          $Res Function(_$IngredientSearchStateImpl) then) =
-      __$$IngredientSearchStateImplCopyWithImpl<$Res>;
+    _$IngredientSearchStateImpl value,
+    $Res Function(_$IngredientSearchStateImpl) then,
+  ) = __$$IngredientSearchStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<String> availableIngredients,
-      List<String> selectedIngredients,
-      List<RecipeEntity> filteredRecipes,
-      String searchQuery,
-      bool isLoading,
-      bool isSearchingRecipes,
-      String? error});
+  $Res call({
+    List<String> availableIngredients,
+    List<String> selectedIngredients,
+    List<RecipeEntity> filteredRecipes,
+    String searchQuery,
+    bool isLoading,
+    bool isSearchingRecipes,
+    String? error,
+  });
 }
 
 /// @nodoc
 class __$$IngredientSearchStateImplCopyWithImpl<$Res>
-    extends _$IngredientSearchStateCopyWithImpl<$Res,
-        _$IngredientSearchStateImpl>
+    extends
+        _$IngredientSearchStateCopyWithImpl<$Res, _$IngredientSearchStateImpl>
     implements _$$IngredientSearchStateImplCopyWith<$Res> {
-  __$$IngredientSearchStateImplCopyWithImpl(_$IngredientSearchStateImpl _value,
-      $Res Function(_$IngredientSearchStateImpl) _then)
-      : super(_value, _then);
+  __$$IngredientSearchStateImplCopyWithImpl(
+    _$IngredientSearchStateImpl _value,
+    $Res Function(_$IngredientSearchStateImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of IngredientSearchState
   /// with the given fields replaced by the non-null parameter values.
@@ -145,53 +155,55 @@ class __$$IngredientSearchStateImplCopyWithImpl<$Res>
     Object? isSearchingRecipes = null,
     Object? error = freezed,
   }) {
-    return _then(_$IngredientSearchStateImpl(
-      availableIngredients: null == availableIngredients
-          ? _value._availableIngredients
-          : availableIngredients // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      selectedIngredients: null == selectedIngredients
-          ? _value._selectedIngredients
-          : selectedIngredients // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      filteredRecipes: null == filteredRecipes
-          ? _value._filteredRecipes
-          : filteredRecipes // ignore: cast_nullable_to_non_nullable
-              as List<RecipeEntity>,
-      searchQuery: null == searchQuery
-          ? _value.searchQuery
-          : searchQuery // ignore: cast_nullable_to_non_nullable
-              as String,
-      isLoading: null == isLoading
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isSearchingRecipes: null == isSearchingRecipes
-          ? _value.isSearchingRecipes
-          : isSearchingRecipes // ignore: cast_nullable_to_non_nullable
-              as bool,
-      error: freezed == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+    return _then(
+      _$IngredientSearchStateImpl(
+        availableIngredients: null == availableIngredients
+            ? _value._availableIngredients
+            : availableIngredients // ignore: cast_nullable_to_non_nullable
+                  as List<String>,
+        selectedIngredients: null == selectedIngredients
+            ? _value._selectedIngredients
+            : selectedIngredients // ignore: cast_nullable_to_non_nullable
+                  as List<String>,
+        filteredRecipes: null == filteredRecipes
+            ? _value._filteredRecipes
+            : filteredRecipes // ignore: cast_nullable_to_non_nullable
+                  as List<RecipeEntity>,
+        searchQuery: null == searchQuery
+            ? _value.searchQuery
+            : searchQuery // ignore: cast_nullable_to_non_nullable
+                  as String,
+        isLoading: null == isLoading
+            ? _value.isLoading
+            : isLoading // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        isSearchingRecipes: null == isSearchingRecipes
+            ? _value.isSearchingRecipes
+            : isSearchingRecipes // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        error: freezed == error
+            ? _value.error
+            : error // ignore: cast_nullable_to_non_nullable
+                  as String?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$IngredientSearchStateImpl implements _IngredientSearchState {
-  const _$IngredientSearchStateImpl(
-      {final List<String> availableIngredients = const [],
-      final List<String> selectedIngredients = const [],
-      final List<RecipeEntity> filteredRecipes = const [],
-      this.searchQuery = '',
-      this.isLoading = false,
-      this.isSearchingRecipes = false,
-      this.error})
-      : _availableIngredients = availableIngredients,
-        _selectedIngredients = selectedIngredients,
-        _filteredRecipes = filteredRecipes;
+  const _$IngredientSearchStateImpl({
+    final List<String> availableIngredients = const [],
+    final List<String> selectedIngredients = const [],
+    final List<RecipeEntity> filteredRecipes = const [],
+    this.searchQuery = '',
+    this.isLoading = false,
+    this.isSearchingRecipes = false,
+    this.error,
+  }) : _availableIngredients = availableIngredients,
+       _selectedIngredients = selectedIngredients,
+       _filteredRecipes = filteredRecipes;
 
   final List<String> _availableIngredients;
   @override
@@ -244,12 +256,18 @@ class _$IngredientSearchStateImpl implements _IngredientSearchState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$IngredientSearchStateImpl &&
-            const DeepCollectionEquality()
-                .equals(other._availableIngredients, _availableIngredients) &&
-            const DeepCollectionEquality()
-                .equals(other._selectedIngredients, _selectedIngredients) &&
-            const DeepCollectionEquality()
-                .equals(other._filteredRecipes, _filteredRecipes) &&
+            const DeepCollectionEquality().equals(
+              other._availableIngredients,
+              _availableIngredients,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._selectedIngredients,
+              _selectedIngredients,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._filteredRecipes,
+              _filteredRecipes,
+            ) &&
             (identical(other.searchQuery, searchQuery) ||
                 other.searchQuery == searchQuery) &&
             (identical(other.isLoading, isLoading) ||
@@ -261,14 +279,15 @@ class _$IngredientSearchStateImpl implements _IngredientSearchState {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_availableIngredients),
-      const DeepCollectionEquality().hash(_selectedIngredients),
-      const DeepCollectionEquality().hash(_filteredRecipes),
-      searchQuery,
-      isLoading,
-      isSearchingRecipes,
-      error);
+    runtimeType,
+    const DeepCollectionEquality().hash(_availableIngredients),
+    const DeepCollectionEquality().hash(_selectedIngredients),
+    const DeepCollectionEquality().hash(_filteredRecipes),
+    searchQuery,
+    isLoading,
+    isSearchingRecipes,
+    error,
+  );
 
   /// Create a copy of IngredientSearchState
   /// with the given fields replaced by the non-null parameter values.
@@ -276,19 +295,23 @@ class _$IngredientSearchStateImpl implements _IngredientSearchState {
   @override
   @pragma('vm:prefer-inline')
   _$$IngredientSearchStateImplCopyWith<_$IngredientSearchStateImpl>
-      get copyWith => __$$IngredientSearchStateImplCopyWithImpl<
-          _$IngredientSearchStateImpl>(this, _$identity);
+  get copyWith =>
+      __$$IngredientSearchStateImplCopyWithImpl<_$IngredientSearchStateImpl>(
+        this,
+        _$identity,
+      );
 }
 
 abstract class _IngredientSearchState implements IngredientSearchState {
-  const factory _IngredientSearchState(
-      {final List<String> availableIngredients,
-      final List<String> selectedIngredients,
-      final List<RecipeEntity> filteredRecipes,
-      final String searchQuery,
-      final bool isLoading,
-      final bool isSearchingRecipes,
-      final String? error}) = _$IngredientSearchStateImpl;
+  const factory _IngredientSearchState({
+    final List<String> availableIngredients,
+    final List<String> selectedIngredients,
+    final List<RecipeEntity> filteredRecipes,
+    final String searchQuery,
+    final bool isLoading,
+    final bool isSearchingRecipes,
+    final String? error,
+  }) = _$IngredientSearchStateImpl;
 
   @override
   List<String> get availableIngredients;
@@ -310,5 +333,5 @@ abstract class _IngredientSearchState implements IngredientSearchState {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$IngredientSearchStateImplCopyWith<_$IngredientSearchStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }
