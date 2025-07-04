@@ -11,6 +11,7 @@ import 'package:saucerer_flutter/core/config/app_colors.dart';
 import 'package:saucerer_flutter/l10n/app_localizations.dart';
 import 'package:saucerer_flutter/core/providers/locale_provider.dart';
 import 'package:saucerer_flutter/presentation/settings/widgets/language_selection_dialog.dart';
+import 'package:saucerer_flutter/core/widgets/ad_banner_widget.dart';
 
 class MainNavigationScreen extends ConsumerWidget {
   const MainNavigationScreen({super.key});
@@ -21,13 +22,20 @@ class MainNavigationScreen extends ConsumerWidget {
     final viewModel = ref.read(mainNavigationViewModelProvider.notifier);
 
     return Scaffold(
-      body: IndexedStack(
-        index: currentIndex,
-        children: const [
-          RecipeListScreen(),
-          IngredientSearchScreen(),
-          TimerScreen(),
-          ProfileScreen(),
+      body: Column(
+        children: [
+          const AdBannerWidget(),
+          Expanded(
+            child: IndexedStack(
+              index: currentIndex,
+              children: const [
+                RecipeListScreen(),
+                IngredientSearchScreen(),
+                TimerScreen(),
+                ProfileScreen(),
+              ],
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
