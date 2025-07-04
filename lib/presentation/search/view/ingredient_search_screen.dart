@@ -34,43 +34,43 @@ class _IngredientSearchScreenState
 
     return SafeArea(
       child: Scaffold(
-        appBar:
-            widget.showAppBar
-                ? AppBar(
-                  title: Text(AppLocalizations.of(context).searchByIngredients),
-                  actions: [
-                    if (state.selectedIngredients.isNotEmpty)
-                      IconButton(
-                        icon: const Icon(Icons.clear_all),
-                        onPressed: () => viewModel.resetSearch(),
-                        tooltip: AppLocalizations.of(context).resetSearch,
-                      ),
-                    PopupMenuButton<String>(
-                      onSelected: (value) {
-                        switch (value) {
-                          case 'show_all':
-                            viewModel.loadAllIngredients();
-                            break;
-                          case 'show_popular':
-                            viewModel.resetSearch();
-                            break;
-                        }
-                      },
-                      itemBuilder:
-                          (context) => [
-                            PopupMenuItem(
-                              value: 'show_popular',
-                              child: Text(AppLocalizations.of(context).showPopularIngredients),
-                            ),
-                            PopupMenuItem(
-                              value: 'show_all',
-                              child: Text(AppLocalizations.of(context).showAllIngredients),
-                            ),
-                          ],
+        appBar: widget.showAppBar
+            ? AppBar(
+                title: Text(AppLocalizations.of(context).searchByIngredients),
+                actions: [
+                  if (state.selectedIngredients.isNotEmpty)
+                    IconButton(
+                      icon: const Icon(Icons.clear_all),
+                      onPressed: () => viewModel.resetSearch(),
+                      tooltip: AppLocalizations.of(context).resetSearch,
                     ),
-                  ],
-                )
-                : null,
+                  PopupMenuButton<String>(
+                    onSelected: (value) {
+                      switch (value) {
+                        case 'show_all':
+                          viewModel.loadAllIngredients();
+                          break;
+                        case 'show_popular':
+                          viewModel.resetSearch();
+                          break;
+                      }
+                    },
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        value: 'show_popular',
+                        child: Text(AppLocalizations.of(context)
+                            .showPopularIngredients),
+                      ),
+                      PopupMenuItem(
+                        value: 'show_all',
+                        child: Text(
+                            AppLocalizations.of(context).showAllIngredients),
+                      ),
+                    ],
+                  ),
+                ],
+              )
+            : null,
         body: Column(
           children: [
             _buildSearchBar(viewModel, state),
@@ -156,14 +156,15 @@ class _IngredientSearchScreenState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // 사용 가능한 재료들
+          _buildAvailableIngredients(state, viewModel),
           // 선택된 재료들
           SelectedIngredientsChips(
             selectedIngredients: state.selectedIngredients,
             onRemove: viewModel.removeSelectedIngredient,
-            onClearAll:
-                state.selectedIngredients.isNotEmpty
-                    ? viewModel.clearAllSelectedIngredients
-                    : null,
+            onClearAll: state.selectedIngredients.isNotEmpty
+                ? viewModel.clearAllSelectedIngredients
+                : null,
           ),
 
           if (state.selectedIngredients.isNotEmpty) ...[
@@ -171,9 +172,6 @@ class _IngredientSearchScreenState
             _buildRecipeResults(context, state, viewModel),
             const SizedBox(height: 24),
           ],
-
-          // 사용 가능한 재료들
-          _buildAvailableIngredients(state, viewModel),
         ],
       ),
     );
@@ -190,7 +188,7 @@ class _IngredientSearchScreenState
         Row(
           children: [
             Text(
-              AppLocalizations.of(context).searchResults,
+              '레시피 검색 결과',
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -205,7 +203,6 @@ class _IngredientSearchScreenState
           ],
         ),
         const SizedBox(height: 12),
-
         if (state.isSearchingRecipes)
           const Center(
             child: Padding(
@@ -232,8 +229,8 @@ class _IngredientSearchScreenState
                 Text(
                   AppLocalizations.of(context).noRecipesFound,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -243,11 +240,12 @@ class _IngredientSearchScreenState
           Column(
             children: [
               Text(
-                AppLocalizations.of(context).recipesFound(state.filteredRecipes.length),
+                AppLocalizations.of(context)
+                    .recipesFound(state.filteredRecipes.length),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.w500,
-                ),
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.w500,
+                    ),
               ),
               const SizedBox(height: 12),
               ListView.separated(
@@ -276,17 +274,16 @@ class _IngredientSearchScreenState
             context,
           ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
-        subtitle:
-            recipe.description != null
-                ? Padding(
-                  padding: const EdgeInsets.only(top: 4),
-                  child: Text(
-                    recipe.description!,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                )
-                : null,
+        subtitle: recipe.description != null
+            ? Padding(
+                padding: const EdgeInsets.only(top: 4),
+                child: Text(
+                  recipe.description!,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )
+            : null,
         trailing: const Icon(Icons.chevron_right),
         onTap: () {
           context.push('/recipes/${recipe.id}');
@@ -303,7 +300,9 @@ class _IngredientSearchScreenState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          state.searchQuery.isEmpty ? AppLocalizations.of(context).popularIngredients : AppLocalizations.of(context).searchResultsIngredients,
+          state.searchQuery.isEmpty
+              ? AppLocalizations.of(context).popularIngredients
+              : AppLocalizations.of(context).searchResultsIngredients,
           style: Theme.of(
             context,
           ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
