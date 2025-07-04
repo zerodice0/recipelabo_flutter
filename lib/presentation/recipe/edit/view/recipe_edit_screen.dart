@@ -49,14 +49,12 @@ class RecipeEditScreen extends ConsumerWidget {
                 conflictingName,
               );
             } else {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
-                    AppLocalizations.of(context).generalSaveFailedWithError(
-                      err.toString(),
-                    ),
+                    AppLocalizations.of(
+                      context,
+                    ).generalSaveFailedWithError(err.toString()),
                   ),
                 ),
               );
@@ -85,9 +83,11 @@ class RecipeEditScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(viewModel.isEditMode
-                ? AppLocalizations.of(context).recipeEdit
-                : AppLocalizations.of(context).recipeNewTitle),
+            Text(
+              viewModel.isEditMode
+                  ? AppLocalizations.of(context).recipeEdit
+                  : AppLocalizations.of(context).recipeNewTitle,
+            ),
             if (viewModel.isEditMode &&
                 viewModel.allVersions != null &&
                 viewModel.allVersions!.isNotEmpty) ...[
@@ -104,10 +104,10 @@ class RecipeEditScreen extends ConsumerWidget {
                   return Text(
                     currentVersion.fullDisplayName,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withValues(alpha: 0.7),
-                        ),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.7),
+                    ),
                   );
                 },
               ),
@@ -135,78 +135,78 @@ class RecipeEditScreen extends ConsumerWidget {
               ),
             )
           : viewModel.error != null
-              ? Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.error_outline,
-                          size: 48,
-                          color: Theme.of(context).colorScheme.error,
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          AppLocalizations.of(context).recipeLoadingError,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          viewModel.error!,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 16),
-                        ElevatedButton(
-                          onPressed: () => context.pop(),
-                          child:
-                              Text(AppLocalizations.of(context).actionGoBack),
-                        ),
-                      ],
+          ? Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 48,
+                      color: Theme.of(context).colorScheme.error,
                     ),
+                    const SizedBox(height: 16),
+                    Text(
+                      AppLocalizations.of(context).recipeLoadingError,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      viewModel.error!,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () => context.pop(),
+                      child: Text(AppLocalizations.of(context).actionGoBack),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : viewModel.saveState.isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextFormField(
+                    initialValue: viewModel.name,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).recipeName,
+                    ),
+                    onChanged: notifier.updateName,
                   ),
-                )
-              : viewModel.saveState.isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : SingleChildScrollView(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextFormField(
-                            initialValue: viewModel.name,
-                            decoration: InputDecoration(
-                                labelText:
-                                    AppLocalizations.of(context).recipeName),
-                            onChanged: notifier.updateName,
-                          ),
-                          const SizedBox(height: 16),
-                          TextFormField(
-                            initialValue: viewModel.description,
-                            decoration: InputDecoration(
-                                labelText: AppLocalizations.of(context)
-                                    .recipeEmptyStateDescription),
-                            onChanged: notifier.updateDescription,
-                            maxLines: 3,
-                          ),
-                          const SizedBox(height: 24),
-                          IngredientSelectorWidget(
-                            label:
-                                AppLocalizations.of(context).recipeIngredients,
-                            selectedIngredients: viewModel.ingredients,
-                            onIngredientsChanged: notifier.updateIngredients,
-                          ),
-                          const SizedBox(height: 24),
-                          _buildSectionHeader(
-                              context,
-                              AppLocalizations.of(context).recipeCookingSteps,
-                              notifier.addStep),
-                          ..._buildStepFields(
-                              context, viewModel.steps, notifier),
-                        ],
-                      ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    initialValue: viewModel.description,
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(
+                        context,
+                      ).recipeEmptyStateDescription,
                     ),
+                    onChanged: notifier.updateDescription,
+                    maxLines: 3,
+                  ),
+                  const SizedBox(height: 24),
+                  IngredientSelectorWidget(
+                    label: AppLocalizations.of(context).recipeIngredients,
+                    selectedIngredients: viewModel.ingredients,
+                    onIngredientsChanged: notifier.updateIngredients,
+                  ),
+                  const SizedBox(height: 24),
+                  _buildSectionHeader(
+                    context,
+                    AppLocalizations.of(context).recipeCookingSteps,
+                    notifier.addStep,
+                  ),
+                  ..._buildStepFields(context, viewModel.steps, notifier),
+                ],
+              ),
+            ),
     );
   }
 
@@ -240,11 +240,10 @@ class RecipeEditScreen extends ConsumerWidget {
             child: TextFormField(
               initialValue: step.description,
               decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context).generalDescription),
-              onChanged: (desc) => notifier.updateStep(
-                index,
-                step.copyWith(description: desc),
+                labelText: AppLocalizations.of(context).generalDescription,
               ),
+              onChanged: (desc) =>
+                  notifier.updateStep(index, step.copyWith(description: desc)),
               maxLines: null,
             ),
           ),
@@ -264,196 +263,330 @@ class RecipeEditScreen extends ConsumerWidget {
   ) {
     final notifier = ref.read(recipeEditViewModelProvider(recipeId).notifier);
 
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context).generalSaveOptions),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(AppLocalizations.of(context).generalHowToSave),
-            const SizedBox(height: 16),
-            Consumer(
-              builder: (context, ref, child) {
-                final currentState = ref.watch(
-                  recipeEditViewModelProvider(recipeId),
-                );
-
-                // 현재 편집 중인 버전 찾기
-                RecipeVersionEntity? currentVersion;
-                if (currentState.allVersions != null &&
-                    currentState.allVersions!.isNotEmpty) {
-                  try {
-                    currentVersion = currentState.allVersions!.firstWhere(
-                      (version) => version.id == currentState.recipeVersionId,
-                    );
-                  } catch (e) {
-                    // 현재 버전 ID가 없으면 첫 번째 버전 사용
-                    currentVersion = currentState.allVersions!.first;
-                  }
-                }
-
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // 현재 편집 중인 버전 정보 표시
-                    if (currentVersion != null) ...[
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.surfaceContainerHighest,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.edit,
-                              size: 16,
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.onSurfaceVariant,
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              '편집 중: ${currentVersion.fullDisplayName}',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium?.copyWith(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.onSurfaceVariant,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                    ],
-
-                    RadioListTile<bool>(
-                      title: Text(
-                          AppLocalizations.of(context).versionSaveAsDerived),
-                      subtitle: currentVersion != null
-                          ? Text(
-                              AppLocalizations.of(context)
-                                  .versionDerivedDescription(
-                                      currentVersion.fullDisplayName),
-                            )
-                          : Text(
-                              AppLocalizations.of(context).versionKeepExisting),
-                      value: true,
-                      groupValue: currentState.createNewVersion,
-                      onChanged: (value) {
-                        if (value != null) {
-                          notifier.toggleCreateNewVersion(value);
-                        }
-                      },
-                    ),
-                    RadioListTile<bool>(
-                      title:
-                          Text(AppLocalizations.of(context).versionOverwrite),
-                      subtitle: currentVersion != null
-                          ? Text(
-                              AppLocalizations.of(context)
-                                  .versionUpdateDescription(
-                                      currentVersion.fullDisplayName),
-                            )
-                          : Text(AppLocalizations.of(context)
-                              .versionUpdateCurrent),
-                      value: false,
-                      groupValue: currentState.createNewVersion,
-                      onChanged: (value) {
-                        if (value != null) {
-                          notifier.toggleCreateNewVersion(value);
-                        }
-                      },
-                    ),
-                    if (currentState.createNewVersion) ...[
-                      const SizedBox(height: 16),
-                      // 기반 버전 정보 표시
-                      if (currentVersion != null) ...[
-                        Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.primaryContainer,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.fork_right,
-                                size: 16,
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onPrimaryContainer,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                AppLocalizations.of(context).versionBaseVersion(
-                                    currentVersion.fullDisplayName),
-                                style: Theme.of(
-                                  context,
-                                ).textTheme.bodySmall?.copyWith(
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.onPrimaryContainer,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                      ],
-                      TextField(
-                        decoration: InputDecoration(
-                          labelText:
-                              AppLocalizations.of(context).versionNameOptional,
-                          hintText:
-                              AppLocalizations.of(context).versionNameHint,
-                          border: OutlineInputBorder(),
-                        ),
-                        onChanged: notifier.updateVersionName,
-                      ),
-                      const SizedBox(height: 12),
-                      TextField(
-                        decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)
-                              .versionChangeLogOptional,
-                          hintText:
-                              AppLocalizations.of(context).versionChangeLogHint,
-                          border: OutlineInputBorder(),
-                        ),
-                        maxLines: 2,
-                        onChanged: notifier.updateChangeLog,
-                      ),
-                    ],
-                  ],
-                );
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        fullscreenDialog: true,
+        builder: (context) => Scaffold(
+          appBar: AppBar(
+            title: Text(AppLocalizations.of(context).generalSaveOptions),
+            leading: IconButton(
+              icon: const Icon(Icons.close),
+              onPressed: () {
+                notifier.hideSaveOptions();
+                Navigator.of(context).pop();
               },
             ),
-          ],
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.save),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  notifier.performSave();
+                },
+              ),
+            ],
+          ),
+          body: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context).generalHowToSave,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      const SizedBox(height: 24),
+                      Consumer(
+                        builder: (context, ref, child) {
+                          final currentState = ref.watch(
+                            recipeEditViewModelProvider(recipeId),
+                          );
+
+                          // 현재 편집 중인 버전 찾기
+                          RecipeVersionEntity? currentVersion;
+                          if (currentState.allVersions != null &&
+                              currentState.allVersions!.isNotEmpty) {
+                            try {
+                              currentVersion = currentState.allVersions!
+                                  .firstWhere(
+                                    (version) =>
+                                        version.id ==
+                                        currentState.recipeVersionId,
+                                  );
+                            } catch (e) {
+                              // 현재 버전 ID가 없으면 첫 번째 버전 사용
+                              currentVersion = currentState.allVersions!.first;
+                            }
+                          }
+
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // 현재 편집 중인 버전 정보 표시
+                              if (currentVersion != null) ...[
+                                Container(
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.surfaceContainerHighest,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.edit,
+                                        size: 20,
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurfaceVariant,
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Expanded(
+                                        child: Text(
+                                          '편집 중: ${currentVersion.fullDisplayName}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium
+                                              ?.copyWith(
+                                                color: Theme.of(
+                                                  context,
+                                                ).colorScheme.onSurfaceVariant,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+                              ],
+
+                              Card(
+                                child: Column(
+                                  children: [
+                                    RadioListTile<bool>(
+                                      title: Text(
+                                        AppLocalizations.of(
+                                          context,
+                                        ).versionSaveAsDerived,
+                                      ),
+                                      subtitle: currentVersion != null
+                                          ? Text(
+                                              AppLocalizations.of(
+                                                context,
+                                              ).versionDerivedDescription(
+                                                currentVersion.fullDisplayName,
+                                              ),
+                                            )
+                                          : Text(
+                                              AppLocalizations.of(
+                                                context,
+                                              ).versionKeepExisting,
+                                            ),
+                                      value: true,
+                                      groupValue: currentState.createNewVersion,
+                                      onChanged: (value) {
+                                        if (value != null) {
+                                          notifier.toggleCreateNewVersion(
+                                            value,
+                                          );
+                                        }
+                                      },
+                                    ),
+                                    const Divider(height: 1),
+                                    RadioListTile<bool>(
+                                      title: Text(
+                                        AppLocalizations.of(
+                                          context,
+                                        ).versionOverwrite,
+                                      ),
+                                      subtitle: currentVersion != null
+                                          ? Text(
+                                              AppLocalizations.of(
+                                                context,
+                                              ).versionUpdateDescription(
+                                                currentVersion.fullDisplayName,
+                                              ),
+                                            )
+                                          : Text(
+                                              AppLocalizations.of(
+                                                context,
+                                              ).versionUpdateCurrent,
+                                            ),
+                                      value: false,
+                                      groupValue: currentState.createNewVersion,
+                                      onChanged: (value) {
+                                        if (value != null) {
+                                          notifier.toggleCreateNewVersion(
+                                            value,
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              if (currentState.createNewVersion) ...[
+                                const SizedBox(height: 24),
+                                // 기반 버전 정보 표시
+                                if (currentVersion != null) ...[
+                                  Container(
+                                    padding: const EdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primaryContainer,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.fork_right,
+                                          size: 20,
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.onPrimaryContainer,
+                                        ),
+                                        const SizedBox(width: 12),
+                                        Expanded(
+                                          child: Text(
+                                            AppLocalizations.of(
+                                              context,
+                                            ).versionBaseVersion(
+                                              currentVersion.fullDisplayName,
+                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium
+                                                ?.copyWith(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onPrimaryContainer,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                ],
+
+                                Text(
+                                  '새 버전 정보',
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.titleMedium,
+                                ),
+                                const SizedBox(height: 12),
+
+                                TextField(
+                                  decoration: InputDecoration(
+                                    labelText: AppLocalizations.of(
+                                      context,
+                                    ).versionNameOptional,
+                                    hintText: AppLocalizations.of(
+                                      context,
+                                    ).versionNameHint,
+                                    border: const OutlineInputBorder(),
+                                  ),
+                                  onChanged: notifier.updateVersionName,
+                                ),
+                                const SizedBox(height: 16),
+                                TextField(
+                                  decoration: InputDecoration(
+                                    labelText: AppLocalizations.of(
+                                      context,
+                                    ).versionChangeLogOptional,
+                                    hintText: AppLocalizations.of(
+                                      context,
+                                    ).versionChangeLogHint,
+                                    border: const OutlineInputBorder(),
+                                  ),
+                                  maxLines: 3,
+                                  onChanged: notifier.updateChangeLog,
+                                ),
+                              ],
+                            ],
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // 하단 고정 버튼
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surface,
+                  border: Border(
+                    top: BorderSide(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.outline.withValues(alpha: 0.2),
+                      width: 1,
+                    ),
+                  ),
+                ),
+                child: SafeArea(
+                  child: Consumer(
+                    builder: (context, ref, child) {
+                      final currentState = ref.watch(
+                        recipeEditViewModelProvider(recipeId),
+                      );
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton.icon(
+                              onPressed: () {
+                                notifier.hideSaveOptions();
+                                Navigator.of(context).pop();
+                              },
+                              icon: const Icon(Icons.close),
+                              label: Text(
+                                AppLocalizations.of(context).actionCancel,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            flex: 2,
+                            child: FilledButton.icon(
+                              onPressed: currentState.saveState.isLoading
+                                  ? null
+                                  : () {
+                                      Navigator.of(context).pop();
+                                      notifier.performSave();
+                                    },
+                              icon: currentState.saveState.isLoading
+                                  ? const SizedBox(
+                                      height: 16,
+                                      width: 16,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  : const Icon(Icons.save),
+                              label: currentState.saveState.isLoading
+                                  ? const Text('저장 중...')
+                                  : Text(
+                                      AppLocalizations.of(context).actionSave,
+                                    ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              notifier.hideSaveOptions();
-              Navigator.of(context).pop();
-            },
-            child: Text(AppLocalizations.of(context).actionCancel),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              notifier.performSave();
-            },
-            child: Text(AppLocalizations.of(context).actionSave),
-          ),
-        ],
       ),
     );
   }
