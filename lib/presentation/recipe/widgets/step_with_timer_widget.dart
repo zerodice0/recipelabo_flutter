@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recipick_flutter/core/config/app_colors.dart';
-import 'package:recipick_flutter/core/services/timer_service.dart';
+import 'package:recipick_flutter/core/services/alarm_timer_service.dart';
 import 'package:recipick_flutter/domain/entities/cooking_timer_entity.dart';
 import 'package:recipick_flutter/domain/entities/step_entity.dart';
-import 'package:recipick_flutter/presentation/timer/widgets/notification_permission_dialog.dart';
 import 'package:uuid/uuid.dart';
 
 /// 타이머가 포함된 조리 단계 위젯
@@ -27,7 +26,7 @@ class StepWithTimerWidget extends StatefulWidget {
 }
 
 class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
-  final TimerService _timerService = TimerService();
+  final AlarmTimerService _timerService = AlarmTimerService();
   late TextEditingController _descriptionController;
   late TextEditingController _timerNameController;
   int _timerMinutes = 0;
@@ -110,42 +109,24 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
     final hasPermission = await _timerService.checkNotificationPermission();
 
     if (!hasPermission && mounted) {
-      // 권한이 없으면 다이얼로그 표시
-      final shouldRequest = await NotificationPermissionDialog.show(
-        context,
-        onAllow: () async {
-          await _timerService.requestNotificationPermission();
-        },
-        onDeny: () {
-          // 권한 거부 시 아무것도 하지 않음 (타이머는 시작하되 알림 없음)
-        },
-        onSettings: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('설정 > 알림에서 타이머 알림을 활성화할 수 있습니다'),
-              duration: Duration(seconds: 3),
-            ),
-          );
-        },
-      );
+      // 권한이 없으면 권한 요청
+      final granted = await _timerService.requestNotificationPermission();
 
-      if (shouldRequest == true) {
-        final granted = await _timerService.requestNotificationPermission();
-
-        if (granted && mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Text('알림이 활성화되었습니다.'),
-              backgroundColor: AppColors.supportGreen,
-              duration: const Duration(seconds: 2),
-            ),
-          );
-        }
+      if (granted && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('알림이 활성화되었습니다.'),
+            backgroundColor: AppColors.supportGreen,
+            duration: const Duration(seconds: 2),
+          ),
+        );
       }
     }
 
     // 타이머 시작 (권한과 관계없이)
-    await _timerService.startTimer(timer);
+    if (mounted) {
+      await _timerService.startTimer(timer, context);
+    }
 
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(

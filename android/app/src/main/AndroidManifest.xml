@@ -8,6 +8,13 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
     
+    <!-- 오디오 재생 권한 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+    
+    <!-- 전체 화면 알림 권한 -->
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+    
     <application
         android:label="Recipick"
         android:name="${applicationName}"

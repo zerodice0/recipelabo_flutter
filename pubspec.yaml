@@ -53,6 +53,8 @@ dependencies:
   google_mobile_ads: ^6.0.0
   flutter_dotenv: ^5.1.0
   permission_handler: ^11.3.1
+  audioplayers: ^5.2.1
+  alarm: ^5.1.4
 
 dev_dependencies:
   flutter_test:
@@ -92,6 +94,7 @@ flutter:
   assets:
     - .env
     - assets/main_image2.jpeg
+    - assets/sounds/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

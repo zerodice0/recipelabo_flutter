@@ -6,12 +6,14 @@ import 'package:recipick_flutter/core/config/app_theme.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 import 'package:recipick_flutter/core/providers/locale_provider.dart';
 import 'package:recipick_flutter/core/services/ad_service.dart';
+import 'package:recipick_flutter/core/services/alarm_timer_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
   await AdService.initialize();
+  await AlarmTimerService().initialize();
   runApp(const ProviderScope(child: MyApp()));
 }
 

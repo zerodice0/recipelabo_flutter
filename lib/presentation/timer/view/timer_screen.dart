@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipick_flutter/core/config/app_colors.dart';
-import 'package:recipick_flutter/core/services/timer_service.dart';
+import 'package:recipick_flutter/core/services/alarm_timer_service.dart';
 import 'package:recipick_flutter/core/di/provider.dart';
 import 'package:recipick_flutter/domain/entities/cooking_timer_entity.dart';
 import 'package:recipick_flutter/domain/entities/timer_preset_entity.dart';
 import 'package:recipick_flutter/presentation/timer/widgets/timer_card_widget.dart';
 import 'package:recipick_flutter/presentation/timer/widgets/timer_preset_selector.dart';
-import 'package:recipick_flutter/presentation/timer/widgets/notification_permission_dialog.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 import 'package:uuid/uuid.dart';
 
@@ -21,7 +20,7 @@ class TimerScreen extends ConsumerStatefulWidget {
 }
 
 class _TimerScreenState extends ConsumerState<TimerScreen> {
-  final TimerService _timerService = TimerService();
+  final AlarmTimerService _timerService = AlarmTimerService();
   List<TimerPresetEntity> _presets = [];
 
   @override
@@ -32,7 +31,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
   }
 
   Future<void> _initializeTimer() async {
-    await _timerService.initialize();
+    // AlarmTimerService는 main.dart에서 이미 초기화됨
     _timerService.addListener(_onTimerUpdate);
   }
 
@@ -279,52 +278,27 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
     final hasPermission = await _timerService.checkNotificationPermission();
 
     if (!hasPermission && mounted) {
-      // 권한이 없으면 다이얼로그 표시
-      final shouldRequest = await NotificationPermissionDialog.show(
-        context,
-        onAllow: () async {
-          // 권한 요청
-          await _timerService.requestNotificationPermission();
-        },
-        onDeny: () {
-          // 권한 거부 시 아무것도 하지 않음 (타이머는 시작하되 알림 없음)
-        },
-        onSettings: () {
-          // 설정 화면으로 이동하는 로직 추가 가능
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                AppLocalizations.of(context).notificationEnableInSettings,
-              ),
-              duration: const Duration(seconds: 3),
-            ),
-          );
-        },
-      );
+      // 권한이 없으면 권한 요청
+      final granted = await _timerService.requestNotificationPermission();
 
-      if (shouldRequest == true) {
-        // 권한 요청 후 결과 확인
-        final granted = await _timerService.requestNotificationPermission();
-
-        if (granted && mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(AppLocalizations.of(context).notificationEnabled),
-              backgroundColor: AppColors.supportGreen,
-              duration: const Duration(seconds: 2),
+      if (granted && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context).notificationEnabled),
+            backgroundColor: AppColors.supportGreen,
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      } else if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(context).notificationPermissionDenied,
             ),
-          );
-        } else if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                AppLocalizations.of(context).notificationPermissionDenied,
-              ),
-              backgroundColor: AppColors.primaryOrange,
-              duration: const Duration(seconds: 3),
-            ),
-          );
-        }
+            backgroundColor: AppColors.primaryOrange,
+            duration: const Duration(seconds: 3),
+          ),
+        );
       }
     }
 
@@ -365,7 +339,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
           IconButton(
             icon: const Icon(Icons.notifications_active),
             onPressed: () async {
-              await _timerService.testNotification(context);
+              await _timerService.testAlarm(context);
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -420,10 +394,10 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
                   final timer = runningTimers[index];
                   return TimerCardWidget(
                     timer: timer,
-                    onPause: () => _timerService.pauseTimer(timer.id),
-                    onResume: () => _timerService.resumeTimer(timer.id),
-                    onStop: () => _timerService.stopTimer(timer.id),
-                    onRemove: () => _timerService.removeTimer(timer.id),
+                    onPause: () async => await _timerService.pauseTimer(timer.id),
+                    onResume: () async => await _timerService.resumeTimer(timer.id),
+                    onStop: () async => await _timerService.stopTimer(timer.id),
+                    onRemove: () async => await _timerService.removeTimer(timer.id),
                   );
                 },
               ),

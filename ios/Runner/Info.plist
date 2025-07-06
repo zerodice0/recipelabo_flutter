@@ -56,6 +56,19 @@
 	<array>
 		<string>background-processing</string>
 		<string>background-fetch</string>
+		<string>audio</string>
+	</array>
+	
+	<!-- Critical 알림 권한 -->
+	<key>com.apple.developer.usernotifications.critical-alerts</key>
+	<true/>
+	
+	<!-- 오디오 세션 설정 -->
+	<key>UIRequiresPersistentWiFi</key>
+	<false/>
+	<key>UIBackgroundTaskTypes</key>
+	<array>
+		<string>background-audio</string>
 	</array>
 </dict>
 </plist>
