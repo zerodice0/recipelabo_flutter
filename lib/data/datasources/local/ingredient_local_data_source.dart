@@ -1,4 +1,4 @@
-import 'package:saucerer_flutter/data/models/recipe_model.dart';
+import 'package:recipick_flutter/data/models/recipe_model.dart';
 import './database_helper.dart';
 
 abstract class IngredientLocalDataSource {
@@ -39,8 +39,9 @@ class IngredientLocalDataSourceImpl implements IngredientLocalDataSource {
     final db = await _dbHelper.database;
 
     // 각 재료 이름을 소문자로 변환하여 대소문자 구분 없이 검색
-    final lowerIngredientNames =
-        ingredientNames.map((name) => name.toLowerCase()).toList();
+    final lowerIngredientNames = ingredientNames
+        .map((name) => name.toLowerCase())
+        .toList();
     final placeholders = lowerIngredientNames.map((_) => '?').join(',');
 
     final result = await db.rawQuery(

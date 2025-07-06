@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:saucerer_flutter/domain/entities/step_entity.dart';
+import 'package:recipick_flutter/domain/entities/step_entity.dart';
 
 part 'step_model.freezed.dart';
 part 'step_model.g.dart';
@@ -20,7 +20,6 @@ class StepModel with _$StepModel {
 
   factory StepModel.fromJson(Map<String, dynamic> json) =>
       _$StepModelFromJson(json);
-
 }
 
 /// StepModel을 위한 SQLite 매핑 확장
@@ -64,7 +63,6 @@ extension StepModelExtension on StepModel {
       imageUrl: imageUrl,
     );
   }
-
 }
 
 /// StepModel Entity 변환 확장

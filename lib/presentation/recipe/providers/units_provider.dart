@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:saucerer_flutter/domain/entities/ingredient_master_entity.dart';
-import 'package:saucerer_flutter/domain/entities/category_entity.dart';
-import 'package:saucerer_flutter/domain/usecases/get_all_ingredient_masters_usecase.dart';
+import 'package:recipick_flutter/domain/entities/ingredient_master_entity.dart';
+import 'package:recipick_flutter/domain/entities/category_entity.dart';
+import 'package:recipick_flutter/domain/usecases/get_all_ingredient_masters_usecase.dart';
 
 part 'units_provider.g.dart';
 
@@ -25,10 +25,11 @@ class AvailableUnits extends _$AvailableUnits {
     final allData = await getAllUseCase();
 
     // 단위 카테고리만 필터링하고 사용 빈도순으로 정렬
-    final units = allData
-        .where((item) => item.categoryId == PredefinedCategories.unit.id)
-        .toList()
-      ..sort((a, b) => b.usageCount.compareTo(a.usageCount));
+    final units =
+        allData
+            .where((item) => item.categoryId == PredefinedCategories.unit.id)
+            .toList()
+          ..sort((a, b) => b.usageCount.compareTo(a.usageCount));
 
     return units;
   }

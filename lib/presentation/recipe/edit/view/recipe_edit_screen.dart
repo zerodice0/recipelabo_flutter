@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_version_entity.dart';
-import 'package:saucerer_flutter/domain/entities/step_entity.dart';
-import 'package:saucerer_flutter/presentation/recipe/edit/viewmodel/recipe_edit_viewmodel.dart';
-import 'package:saucerer_flutter/presentation/recipe/list/viewmodel/recipe_list_viewmodel.dart';
-import 'package:saucerer_flutter/presentation/recipe/widgets/seasoning_selector_widget.dart';
-import 'package:saucerer_flutter/presentation/recipe/widgets/version_name_conflict_dialog.dart';
-import 'package:saucerer_flutter/l10n/app_localizations.dart';
+import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
+import 'package:recipick_flutter/domain/entities/step_entity.dart';
+import 'package:recipick_flutter/presentation/recipe/edit/viewmodel/recipe_edit_viewmodel.dart';
+import 'package:recipick_flutter/presentation/recipe/list/viewmodel/recipe_list_viewmodel.dart';
+import 'package:recipick_flutter/presentation/recipe/widgets/seasoning_selector_widget.dart';
+import 'package:recipick_flutter/presentation/recipe/widgets/version_name_conflict_dialog.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 class RecipeEditScreen extends ConsumerWidget {
   final String? recipeId;

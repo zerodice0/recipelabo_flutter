@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
-import 'package:saucerer_flutter/presentation/recipe/detail/view/recipe_detail_screen.dart';
-import 'package:saucerer_flutter/presentation/recipe/edit/view/recipe_edit_screen.dart';
-import 'package:saucerer_flutter/presentation/search/view/ingredient_search_screen.dart';
-import 'package:saucerer_flutter/presentation/cooking_log/create/view/cooking_log_create_screen.dart';
-import 'package:saucerer_flutter/presentation/main/view/main_navigation_screen.dart';
-import 'package:saucerer_flutter/presentation/seasoning/view/seasoning_management_screen.dart';
-import 'package:saucerer_flutter/presentation/timer/view/timer_screen.dart';
+import 'package:recipick_flutter/presentation/recipe/detail/view/recipe_detail_screen.dart';
+import 'package:recipick_flutter/presentation/recipe/edit/view/recipe_edit_screen.dart';
+import 'package:recipick_flutter/presentation/search/view/ingredient_search_screen.dart';
+import 'package:recipick_flutter/presentation/cooking_log/create/view/cooking_log_create_screen.dart';
+import 'package:recipick_flutter/presentation/main/view/main_navigation_screen.dart';
+import 'package:recipick_flutter/presentation/seasoning/view/seasoning_management_screen.dart';
+import 'package:recipick_flutter/presentation/timer/view/timer_screen.dart';
 
 // 라우트 경로 상수
 class AppRoutes {

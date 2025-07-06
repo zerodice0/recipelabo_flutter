@@ -702,7 +702,7 @@ Future<void> main(List<String> args) async {
 
 void _printUsage() {
   print('''
-🔍 Saucerer 하드코딩 문자열 스캔 도구
+🔍 Recipick 하드코딩 문자열 스캔 도구
 
 사용법:
   dart scripts/scan_hardcoded_strings.dart [options]

@@ -2,16 +2,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:saucerer_flutter/presentation/recipe/list/view/recipe_list_screen.dart';
-import 'package:saucerer_flutter/presentation/search/view/ingredient_search_screen.dart';
-import 'package:saucerer_flutter/presentation/timer/view/timer_screen.dart';
-import 'package:saucerer_flutter/presentation/main/viewmodel/main_navigation_viewmodel.dart';
-import 'package:saucerer_flutter/core/services/timer_service.dart';
-import 'package:saucerer_flutter/core/config/app_colors.dart';
-import 'package:saucerer_flutter/l10n/app_localizations.dart';
-import 'package:saucerer_flutter/core/providers/locale_provider.dart';
-import 'package:saucerer_flutter/presentation/settings/widgets/language_selection_dialog.dart';
-import 'package:saucerer_flutter/core/widgets/ad_banner_widget.dart';
+import 'package:recipick_flutter/presentation/recipe/list/view/recipe_list_screen.dart';
+import 'package:recipick_flutter/presentation/search/view/ingredient_search_screen.dart';
+import 'package:recipick_flutter/presentation/timer/view/timer_screen.dart';
+import 'package:recipick_flutter/presentation/main/viewmodel/main_navigation_viewmodel.dart';
+import 'package:recipick_flutter/core/services/timer_service.dart';
+import 'package:recipick_flutter/core/config/app_colors.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
+import 'package:recipick_flutter/core/providers/locale_provider.dart';
+import 'package:recipick_flutter/presentation/settings/widgets/language_selection_dialog.dart';
+import 'package:recipick_flutter/core/widgets/ad_banner_widget.dart';
 
 class MainNavigationScreen extends ConsumerWidget {
   const MainNavigationScreen({super.key});
@@ -346,7 +346,7 @@ class _NotificationSettingsTileState
             const SizedBox(height: 8),
             const Text(
               '1. 아이폰 설정 앱 열기\n'
-              '2. 알림 > Saucerer 선택\n'
+              '2. 알림 > Recipick 선택\n'
               '3. 알림 허용 끄기',
               style: TextStyle(color: AppColors.textBrown, height: 1.4),
             ),
@@ -561,7 +561,7 @@ class _BackgroundAppRefreshTile extends StatelessWidget {
                     '1. 설정 앱 열기\n'
                     '2. 일반 > 백그라운드 앱 새로고침\n'
                     '3. 백그라운드 앱 새로고침 켜기\n'
-                    '4. Saucerer 앱 새로고침 켜기',
+                    '4. Recipick 앱 새로고침 켜기',
                     style: TextStyle(
                       color: AppColors.supportGreen,
                       height: 1.4,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:saucerer_flutter/domain/entities/ingredient_master_entity.dart';
-import 'package:saucerer_flutter/domain/entities/category_entity.dart';
-import 'package:saucerer_flutter/presentation/seasoning/viewmodel/seasoning_management_viewmodel.dart';
-import 'package:saucerer_flutter/presentation/seasoning/widgets/seasoning_create_dialog.dart';
+import 'package:recipick_flutter/domain/entities/ingredient_master_entity.dart';
+import 'package:recipick_flutter/domain/entities/category_entity.dart';
+import 'package:recipick_flutter/presentation/seasoning/viewmodel/seasoning_management_viewmodel.dart';
+import 'package:recipick_flutter/presentation/seasoning/widgets/seasoning_create_dialog.dart';
 
 class SeasoningManagementScreen extends ConsumerStatefulWidget {
   const SeasoningManagementScreen({super.key});
@@ -232,7 +232,8 @@ class _SeasoningManagementScreenState
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                seasoning.predefinedCategory?.displayName ?? seasoning.categoryId,
+                seasoning.predefinedCategory?.displayName ??
+                    seasoning.categoryId,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                 ),
@@ -271,20 +272,18 @@ class _SeasoningManagementScreenState
   ) {
     showDialog(
       context: context,
-      builder:
-          (context) => SeasoningCreateDialog(
-            categories:
-                ref.read(seasoningManagementViewModelProvider).categories,
-            onSave: (name, category, description) {
-              // 카테고리 이름을 ID로 변환
-              final categoryId = _getCategoryIdFromDisplayName(category);
-              viewModel.createSeasoning(
-                name: name,
-                categoryId: categoryId,
-                description: description,
-              );
-            },
-          ),
+      builder: (context) => SeasoningCreateDialog(
+        categories: ref.read(seasoningManagementViewModelProvider).categories,
+        onSave: (name, category, description) {
+          // 카테고리 이름을 ID로 변환
+          final categoryId = _getCategoryIdFromDisplayName(category);
+          viewModel.createSeasoning(
+            name: name,
+            categoryId: categoryId,
+            description: description,
+          );
+        },
+      ),
     );
   }
 
@@ -295,40 +294,39 @@ class _SeasoningManagementScreenState
   ) {
     showDialog(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('재료 삭제'),
-            content: Text('${seasoning.name}을(를) 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('취소'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  viewModel.deleteSeasoning(seasoning.id);
-                },
-                style: TextButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.error,
-                ),
-                child: const Text('삭제'),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        title: const Text('재료 삭제'),
+        content: Text('${seasoning.name}을(를) 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('취소'),
           ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              viewModel.deleteSeasoning(seasoning.id);
+            },
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
+            child: const Text('삭제'),
+          ),
+        ],
+      ),
     );
   }
 
   // 카테고리 표시명을 ID로 변환하는 헬퍼 함수
   String _getCategoryIdFromDisplayName(String? displayName) {
     if (displayName == null) return PredefinedCategories.ingredient.id;
-    
+
     for (final category in PredefinedCategories.all) {
       if (category.displayName == displayName) {
         return category.id;
       }
     }
-    
+
     // 기본값
     return PredefinedCategories.ingredient.id;
   }

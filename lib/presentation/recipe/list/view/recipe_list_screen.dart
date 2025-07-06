@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_entity.dart';
-import 'package:saucerer_flutter/presentation/recipe/list/viewmodel/recipe_list_viewmodel.dart';
-import 'package:saucerer_flutter/core/routes/app_router.dart';
-import 'package:saucerer_flutter/core/config/recipe_card_widget.dart';
-import 'package:saucerer_flutter/core/config/app_colors.dart';
-import 'package:saucerer_flutter/l10n/app_localizations.dart';
+import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
+import 'package:recipick_flutter/presentation/recipe/list/viewmodel/recipe_list_viewmodel.dart';
+import 'package:recipick_flutter/core/routes/app_router.dart';
+import 'package:recipick_flutter/core/config/recipe_card_widget.dart';
+import 'package:recipick_flutter/core/config/app_colors.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 class RecipeListScreen extends ConsumerWidget {
   final bool showAppBar;

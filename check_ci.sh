@@ -17,7 +17,7 @@ failed_checks=0
 echo -e "${YELLOW}📋 .env 파일 생성 중...${NC}"
 if [ ! -f .env ]; then
     cat > .env << EOF
-# Saucerer Flutter 프로젝트 환경변수
+# Recipick Flutter 프로젝트 환경변수
 # 로컬 CI 체크용 임시 파일
 
 # AdMob 광고 ID 설정 (테스트용)

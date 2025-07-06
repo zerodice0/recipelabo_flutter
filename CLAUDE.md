@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Saucerer is a Flutter cross-platform mobile application for creating, sharing, and discovering sauce recipes. The project follows Clean Architecture principles with clear separation between data, domain, and presentation layers.
+Recipick is a Flutter cross-platform mobile application for creating, sharing, and discovering recipes. The project follows Clean Architecture principles with clear separation between data, domain, and presentation layers.
 
 ## Current Implementation Status
 

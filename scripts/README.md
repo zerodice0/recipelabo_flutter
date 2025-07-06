@@ -24,7 +24,7 @@
 3. 예시 데이터:
    ```
    Key            Korean        English       Japanese      Description
-   appTitle       소서러        Saucerer      ソーサラー    앱 제목
+   appTitle       레시픽        Recipick      レシピック    앱 제목
    recipes        레시피        Recipes       レシピ        레시피 탭
    search         검색          Search        検索          검색 탭
    ```
@@ -93,7 +93,7 @@ lib/l10n/
 
 ```dart
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:saucerer_flutter/l10n/app_localizations.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 // MaterialApp 설정
 MaterialApp(

@@ -360,7 +360,7 @@ Future<void> main(List<String> args) async {
 
 void _printUsage() {
   print('''
-🌍 Saucerer 번역 업데이트 도구
+🌍 Recipick 번역 업데이트 도구
 
 사용법:
   dart scripts/update_translations.dart [options] [sheet_id]

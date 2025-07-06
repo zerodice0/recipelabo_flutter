@@ -1001,9 +1001,9 @@ class ImprovedTranslations {
       'description': '알림 끄기 안내'
     },
     'notificationTurnOffInstructions': {
-      'ko': '1. 아이폰 설정 앱 열기\n2. 알림 > Saucerer 선택\n3. 알림 허용 끄기',
-      'en': '1. Open iPhone Settings app\n2. Select Notifications > Saucerer\n3. Turn off Allow Notifications',
-      'ja': '1. iPhone設定アプリを開く\n2. 通知 > Saucererを選択\n3. 通知を許可をオフにする',
+      'ko': '1. 아이폰 설정 앱 열기\n2. 알림 > Recipick 선택\n3. 알림 허용 끄기',
+      'en': '1. Open iPhone Settings app\n2. Select Notifications > Recipick\n3. Turn off Allow Notifications',
+      'ja': '1. iPhone設定アプリを開く\n2. 通知 > Recipickを選択\n3. 通知を許可をオフにする',
       'description': '알림 끄기 방법'
     },
     'notificationTurnOffWarning': {

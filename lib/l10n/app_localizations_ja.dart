@@ -530,7 +530,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get notificationTurnOffInstructions =>
-      '1. iPhone設定アプリを開く\n2. 通知 > Saucererを選択\n3. 通知を許可をオフにする';
+      '1. iPhone設定アプリを開く\n2. 通知 > Recipickを選択\n3. 通知を許可をオフにする';
 
   @override
   String get notificationTurnOffWarning => '通知を無効にすると、タイマー完了時に通知を受け取れません';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:saucerer_flutter/presentation/search/viewmodel/ingredient_search_viewmodel.dart';
-import 'package:saucerer_flutter/presentation/search/widgets/ingredient_chip.dart';
-import 'package:saucerer_flutter/l10n/app_localizations.dart';
+import 'package:recipick_flutter/presentation/search/viewmodel/ingredient_search_viewmodel.dart';
+import 'package:recipick_flutter/presentation/search/widgets/ingredient_chip.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 class IngredientSearchScreen extends ConsumerStatefulWidget {
   final bool showAppBar;
@@ -37,7 +37,8 @@ class _IngredientSearchScreenState
         appBar: widget.showAppBar
             ? AppBar(
                 title: Text(
-                    AppLocalizations.of(context).ingredientSearchByIngredients),
+                  AppLocalizations.of(context).ingredientSearchByIngredients,
+                ),
                 actions: [
                   if (state.selectedIngredients.isNotEmpty)
                     IconButton(
@@ -60,12 +61,14 @@ class _IngredientSearchScreenState
                       PopupMenuItem(
                         value: 'show_popular',
                         child: Text(
-                            AppLocalizations.of(context).ingredientShowPopular),
+                          AppLocalizations.of(context).ingredientShowPopular,
+                        ),
                       ),
                       PopupMenuItem(
                         value: 'show_all',
                         child: Text(
-                            AppLocalizations.of(context).ingredientShowAll),
+                          AppLocalizations.of(context).ingredientShowAll,
+                        ),
                       ),
                     ],
                   ),
@@ -230,8 +233,8 @@ class _IngredientSearchScreenState
                 Text(
                   AppLocalizations.of(context).searchNoResults,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -241,13 +244,13 @@ class _IngredientSearchScreenState
           Column(
             children: [
               Text(
-                AppLocalizations.of(context).searchRecipesFound(
-                  state.filteredRecipes.length.toString(),
-                ),
+                AppLocalizations.of(
+                  context,
+                ).searchRecipesFound(state.filteredRecipes.length.toString()),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               const SizedBox(height: 12),
               ListView.separated(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:saucerer_flutter/core/config/app_colors.dart';
-import 'package:saucerer_flutter/domain/entities/cooking_timer_entity.dart';
+import 'package:recipick_flutter/core/config/app_colors.dart';
+import 'package:recipick_flutter/domain/entities/cooking_timer_entity.dart';
 
 /// 타이머 카드 위젯
 /// 진행 중인 타이머를 시각적으로 표시합니다.
@@ -253,10 +253,9 @@ class TimerCardWidget extends StatelessWidget {
                               : timer.formattedRemainingTime,
                           style: theme.textTheme.headlineSmall?.copyWith(
                             fontWeight: FontWeight.bold,
-                            color:
-                                timer.isCompleted
-                                    ? AppColors.success
-                                    : statusColor,
+                            color: timer.isCompleted
+                                ? AppColors.success
+                                : statusColor,
                             fontFamily: 'monospace',
                           ),
                         ),

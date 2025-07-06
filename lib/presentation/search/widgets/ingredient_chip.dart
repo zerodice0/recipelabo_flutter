@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saucerer_flutter/l10n/app_localizations.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 class IngredientChip extends StatelessWidget {
   final String ingredient;
@@ -43,10 +43,9 @@ class IngredientChip extends StatelessWidget {
       label: Text(
         ingredient,
         style: TextStyle(
-          color:
-              isSelected
-                  ? Theme.of(context).colorScheme.onPrimary
-                  : Theme.of(context).colorScheme.onSurface,
+          color: isSelected
+              ? Theme.of(context).colorScheme.onPrimary
+              : Theme.of(context).colorScheme.onSurface,
           fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
         ),
       ),
@@ -56,10 +55,9 @@ class IngredientChip extends StatelessWidget {
       selectedColor: Theme.of(context).colorScheme.primary,
       checkmarkColor: Theme.of(context).colorScheme.onPrimary,
       side: BorderSide(
-        color:
-            isSelected
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.outline,
+        color: isSelected
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).colorScheme.outline,
         width: 1,
       ),
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -93,7 +91,9 @@ class SelectedIngredientsChips extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              AppLocalizations.of(context).ingredientSelectedCount(selectedIngredients.length.toString()),
+              AppLocalizations.of(
+                context,
+              ).ingredientSelectedCount(selectedIngredients.length.toString()),
               style: Theme.of(
                 context,
               ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -113,16 +113,15 @@ class SelectedIngredientsChips extends StatelessWidget {
         Wrap(
           spacing: 8,
           runSpacing: 4,
-          children:
-              selectedIngredients.map((ingredient) {
-                return IngredientChip(
-                  ingredient: ingredient,
-                  isSelected: true,
-                  showRemoveButton: true,
-                  onTap: () {},
-                  onRemove: () => onRemove(ingredient),
-                );
-              }).toList(),
+          children: selectedIngredients.map((ingredient) {
+            return IngredientChip(
+              ingredient: ingredient,
+              isSelected: true,
+              showRemoveButton: true,
+              onTap: () {},
+              onRemove: () => onRemove(ingredient),
+            );
+          }).toList(),
         ),
       ],
     );
@@ -181,15 +180,14 @@ class AvailableIngredientsGrid extends StatelessWidget {
     return Wrap(
       spacing: 8,
       runSpacing: 4,
-      children:
-          ingredients.map((ingredient) {
-            final isSelected = selectedIngredients.contains(ingredient);
-            return IngredientChip(
-              ingredient: ingredient,
-              isSelected: isSelected,
-              onTap: () => onIngredientTap(ingredient),
-            );
-          }).toList(),
+      children: ingredients.map((ingredient) {
+        final isSelected = selectedIngredients.contains(ingredient);
+        return IngredientChip(
+          ingredient: ingredient,
+          isSelected: isSelected,
+          onTap: () => onIngredientTap(ingredient),
+        );
+      }).toList(),
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:saucerer_flutter/domain/entities/ingredient_entity.dart';
-import 'package:saucerer_flutter/domain/entities/step_entity.dart';
+import 'package:recipick_flutter/domain/entities/ingredient_entity.dart';
+import 'package:recipick_flutter/domain/entities/step_entity.dart';
 
 part 'recipe_version_entity.freezed.dart';
 

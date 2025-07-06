@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:saucerer_flutter/data/datasources/local/database_helper.dart';
+import 'package:recipick_flutter/data/datasources/local/database_helper.dart';
 
 void main() {
   late DatabaseHelper databaseHelper;
@@ -31,9 +31,11 @@ void main() {
       final tables = await database.rawQuery(
         "SELECT name FROM sqlite_master WHERE type='table'",
       );
-      
-      final tableNames = tables.map((table) => table['name'] as String).toList();
-      
+
+      final tableNames = tables
+          .map((table) => table['name'] as String)
+          .toList();
+
       expect(tableNames, contains('users'));
       expect(tableNames, contains('recipes'));
       expect(tableNames, contains('recipe_versions'));
@@ -44,7 +46,7 @@ void main() {
     test('recipes 테이블 스키마가 올바른지 확인', () async {
       final columns = await database.rawQuery('PRAGMA table_info(recipes)');
       final columnNames = columns.map((col) => col['name'] as String).toList();
-      
+
       expect(columnNames, contains('id'));
       expect(columnNames, contains('authorId'));
       expect(columnNames, contains('latestVersionId'));
@@ -57,9 +59,11 @@ void main() {
     });
 
     test('recipe_versions 테이블 스키마가 올바른지 확인', () async {
-      final columns = await database.rawQuery('PRAGMA table_info(recipe_versions)');
+      final columns = await database.rawQuery(
+        'PRAGMA table_info(recipe_versions)',
+      );
       final columnNames = columns.map((col) => col['name'] as String).toList();
-      
+
       expect(columnNames, contains('id'));
       expect(columnNames, contains('recipeId'));
       expect(columnNames, contains('versionNumber'));
@@ -111,7 +115,7 @@ void main() {
         'updatedAt': '2025-06-26T12:00:00.000Z',
         'isDeleted': 0,
       };
-      
+
       await database.insert('recipes', recipeData);
 
       // 레시피 버전 삽입
@@ -153,7 +157,7 @@ void main() {
         'updatedAt': '2025-06-26T12:00:00.000Z',
         'isDeleted': 0,
       };
-      
+
       const versionData = {
         'id': 'test-version-3',
         'recipeId': 'test-recipe-3',
@@ -208,7 +212,7 @@ void main() {
         'updatedAt': '2025-06-26T12:00:00.000Z',
         'isDeleted': 0,
       };
-      
+
       const versionData = {
         'id': 'test-version-4',
         'recipeId': 'test-recipe-4',
@@ -224,12 +228,15 @@ void main() {
       await database.insert('recipe_versions', versionData);
 
       // JOIN 쿼리로 레시피와 버전 정보 함께 조회
-      final result = await database.rawQuery('''
+      final result = await database.rawQuery(
+        '''
         SELECT r.*, rv.name as version_name, rv.description as version_description
         FROM recipes r
         LEFT JOIN recipe_versions rv ON r.latestVersionId = rv.id
         WHERE r.id = ?
-      ''', ['test-recipe-4']);
+      ''',
+        ['test-recipe-4'],
+      );
 
       expect(result.length, 1);
       expect(result.first['name'], '떡볶이');

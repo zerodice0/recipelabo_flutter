@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:saucerer_flutter/domain/entities/ingredient_master_entity.dart';
-import 'package:saucerer_flutter/domain/usecases/get_all_ingredient_masters_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/search_ingredient_masters_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/create_ingredient_master_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/delete_ingredient_master_usecase.dart';
+import 'package:recipick_flutter/domain/entities/ingredient_master_entity.dart';
+import 'package:recipick_flutter/domain/usecases/get_all_ingredient_masters_usecase.dart';
+import 'package:recipick_flutter/domain/usecases/search_ingredient_masters_usecase.dart';
+import 'package:recipick_flutter/domain/usecases/create_ingredient_master_usecase.dart';
+import 'package:recipick_flutter/domain/usecases/delete_ingredient_master_usecase.dart';
 
 part 'seasoning_management_viewmodel.freezed.dart';
 part 'seasoning_management_viewmodel.g.dart';
@@ -90,12 +90,10 @@ class SeasoningManagementViewModel extends _$SeasoningManagementViewModel {
       state = state.copyWith(seasonings: state.allSeasonings);
     } else {
       // 선택된 카테고리로 필터링 (항상 원본 데이터에서 필터링)
-      final filtered =
-          state.allSeasonings.where((s) {
-            final displayName =
-                s.predefinedCategory?.displayName ?? s.categoryId;
-            return displayName == selectedCategory;
-          }).toList();
+      final filtered = state.allSeasonings.where((s) {
+        final displayName = s.predefinedCategory?.displayName ?? s.categoryId;
+        return displayName == selectedCategory;
+      }).toList();
       state = state.copyWith(seasonings: filtered);
     }
   }

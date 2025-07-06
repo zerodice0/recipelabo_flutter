@@ -2,12 +2,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_entity.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_version_entity.dart';
-import 'package:saucerer_flutter/domain/entities/cooking_log_entity.dart';
-import 'package:saucerer_flutter/presentation/recipe/detail/viewmodel/recipe_detail_viewmodel.dart';
-import 'package:saucerer_flutter/presentation/recipe/detail/viewmodel/cooking_log_viewmodel.dart';
-import 'package:saucerer_flutter/domain/usecases/delete_recipe_version_usecase.dart';
+import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
+import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
+import 'package:recipick_flutter/domain/entities/cooking_log_entity.dart';
+import 'package:recipick_flutter/presentation/recipe/detail/viewmodel/recipe_detail_viewmodel.dart';
+import 'package:recipick_flutter/presentation/recipe/detail/viewmodel/cooking_log_viewmodel.dart';
+import 'package:recipick_flutter/domain/usecases/delete_recipe_version_usecase.dart';
 
 class RecipeDetailScreen extends ConsumerStatefulWidget {
   final String recipeId;
@@ -63,16 +63,16 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   Text(
                     '${version.versionName ?? 'v${version.versionNumber}'} - ${version.name}',
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.onErrorContainer,
-                        ),
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onErrorContainer,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     '생성일: ${_formatDate(version.createdAt)}',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Theme.of(context).colorScheme.onErrorContainer,
-                        ),
+                      color: Theme.of(context).colorScheme.onErrorContainer,
+                    ),
                   ),
                 ],
               ),
@@ -81,9 +81,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
             Text(
               '⚠️ 이 작업은 되돌릴 수 없습니다.',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.error,
-                    fontWeight: FontWeight.w500,
-                  ),
+                color: Theme.of(context).colorScheme.error,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
         ),
@@ -120,8 +120,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
 
       // 현재 선택된 버전이 삭제되었다면 다른 버전을 선택
       if (_selectedVersionId == version.id) {
-        final remainingVersions =
-            allVersions.where((v) => v.id != version.id).toList();
+        final remainingVersions = allVersions
+            .where((v) => v.id != version.id)
+            .toList();
         if (remainingVersions.isNotEmpty) {
           setState(() {
             _selectedVersionId = remainingVersions.first.id;
@@ -275,8 +276,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 Text(
                   '생성일: ${_formatDate(recipe.createdAt)}',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ],
             ),
@@ -292,8 +293,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 Text(
                   '최종 업데이트: ${_formatDate(recipe.updatedAt)}',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ],
             ),
@@ -324,8 +325,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               Text(
                 '등록된 버전이 없습니다',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
               )
             else
               Column(
@@ -356,10 +357,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                           border: Border.all(
                             color: isSelected
                                 ? Theme.of(context).colorScheme.primary
-                                : Theme.of(context)
-                                    .colorScheme
-                                    .outline
-                                    .withValues(alpha: 0.3),
+                                : Theme.of(
+                                    context,
+                                  ).colorScheme.outline.withValues(alpha: 0.3),
                             width: isSelected ? 2 : 1,
                           ),
                         ),
@@ -375,9 +375,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                   ),
                                   decoration: BoxDecoration(
                                     color: isSelected
-                                        ? Theme.of(
-                                            context,
-                                          ).colorScheme.primary
+                                        ? Theme.of(context).colorScheme.primary
                                         : Theme.of(
                                             context,
                                           ).colorScheme.secondaryContainer,
@@ -402,16 +400,17 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                       Text(
                                         version.versionName ??
                                             'v${version.versionNumber}',
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.bodySmall?.copyWith(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(
                                               color: isSelected
                                                   ? Theme.of(
                                                       context,
                                                     ).colorScheme.onPrimary
                                                   : Theme.of(context)
-                                                      .colorScheme
-                                                      .onSecondaryContainer,
+                                                        .colorScheme
+                                                        .onSecondaryContainer,
                                               fontWeight: FontWeight.bold,
                                             ),
                                       ),
@@ -422,9 +421,10 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                 Expanded(
                                   child: Text(
                                     version.name,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodyMedium?.copyWith(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
                                           fontWeight: FontWeight.w500,
                                           color: isSelected
                                               ? Theme.of(
@@ -443,8 +443,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                     ),
                                     icon: Icon(
                                       Icons.delete_outline,
-                                      color:
-                                          Theme.of(context).colorScheme.error,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.error,
                                       size: 20,
                                     ),
                                     tooltip: '버전 삭제',
@@ -463,14 +464,15 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                 width: double.infinity,
                                 padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
-                                  color: (isSelected
-                                          ? Theme.of(
-                                              context,
-                                            ).colorScheme.primary
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .surfaceContainerHighest)
-                                      .withValues(alpha: 0.1),
+                                  color:
+                                      (isSelected
+                                              ? Theme.of(
+                                                  context,
+                                                ).colorScheme.primary
+                                              : Theme.of(context)
+                                                    .colorScheme
+                                                    .surfaceContainerHighest)
+                                          .withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                                 child: Column(
@@ -488,12 +490,13 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                         const SizedBox(width: 4),
                                         Text(
                                           '변경사항',
-                                          style: Theme.of(
-                                            context,
-                                          ).textTheme.bodySmall?.copyWith(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurfaceVariant,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall
+                                              ?.copyWith(
+                                                color: Theme.of(
+                                                  context,
+                                                ).colorScheme.onSurfaceVariant,
                                                 fontWeight: FontWeight.w500,
                                               ),
                                         ),
@@ -509,16 +512,17 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                       ),
                                       child: Text(
                                         version.changeLog!,
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.bodySmall?.copyWith(
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(
                                               color: isSelected
                                                   ? Theme.of(context)
-                                                      .colorScheme
-                                                      .onPrimaryContainer
+                                                        .colorScheme
+                                                        .onPrimaryContainer
                                                   : Theme.of(context)
-                                                      .colorScheme
-                                                      .onSurfaceVariant,
+                                                        .colorScheme
+                                                        .onSurfaceVariant,
                                               fontStyle: FontStyle.italic,
                                             ),
                                       ),
@@ -530,14 +534,13 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                             const SizedBox(height: 4),
                             Text(
                               '생성일: ${_formatDate(version.createdAt)}',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodySmall?.copyWith(
+                              style: Theme.of(context).textTheme.bodySmall
+                                  ?.copyWith(
                                     color: isSelected
                                         ? Theme.of(context)
-                                            .colorScheme
-                                            .onPrimaryContainer
-                                            .withValues(alpha: 0.8)
+                                              .colorScheme
+                                              .onPrimaryContainer
+                                              .withValues(alpha: 0.8)
                                         : Theme.of(
                                             context,
                                           ).colorScheme.onSurfaceVariant,
@@ -609,9 +612,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
         border: Border.all(
           color: isDeleted
               ? Theme.of(context).colorScheme.error.withValues(alpha: 0.3)
-              : Theme.of(
-                  context,
-                ).colorScheme.outline.withValues(alpha: 0.3),
+              : Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
         ),
       ),
       child: Column(
@@ -630,11 +631,11 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               Text(
                 '기반 버전',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: isDeleted
-                          ? Theme.of(context).colorScheme.error
-                          : Theme.of(context).colorScheme.onTertiaryContainer,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  color: isDeleted
+                      ? Theme.of(context).colorScheme.error
+                      : Theme.of(context).colorScheme.onTertiaryContainer,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),
@@ -653,9 +654,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   Text(
                     '기반 버전이 삭제되었습니다',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Theme.of(context).colorScheme.error,
-                          fontStyle: FontStyle.italic,
-                        ),
+                      color: Theme.of(context).colorScheme.error,
+                      fontStyle: FontStyle.italic,
+                    ),
                   ),
                 ],
               ),
@@ -690,21 +691,19 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                       child: Text(
                         'v${baseVersion.versionNumber}',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                            ),
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 6),
                     Text(
                       baseVersion.versionName ?? baseVersion.name,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onPrimaryContainer,
-                            fontWeight: FontWeight.w500,
-                          ),
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     const SizedBox(width: 4),
                     Icon(
@@ -723,8 +722,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               child: Text(
                 '최초 버전입니다',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
               ),
             ),
           ],
@@ -754,8 +753,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               Text(
                 '등록된 재료가 없습니다',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
               )
             else
               ListView.separated(
@@ -778,9 +777,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                         ),
                         Text(
                           '${ingredient.quantity} ${ingredient.unit}',
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodyMedium?.copyWith(
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(
                                 fontWeight: FontWeight.w500,
                                 color: Theme.of(context).colorScheme.primary,
                               ),
@@ -814,8 +812,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               Text(
                 '등록된 조리 순서가 없습니다',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
               )
             else
               ListView.separated(
@@ -839,11 +837,11 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                         child: Center(
                           child: Text(
                             '${step.stepNumber}',
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodyMedium?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimary,
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
@@ -866,8 +864,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
-                                    color:
-                                        Theme.of(context).colorScheme.outline,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.outline,
                                   ),
                                 ),
                                 child: const Center(child: Icon(Icons.image)),
@@ -909,8 +908,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                     Text(
                       '쿠킹 로그',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     ElevatedButton.icon(
                       onPressed: () async {
@@ -935,8 +934,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                       label: const Text('로그 추가'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.primary,
-                        foregroundColor:
-                            Theme.of(context).colorScheme.onPrimary,
+                        foregroundColor: Theme.of(
+                          context,
+                        ).colorScheme.onPrimary,
                       ),
                     ),
                   ],
@@ -989,15 +989,15 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               Text(
                 '아직 쿠킹 로그가 없습니다',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
               ),
               const SizedBox(height: 4),
               Text(
                 '첫 번째 쿠킹 로그를 추가해보세요!',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
               ),
             ],
           ),
@@ -1042,9 +1042,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) => Icon(
                         Icons.broken_image,
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.onSurfaceVariant,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                     ),
                   )
@@ -1085,9 +1083,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                     Text(
                       _formatDate(cookingLog.cookedAt),
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color:
-                                Theme.of(context).colorScheme.onSurfaceVariant,
-                          ),
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
                     ),
                   ],
                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:saucerer_flutter/domain/repositories/ingredient_repository.dart';
-import 'package:saucerer_flutter/core/di/provider.dart';
+import 'package:recipick_flutter/domain/repositories/ingredient_repository.dart';
+import 'package:recipick_flutter/core/di/provider.dart';
 
 part 'search_ingredients_usecase.g.dart';
 

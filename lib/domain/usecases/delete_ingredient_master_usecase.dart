@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:saucerer_flutter/core/di/provider.dart';
-import 'package:saucerer_flutter/domain/repositories/ingredient_master_repository.dart';
+import 'package:recipick_flutter/core/di/provider.dart';
+import 'package:recipick_flutter/domain/repositories/ingredient_master_repository.dart';
 
 part 'delete_ingredient_master_usecase.g.dart';
 
@@ -17,7 +17,9 @@ class DeleteIngredientMasterUseCase {
 
 @riverpod
 DeleteIngredientMasterUseCase deleteIngredientMasterUseCase(Ref ref) {
-  return DeleteIngredientMasterUseCase(ref.watch(ingredientMasterRepositoryProvider));
+  return DeleteIngredientMasterUseCase(
+    ref.watch(ingredientMasterRepositoryProvider),
+  );
 }
 
 // 하위 호환성을 위한 alias

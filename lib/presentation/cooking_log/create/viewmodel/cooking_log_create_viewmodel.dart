@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:saucerer_flutter/domain/entities/cooking_log_entity.dart';
-import 'package:saucerer_flutter/domain/usecases/save_cooking_log_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/pick_image_usecase.dart';
+import 'package:recipick_flutter/domain/entities/cooking_log_entity.dart';
+import 'package:recipick_flutter/domain/usecases/save_cooking_log_usecase.dart';
+import 'package:recipick_flutter/domain/usecases/pick_image_usecase.dart';
 
 part 'cooking_log_create_viewmodel.freezed.dart';
 part 'cooking_log_create_viewmodel.g.dart';

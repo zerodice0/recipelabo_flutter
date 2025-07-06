@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:saucerer_flutter/core/services/ad_service.dart';
+import 'package:recipick_flutter/core/services/ad_service.dart';
 
 class AdBannerWidget extends StatefulWidget {
   const AdBannerWidget({super.key});
@@ -36,7 +36,7 @@ class _AdBannerWidgetState extends State<AdBannerWidget> {
         },
       ),
     );
-    
+
     _bannerAd?.load();
   }
 

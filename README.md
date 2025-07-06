@@ -1,20 +1,20 @@
-# 🍳 소서러 (Saucerer) - Flutter
+# 🍳 레시픽 (Recipick) - Flutter
 
-**나만의 소스 레시피를 만들고, 공유하고, 발견하세요!**
+**나만의 레시피를 쉽게 선택하고, 만들고, 관리하세요!**
 
 <p align="center">
   <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter" />
   <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart" />
-  <img src="https://img.shields.io/github/license/zerodice0/saucerer_flutter?style=for-the-badge" alt="License" />
+  <img src="https://img.shields.io/github/license/zerodice0/recipick_flutter?style=for-the-badge" alt="License" />
 </p>
 
 ---
 
-`소서러(Saucerer)`는 '소스(Sauce)'와 '-rer(~하는 사람)'의 합성어로, 자신만의 특별한 소스 레시피를 만들고 관리하는 사람들을 위한 앱입니다. 이 프로젝트는 Flutter를 사용하여 iOS와 Android 모두에서 동작하는 크로스플랫폼 애플리케이션으로 개발됩니다.
+`레시픽(Recipick)`는 '레시피(Recipe)'와 '선택(Pick)'의 합성어로, 자신만의 특별한 레시피를 쉽게 선택하고 관리하는 사람들을 위한 앱입니다. 이 프로젝트는 Flutter를 사용하여 iOS와 Android 모두에서 동작하는 크로스플랫폼 애플리케이션으로 개발됩니다.
 
 ## 🌍 지원 언어
 
-소서러는 다음 언어를 지원합니다:
+레시픽은 다음 언어를 지원합니다:
 - 한국어 (기본)
 - 영어
 - 일본어
@@ -25,7 +25,7 @@
 
 프로젝트의 전체적인 아키텍처와 데이터 흐름, 상태 관리 전략 등은 아래 문서에서 자세히 확인할 수 있습니다.
 
-[➡️ 소서러 플러터 아키텍처 자세히 보기](./ARCHITECTURE.md)
+[➡️ 레시픽 플러터 아키텍처 자세히 보기](./ARCHITECTURE.md)
 
 ## 🛠️ 기술 스택
 
@@ -41,7 +41,7 @@
 
 ## 🌐 국제화 (i18n) 개발 가이드
 
-소서러는 한국어, 영어, 일본어를 지원하는 다국어 앱입니다. 번역 관리를 위해 Google Sheets를 사용하며, 편리한 쉘 스크립트를 제공합니다.
+레시픽은 한국어, 영어, 일본어를 지원하는 다국어 앱입니다. 번역 관리를 위해 Google Sheets를 사용하며, 편리한 쉘 스크립트를 제공합니다.
 
 ### 🚀 빠른 시작
 
@@ -113,7 +113,7 @@
    ```
 
 2. **Google Sheets에서 번역 편집**
-   - [Saucerer Translations](https://docs.google.com/spreadsheets/d/1q3T5hPEshaAifT5K9g0L-2yqPH4zv62x-43Z1u-cZns) 에서 번역 수정
+   - [Recipick Translations](https://docs.google.com/spreadsheets/d/1q3T5hPEshaAifT5K9g0L-2yqPH4zv62x-43Z1u-cZns) 에서 번역 수정
 
 3. **ARB 파일 업데이트**
    ```bash

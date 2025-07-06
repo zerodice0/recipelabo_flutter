@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:saucerer_flutter/core/routes/app_router.dart';
-import 'package:saucerer_flutter/core/config/app_theme.dart';
-import 'package:saucerer_flutter/l10n/app_localizations.dart';
-import 'package:saucerer_flutter/core/providers/locale_provider.dart';
-import 'package:saucerer_flutter/core/services/ad_service.dart';
+import 'package:recipick_flutter/core/routes/app_router.dart';
+import 'package:recipick_flutter/core/config/app_theme.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
+import 'package:recipick_flutter/core/providers/locale_provider.dart';
+import 'package:recipick_flutter/core/services/ad_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
@@ -21,9 +21,9 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final localeAsync = ref.watch(localeNotifierProvider);
-    
+
     return MaterialApp.router(
-      title: 'Saucerer',
+      title: 'Recipick',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
@@ -34,11 +34,7 @@ class MyApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale('ko'),
-        Locale('en'), 
-        Locale('ja'),
-      ],
+      supportedLocales: const [Locale('ko'), Locale('en'), Locale('ja')],
       locale: localeAsync.when(
         data: (supportedLocale) => supportedLocale.locale,
         loading: () => null,
@@ -50,7 +46,7 @@ class MyApp extends ConsumerWidget {
         if (currentLocale != null) {
           return currentLocale;
         }
-        
+
         // 시스템 언어 사용 모드인 경우 또는 로딩 중인 경우
         if (locale != null) {
           for (final supportedLocale in supportedLocales) {
@@ -59,7 +55,7 @@ class MyApp extends ConsumerWidget {
             }
           }
         }
-        
+
         // 기본값: 한국어
         return const Locale('ko');
       },

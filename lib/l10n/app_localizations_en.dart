@@ -539,7 +539,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notificationTurnOffInstructions =>
-      '1. Open iPhone Settings app\n2. Select Notifications > Saucerer\n3. Turn off Allow Notifications';
+      '1. Open iPhone Settings app\n2. Select Notifications > Recipick\n3. Turn off Allow Notifications';
 
   @override
   String get notificationTurnOffWarning =>

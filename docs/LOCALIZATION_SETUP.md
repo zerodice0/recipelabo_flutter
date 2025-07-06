@@ -1,6 +1,6 @@
 # 🌍 Localization Setup Guide
 
-This guide will help you set up Google Sheets integration for managing translations in the Saucerer Flutter app.
+This guide will help you set up Google Sheets integration for managing translations in the Recipick Flutter app.
 
 ## 📋 Prerequisites
 
@@ -15,7 +15,7 @@ This guide will help you set up Google Sheets integration for managing translati
 1. **Create a new Google Sheets document**
    - Go to [Google Sheets](https://sheets.google.com)
    - Create a new spreadsheet
-   - Name it: "Saucerer App Translations"
+   - Name it: "Recipick App Translations"
 
 2. **Set up the spreadsheet structure**
    - Copy the content from `docs/localization_template.csv`
@@ -43,7 +43,7 @@ This guide will help you set up Google Sheets integration for managing translati
 1. **Create a Google Cloud Project**
    - Go to [Google Cloud Console](https://console.cloud.google.com)
    - Create a new project or select existing one
-   - Project name: "Saucerer Translations" (or any name you prefer)
+   - Project name: "Recipick Translations" (or any name you prefer)
 
 2. **Enable Google Sheets API**
    - Go to "APIs & Services" > "Library"

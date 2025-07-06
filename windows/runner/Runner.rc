@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.zerodice0" "\0"
-            VALUE "FileDescription", "saucerer_flutter" "\0"
+            VALUE "FileDescription", "recipick_flutter" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "saucerer_flutter" "\0"
+            VALUE "InternalName", "recipick_flutter" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2025 com.zerodice0. All rights reserved." "\0"
-            VALUE "OriginalFilename", "saucerer_flutter.exe" "\0"
-            VALUE "ProductName", "saucerer_flutter" "\0"
+            VALUE "OriginalFilename", "recipick_flutter.exe" "\0"
+            VALUE "ProductName", "recipick_flutter" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

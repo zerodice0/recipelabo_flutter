@@ -1,9 +1,11 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:saucerer_flutter/data/models/cooking_log_model.dart';
+import 'package:recipick_flutter/data/models/cooking_log_model.dart';
 import './database_helper.dart';
 
 abstract class CookingLogLocalDataSource {
-  Future<List<CookingLogModel>> getCookingLogsForRecipeVersion(String recipeVersionId);
+  Future<List<CookingLogModel>> getCookingLogsForRecipeVersion(
+    String recipeVersionId,
+  );
   Future<CookingLogModel?> getCookingLog(String id);
   Future<void> saveCookingLog(CookingLogModel cookingLog);
   Future<void> deleteCookingLog(String id);
@@ -15,13 +17,15 @@ class CookingLogLocalDataSourceImpl implements CookingLogLocalDataSource {
   CookingLogLocalDataSourceImpl(this._dbHelper);
 
   @override
-  Future<List<CookingLogModel>> getCookingLogsForRecipeVersion(String recipeVersionId) async {
+  Future<List<CookingLogModel>> getCookingLogsForRecipeVersion(
+    String recipeVersionId,
+  ) async {
     final db = await _dbHelper.database;
     final maps = await db.query(
-      'cooking_logs', 
-      where: 'recipeVersionId = ? AND isDeleted = ?', 
+      'cooking_logs',
+      where: 'recipeVersionId = ? AND isDeleted = ?',
       whereArgs: [recipeVersionId, 0],
-      orderBy: 'cookedAt DESC'
+      orderBy: 'cookedAt DESC',
     );
     return maps.map((map) => CookingLogModelExtension.fromMap(map)).toList();
   }
@@ -30,11 +34,11 @@ class CookingLogLocalDataSourceImpl implements CookingLogLocalDataSource {
   Future<CookingLogModel?> getCookingLog(String id) async {
     final db = await _dbHelper.database;
     final maps = await db.query(
-      'cooking_logs', 
-      where: 'id = ? AND isDeleted = ?', 
-      whereArgs: [id, 0]
+      'cooking_logs',
+      where: 'id = ? AND isDeleted = ?',
+      whereArgs: [id, 0],
     );
-    
+
     if (maps.isNotEmpty) {
       return CookingLogModelExtension.fromMap(maps.first);
     }
@@ -45,9 +49,9 @@ class CookingLogLocalDataSourceImpl implements CookingLogLocalDataSource {
   Future<void> saveCookingLog(CookingLogModel cookingLog) async {
     final db = await _dbHelper.database;
     await db.insert(
-      'cooking_logs', 
-      cookingLog.toMap(), 
-      conflictAlgorithm: ConflictAlgorithm.replace
+      'cooking_logs',
+      cookingLog.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
@@ -56,10 +60,10 @@ class CookingLogLocalDataSourceImpl implements CookingLogLocalDataSource {
     final db = await _dbHelper.database;
     final now = DateTime.now().toIso8601String();
     await db.update(
-      'cooking_logs', 
-      {'isDeleted': 1, 'updatedAt': now}, 
-      where: 'id = ?', 
-      whereArgs: [id]
+      'cooking_logs',
+      {'isDeleted': 1, 'updatedAt': now},
+      where: 'id = ?',
+      whereArgs: [id],
     );
   }
 }

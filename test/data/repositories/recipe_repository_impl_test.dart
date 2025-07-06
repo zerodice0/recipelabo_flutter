@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_entity.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_version_entity.dart';
-import 'package:saucerer_flutter/domain/entities/ingredient_entity.dart';
-import 'package:saucerer_flutter/domain/entities/step_entity.dart';
+import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
+import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
+import 'package:recipick_flutter/domain/entities/ingredient_entity.dart';
+import 'package:recipick_flutter/domain/entities/step_entity.dart';
 
 void main() {
   group('RecipeRepositoryImpl 테스트', () {
@@ -44,11 +44,7 @@ void main() {
           ),
         ],
         steps: const [
-          StepEntity(
-            id: 'step-1',
-            stepNumber: 1,
-            description: '김치를 볶는다',
-          ),
+          StepEntity(id: 'step-1', stepNumber: 1, description: '김치를 볶는다'),
         ],
         authorId: 'user-test-1',
         createdAt: testTime,

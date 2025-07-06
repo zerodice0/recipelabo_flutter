@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_entity.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_version_entity.dart';
-import 'package:saucerer_flutter/domain/entities/ingredient_entity.dart';
-import 'package:saucerer_flutter/domain/entities/step_entity.dart';
+import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
+import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
+import 'package:recipick_flutter/domain/entities/ingredient_entity.dart';
+import 'package:recipick_flutter/domain/entities/step_entity.dart';
 
 void main() {
   group('간단한 레시피 엔티티 테스트', () {
     test('레시피 엔티티 생성 테스트', () {
       final testTime = DateTime.now();
-      
+
       final recipe = RecipeEntity(
         id: 'test-recipe-1',
         authorId: 'test-user-1',
@@ -28,7 +28,7 @@ void main() {
 
     test('레시피 버전 엔티티 생성 테스트', () {
       final testTime = DateTime.now();
-      
+
       final version = RecipeVersionEntity(
         id: 'test-version-1',
         recipeId: 'test-recipe-1',
@@ -50,16 +50,8 @@ void main() {
           ),
         ],
         steps: const [
-          StepEntity(
-            id: 'step-1',
-            stepNumber: 1,
-            description: '떡을 찬물에 담가둔다',
-          ),
-          StepEntity(
-            id: 'step-2',
-            stepNumber: 2,
-            description: '고추장을 물에 풀어준다',
-          ),
+          StepEntity(id: 'step-1', stepNumber: 1, description: '떡을 찬물에 담가둔다'),
+          StepEntity(id: 'step-2', stepNumber: 2, description: '고추장을 물에 풀어준다'),
         ],
         authorId: 'test-user-1',
         createdAt: testTime,

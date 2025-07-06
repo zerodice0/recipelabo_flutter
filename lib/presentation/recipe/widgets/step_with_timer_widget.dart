@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:saucerer_flutter/core/config/app_colors.dart';
-import 'package:saucerer_flutter/core/services/timer_service.dart';
-import 'package:saucerer_flutter/domain/entities/cooking_timer_entity.dart';
-import 'package:saucerer_flutter/domain/entities/step_entity.dart';
-import 'package:saucerer_flutter/presentation/timer/widgets/notification_permission_dialog.dart';
+import 'package:recipick_flutter/core/config/app_colors.dart';
+import 'package:recipick_flutter/core/services/timer_service.dart';
+import 'package:recipick_flutter/domain/entities/cooking_timer_entity.dart';
+import 'package:recipick_flutter/domain/entities/step_entity.dart';
+import 'package:recipick_flutter/presentation/timer/widgets/notification_permission_dialog.dart';
 import 'package:uuid/uuid.dart';
 
 /// 타이머가 포함된 조리 단계 위젯
@@ -63,16 +63,15 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
           description: _descriptionController.text,
           timerMinutes:
               _showTimerSettings && (_timerMinutes > 0 || _timerSeconds > 0)
-                  ? _timerMinutes
-                  : null,
+              ? _timerMinutes
+              : null,
           timerSeconds:
               _showTimerSettings && (_timerMinutes > 0 || _timerSeconds > 0)
-                  ? _timerSeconds
-                  : null,
-          timerName:
-              _showTimerSettings && _timerNameController.text.isNotEmpty
-                  ? _timerNameController.text
-                  : null,
+              ? _timerSeconds
+              : null,
+          timerName: _showTimerSettings && _timerNameController.text.isNotEmpty
+              ? _timerNameController.text
+              : null,
         ),
       );
     }
@@ -175,10 +174,9 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color:
-              hasTimer
-                  ? AppColors.primaryOrange.withValues(alpha: 0.3)
-                  : AppColors.accent.withValues(alpha: 0.2),
+          color: hasTimer
+              ? AppColors.primaryOrange.withValues(alpha: 0.3)
+              : AppColors.accent.withValues(alpha: 0.2),
           width: 1.5,
         ),
         boxShadow: [
@@ -203,8 +201,9 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
                   width: 32,
                   height: 32,
                   decoration: BoxDecoration(
-                    color:
-                        hasTimer ? AppColors.primaryOrange : AppColors.accent,
+                    color: hasTimer
+                        ? AppColors.primaryOrange
+                        : AppColors.accent,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Center(
@@ -267,10 +266,9 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
                   IconButton(
                     icon: Icon(
                       _showTimerSettings ? Icons.timer_off : Icons.timer,
-                      color:
-                          _showTimerSettings
-                              ? AppColors.primaryOrange
-                              : AppColors.textBrown.withValues(alpha: 0.6),
+                      color: _showTimerSettings
+                          ? AppColors.primaryOrange
+                          : AppColors.textBrown.withValues(alpha: 0.6),
                     ),
                     onPressed: () {
                       setState(() {
@@ -389,13 +387,12 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
                                   children: [
                                     IconButton(
                                       icon: const Icon(Icons.remove, size: 18),
-                                      onPressed:
-                                          _timerMinutes > 0
-                                              ? () {
-                                                setState(() => _timerMinutes--);
-                                                _updateStep();
-                                              }
-                                              : null,
+                                      onPressed: _timerMinutes > 0
+                                          ? () {
+                                              setState(() => _timerMinutes--);
+                                              _updateStep();
+                                            }
+                                          : null,
                                     ),
                                     Expanded(
                                       child: Text(
@@ -413,13 +410,12 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
                                     ),
                                     IconButton(
                                       icon: const Icon(Icons.add, size: 18),
-                                      onPressed:
-                                          _timerMinutes < 99
-                                              ? () {
-                                                setState(() => _timerMinutes++);
-                                                _updateStep();
-                                              }
-                                              : null,
+                                      onPressed: _timerMinutes < 99
+                                          ? () {
+                                              setState(() => _timerMinutes++);
+                                              _updateStep();
+                                            }
+                                          : null,
                                     ),
                                   ],
                                 ),
@@ -449,13 +445,12 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
                                   children: [
                                     IconButton(
                                       icon: const Icon(Icons.remove, size: 18),
-                                      onPressed:
-                                          _timerSeconds > 0
-                                              ? () {
-                                                setState(() => _timerSeconds--);
-                                                _updateStep();
-                                              }
-                                              : null,
+                                      onPressed: _timerSeconds > 0
+                                          ? () {
+                                              setState(() => _timerSeconds--);
+                                              _updateStep();
+                                            }
+                                          : null,
                                     ),
                                     Expanded(
                                       child: Text(
@@ -473,13 +468,12 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
                                     ),
                                     IconButton(
                                       icon: const Icon(Icons.add, size: 18),
-                                      onPressed:
-                                          _timerSeconds < 59
-                                              ? () {
-                                                setState(() => _timerSeconds++);
-                                                _updateStep();
-                                              }
-                                              : null,
+                                      onPressed: _timerSeconds < 59
+                                          ? () {
+                                              setState(() => _timerSeconds++);
+                                              _updateStep();
+                                            }
+                                          : null,
                                     ),
                                   ],
                                 ),

@@ -1,5 +1,5 @@
-import 'package:saucerer_flutter/domain/entities/recipe_entity.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_version_entity.dart';
+import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
+import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
 
 /// 레시피 데이터에 접근하기 위한 리포지토리 인터페이스
 abstract class RecipeRepository {

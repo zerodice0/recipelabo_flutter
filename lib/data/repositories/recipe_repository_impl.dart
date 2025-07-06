@@ -1,13 +1,13 @@
-import 'package:saucerer_flutter/data/datasources/local/recipe_local_data_source.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_entity.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_version_entity.dart';
-import 'package:saucerer_flutter/domain/repositories/recipe_repository.dart';
-import 'package:saucerer_flutter/data/models/recipe_model.dart';
-import 'package:saucerer_flutter/data/models/recipe_version_model.dart';
-import 'package:saucerer_flutter/data/models/ingredient_model.dart';
-import 'package:saucerer_flutter/data/models/step_model.dart';
-import 'package:saucerer_flutter/domain/entities/ingredient_entity.dart';
-import 'package:saucerer_flutter/domain/entities/step_entity.dart';
+import 'package:recipick_flutter/data/datasources/local/recipe_local_data_source.dart';
+import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
+import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
+import 'package:recipick_flutter/domain/repositories/recipe_repository.dart';
+import 'package:recipick_flutter/data/models/recipe_model.dart';
+import 'package:recipick_flutter/data/models/recipe_version_model.dart';
+import 'package:recipick_flutter/data/models/ingredient_model.dart';
+import 'package:recipick_flutter/data/models/step_model.dart';
+import 'package:recipick_flutter/domain/entities/ingredient_entity.dart';
+import 'package:recipick_flutter/domain/entities/step_entity.dart';
 
 class RecipeRepositoryImpl implements RecipeRepository {
   final RecipeLocalDataSource localDataSource;
@@ -127,8 +127,9 @@ class RecipeRepositoryImpl implements RecipeRepository {
       name: model.name,
       versionName: model.versionName,
       description: model.description,
-      ingredients:
-          model.ingredients.map((e) => _mapIngredientModelToEntity(e)).toList(),
+      ingredients: model.ingredients
+          .map((e) => _mapIngredientModelToEntity(e))
+          .toList(),
       steps: model.steps.map((e) => _mapStepModelToEntity(e)).toList(),
       authorId: model.authorId,
       createdAt: model.createdAt,
@@ -150,8 +151,9 @@ class RecipeRepositoryImpl implements RecipeRepository {
       ingredients: entity.ingredients
           .map((e) => _mapIngredientEntityToModel(e, entity.id))
           .toList(),
-      steps:
-          entity.steps.map((e) => _mapStepEntityToModel(e, entity.id)).toList(),
+      steps: entity.steps
+          .map((e) => _mapStepEntityToModel(e, entity.id))
+          .toList(),
       authorId: entity.authorId,
       createdAt: entity.createdAt,
       updatedAt: DateTime.now(), // Should be handled properly

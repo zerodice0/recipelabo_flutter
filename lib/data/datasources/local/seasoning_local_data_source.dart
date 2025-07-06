@@ -1,5 +1,5 @@
-import 'package:saucerer_flutter/data/datasources/local/database_helper.dart';
-import 'package:saucerer_flutter/data/models/ingredient_master_model.dart';
+import 'package:recipick_flutter/data/datasources/local/database_helper.dart';
+import 'package:recipick_flutter/data/models/ingredient_master_model.dart';
 import 'package:uuid/uuid.dart';
 
 abstract class SeasoningLocalDataSource {
@@ -47,7 +47,9 @@ class SeasoningLocalDataSourceImpl implements SeasoningLocalDataSource {
   }
 
   @override
-  Future<List<IngredientMasterModel>> getSeasoningsByCategory(String category) async {
+  Future<List<IngredientMasterModel>> getSeasoningsByCategory(
+    String category,
+  ) async {
     final db = await _databaseHelper.database;
     final List<Map<String, dynamic>> maps = await db.query(
       'seasonings',
@@ -60,7 +62,9 @@ class SeasoningLocalDataSourceImpl implements SeasoningLocalDataSource {
   }
 
   @override
-  Future<List<IngredientMasterModel>> getPopularSeasonings({int limit = 20}) async {
+  Future<List<IngredientMasterModel>> getPopularSeasonings({
+    int limit = 20,
+  }) async {
     final db = await _databaseHelper.database;
     final List<Map<String, dynamic>> maps = await db.query(
       'seasonings',
@@ -102,7 +106,7 @@ class SeasoningLocalDataSourceImpl implements SeasoningLocalDataSource {
     final db = await _databaseHelper.database;
     final id = _uuid.v4();
     final now = DateTime.now().toIso8601String();
-    
+
     final seasoningWithId = seasoning.copyWith(
       id: id,
       createdAt: now,
@@ -117,7 +121,7 @@ class SeasoningLocalDataSourceImpl implements SeasoningLocalDataSource {
   Future<void> updateSeasoning(IngredientMasterModel seasoning) async {
     final db = await _databaseHelper.database;
     final now = DateTime.now().toIso8601String();
-    
+
     final updatedSeasoning = seasoning.copyWith(updatedAt: now);
 
     await db.update(
@@ -131,11 +135,7 @@ class SeasoningLocalDataSourceImpl implements SeasoningLocalDataSource {
   @override
   Future<void> deleteSeasoning(String id) async {
     final db = await _databaseHelper.database;
-    await db.delete(
-      'seasonings',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    await db.delete('seasonings', where: 'id = ?', whereArgs: [id]);
   }
 
   @override

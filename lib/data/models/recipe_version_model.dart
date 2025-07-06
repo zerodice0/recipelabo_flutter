@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:saucerer_flutter/data/models/ingredient_model.dart';
-import 'package:saucerer_flutter/data/models/step_model.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_version_entity.dart';
+import 'package:recipick_flutter/data/models/ingredient_model.dart';
+import 'package:recipick_flutter/data/models/step_model.dart';
+import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
 
 part 'recipe_version_model.freezed.dart';
 part 'recipe_version_model.g.dart';
@@ -100,14 +100,12 @@ extension RecipeVersionModelExtension on RecipeVersionModel {
       name: entity.name,
       versionName: entity.versionName,
       description: entity.description,
-      ingredients:
-          entity.ingredients
-              .map((e) => IngredientModelEntityExtension.fromEntity(e))
-              .toList(),
-      steps:
-          entity.steps
-              .map((e) => StepModelEntityExtension.fromEntity(e))
-              .toList(),
+      ingredients: entity.ingredients
+          .map((e) => IngredientModelEntityExtension.fromEntity(e))
+          .toList(),
+      steps: entity.steps
+          .map((e) => StepModelEntityExtension.fromEntity(e))
+          .toList(),
       authorId: entity.authorId,
       createdAt: entity.createdAt,
       updatedAt: updatedAt,

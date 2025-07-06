@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Saucerer 다국어 관리 스크립트
+# Recipick 다국어 관리 스크립트
 # 프로젝트 루트에서 실행해야 합니다.
 
 set -e  # 오류 발생 시 스크립트 중단
@@ -17,7 +17,7 @@ NC='\033[0m' # No Color
 # 헬퍼 함수들
 print_header() {
     echo -e "${CYAN}================================================${NC}"
-    echo -e "${CYAN}🌍 Saucerer 다국어 관리 도구${NC}"
+    echo -e "${CYAN}🌍 Recipick 다국어 관리 도구${NC}"
     echo -e "${CYAN}================================================${NC}"
 }
 
@@ -277,7 +277,7 @@ show_help() {
     clear
     print_header
     echo ""
-    echo -e "${YELLOW}📖 Saucerer 다국어 관리 도구 도움말${NC}"
+    echo -e "${YELLOW}📖 Recipick 다국어 관리 도구 도움말${NC}"
     echo ""
     echo -e "${YELLOW}명령줄 사용법:${NC}"
     echo "  ./i18n.sh [명령어] [옵션]"

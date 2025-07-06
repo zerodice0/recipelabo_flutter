@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_entity.dart';
-import 'package:saucerer_flutter/domain/usecases/get_all_ingredients_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/search_ingredients_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/get_recipes_by_ingredients_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/get_popular_ingredients_usecase.dart';
+import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
+import 'package:recipick_flutter/domain/usecases/get_all_ingredients_usecase.dart';
+import 'package:recipick_flutter/domain/usecases/search_ingredients_usecase.dart';
+import 'package:recipick_flutter/domain/usecases/get_recipes_by_ingredients_usecase.dart';
+import 'package:recipick_flutter/domain/usecases/get_popular_ingredients_usecase.dart';
 
 part 'ingredient_search_viewmodel.freezed.dart';
 part 'ingredient_search_viewmodel.g.dart';

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:saucerer_flutter/domain/entities/cooking_timer_entity.dart';
-import 'package:saucerer_flutter/l10n/app_localizations.dart';
+import 'package:recipick_flutter/domain/entities/cooking_timer_entity.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 /// 요리 타이머 관리 서비스
 /// 백그라운드에서 타이머를 실행하고 완료 시 로컬 알림을 보냅니다.
@@ -37,16 +37,16 @@ class TimerService extends ChangeNotifier {
     // iOS 설정 (권한 요청하지 않음)
     const DarwinInitializationSettings initializationSettingsIOS =
         DarwinInitializationSettings(
-      requestSoundPermission: false,
-      requestBadgePermission: false,
-      requestAlertPermission: false,
-    );
+          requestSoundPermission: false,
+          requestBadgePermission: false,
+          requestAlertPermission: false,
+        );
 
     const InitializationSettings initializationSettings =
         InitializationSettings(
-      android: initializationSettingsAndroid,
-      iOS: initializationSettingsIOS,
-    );
+          android: initializationSettingsAndroid,
+          iOS: initializationSettingsIOS,
+        );
 
     await _flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
@@ -65,7 +65,8 @@ class TimerService extends ChangeNotifier {
     if (Platform.isAndroid) {
       final androidPlugin = _flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>();
+            AndroidFlutterLocalNotificationsPlugin
+          >();
 
       // 정확한 알람 권한 요청
       await androidPlugin?.requestExactAlarmsPermission();
@@ -79,12 +80,9 @@ class TimerService extends ChangeNotifier {
       // iOS 권한 요청
       final result = await _flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
-              IOSFlutterLocalNotificationsPlugin>()
-          ?.requestPermissions(
-            alert: true,
-            badge: true,
-            sound: true,
-          );
+            IOSFlutterLocalNotificationsPlugin
+          >()
+          ?.requestPermissions(alert: true, badge: true, sound: true);
 
       _hasNotificationPermission = result ?? false;
       return _hasNotificationPermission;
@@ -102,7 +100,8 @@ class TimerService extends ChangeNotifier {
     if (Platform.isAndroid) {
       final androidPlugin = _flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>();
+            AndroidFlutterLocalNotificationsPlugin
+          >();
 
       final granted = await androidPlugin?.areNotificationsEnabled();
       _hasNotificationPermission = granted ?? false;
@@ -122,8 +121,10 @@ class TimerService extends ChangeNotifier {
   }
 
   /// 타이머 시작
-  Future<void> startTimer(CookingTimerEntity timer,
-      [BuildContext? context]) async {
+  Future<void> startTimer(
+    CookingTimerEntity timer, [
+    BuildContext? context,
+  ]) async {
     debugPrint('=== TIMER START DEBUG ===');
     debugPrint('Timer ID: ${timer.id}');
     debugPrint('Timer name: ${timer.name}');
@@ -151,15 +152,26 @@ class TimerService extends ChangeNotifier {
     if (_hasNotificationPermission) {
       debugPrint('Scheduling notification...');
       if (context != null && context.mounted) {
-        await _scheduleNotification(timer.id, timer.name,
-            timer.formattedTotalTime, completionTime, context);
+        await _scheduleNotification(
+          timer.id,
+          timer.name,
+          timer.formattedTotalTime,
+          completionTime,
+          context,
+        );
       } else {
-        await _scheduleNotification(timer.id, timer.name,
-            timer.formattedTotalTime, completionTime, null);
+        await _scheduleNotification(
+          timer.id,
+          timer.name,
+          timer.formattedTotalTime,
+          completionTime,
+          null,
+        );
       }
     } else {
       debugPrint(
-          'Notification permission not granted, skipping notification scheduling');
+        'Notification permission not granted, skipping notification scheduling',
+      );
     }
 
     // 추가: 대체 방안으로 앱 내에서 Timer 기반 노티피케이션도 설정
@@ -186,8 +198,12 @@ class TimerService extends ChangeNotifier {
 
   /// 스케줄된 로컬 노티피케이션 설정
   Future<void> _scheduleNotification(
-      String timerId, String timerName, String duration, DateTime scheduledTime,
-      [BuildContext? context]) async {
+    String timerId,
+    String timerName,
+    String duration,
+    DateTime scheduledTime, [
+    BuildContext? context,
+  ]) async {
     debugPrint('=== SCHEDULE NOTIFICATION DEBUG ===');
     debugPrint('Timer ID: $timerId');
     debugPrint('Timer Name: $timerName');
@@ -195,7 +211,8 @@ class TimerService extends ChangeNotifier {
     debugPrint('Scheduled Time: $scheduledTime');
     debugPrint('Current Time: ${DateTime.now()}');
     debugPrint(
-        'Time difference: ${scheduledTime.difference(DateTime.now()).inSeconds} seconds');
+      'Time difference: ${scheduledTime.difference(DateTime.now()).inSeconds} seconds',
+    );
 
     try {
       // 다국어화를 위해 기본 텍스트 사용 (context가 없는 경우)
@@ -206,8 +223,9 @@ class TimerService extends ChangeNotifier {
           ? AppLocalizations.of(context).timerNotificationChannelDescription
           : '요리 타이머 완료 알림';
       final notificationTitle = (context != null && context.mounted)
-          ? AppLocalizations.of(context)
-              .timerNotificationCompleteTitle(timerName)
+          ? AppLocalizations.of(
+              context,
+            ).timerNotificationCompleteTitle(timerName)
           : '🍳 $timerName 완료!';
       final notificationBody = (context != null && context.mounted)
           ? AppLocalizations.of(context).timerNotificationCompleteBody(duration)
@@ -215,24 +233,24 @@ class TimerService extends ChangeNotifier {
 
       final AndroidNotificationDetails androidNotificationDetails =
           AndroidNotificationDetails(
-        'cooking_timer_channel',
-        channelName,
-        channelDescription: channelDescription,
-        importance: Importance.max, // max로 변경
-        priority: Priority.max, // max로 변경
-        showWhen: true,
-        enableVibration: true,
-        playSound: true,
-        icon: '@mipmap/ic_launcher',
-      );
+            'cooking_timer_channel',
+            channelName,
+            channelDescription: channelDescription,
+            importance: Importance.max, // max로 변경
+            priority: Priority.max, // max로 변경
+            showWhen: true,
+            enableVibration: true,
+            playSound: true,
+            icon: '@mipmap/ic_launcher',
+          );
 
       const DarwinNotificationDetails iosNotificationDetails =
           DarwinNotificationDetails(
-        presentAlert: true,
-        presentBadge: true,
-        presentSound: true,
-        sound: 'default',
-      );
+            presentAlert: true,
+            presentBadge: true,
+            presentSound: true,
+            sound: 'default',
+          );
 
       final NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails,
@@ -255,7 +273,8 @@ class TimerService extends ChangeNotifier {
       );
 
       debugPrint(
-          '✅ Scheduled notification successfully for $timerName at $scheduledTime');
+        '✅ Scheduled notification successfully for $timerName at $scheduledTime',
+      );
     } catch (e) {
       debugPrint('❌ Failed to schedule notification: $e');
       debugPrint('Error type: ${e.runtimeType}');
@@ -366,25 +385,25 @@ class TimerService extends ChangeNotifier {
 
     const AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
-      'cooking_timer_channel',
-      '요리 타이머',
-      channelDescription: '요리 타이머 완료 알림',
-      importance: Importance.high,
-      priority: Priority.high,
-      showWhen: true,
-      enableVibration: true,
-      playSound: true,
-      sound: RawResourceAndroidNotificationSound('timer_complete'),
-      icon: '@mipmap/ic_launcher',
-    );
+          'cooking_timer_channel',
+          '요리 타이머',
+          channelDescription: '요리 타이머 완료 알림',
+          importance: Importance.high,
+          priority: Priority.high,
+          showWhen: true,
+          enableVibration: true,
+          playSound: true,
+          sound: RawResourceAndroidNotificationSound('timer_complete'),
+          icon: '@mipmap/ic_launcher',
+        );
 
     const DarwinNotificationDetails iosNotificationDetails =
         DarwinNotificationDetails(
-      presentAlert: true,
-      presentBadge: true,
-      presentSound: true,
-      sound: 'timer_complete.aiff',
-    );
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+          sound: 'timer_complete.aiff',
+        );
 
     const NotificationDetails notificationDetails = NotificationDetails(
       android: androidNotificationDetails,
@@ -538,23 +557,23 @@ class TimerService extends ChangeNotifier {
 
       final AndroidNotificationDetails androidNotificationDetails =
           AndroidNotificationDetails(
-        'cooking_timer_test_channel',
-        channelName,
-        channelDescription: channelDescription,
-        importance: Importance.max,
-        priority: Priority.high,
-        showWhen: true,
-        enableVibration: true,
-        playSound: true,
-      );
+            'cooking_timer_test_channel',
+            channelName,
+            channelDescription: channelDescription,
+            importance: Importance.max,
+            priority: Priority.high,
+            showWhen: true,
+            enableVibration: true,
+            playSound: true,
+          );
 
       const DarwinNotificationDetails iosNotificationDetails =
           DarwinNotificationDetails(
-        presentAlert: true,
-        presentBadge: true,
-        presentSound: true,
-        sound: 'default',
-      );
+            presentAlert: true,
+            presentBadge: true,
+            presentSound: true,
+            sound: 'default',
+          );
 
       final NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails,

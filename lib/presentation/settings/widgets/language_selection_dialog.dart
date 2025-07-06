@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:saucerer_flutter/core/providers/locale_provider.dart';
-import 'package:saucerer_flutter/l10n/app_localizations.dart';
+import 'package:recipick_flutter/core/providers/locale_provider.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 class LanguageSelectionDialog extends ConsumerWidget {
   const LanguageSelectionDialog({super.key});
@@ -33,8 +33,9 @@ class LanguageSelectionDialog extends ConsumerWidget {
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(AppLocalizations.of(context)
-                            .settingsLanguageChanged),
+                        content: Text(
+                          AppLocalizations.of(context).settingsLanguageChanged,
+                        ),
                         duration: const Duration(seconds: 2),
                       ),
                     );

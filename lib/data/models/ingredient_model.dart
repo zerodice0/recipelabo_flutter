@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:saucerer_flutter/domain/entities/ingredient_entity.dart';
+import 'package:recipick_flutter/domain/entities/ingredient_entity.dart';
 
 part 'ingredient_model.freezed.dart';
 part 'ingredient_model.g.dart';
@@ -20,7 +20,6 @@ class IngredientModel with _$IngredientModel {
 
   factory IngredientModel.fromJson(Map<String, dynamic> json) =>
       _$IngredientModelFromJson(json);
-
 }
 
 /// IngredientModel을 위한 SQLite 매핑 확장
@@ -57,14 +56,8 @@ extension IngredientModelExtension on IngredientModel {
 
   /// Entity로 변환
   IngredientEntity toEntity() {
-    return IngredientEntity(
-      id: id,
-      name: name,
-      quantity: quantity,
-      unit: unit,
-    );
+    return IngredientEntity(id: id, name: name, quantity: quantity, unit: unit);
   }
-
 }
 
 /// IngredientModel Entity 변환 확장

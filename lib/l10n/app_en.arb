@@ -737,7 +737,7 @@
   "@notificationTurnOff": {
     "description": "알림 끄기 안내"
   },
-  "notificationTurnOffInstructions": "1. Open iPhone Settings app\n2. Select Notifications > Saucerer\n3. Turn off Allow Notifications",
+  "notificationTurnOffInstructions": "1. Open iPhone Settings app\n2. Select Notifications > Recipick\n3. Turn off Allow Notifications",
   "@notificationTurnOffInstructions": {
     "description": "알림 끄기 방법"
   },

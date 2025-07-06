@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_entity.dart';
-import 'package:saucerer_flutter/domain/usecases/get_recipes_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/delete_recipe_usecase.dart';
+import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
+import 'package:recipick_flutter/domain/usecases/get_recipes_usecase.dart';
+import 'package:recipick_flutter/domain/usecases/delete_recipe_usecase.dart';
 
 part 'recipe_list_viewmodel.g.dart';
 
@@ -30,7 +30,7 @@ class RecipeListViewModel extends _$RecipeListViewModel {
     try {
       final deleteUseCase = ref.read(deleteRecipeUseCaseProvider);
       await deleteUseCase(recipeId);
-      
+
       // 삭제 후 목록을 새로고침합니다.
       await refresh();
     } catch (error) {

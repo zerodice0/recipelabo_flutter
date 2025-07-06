@@ -1,5 +1,5 @@
-import 'package:saucerer_flutter/domain/entities/timer_preset_entity.dart';
-import 'package:saucerer_flutter/domain/repositories/timer_preset_repository.dart';
+import 'package:recipick_flutter/domain/entities/timer_preset_entity.dart';
+import 'package:recipick_flutter/domain/repositories/timer_preset_repository.dart';
 import 'package:uuid/uuid.dart';
 
 /// 커스텀 타이머 프리셋 저장 유스케이스

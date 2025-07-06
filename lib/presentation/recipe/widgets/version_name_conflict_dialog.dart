@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saucerer_flutter/core/config/app_colors.dart';
+import 'package:recipick_flutter/core/config/app_colors.dart';
 
 /// 버전명 충돌 시 사용자 선택을 위한 다이얼로그
 class VersionNameConflictDialog extends StatefulWidget {
@@ -17,7 +17,8 @@ class VersionNameConflictDialog extends StatefulWidget {
   });
 
   @override
-  State<VersionNameConflictDialog> createState() => _VersionNameConflictDialogState();
+  State<VersionNameConflictDialog> createState() =>
+      _VersionNameConflictDialogState();
 }
 
 class _VersionNameConflictDialogState extends State<VersionNameConflictDialog> {
@@ -41,9 +42,7 @@ class _VersionNameConflictDialogState extends State<VersionNameConflictDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       title: Row(
         children: [
           Icon(
@@ -97,9 +96,9 @@ class _VersionNameConflictDialogState extends State<VersionNameConflictDialog> {
               ],
             ),
           ),
-          
+
           const SizedBox(height: 20),
-          
+
           // 선택 옵션
           const Text(
             '어떻게 처리하시겠습니까?',
@@ -108,20 +107,20 @@ class _VersionNameConflictDialogState extends State<VersionNameConflictDialog> {
               color: AppColors.textBrown,
             ),
           ),
-          
+
           const SizedBox(height: 12),
-          
+
           // 덮어쓰기 옵션
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: _selectedOption == 'overwrite' 
-                    ? AppColors.primaryOrange 
+                color: _selectedOption == 'overwrite'
+                    ? AppColors.primaryOrange
                     : AppColors.textBrown.withValues(alpha: 0.3),
                 width: _selectedOption == 'overwrite' ? 2 : 1,
               ),
-              color: _selectedOption == 'overwrite' 
+              color: _selectedOption == 'overwrite'
                   ? AppColors.primaryOrange.withValues(alpha: 0.05)
                   : null,
             ),
@@ -137,8 +136,8 @@ class _VersionNameConflictDialogState extends State<VersionNameConflictDialog> {
                 '기존 버전 덮어쓰기',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  color: _selectedOption == 'overwrite' 
-                      ? AppColors.primaryOrange 
+                  color: _selectedOption == 'overwrite'
+                      ? AppColors.primaryOrange
                       : AppColors.textBrown,
                 ),
               ),
@@ -150,20 +149,20 @@ class _VersionNameConflictDialogState extends State<VersionNameConflictDialog> {
               dense: true,
             ),
           ),
-          
+
           const SizedBox(height: 8),
-          
+
           // 새 이름 옵션
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: _selectedOption == 'rename' 
-                    ? AppColors.primaryOrange 
+                color: _selectedOption == 'rename'
+                    ? AppColors.primaryOrange
                     : AppColors.textBrown.withValues(alpha: 0.3),
                 width: _selectedOption == 'rename' ? 2 : 1,
               ),
-              color: _selectedOption == 'rename' 
+              color: _selectedOption == 'rename'
                   ? AppColors.primaryOrange.withValues(alpha: 0.05)
                   : null,
             ),
@@ -181,8 +180,8 @@ class _VersionNameConflictDialogState extends State<VersionNameConflictDialog> {
                     '새로운 버전명 사용',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: _selectedOption == 'rename' 
-                          ? AppColors.primaryOrange 
+                      color: _selectedOption == 'rename'
+                          ? AppColors.primaryOrange
                           : AppColors.textBrown,
                     ),
                   ),
@@ -206,7 +205,10 @@ class _VersionNameConflictDialogState extends State<VersionNameConflictDialog> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(color: AppColors.primaryOrange, width: 2),
+                          borderSide: BorderSide(
+                            color: AppColors.primaryOrange,
+                            width: 2,
+                          ),
                         ),
                       ),
                       maxLength: 50,
@@ -238,9 +240,7 @@ class _VersionNameConflictDialogState extends State<VersionNameConflictDialog> {
               borderRadius: BorderRadius.circular(8),
             ),
           ),
-          child: Text(
-            _selectedOption == 'overwrite' ? '덮어쓰기' : '새 버전 생성',
-          ),
+          child: Text(_selectedOption == 'overwrite' ? '덮어쓰기' : '새 버전 생성'),
         ),
       ],
     );

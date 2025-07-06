@@ -1,7 +1,7 @@
-import 'package:saucerer_flutter/data/datasources/local/cooking_log_local_data_source.dart';
-import 'package:saucerer_flutter/domain/entities/cooking_log_entity.dart';
-import 'package:saucerer_flutter/domain/repositories/cooking_log_repository.dart';
-import 'package:saucerer_flutter/data/models/cooking_log_model.dart';
+import 'package:recipick_flutter/data/datasources/local/cooking_log_local_data_source.dart';
+import 'package:recipick_flutter/domain/entities/cooking_log_entity.dart';
+import 'package:recipick_flutter/domain/repositories/cooking_log_repository.dart';
+import 'package:recipick_flutter/data/models/cooking_log_model.dart';
 
 class CookingLogRepositoryImpl implements CookingLogRepository {
   final CookingLogLocalDataSource localDataSource;
@@ -9,9 +9,14 @@ class CookingLogRepositoryImpl implements CookingLogRepository {
   CookingLogRepositoryImpl({required this.localDataSource});
 
   @override
-  Future<List<CookingLogEntity>> getCookingLogsForRecipeVersion(String recipeVersionId) async {
-    final cookingLogModels = await localDataSource.getCookingLogsForRecipeVersion(recipeVersionId);
-    return cookingLogModels.map((model) => _mapCookingLogModelToEntity(model)).toList();
+  Future<List<CookingLogEntity>> getCookingLogsForRecipeVersion(
+    String recipeVersionId,
+  ) async {
+    final cookingLogModels = await localDataSource
+        .getCookingLogsForRecipeVersion(recipeVersionId);
+    return cookingLogModels
+        .map((model) => _mapCookingLogModelToEntity(model))
+        .toList();
   }
 
   @override

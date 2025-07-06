@@ -1,4 +1,4 @@
-import 'package:saucerer_flutter/domain/entities/timer_preset_entity.dart';
+import 'package:recipick_flutter/domain/entities/timer_preset_entity.dart';
 
 /// 타이머 프리셋 레포지토리 인터페이스
 abstract class TimerPresetRepository {

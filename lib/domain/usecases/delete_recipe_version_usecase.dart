@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:saucerer_flutter/domain/repositories/recipe_repository.dart';
-import 'package:saucerer_flutter/core/di/provider.dart';
+import 'package:recipick_flutter/domain/repositories/recipe_repository.dart';
+import 'package:recipick_flutter/core/di/provider.dart';
 
 part 'delete_recipe_version_usecase.g.dart';
 

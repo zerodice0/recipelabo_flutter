@@ -1069,7 +1069,7 @@ abstract class AppLocalizations {
   /// 알림 끄기 방법
   ///
   /// In en, this message translates to:
-  /// **'1. Open iPhone Settings app\n2. Select Notifications > Saucerer\n3. Turn off Allow Notifications'**
+  /// **'1. Open iPhone Settings app\n2. Select Notifications > Recipick\n3. Turn off Allow Notifications'**
   String get notificationTurnOffInstructions;
 
   /// 알림 끄기 경고

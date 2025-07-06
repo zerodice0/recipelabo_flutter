@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:saucerer_flutter/core/config/app_colors.dart';
-import 'package:saucerer_flutter/domain/entities/timer_preset_entity.dart';
-import 'package:saucerer_flutter/l10n/app_localizations.dart';
+import 'package:recipick_flutter/core/config/app_colors.dart';
+import 'package:recipick_flutter/domain/entities/timer_preset_entity.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 /// 타이머 프리셋 선택 위젯
 /// 자주 사용하는 타이머 프리셋을 그리드로 표시합니다.
@@ -58,9 +58,7 @@ class TimerPresetSelector extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Text(
           AppLocalizations.of(context).timerPresetDelete,
           style: TextStyle(
@@ -104,7 +102,8 @@ class TimerPresetSelector extends StatelessWidget {
     debugPrint('Presets count: ${presets.length}');
     for (int i = 0; i < presets.length; i++) {
       debugPrint(
-          'Preset $i: ${presets[i].name} - ${presets[i].formattedDuration}');
+        'Preset $i: ${presets[i].name} - ${presets[i].formattedDuration}',
+      );
     }
     debugPrint('=== TIMER PRESET SELECTOR DEBUG END ===');
 

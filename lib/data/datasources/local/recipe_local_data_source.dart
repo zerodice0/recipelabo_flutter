@@ -1,8 +1,8 @@
 import 'package:sqflite/sqflite.dart';
-import 'package:saucerer_flutter/data/models/ingredient_model.dart';
-import 'package:saucerer_flutter/data/models/step_model.dart';
-import 'package:saucerer_flutter/data/models/recipe_model.dart';
-import 'package:saucerer_flutter/data/models/recipe_version_model.dart';
+import 'package:recipick_flutter/data/models/ingredient_model.dart';
+import 'package:recipick_flutter/data/models/step_model.dart';
+import 'package:recipick_flutter/data/models/recipe_model.dart';
+import 'package:recipick_flutter/data/models/recipe_version_model.dart';
 import './database_helper.dart';
 
 abstract class RecipeLocalDataSource {

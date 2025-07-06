@@ -132,7 +132,7 @@ Google Cloud Console에서 서비스 계정 키를 다운로드하는 방법:
       'timerNotificationEnabled': '타이머 알림이 활성화되어 있습니다',
       'toTurnOffNotifications': '알림을 끄고 싶다면:',
       'turnOffInstructions':
-          '1. 아이폰 설정 앱 열기\\n2. 알림 > Saucerer 선택\\n3. 알림 허용 끄기',
+          '1. 아이폰 설정 앱 열기\\n2. 알림 > Recipick 선택\\n3. 알림 허용 끄기',
       'turnOffWarning': '알림을 끄면 타이머 완료 시 알림을 받을 수 없습니다',
       'activated': '활성화됨',
       'deactivated': '비활성화됨',

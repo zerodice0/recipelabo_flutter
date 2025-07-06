@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:saucerer_flutter/core/config/app_colors.dart';
-import 'package:saucerer_flutter/l10n/app_localizations.dart';
+import 'package:recipick_flutter/core/config/app_colors.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 /// 단위 추가 시 세부 카테고리 선택 다이얼로그
 class UnitCategoryDialog extends StatefulWidget {
@@ -63,14 +63,39 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
   String _suggestCategory(String unitName) {
     final name = unitName.toLowerCase();
 
-    if (['g', 'kg', '그램', '킬로그램', 'gram', 'kilogram']
-        .any((w) => name.contains(w))) {
+    if ([
+      'g',
+      'kg',
+      '그램',
+      '킬로그램',
+      'gram',
+      'kilogram',
+    ].any((w) => name.contains(w))) {
       return '무게';
-    } else if (['ml', 'l', '밀리리터', '리터', '컵', '큰술', '작은술', 't', 'cup', 'liter']
-        .any((w) => name.contains(w))) {
+    } else if ([
+      'ml',
+      'l',
+      '밀리리터',
+      '리터',
+      '컵',
+      '큰술',
+      '작은술',
+      't',
+      'cup',
+      'liter',
+    ].any((w) => name.contains(w))) {
       return '부피';
-    } else if (['개', '마리', '알', '쪽', '장', '봉지', '캔', '병', '조각']
-        .any((w) => name.contains(w))) {
+    } else if ([
+      '개',
+      '마리',
+      '알',
+      '쪽',
+      '장',
+      '봉지',
+      '캔',
+      '병',
+      '조각',
+    ].any((w) => name.contains(w))) {
       return '개수';
     } else {
       return '기타';
@@ -80,19 +105,13 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(
-                Icons.category,
-                color: AppColors.primaryOrange,
-                size: 28,
-              ),
+              Icon(Icons.category, color: AppColors.primaryOrange, size: 28),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
@@ -114,10 +133,7 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
             ),
             child: Text(
               AppLocalizations.of(context).unitTypeSelection(widget.unitName),
-              style: const TextStyle(
-                fontSize: 14,
-                color: AppColors.textBrown,
-              ),
+              style: const TextStyle(fontSize: 14, color: AppColors.textBrown),
             ),
           ),
         ],
@@ -181,24 +197,27 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
                       spacing: 4,
                       children: (category['examples'] as List<String>)
                           .take(3)
-                          .map((example) => Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 6,
-                                  vertical: 2,
+                          .map(
+                            (example) => Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 6,
+                                vertical: 2,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.textBrown.withValues(
+                                  alpha: 0.1,
                                 ),
-                                decoration: BoxDecoration(
-                                  color: AppColors.textBrown
-                                      .withValues(alpha: 0.1),
-                                  borderRadius: BorderRadius.circular(4),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                example,
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  color: AppColors.textBrown,
                                 ),
-                                child: Text(
-                                  example,
-                                  style: const TextStyle(
-                                    fontSize: 10,
-                                    color: AppColors.textBrown,
-                                  ),
-                                ),
-                              ))
+                              ),
+                            ),
+                          )
                           .toList(),
                     ),
                   ],

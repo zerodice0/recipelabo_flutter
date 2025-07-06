@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:saucerer_flutter/core/config/app_colors.dart';
-import 'package:saucerer_flutter/core/services/timer_service.dart';
-import 'package:saucerer_flutter/core/di/provider.dart';
-import 'package:saucerer_flutter/domain/entities/cooking_timer_entity.dart';
-import 'package:saucerer_flutter/domain/entities/timer_preset_entity.dart';
-import 'package:saucerer_flutter/presentation/timer/widgets/timer_card_widget.dart';
-import 'package:saucerer_flutter/presentation/timer/widgets/timer_preset_selector.dart';
-import 'package:saucerer_flutter/presentation/timer/widgets/notification_permission_dialog.dart';
-import 'package:saucerer_flutter/l10n/app_localizations.dart';
+import 'package:recipick_flutter/core/config/app_colors.dart';
+import 'package:recipick_flutter/core/services/timer_service.dart';
+import 'package:recipick_flutter/core/di/provider.dart';
+import 'package:recipick_flutter/domain/entities/cooking_timer_entity.dart';
+import 'package:recipick_flutter/domain/entities/timer_preset_entity.dart';
+import 'package:recipick_flutter/presentation/timer/widgets/timer_card_widget.dart';
+import 'package:recipick_flutter/presentation/timer/widgets/timer_preset_selector.dart';
+import 'package:recipick_flutter/presentation/timer/widgets/notification_permission_dialog.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 import 'package:uuid/uuid.dart';
 
 /// 타이머 메인 화면
@@ -57,7 +57,8 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
         debugPrint('Presets set in state: ${_presets.length}');
         for (int i = 0; i < _presets.length; i++) {
           debugPrint(
-              'Preset $i: ${_presets[i].name} (${_presets[i].formattedDuration})');
+            'Preset $i: ${_presets[i].name} (${_presets[i].formattedDuration})',
+          );
         }
       }
 
@@ -293,7 +294,8 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                  AppLocalizations.of(context).notificationEnableInSettings),
+                AppLocalizations.of(context).notificationEnableInSettings,
+              ),
               duration: const Duration(seconds: 3),
             ),
           );
@@ -316,7 +318,8 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                  AppLocalizations.of(context).notificationPermissionDenied),
+                AppLocalizations.of(context).notificationPermissionDenied,
+              ),
               backgroundColor: AppColors.primaryOrange,
               duration: const Duration(seconds: 3),
             ),
@@ -383,9 +386,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                l10n.timerRunning(
-                  _timerService.activeTimerCount.toString(),
-                ),
+                l10n.timerRunning(_timerService.activeTimerCount.toString()),
                 style: const TextStyle(
                   color: AppColors.warmWhite,
                   fontSize: 12,
@@ -793,10 +794,7 @@ class _CustomTimerDialogState extends ConsumerState<_CustomTimerDialog> {
           onPressed: () => Navigator.of(context).pop(),
           child: Text(l10n.actionCancel),
         ),
-        ElevatedButton(
-          onPressed: _createTimer,
-          child: Text(l10n.actionStart),
-        ),
+        ElevatedButton(onPressed: _createTimer, child: Text(l10n.actionStart)),
       ],
     );
   }

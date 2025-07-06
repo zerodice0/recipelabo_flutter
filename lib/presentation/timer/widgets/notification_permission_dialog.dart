@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saucerer_flutter/core/config/app_colors.dart';
+import 'package:recipick_flutter/core/config/app_colors.dart';
 
 /// 알림 권한 요청 다이얼로그
 /// 타이머 기능 사용 시 권한이 필요한 이유를 설명하고 권한을 요청합니다.
@@ -196,12 +196,11 @@ class NotificationPermissionDialog extends StatelessWidget {
     return showDialog<bool>(
       context: context,
       barrierDismissible: false, // 백그라운드 탭으로 닫기 방지
-      builder:
-          (context) => NotificationPermissionDialog(
-            onAllow: onAllow,
-            onDeny: onDeny,
-            onSettings: onSettings,
-          ),
+      builder: (context) => NotificationPermissionDialog(
+        onAllow: onAllow,
+        onDeny: onDeny,
+        onSettings: onSettings,
+      ),
     );
   }
 }

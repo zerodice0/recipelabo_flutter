@@ -1,9 +1,9 @@
-import 'package:saucerer_flutter/domain/entities/ingredient_master_entity.dart';
+import 'package:recipick_flutter/domain/entities/ingredient_master_entity.dart';
 
 /// 자주 사용하는 단위들의 프리셋 정의
 class PresetUnits {
   static const String _unitCategoryId = 'unit';
-  
+
   /// 무게 단위
   static const String _weightSubCategory = '무게';
   static final List<IngredientMasterEntity> weightUnits = [
@@ -12,7 +12,7 @@ class PresetUnits {
     _createUnit('mg', '밀리그램', _weightSubCategory),
   ];
 
-  /// 부피 단위  
+  /// 부피 단위
   static const String _volumeSubCategory = '부피';
   static final List<IngredientMasterEntity> volumeUnits = [
     _createUnit('ml', '밀리리터', _volumeSubCategory),
@@ -48,12 +48,7 @@ class PresetUnits {
 
   /// 모든 프리셋 단위 목록
   static List<IngredientMasterEntity> get allPresetUnits {
-    return [
-      ...weightUnits,
-      ...volumeUnits,
-      ...countUnits,
-      ...etcUnits,
-    ];
+    return [...weightUnits, ...volumeUnits, ...countUnits, ...etcUnits];
   }
 
   /// 카테고리별 프리셋 단위 맵
@@ -67,7 +62,11 @@ class PresetUnits {
   }
 
   /// 프리셋 단위 생성 헬퍼 메서드
-  static IngredientMasterEntity _createUnit(String name, String description, String subCategory) {
+  static IngredientMasterEntity _createUnit(
+    String name,
+    String description,
+    String subCategory,
+  ) {
     return IngredientMasterEntity(
       id: 'preset_unit_${name.toLowerCase().replaceAll(' ', '_')}',
       name: name,

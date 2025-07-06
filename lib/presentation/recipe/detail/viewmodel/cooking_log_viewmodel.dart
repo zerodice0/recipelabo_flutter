@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:saucerer_flutter/domain/entities/cooking_log_entity.dart';
-import 'package:saucerer_flutter/domain/usecases/get_cooking_logs_usecase.dart';
+import 'package:recipick_flutter/domain/entities/cooking_log_entity.dart';
+import 'package:recipick_flutter/domain/usecases/get_cooking_logs_usecase.dart';
 
 part 'cooking_log_viewmodel.g.dart';
 

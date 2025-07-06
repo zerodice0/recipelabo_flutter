@@ -1,13 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:saucerer_flutter/domain/entities/ingredient_entity.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_entity.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_version_entity.dart';
-import 'package:saucerer_flutter/domain/entities/step_entity.dart';
-import 'package:saucerer_flutter/domain/usecases/save_recipe_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/get_recipe_with_versions_usecase.dart';
-import 'package:saucerer_flutter/domain/usecases/check_version_name_exists_usecase.dart';
+import 'package:recipick_flutter/domain/entities/ingredient_entity.dart';
+import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
+import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
+import 'package:recipick_flutter/domain/entities/step_entity.dart';
+import 'package:recipick_flutter/domain/usecases/save_recipe_usecase.dart';
+import 'package:recipick_flutter/domain/usecases/get_recipe_with_versions_usecase.dart';
+import 'package:recipick_flutter/domain/usecases/check_version_name_exists_usecase.dart';
 import 'package:uuid/uuid.dart';
 
 part 'recipe_edit_viewmodel.freezed.dart';
@@ -266,7 +266,8 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
         if (state.createNewVersion) {
           // 새 버전 생성
           final newVersionId = uuid.v4();
-          final maxVersionNumber = state.allVersions
+          final maxVersionNumber =
+              state.allVersions
                   ?.map((v) => v.versionNumber)
                   .reduce((a, b) => a > b ? a : b) ??
               1;
@@ -285,8 +286,9 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
               .map((ingredient) => ingredient.copyWith(id: uuid.v4()))
               .toList();
 
-          final newSteps =
-              state.steps.map((step) => step.copyWith(id: uuid.v4())).toList();
+          final newSteps = state.steps
+              .map((step) => step.copyWith(id: uuid.v4()))
+              .toList();
 
           final newVersion = RecipeVersionEntity(
             id: newVersionId,

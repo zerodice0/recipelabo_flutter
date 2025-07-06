@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:saucerer_flutter/domain/entities/preset_units.dart';
-import 'package:saucerer_flutter/data/models/ingredient_master_model.dart';
+import 'package:recipick_flutter/domain/entities/preset_units.dart';
+import 'package:recipick_flutter/data/models/ingredient_master_model.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
@@ -147,7 +147,7 @@ class DatabaseHelper {
         isDefault INTEGER NOT NULL DEFAULT 0
       )
     ''');
-    
+
     // 프리셋 단위 초기화
     await _initializePresetUnits(db);
   }
@@ -489,17 +489,17 @@ class DatabaseHelper {
 
       debugPrint('Added baseVersionId column to recipe_versions table');
     }
-    
+
     if (oldVersion < 15) {
       // Version 15: 프리셋 단위 초기화
       await _initializePresetUnits(db);
     }
   }
-  
+
   /// 프리셋 단위를 데이터베이스에 초기화하는 메서드
   Future<void> _initializePresetUnits(Database db) async {
     final presetUnits = PresetUnits.allPresetUnits;
-    
+
     for (final unit in presetUnits) {
       final model = IngredientMasterModelX.fromEntity(unit);
       await db.execute(
@@ -521,7 +521,7 @@ class DatabaseHelper {
         ],
       );
     }
-    
+
     debugPrint('Initialized ${presetUnits.length} preset units');
   }
 }

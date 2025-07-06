@@ -529,7 +529,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get notificationTurnOffInstructions =>
-      '1. 아이폰 설정 앱 열기\n2. 알림 > Saucerer 선택\n3. 알림 허용 끄기';
+      '1. 아이폰 설정 앱 열기\n2. 알림 > Recipick 선택\n3. 알림 허용 끄기';
 
   @override
   String get notificationTurnOffWarning => '알림을 끄면 타이머 완료 시 알림을 받을 수 없습니다';

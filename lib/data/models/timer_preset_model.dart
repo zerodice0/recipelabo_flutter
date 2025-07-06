@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:saucerer_flutter/domain/entities/timer_preset_entity.dart';
+import 'package:recipick_flutter/domain/entities/timer_preset_entity.dart';
 
 part 'timer_preset_model.freezed.dart';
 part 'timer_preset_model.g.dart';
@@ -23,7 +23,7 @@ class TimerPresetModel with _$TimerPresetModel {
   const TimerPresetModel._();
 
   /// JSON 직렬화
-  factory TimerPresetModel.fromJson(Map<String, Object?> json) => 
+  factory TimerPresetModel.fromJson(Map<String, Object?> json) =>
       _$TimerPresetModelFromJson(json);
 
   /// Map으로부터 생성 (SQLite용)

@@ -1,7 +1,7 @@
-import 'package:saucerer_flutter/data/datasources/local/ingredient_local_data_source.dart';
-import 'package:saucerer_flutter/domain/entities/recipe_entity.dart';
-import 'package:saucerer_flutter/domain/repositories/ingredient_repository.dart';
-import 'package:saucerer_flutter/data/repositories/recipe_repository_impl.dart';
+import 'package:recipick_flutter/data/datasources/local/ingredient_local_data_source.dart';
+import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
+import 'package:recipick_flutter/domain/repositories/ingredient_repository.dart';
+import 'package:recipick_flutter/data/repositories/recipe_repository_impl.dart';
 
 class IngredientRepositoryImpl implements IngredientRepository {
   final IngredientLocalDataSource localDataSource;

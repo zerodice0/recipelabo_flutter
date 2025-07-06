@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:saucerer_flutter/domain/entities/ingredient_master_entity.dart';
+import 'package:recipick_flutter/domain/entities/ingredient_master_entity.dart';
 
 part 'ingredient_master_model.freezed.dart';
 part 'ingredient_master_model.g.dart';
@@ -18,7 +18,8 @@ class IngredientMasterModel with _$IngredientMasterModel {
     @Default(0) int usageCount,
   }) = _IngredientMasterModel;
 
-  factory IngredientMasterModel.fromJson(Map<String, dynamic> json) => _$IngredientMasterModelFromJson(json);
+  factory IngredientMasterModel.fromJson(Map<String, dynamic> json) =>
+      _$IngredientMasterModelFromJson(json);
 }
 
 extension IngredientMasterModelX on IngredientMasterModel {
@@ -64,9 +65,10 @@ extension IngredientMasterModelX on IngredientMasterModel {
 
   static IngredientMasterModel fromSqlMap(Map<String, dynamic> map) {
     // 마이그레이션을 위해 category_id가 없으면 category 값 사용
-    String categoryId = map['category_id'] as String? ?? 
-                      _mapLegacyCategoryToId(map['category'] as String?);
-    
+    String categoryId =
+        map['category_id'] as String? ??
+        _mapLegacyCategoryToId(map['category'] as String?);
+
     return IngredientMasterModel(
       id: map['id'] as String,
       name: map['name'] as String,
@@ -83,7 +85,7 @@ extension IngredientMasterModelX on IngredientMasterModel {
   // 기존 카테고리 문자열을 새로운 ID로 매핑
   static String _mapLegacyCategoryToId(String? category) {
     if (category == null) return 'ingredient'; // 기본값
-    
+
     switch (category) {
       case '재료':
         return 'ingredient';
@@ -110,4 +112,3 @@ extension IngredientMasterModelX on IngredientMasterModel {
 // 하위 호환성을 위한 alias
 @Deprecated('Use IngredientMasterModel instead')
 typedef SeasoningModel = IngredientMasterModel;
-
