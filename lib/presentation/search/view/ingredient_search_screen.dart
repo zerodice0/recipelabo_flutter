@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:recipick_flutter/presentation/search/viewmodel/ingredient_search_viewmodel.dart';
 import 'package:recipick_flutter/presentation/search/widgets/ingredient_chip.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
-import 'package:recipick_flutter/domain/usecases/get_recipe_version_usecase.dart';
+import 'package:recipick_flutter/presentation/search/widgets/recipe_ingredients_widget.dart';
 
 class IngredientSearchScreen extends ConsumerStatefulWidget {
   final bool showAppBar;
@@ -300,95 +300,13 @@ class _IngredientSearchScreenState
               context.push('/recipes/${recipe.id}');
             },
           ),
-          _buildRecipeIngredients(context, recipe, state.selectedIngredients),
+          RecipeIngredientsWidget(
+            recipeId: recipe.id,
+            latestVersionId: recipe.latestVersionId,
+            selectedIngredients: state.selectedIngredients,
+          ),
         ],
       ),
-    );
-  }
-
-  Widget _buildRecipeIngredients(
-    BuildContext context,
-    recipe,
-    List<String> selectedIngredients,
-  ) {
-    return FutureBuilder(
-      future: ref.read(getRecipeVersionUseCaseProvider)(recipe.latestVersionId),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: SizedBox(height: 20, child: LinearProgressIndicator()),
-          );
-        }
-
-        if (snapshot.hasError || !snapshot.hasData || snapshot.data == null) {
-          return const SizedBox.shrink();
-        }
-
-        final recipeVersion = snapshot.data!;
-        final ingredientNames = recipeVersion.ingredients
-            .map((ingredient) => ingredient.name)
-            .toList();
-
-        if (ingredientNames.isEmpty) {
-          return const SizedBox.shrink();
-        }
-
-        return Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppLocalizations.of(context).recipeIngredients,
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Wrap(
-                spacing: 6,
-                runSpacing: 4,
-                children: ingredientNames.map((ingredientName) {
-                  final isSelected = selectedIngredients.contains(
-                    ingredientName,
-                  );
-                  return Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.surfaceContainer,
-                      borderRadius: BorderRadius.circular(12),
-                      border: isSelected
-                          ? null
-                          : Border.all(
-                              color: Theme.of(context).colorScheme.outline,
-                              width: 1,
-                            ),
-                    ),
-                    child: Text(
-                      ingredientName,
-                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        color: isSelected
-                            ? Theme.of(context).colorScheme.onPrimary
-                            : Theme.of(context).colorScheme.onSurface,
-                        fontWeight: isSelected
-                            ? FontWeight.w600
-                            : FontWeight.normal,
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 
