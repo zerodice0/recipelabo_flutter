@@ -48,5 +48,14 @@
 	<!-- AdMob App ID -->
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-3940256099942544~1458002511</string>
+	
+	<!-- 알림 권한 설정 -->
+	<key>NSUserNotificationUsageDescription</key>
+	<string>타이머 완료 시 알림을 받기 위해 알림 권한이 필요합니다.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>background-processing</string>
+		<string>background-fetch</string>
+	</array>
 </dict>
 </plist>

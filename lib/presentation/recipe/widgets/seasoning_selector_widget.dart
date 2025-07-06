@@ -311,15 +311,15 @@ class _IngredientSelectorWidgetState
                                 seasoning.categoryId,
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
-                          trailing: Text(
-                            '${seasoning.usageCount}회',
-                            style: Theme.of(context).textTheme.bodySmall
-                                ?.copyWith(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onSurfaceVariant,
-                                ),
-                          ),
+                          // trailing: Text(
+                          //   '${seasoning.usageCount}회',
+                          //   style: Theme.of(context).textTheme.bodySmall
+                          //       ?.copyWith(
+                          //         color: Theme.of(
+                          //           context,
+                          //         ).colorScheme.onSurfaceVariant,
+                          //       ),
+                          // ),
                           onTap: () {
                             if (!isSelected) {
                               _addIngredient(seasoning.name);

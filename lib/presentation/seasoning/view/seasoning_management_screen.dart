@@ -249,12 +249,12 @@ class _SeasoningManagementScreenState
               ),
             ],
             const SizedBox(height: 4),
-            Text(
-              '사용 횟수: ${seasoning.usageCount}회',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-            ),
+            // Text(
+            //   '사용 횟수: ${seasoning.usageCount}회',
+            //   style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            //     color: Theme.of(context).colorScheme.onSurfaceVariant,
+            //   ),
+            // ),
           ],
         ),
         trailing: IconButton(
