@@ -6,10 +6,12 @@ import 'package:recipick_flutter/presentation/cooking_log/create/view/cooking_lo
 import 'package:recipick_flutter/presentation/main/view/main_navigation_screen.dart';
 import 'package:recipick_flutter/presentation/seasoning/view/seasoning_management_screen.dart';
 import 'package:recipick_flutter/presentation/timer/view/timer_screen.dart';
+import 'package:recipick_flutter/presentation/splash/splash_screen.dart';
 
 // 라우트 경로 상수
 class AppRoutes {
-  static const main = '/';
+  static const splash = '/';
+  static const main = '/main';
   static const recipeList = '/recipes';
   static const recipeDetail = '/recipes/:id';
   static const recipeCreate = '/recipes/create';
@@ -21,8 +23,14 @@ class AppRoutes {
 }
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: AppRoutes.main,
+  initialLocation: AppRoutes.splash,
   routes: [
+    // 스플래시 화면
+    GoRoute(
+      path: AppRoutes.splash,
+      builder: (context, state) => const SplashScreen(),
+    ),
+
     // 메인 네비게이션 화면 (바대 네비게이션 포함)
     GoRoute(
       path: AppRoutes.main,

@@ -1,5 +1,6 @@
 {
   "@@locale": "ja",
+  "appName": "レシピック",
   "navigationRecipes": "レシピ",
   "navigationSearch": "検索",
   "navigationTimer": "タイマー",

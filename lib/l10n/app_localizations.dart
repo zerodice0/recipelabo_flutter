@@ -100,6 +100,12 @@ abstract class AppLocalizations {
     Locale('ja'),
   ];
 
+  /// No description provided for @appName.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipick'**
+  String get appName;
+
   /// 메인 네비게이션: 레시피 탭
   ///
   /// In en, this message translates to:

@@ -1,5 +1,6 @@
 {
   "@@locale": "ko",
+  "appName": "레시픽",
   "navigationRecipes": "레시피",
   "navigationSearch": "검색",
   "navigationTimer": "타이머",

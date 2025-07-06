@@ -9,6 +9,9 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get appName => '레시픽';
+
+  @override
   String get navigationRecipes => '레시피';
 
   @override
