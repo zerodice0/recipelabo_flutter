@@ -10,6 +10,7 @@
 .history
 .svn/
 migrate_working_dir/
+release/
 
 # Flutter/Dart/Pub related - Flutter, Dart, Pub 패키지 매니저가 생성하는 파일 및 폴더
 # 이 파일들은 빌드 과정이나 의존성 패키지를 가져올 때 자동으로 생성됩니다.
