@@ -58,41 +58,41 @@ jobs:
     - name: Run tests
       run: flutter test
 
-  update-translations:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: test
+  # update-translations:
+  #   runs-on: ubuntu-latest
+  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  #   needs: test
     
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v4
       
-    - name: Setup Dart
-      uses: dart-lang/setup-dart@v1
-      with:
-        sdk: stable
+  #   - name: Setup Dart
+  #     uses: dart-lang/setup-dart@v1
+  #     with:
+  #       sdk: stable
         
-    - name: Create .env file
-      run: |
-        echo "# Saucerer Flutter 프로젝트 환경변수" > .env
-        echo "SAUCERER_GOOGLE_SERVICE_ACCOUNT_JSON=${{ secrets.SAUCERER_GOOGLE_SERVICE_ACCOUNT_JSON }}" >> .env
+  #   - name: Create .env file
+  #     run: |
+  #       echo "# Saucerer Flutter 프로젝트 환경변수" > .env
+  #       echo "SAUCERER_GOOGLE_SERVICE_ACCOUNT_JSON=${{ secrets.SAUCERER_GOOGLE_SERVICE_ACCOUNT_JSON }}" >> .env
         
-    - name: Get dependencies
-      run: dart pub get
+  #   - name: Get dependencies
+  #     run: dart pub get
       
-    - name: Update translations from Google Sheets
-      run: |
-        echo "🌍 Google Sheets에서 번역 업데이트 중..."
-        dart scripts/update_translations.dart || echo "⚠️ 번역 업데이트 실패 (선택사항)"
+  #   - name: Update translations from Google Sheets
+  #     run: |
+  #       echo "🌍 Google Sheets에서 번역 업데이트 중..."
+  #       dart scripts/update_translations.dart || echo "⚠️ 번역 업데이트 실패 (선택사항)"
         
-    - name: Commit updated translations
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add lib/l10n/
-        git diff --staged --quiet || git commit -m "chore: 번역 파일 자동 업데이트
+  #   - name: Commit updated translations
+  #     run: |
+  #       git config --local user.email "action@github.com"
+  #       git config --local user.name "GitHub Action"
+  #       git add lib/l10n/
+  #       git diff --staged --quiet || git commit -m "chore: 번역 파일 자동 업데이트
 
-        🤖 GitHub Actions에서 Google Sheets 번역 데이터를 기반으로 ARB 파일을 자동 업데이트했습니다.
+  #       🤖 GitHub Actions에서 Google Sheets 번역 데이터를 기반으로 ARB 파일을 자동 업데이트했습니다.
         
-        Co-authored-by: GitHub Actions <action@github.com>"
-        git push || echo "📝 업데이트할 번역이 없습니다."
+  #       Co-authored-by: GitHub Actions <action@github.com>"
+  #       git push || echo "📝 업데이트할 번역이 없습니다."
