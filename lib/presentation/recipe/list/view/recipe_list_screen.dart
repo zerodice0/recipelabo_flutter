@@ -44,58 +44,72 @@ class RecipeListScreen extends ConsumerWidget {
                   padding: const EdgeInsets.all(24),
                   constraints: const BoxConstraints(maxWidth: 500),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+                    // 픽셀 아트 스타일 레시피북 배경
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                       colors: [
-                        AppColors.lightCream.withValues(alpha: 0.3),
-                        AppColors.accent.withValues(alpha: 0.1),
+                        Color(0xFFF5F3E8), // 크림색 종이
+                        Color(0xFFEDE5D3), // 약간 어두운 크림색
                       ],
                     ),
-                    borderRadius: BorderRadius.circular(24),
+                    borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: AppColors.accent.withValues(alpha: 0.3),
-                      width: 2,
+                      color: const Color(0xFF8B4513), // 갈색 테두리
+                      width: 4,
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF5D2E0A).withValues(alpha: 0.6),
+                        offset: const Offset(6, 6),
+                        blurRadius: 0, // 픽셀 아트는 블러 없음
+                      ),
+                      BoxShadow(
+                        color: const Color(0xFF3D1E0A).withValues(alpha: 0.3),
+                        offset: const Offset(8, 8),
+                        blurRadius: 0,
+                      ),
+                    ],
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // 요리 아이콘 그룹 - 반응형 크기
-                      LayoutBuilder(
-                        builder: (context, constraints) {
-                          final isSmallScreen = constraints.maxWidth < 400;
-                          final iconSize = isSmallScreen ? 100.0 : 120.0;
-                          final iconInnerSize = isSmallScreen ? 50.0 : 60.0;
-
-                          return Stack(
+                      // 레시피가 비어있다는 걸 나타내는 이모지
+                      Container(
+                        width: 160,
+                        height: 160,
+                        decoration: BoxDecoration(
+                          color: AppColors.chipBackground,
+                          borderRadius: BorderRadius.circular(80),
+                          border: Border.all(
+                            color: AppColors.chipBorder,
+                            width: 4,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.chipShadow.withValues(
+                                alpha: 0.4,
+                              ),
+                              offset: const Offset(4, 4),
+                              blurRadius: 0,
+                            ),
+                          ],
+                        ),
+                        child: const Center(
+                          child: Stack(
                             alignment: Alignment.center,
                             children: [
-                              Container(
-                                width: iconSize,
-                                height: iconSize,
-                                decoration: BoxDecoration(
-                                  gradient: AppColors.accentGradient,
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColors.accent.withValues(
-                                        alpha: 0.3,
-                                      ),
-                                      blurRadius: 20,
-                                      offset: const Offset(0, 10),
-                                    ),
-                                  ],
+                              Text('📄', style: TextStyle(fontSize: 52)),
+                              Opacity(
+                                opacity: 0.5,
+                                child: Text(
+                                  '❌',
+                                  style: TextStyle(fontSize: 72),
                                 ),
                               ),
-                              Icon(
-                                Icons.restaurant_menu,
-                                size: iconInnerSize,
-                                color: AppColors.warmWhite,
-                              ),
                             ],
-                          );
-                        },
+                          ),
+                        ),
                       ),
                       const SizedBox(height: 24),
 
@@ -103,8 +117,10 @@ class RecipeListScreen extends ConsumerWidget {
                         AppLocalizations.of(context).recipeEmptyState,
                         style: Theme.of(context).textTheme.headlineSmall
                             ?.copyWith(
-                              color: AppColors.textBrown,
-                              fontWeight: FontWeight.bold,
+                              color: AppColors.chipText,
+                              fontWeight: FontWeight.w900,
+                              fontFamily: 'monospace', // 픽셀 아트 느낌
+                              fontSize: 20,
                             ),
                         textAlign: TextAlign.center,
                       ),
@@ -115,8 +131,10 @@ class RecipeListScreen extends ConsumerWidget {
                           context,
                         ).recipeEmptyStateDescription,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: AppColors.textBrown.withValues(alpha: 0.7),
-                          height: 1.5,
+                          color: AppColors.textBrown.withValues(alpha: 0.8),
+                          height: 1.4,
+                          fontFamily: 'monospace',
+                          fontSize: 14,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -132,18 +150,53 @@ class RecipeListScreen extends ConsumerWidget {
                               children: [
                                 SizedBox(
                                   width: double.infinity,
-                                  child: ElevatedButton.icon(
-                                    onPressed: () {
-                                      context.push(AppRoutes.recipeCreate);
-                                    },
-                                    icon: const Icon(Icons.add, size: 20),
-                                    label: Text(
-                                      AppLocalizations.of(context).recipeAdd,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primaryOrange,
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                        color: AppColors.primaryDark,
+                                        width: 3,
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.deepBrown.withValues(
+                                            alpha: 0.8,
+                                          ),
+                                          offset: const Offset(3, 3),
+                                          blurRadius: 0,
+                                        ),
+                                      ],
                                     ),
-                                    style: ElevatedButton.styleFrom(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 20,
-                                        vertical: 14,
+                                    child: ElevatedButton.icon(
+                                      onPressed: () {
+                                        context.push(AppRoutes.recipeCreate);
+                                      },
+                                      icon: const Text(
+                                        '➕',
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                      label: Text(
+                                        AppLocalizations.of(context).recipeAdd,
+                                        style: const TextStyle(
+                                          fontFamily: 'monospace',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.transparent,
+                                        foregroundColor: AppColors.warmWhite,
+                                        elevation: 0,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 20,
+                                          vertical: 14,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -151,20 +204,54 @@ class RecipeListScreen extends ConsumerWidget {
                                 const SizedBox(height: 12),
                                 SizedBox(
                                   width: double.infinity,
-                                  child: OutlinedButton.icon(
-                                    onPressed: () {
-                                      context.push(AppRoutes.search);
-                                    },
-                                    icon: const Icon(Icons.search, size: 20),
-                                    label: Text(
-                                      AppLocalizations.of(
-                                        context,
-                                      ).ingredientSearch,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: AppColors.accent,
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                        color: AppColors.textBrown,
+                                        width: 3,
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.primaryDark
+                                              .withValues(alpha: 0.8),
+                                          offset: const Offset(3, 3),
+                                          blurRadius: 0,
+                                        ),
+                                      ],
                                     ),
-                                    style: OutlinedButton.styleFrom(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 20,
-                                        vertical: 14,
+                                    child: OutlinedButton.icon(
+                                      onPressed: () {
+                                        context.push(AppRoutes.search);
+                                      },
+                                      icon: const Text(
+                                        '🔍',
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                      label: Text(
+                                        AppLocalizations.of(
+                                          context,
+                                        ).ingredientSearch,
+                                        style: const TextStyle(
+                                          fontFamily: 'monospace',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      style: OutlinedButton.styleFrom(
+                                        backgroundColor: Colors.transparent,
+                                        foregroundColor: AppColors.textBrown,
+                                        side: BorderSide.none,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 20,
+                                          vertical: 14,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -177,35 +264,101 @@ class RecipeListScreen extends ConsumerWidget {
                               spacing: 16,
                               runSpacing: 12,
                               children: [
-                                ElevatedButton.icon(
-                                  onPressed: () {
-                                    context.push(AppRoutes.recipeCreate);
-                                  },
-                                  icon: const Icon(Icons.add, size: 20),
-                                  label: Text(
-                                    AppLocalizations.of(context).recipeAdd,
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: AppColors.primaryOrange,
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(
+                                      color: AppColors.primaryDark,
+                                      width: 3,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AppColors.deepBrown.withValues(
+                                          alpha: 0.8,
+                                        ),
+                                        offset: const Offset(3, 3),
+                                        blurRadius: 0,
+                                      ),
+                                    ],
                                   ),
-                                  style: ElevatedButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                      vertical: 12,
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      context.push(AppRoutes.recipeCreate);
+                                    },
+                                    icon: const Text(
+                                      '➕',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                    label: Text(
+                                      AppLocalizations.of(context).recipeAdd,
+                                      style: const TextStyle(
+                                        fontFamily: 'monospace',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.transparent,
+                                      foregroundColor: AppColors.warmWhite,
+                                      elevation: 0,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                        vertical: 12,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
                                     ),
                                   ),
                                 ),
-                                OutlinedButton.icon(
-                                  onPressed: () {
-                                    context.push(AppRoutes.search);
-                                  },
-                                  icon: const Icon(Icons.search, size: 20),
-                                  label: Text(
-                                    AppLocalizations.of(
-                                      context,
-                                    ).ingredientSearch,
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: AppColors.accent,
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(
+                                      color: AppColors.textBrown,
+                                      width: 3,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AppColors.primaryDark.withValues(
+                                          alpha: 0.8,
+                                        ),
+                                        offset: const Offset(3, 3),
+                                        blurRadius: 0,
+                                      ),
+                                    ],
                                   ),
-                                  style: OutlinedButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                      vertical: 12,
+                                  child: OutlinedButton.icon(
+                                    onPressed: () {
+                                      context.push(AppRoutes.search);
+                                    },
+                                    icon: const Text(
+                                      '🔍',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                    label: Text(
+                                      AppLocalizations.of(
+                                        context,
+                                      ).ingredientSearch,
+                                      style: const TextStyle(
+                                        fontFamily: 'monospace',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    style: OutlinedButton.styleFrom(
+                                      backgroundColor: Colors.transparent,
+                                      foregroundColor: AppColors.textBrown,
+                                      side: BorderSide.none,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                        vertical: 12,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -230,13 +383,11 @@ class RecipeListScreen extends ConsumerWidget {
                   },
                   onDelete: () =>
                       _showDeleteConfirmDialog(context, ref, recipe),
-                  // heroTag: 'recipe_card_${recipe.id}',
                 );
               },
             );
           },
           error: (error, stackTrace) {
-            // As per GEMINI.md, display errors using SelectableText.rich
             return Center(
               child: SelectableText.rich(
                 TextSpan(
@@ -258,13 +409,19 @@ class RecipeListScreen extends ConsumerWidget {
       ),
       floatingActionButton: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          gradient: AppColors.primaryGradient,
+          borderRadius: BorderRadius.circular(12),
+          color: AppColors.primaryOrange,
+          border: Border.all(color: AppColors.primaryDark, width: 3),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primaryOrange.withValues(alpha: 0.4),
-              blurRadius: 12,
-              offset: const Offset(0, 6),
+              color: AppColors.deepBrown.withValues(alpha: 0.8),
+              offset: const Offset(4, 4),
+              blurRadius: 0,
+            ),
+            BoxShadow(
+              color: AppColors.textBrown.withValues(alpha: 0.6),
+              offset: const Offset(6, 6),
+              blurRadius: 0,
             ),
           ],
         ),
@@ -276,13 +433,14 @@ class RecipeListScreen extends ConsumerWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           splashColor: AppColors.warmWhite.withValues(alpha: 0.2),
-          icon: const Icon(Icons.add, color: AppColors.warmWhite, size: 24),
+          icon: const Text('🍳', style: TextStyle(fontSize: 20)),
           label: Text(
             AppLocalizations.of(context).recipeAdd,
             style: const TextStyle(
               color: AppColors.warmWhite,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              fontFamily: 'monospace',
             ),
           ),
         ),

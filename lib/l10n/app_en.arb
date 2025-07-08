@@ -199,6 +199,52 @@
   "@versionUpdateCurrent": {
     "description": "현재 버전 업데이트 설명"
   },
+  "ingredientSearchOrAddHint": "Search or add new ingredients...",
+  "@ingredientSearchOrAddHint": {
+    "description": "재료 검색 입력 필드 힌트"
+  },
+  "ingredientUserAdded": "User added ingredient",
+  "@ingredientUserAdded": {
+    "description": "사용자 추가 재료 설명"
+  },
+  "ingredientNewAdded": "New ingredient \"{name}\" has been added",
+  "@ingredientNewAdded": {
+    "description": "새 재료 추가 성공 메시지",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "ingredientQuantityLabel": "Quantity",
+  "@ingredientQuantityLabel": {
+    "description": "재료 양 라벨"
+  },
+  "ingredientUnitLabel": "Unit",
+  "@ingredientUnitLabel": {
+    "description": "재료 단위 라벨"
+  },
+  "ingredientAddNew": "Add new ingredient: \"{name}\"",
+  "@ingredientAddNew": {
+    "description": "새 재료 추가 옵션",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "ingredientAddNewSubtitle": "Add a new ingredient",
+  "@ingredientAddNewSubtitle": {
+    "description": "새 재료 추가 설명"
+  },
+  "ingredientSearchPlaceholder": "Enter ingredient name to search",
+  "@ingredientSearchPlaceholder": {
+    "description": "재료 검색 플레이스홀더"
+  },
+  "ingredientLoadingError": "An error occurred while loading ingredients",
+  "@ingredientLoadingError": {
+    "description": "재료 로딩 에러 메시지"
+  },
   "versionBaseVersion": "Base version: {versionName}",
   "@versionBaseVersion": {
     "description": "기반 버전 표시",
@@ -294,6 +340,34 @@
         "type": "String"
       }
     }
+  },
+  "timerPaused": "Paused",
+  "@timerPaused": {
+    "description": "타이머 일시정지 상태"
+  },
+  "timerCompleted": "Completed",
+  "@timerCompleted": {
+    "description": "타이머 완료 상태"
+  },
+  "timerCancelled": "Cancelled",
+  "@timerCancelled": {
+    "description": "타이머 취소 상태"
+  },
+  "timerStatusRunning": "Running",
+  "@timerStatusRunning": {
+    "description": "타이머 진행 중 상태"
+  },
+  "timerCompleteStatus": "Complete!",
+  "@timerCompleteStatus": {
+    "description": "타이머 완료 상태 표시"
+  },
+  "timerRemainingTime": "Remaining Time",
+  "@timerRemainingTime": {
+    "description": "남은 시간 라벨"
+  },
+  "timerTotalTime": "Total Time",
+  "@timerTotalTime": {
+    "description": "전체 시간 라벨"
   },
   "timerInProgress": "{count} in progress",
   "@timerInProgress": {
@@ -491,6 +565,10 @@
   "searchResults": "Search Results",
   "@searchResults": {
     "description": "검색 결과 섹션"
+  },
+  "searchRecipeResults": "Recipe Search Results",
+  "@searchRecipeResults": {
+    "description": "레시피 검색 결과 섹션 제목"
   },
   "searchReset": "Reset Search",
   "@searchReset": {

@@ -376,6 +376,60 @@ abstract class AppLocalizations {
   /// **'Update the current version'**
   String get versionUpdateCurrent;
 
+  /// 재료 검색 입력 필드 힌트
+  ///
+  /// In en, this message translates to:
+  /// **'Search or add new ingredients...'**
+  String get ingredientSearchOrAddHint;
+
+  /// 사용자 추가 재료 설명
+  ///
+  /// In en, this message translates to:
+  /// **'User added ingredient'**
+  String get ingredientUserAdded;
+
+  /// 새 재료 추가 성공 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'New ingredient \"{name}\" has been added'**
+  String ingredientNewAdded(String name);
+
+  /// 재료 양 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get ingredientQuantityLabel;
+
+  /// 재료 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Unit'**
+  String get ingredientUnitLabel;
+
+  /// 새 재료 추가 옵션
+  ///
+  /// In en, this message translates to:
+  /// **'Add new ingredient: \"{name}\"'**
+  String ingredientAddNew(String name);
+
+  /// 새 재료 추가 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Add a new ingredient'**
+  String get ingredientAddNewSubtitle;
+
+  /// 재료 검색 플레이스홀더
+  ///
+  /// In en, this message translates to:
+  /// **'Enter ingredient name to search'**
+  String get ingredientSearchPlaceholder;
+
+  /// 재료 로딩 에러 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while loading ingredients'**
+  String get ingredientLoadingError;
+
   /// 기반 버전 표시
   ///
   /// In en, this message translates to:
@@ -489,6 +543,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} timers running'**
   String timerRunning(String count);
+
+  /// 타이머 일시정지 상태
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get timerPaused;
+
+  /// 타이머 완료 상태
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get timerCompleted;
+
+  /// 타이머 취소 상태
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get timerCancelled;
+
+  /// 타이머 진행 중 상태
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get timerStatusRunning;
+
+  /// 타이머 완료 상태 표시
+  ///
+  /// In en, this message translates to:
+  /// **'Complete!'**
+  String get timerCompleteStatus;
+
+  /// 남은 시간 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Remaining Time'**
+  String get timerRemainingTime;
+
+  /// 전체 시간 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Total Time'**
+  String get timerTotalTime;
 
   /// 진행 중인 타이머 수
   ///
@@ -747,6 +843,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search Results'**
   String get searchResults;
+
+  /// 레시피 검색 결과 섹션 제목
+  ///
+  /// In en, this message translates to:
+  /// **'Recipe Search Results'**
+  String get searchRecipeResults;
 
   /// 검색 초기화 버튼
   ///

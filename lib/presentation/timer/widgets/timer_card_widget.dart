@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipick_flutter/core/config/app_colors.dart';
 import 'package:recipick_flutter/domain/entities/cooking_timer_entity.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 /// 타이머 카드 위젯
 /// 진행 중인 타이머를 시각적으로 표시합니다.
@@ -58,16 +59,16 @@ class TimerCardWidget extends StatelessWidget {
     }
   }
 
-  String _getStatusText() {
+  String _getStatusText(BuildContext context) {
     switch (timer.status) {
       case TimerStatus.running:
-        return '진행 중';
+        return AppLocalizations.of(context).timerStatusRunning;
       case TimerStatus.paused:
-        return '일시정지';
+        return AppLocalizations.of(context).timerPaused;
       case TimerStatus.completed:
-        return '완료';
+        return AppLocalizations.of(context).timerCompleted;
       case TimerStatus.cancelled:
-        return '취소됨';
+        return AppLocalizations.of(context).timerCancelled;
     }
   }
 
@@ -153,7 +154,7 @@ class TimerCardWidget extends StatelessWidget {
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Text(
-                              _getStatusText(),
+                              _getStatusText(context),
                               style: theme.textTheme.bodySmall?.copyWith(
                                 color: statusColor,
                                 fontWeight: FontWeight.w600,
@@ -241,7 +242,9 @@ class TimerCardWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          timer.isCompleted ? '완료!' : '남은 시간',
+                          timer.isCompleted
+                              ? AppLocalizations.of(context).timerCompleteStatus
+                              : AppLocalizations.of(context).timerRemainingTime,
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: AppColors.textBrown.withValues(alpha: 0.7),
                           ),
@@ -267,7 +270,7 @@ class TimerCardWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          '전체 시간',
+                          AppLocalizations.of(context).timerTotalTime,
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: AppColors.textBrown.withValues(alpha: 0.7),
                           ),

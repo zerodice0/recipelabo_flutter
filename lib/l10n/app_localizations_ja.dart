@@ -154,6 +154,37 @@ class AppLocalizationsJa extends AppLocalizations {
   String get versionUpdateCurrent => '現在のバージョンを更新します';
 
   @override
+  String get ingredientSearchOrAddHint => '材料を検索または新しく追加してください...';
+
+  @override
+  String get ingredientUserAdded => 'ユーザー追加材料';
+
+  @override
+  String ingredientNewAdded(String name) {
+    return '新しい材料\"$name\"が追加されました';
+  }
+
+  @override
+  String get ingredientQuantityLabel => '数量';
+
+  @override
+  String get ingredientUnitLabel => '単位';
+
+  @override
+  String ingredientAddNew(String name) {
+    return '新しい材料を追加: \"$name\"';
+  }
+
+  @override
+  String get ingredientAddNewSubtitle => '新しい材料を追加します';
+
+  @override
+  String get ingredientSearchPlaceholder => '材料名を入力して検索してください';
+
+  @override
+  String get ingredientLoadingError => '材料の読み込み中にエラーが発生しました';
+
+  @override
   String versionBaseVersion(String versionName) {
     return 'ベースバージョン: $versionName';
   }
@@ -217,6 +248,27 @@ class AppLocalizationsJa extends AppLocalizations {
   String timerRunning(String count) {
     return '$count個のタイマーが動作中';
   }
+
+  @override
+  String get timerPaused => '一時停止';
+
+  @override
+  String get timerCompleted => '完了';
+
+  @override
+  String get timerCancelled => 'キャンセル';
+
+  @override
+  String get timerStatusRunning => '実行中';
+
+  @override
+  String get timerCompleteStatus => '完了！';
+
+  @override
+  String get timerRemainingTime => '残り時間';
+
+  @override
+  String get timerTotalTime => '総時間';
 
   @override
   String timerInProgress(String count) {
@@ -356,6 +408,9 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get searchResults => '検索結果';
+
+  @override
+  String get searchRecipeResults => 'レシピ検索結果';
 
   @override
   String get searchReset => '検索をリセット';

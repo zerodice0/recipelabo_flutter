@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipick_flutter/core/config/app_colors.dart';
 
 /// 개별 재료 칩 위젯 - 최적화를 위해 분리
 class IngredientChipWidget extends StatelessWidget {
@@ -16,26 +17,38 @@ class IngredientChipWidget extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       curve: Curves.easeInOut,
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
+        // 픽셀 아트 스타일 적용
         color: isSelected
-            ? Theme.of(context).colorScheme.primary
-            : Theme.of(context).colorScheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(12),
-        border: isSelected
-            ? null
-            : Border.all(
-                color: Theme.of(context).colorScheme.outline,
-                width: 1,
-              ),
+            ? AppColors.chipSelectedBackground
+            : AppColors.chipBackground,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isSelected
+              ? AppColors.chipSelectedBorder
+              : AppColors.chipBorder,
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: isSelected
+                ? AppColors.chipSelectedShadow.withValues(alpha: 0.6)
+                : AppColors.chipShadow.withValues(alpha: 0.4),
+            offset: const Offset(2, 2),
+            blurRadius: 0, // 픽셀 아트는 블러 없음
+          ),
+        ],
       ),
       child: Text(
         ingredientName,
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
           color: isSelected
-              ? Theme.of(context).colorScheme.onPrimary
-              : Theme.of(context).colorScheme.onSurface,
-          fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+              ? AppColors.chipSelectedText
+              : AppColors.chipText,
+          fontWeight: isSelected ? FontWeight.bold : FontWeight.w600,
+          fontFamily: 'monospace', // 픽셀 아트 폰트
+          fontSize: 12,
         ),
       ),
     );

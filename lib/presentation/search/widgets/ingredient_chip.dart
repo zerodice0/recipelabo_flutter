@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
+import 'package:recipick_flutter/core/config/app_colors.dart';
 
 class IngredientChip extends StatelessWidget {
   final String ingredient;
@@ -19,49 +20,67 @@ class IngredientChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (isSelected && showRemoveButton) {
-      return Chip(
-        label: Text(
-          ingredient,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        deleteIcon: Icon(
-          Icons.close,
-          size: 18,
-          color: Theme.of(context).colorScheme.onPrimary,
-        ),
-        onDeleted: onRemove,
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      );
-    }
-
-    return FilterChip(
-      label: Text(
-        ingredient,
-        style: TextStyle(
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeInOut,
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        decoration: BoxDecoration(
+          // 오렌지 계통으로 통일된 픽셀 아트 스타일
           color: isSelected
-              ? Theme.of(context).colorScheme.onPrimary
-              : Theme.of(context).colorScheme.onSurface,
-          fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+              ? AppColors.chipSelectedBackground
+              : AppColors.chipBackground,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: isSelected
+                ? AppColors.chipSelectedBorder
+                : AppColors.chipBorder,
+            width: 2,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: isSelected
+                  ? AppColors.chipSelectedShadow.withValues(alpha: 0.6)
+                  : AppColors.chipShadow.withValues(alpha: 0.4),
+              offset: const Offset(2, 2),
+              blurRadius: 0, // 픽셀 아트는 블러 없음
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // 재료 이름
+            Text(
+              ingredient,
+              style: TextStyle(
+                color: isSelected
+                    ? AppColors.chipSelectedText
+                    : AppColors.chipText,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.w600,
+                fontFamily: 'monospace', // 픽셀 아트 폰트
+                fontSize: 12,
+              ),
+            ),
+            // 삭제 버튼 (선택되고 showRemoveButton이 true일 때만)
+            if (isSelected && showRemoveButton && onRemove != null) ...[
+              const SizedBox(width: 4),
+              GestureDetector(
+                onTap: onRemove,
+                child: Container(
+                  padding: const EdgeInsets.all(2),
+                  child: const Icon(
+                    Icons.close,
+                    size: 14,
+                    color: AppColors.chipSelectedText,
+                  ),
+                ),
+              ),
+            ],
+          ],
         ),
       ),
-      selected: isSelected,
-      onSelected: (_) => onTap(),
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      selectedColor: Theme.of(context).colorScheme.primary,
-      checkmarkColor: Theme.of(context).colorScheme.onPrimary,
-      side: BorderSide(
-        color: isSelected
-            ? Theme.of(context).colorScheme.primary
-            : Theme.of(context).colorScheme.outline,
-        width: 1,
-      ),
-      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      visualDensity: VisualDensity.compact,
     );
   }
 }
@@ -94,18 +113,48 @@ class SelectedIngredientsChips extends StatelessWidget {
               AppLocalizations.of(
                 context,
               ).ingredientSelectedCount(selectedIngredients.length.toString()),
-              style: Theme.of(
-                context,
-              ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: AppColors.chipText,
+                fontFamily: 'monospace', // 픽셀 아트 폰트
+              ),
             ),
             if (onClearAll != null)
-              TextButton(
-                onPressed: onClearAll,
-                style: TextButton.styleFrom(
-                  visualDensity: VisualDensity.compact,
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.error,
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(color: AppColors.primaryDark, width: 2),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.deepBrown.withValues(alpha: 0.6),
+                      offset: const Offset(2, 2),
+                      blurRadius: 0,
+                    ),
+                  ],
                 ),
-                child: Text(AppLocalizations.of(context).ingredientClearAll),
+                child: TextButton(
+                  onPressed: onClearAll,
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: AppColors.warmWhite,
+                    elevation: 0,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 4,
+                    ),
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  ),
+                  child: Text(
+                    AppLocalizations.of(context).ingredientClearAll,
+                    style: const TextStyle(
+                      fontFamily: 'monospace',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
               ),
           ],
         ),
@@ -159,16 +208,30 @@ class AvailableIngredientsGrid extends StatelessWidget {
           padding: const EdgeInsets.all(32.0),
           child: Column(
             children: [
-              Icon(
-                Icons.search_off,
-                size: 48,
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColors.chipBackground,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: AppColors.chipBorder, width: 2),
+                ),
+                child: Stack(
+                  children: [
+                    const Text('🔍', style: TextStyle(fontSize: 52)),
+                    Opacity(
+                      opacity: 0.5,
+                      child: const Text('❌', style: TextStyle(fontSize: 62)),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 16),
               Text(
                 AppLocalizations.of(context).ingredientNotFound,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  color: AppColors.textBrown,
+                  fontFamily: 'monospace',
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],

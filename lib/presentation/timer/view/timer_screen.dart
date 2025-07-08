@@ -440,13 +440,22 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
       ),
       floatingActionButton: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          gradient: AppColors.primaryGradient,
+          borderRadius: BorderRadius.circular(12),
+          color: AppColors.pixelGreen,
+          border: Border.all(
+            color: AppColors.pixelGreenDark,
+            width: 3,
+          ),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primaryOrange.withValues(alpha: 0.4),
-              blurRadius: 12,
-              offset: const Offset(0, 6),
+              color: AppColors.pixelGreenShadow.withValues(alpha: 0.8),
+              offset: const Offset(4, 4),
+              blurRadius: 0,
+            ),
+            BoxShadow(
+              color: const Color(0xFF003300).withValues(alpha: 0.6),
+              offset: const Offset(6, 6),
+              blurRadius: 0,
             ),
           ],
         ),
@@ -454,18 +463,29 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
           onPressed: _showCustomTimerDialog,
           backgroundColor: Colors.transparent,
           elevation: 0,
-          splashColor: AppColors.warmWhite.withValues(alpha: 0.2),
-          icon: const Icon(
-            Icons.add_alarm,
-            color: AppColors.warmWhite,
-            size: 24,
+          splashColor: AppColors.pixelPaper.withValues(alpha: 0.2),
+          icon: SizedBox(
+            width: 32,
+            height: 32,
+            child: Image.asset(
+              'assets/timer_hourglass.png',
+              fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) {
+                // 이미지 로딩 실패 시 대체 이모지 표시
+                return const Text(
+                  '⏳',
+                  style: TextStyle(fontSize: 24),
+                );
+              },
+            ),
           ),
           label: Text(
             l10n.timerCustom,
             style: const TextStyle(
-              color: AppColors.warmWhite,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
+              color: AppColors.pixelPaper,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              fontFamily: 'monospace',
             ),
           ),
         ),

@@ -193,7 +193,7 @@ class _IngredientSearchScreenState
         Row(
           children: [
             Text(
-              '레시피 검색 결과',
+              AppLocalizations.of(context).searchRecipeResults,
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),

@@ -157,6 +157,38 @@ class AppLocalizationsEn extends AppLocalizations {
   String get versionUpdateCurrent => 'Update the current version';
 
   @override
+  String get ingredientSearchOrAddHint => 'Search or add new ingredients...';
+
+  @override
+  String get ingredientUserAdded => 'User added ingredient';
+
+  @override
+  String ingredientNewAdded(String name) {
+    return 'New ingredient \"$name\" has been added';
+  }
+
+  @override
+  String get ingredientQuantityLabel => 'Quantity';
+
+  @override
+  String get ingredientUnitLabel => 'Unit';
+
+  @override
+  String ingredientAddNew(String name) {
+    return 'Add new ingredient: \"$name\"';
+  }
+
+  @override
+  String get ingredientAddNewSubtitle => 'Add a new ingredient';
+
+  @override
+  String get ingredientSearchPlaceholder => 'Enter ingredient name to search';
+
+  @override
+  String get ingredientLoadingError =>
+      'An error occurred while loading ingredients';
+
+  @override
   String versionBaseVersion(String versionName) {
     return 'Base version: $versionName';
   }
@@ -220,6 +252,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String timerRunning(String count) {
     return '$count timers running';
   }
+
+  @override
+  String get timerPaused => 'Paused';
+
+  @override
+  String get timerCompleted => 'Completed';
+
+  @override
+  String get timerCancelled => 'Cancelled';
+
+  @override
+  String get timerStatusRunning => 'Running';
+
+  @override
+  String get timerCompleteStatus => 'Complete!';
+
+  @override
+  String get timerRemainingTime => 'Remaining Time';
+
+  @override
+  String get timerTotalTime => 'Total Time';
 
   @override
   String timerInProgress(String count) {
@@ -360,6 +413,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get searchResults => 'Search Results';
+
+  @override
+  String get searchRecipeResults => 'Recipe Search Results';
 
   @override
   String get searchReset => 'Reset Search';

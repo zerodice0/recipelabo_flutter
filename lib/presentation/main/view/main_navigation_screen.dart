@@ -39,30 +39,170 @@ class MainNavigationScreen extends ConsumerWidget {
             ),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: currentIndex,
-          onTap: viewModel.setIndex,
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: Theme.of(context).colorScheme.primary,
-          unselectedItemColor: Theme.of(context).colorScheme.onSurfaceVariant,
-          items: [
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.restaurant_menu),
-              label: AppLocalizations.of(context).navigationRecipes,
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            color: AppColors.pixelPaper,
+            border: Border(
+              top: BorderSide(color: AppColors.pixelBrown, width: 3),
             ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.search),
-              label: AppLocalizations.of(context).navigationSearch,
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.pixelDarkBrown.withValues(alpha: 0.3),
+                offset: const Offset(0, -2),
+                blurRadius: 0,
+              ),
+            ],
+          ),
+          child: BottomNavigationBar(
+            currentIndex: currentIndex,
+            onTap: viewModel.setIndex,
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            selectedItemColor: AppColors.pixelRedDark,
+            unselectedItemColor: AppColors.pixelMidBrown,
+            selectedLabelStyle: const TextStyle(
+              fontFamily: 'monospace',
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
             ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.timer),
-              label: AppLocalizations.of(context).navigationTimer,
+            unselectedLabelStyle: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
             ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.settings),
-              label: AppLocalizations.of(context).navigationSettings,
-            ),
-          ],
+            items: [
+              BottomNavigationBarItem(
+                icon: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: currentIndex == 0
+                      ? BoxDecoration(
+                          color: AppColors.pixelRed,
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(
+                            color: AppColors.pixelRedDark,
+                            width: 2,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.pixelRedShadow.withValues(
+                                alpha: 0.6,
+                              ),
+                              offset: const Offset(2, 2),
+                              blurRadius: 0,
+                            ),
+                          ],
+                        )
+                      : null,
+                  child: Text(
+                    '📖',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: currentIndex == 0 ? AppColors.pixelPaper : null,
+                    ),
+                  ),
+                ),
+                label: AppLocalizations.of(context).navigationRecipes,
+              ),
+              BottomNavigationBarItem(
+                icon: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: currentIndex == 1
+                      ? BoxDecoration(
+                          color: AppColors.pixelBlue,
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(
+                            color: AppColors.pixelBlueDark,
+                            width: 2,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.pixelBlueShadow.withValues(
+                                alpha: 0.6,
+                              ),
+                              offset: const Offset(2, 2),
+                              blurRadius: 0,
+                            ),
+                          ],
+                        )
+                      : null,
+                  child: Text(
+                    '🔍',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: currentIndex == 1 ? AppColors.pixelPaper : null,
+                    ),
+                  ),
+                ),
+                label: AppLocalizations.of(context).navigationSearch,
+              ),
+              BottomNavigationBarItem(
+                icon: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: currentIndex == 2
+                      ? BoxDecoration(
+                          color: AppColors.pixelGreen,
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(
+                            color: AppColors.pixelGreenDark,
+                            width: 2,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.pixelGreenShadow.withValues(
+                                alpha: 0.6,
+                              ),
+                              offset: const Offset(2, 2),
+                              blurRadius: 0,
+                            ),
+                          ],
+                        )
+                      : null,
+                  child: Text(
+                    '⏰',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: currentIndex == 2 ? AppColors.pixelPaper : null,
+                    ),
+                  ),
+                ),
+                label: AppLocalizations.of(context).navigationTimer,
+              ),
+              BottomNavigationBarItem(
+                icon: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: currentIndex == 3
+                      ? BoxDecoration(
+                          color: AppColors.pixelGold,
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(
+                            color: AppColors.pixelGoldDark,
+                            width: 2,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.pixelBrown.withValues(
+                                alpha: 0.6,
+                              ),
+                              offset: const Offset(2, 2),
+                              blurRadius: 0,
+                            ),
+                          ],
+                        )
+                      : null,
+                  child: Text(
+                    '⚙️',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: currentIndex == 3
+                          ? AppColors.pixelTextBrown
+                          : null,
+                    ),
+                  ),
+                ),
+                label: AppLocalizations.of(context).navigationSettings,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -386,7 +526,7 @@ class _NotificationSettingsTileState
               backgroundColor: AppColors.primaryOrange,
               foregroundColor: AppColors.warmWhite,
             ),
-            child: const Text('확인'),
+            child: Text(AppLocalizations.of(context).actionConfirm),
           ),
         ],
       ),
@@ -426,7 +566,11 @@ class _NotificationSettingsTileState
                 ),
               ),
               child: Text(
-                _hasPermission ? '활성화됨' : '비활성화됨',
+                _hasPermission
+                    ? AppLocalizations.of(context).notificationActivatedStatus
+                    : AppLocalizations.of(
+                        context,
+                      ).notificationDeactivatedStatus,
                 style: TextStyle(
                   color: _hasPermission
                       ? AppColors.supportGreen
@@ -578,7 +722,7 @@ class _BackgroundAppRefreshTile extends StatelessWidget {
             style: TextButton.styleFrom(
               foregroundColor: AppColors.textBrown.withValues(alpha: 0.7),
             ),
-            child: const Text('확인'),
+            child: Text(AppLocalizations.of(context).actionConfirm),
           ),
           ElevatedButton(
             onPressed: () {

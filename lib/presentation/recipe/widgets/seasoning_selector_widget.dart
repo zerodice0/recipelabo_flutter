@@ -4,6 +4,7 @@ import 'package:recipick_flutter/domain/entities/ingredient_master_entity.dart';
 import 'package:recipick_flutter/domain/entities/ingredient_entity.dart';
 import 'package:recipick_flutter/domain/entities/category_entity.dart';
 import 'package:recipick_flutter/domain/usecases/create_ingredient_master_usecase.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 import 'package:recipick_flutter/presentation/recipe/providers/ingredients_provider.dart';
 import 'package:recipick_flutter/presentation/recipe/widgets/unit_selector_widget.dart';
 import 'package:uuid/uuid.dart';
@@ -106,7 +107,7 @@ class _IngredientSelectorWidgetState
       await createUseCase(
         name: name,
         categoryId: PredefinedCategories.ingredient.id,
-        description: '사용자 추가 재료',
+        description: AppLocalizations.of(context).ingredientUserAdded,
       );
 
       // 재료 목록 새로고침 - Provider를 통해
@@ -120,9 +121,13 @@ class _IngredientSelectorWidgetState
       setState(() => _showDropdown = false);
 
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('새 재료 "$name"이(가) 추가되었습니다')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(context).ingredientNewAdded(name),
+            ),
+          ),
+        );
       }
     } catch (error) {
       if (mounted) {
@@ -185,10 +190,12 @@ class _IngredientSelectorWidgetState
                   Expanded(
                     child: TextFormField(
                       initialValue: ingredient.quantity.toString(),
-                      decoration: const InputDecoration(
-                        labelText: '양',
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(
+                          context,
+                        ).ingredientQuantityLabel,
                         isDense: true,
-                        contentPadding: EdgeInsets.symmetric(
+                        contentPadding: const EdgeInsets.symmetric(
                           horizontal: 8,
                           vertical: 8,
                         ),
@@ -211,10 +218,12 @@ class _IngredientSelectorWidgetState
                       onUnitChanged: (value) {
                         _updateIngredient(ingredient.copyWith(unit: value));
                       },
-                      decoration: const InputDecoration(
-                        labelText: '단위',
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(
+                          context,
+                        ).ingredientUnitLabel,
                         isDense: true,
-                        contentPadding: EdgeInsets.symmetric(
+                        contentPadding: const EdgeInsets.symmetric(
                           horizontal: 8,
                           vertical: 8,
                         ),
@@ -241,7 +250,9 @@ class _IngredientSelectorWidgetState
               controller: _searchController,
               focusNode: _searchFocusNode,
               decoration: InputDecoration(
-                hintText: '재료를 검색하거나 새로 추가하세요...',
+                hintText: AppLocalizations.of(
+                  context,
+                ).ingredientSearchOrAddHint,
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: _searchController.text.isNotEmpty
                     ? IconButton(
@@ -346,9 +357,15 @@ class _IngredientSelectorWidgetState
                             color: Theme.of(context).colorScheme.primary,
                           ),
                           title: Text(
-                            '새 재료 추가: "${_searchController.text.trim()}"',
+                            AppLocalizations.of(
+                              context,
+                            ).ingredientAddNew(_searchController.text),
                           ),
-                          subtitle: const Text('새로운 재료를 추가합니다'),
+                          subtitle: Text(
+                            AppLocalizations.of(
+                              context,
+                            ).ingredientAddNewSubtitle,
+                          ),
                           onTap: () => _createNewIngredient(
                             _searchController.text.trim(),
                           ),
@@ -358,10 +375,12 @@ class _IngredientSelectorWidgetState
                       // 검색 결과가 없을 때
                       if (_filteredSeasonings.isEmpty &&
                           _searchController.text.trim().isEmpty) ...[
-                        const Padding(
-                          padding: EdgeInsets.all(16),
+                        Padding(
+                          padding: const EdgeInsets.all(16),
                           child: Text(
-                            '재료를 입력하여 검색하세요',
+                            AppLocalizations.of(
+                              context,
+                            ).ingredientSearchPlaceholder,
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -386,7 +405,7 @@ class _IngredientSelectorWidgetState
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            '재료를 불러오는 중 오류가 발생했습니다',
+                            AppLocalizations.of(context).ingredientLoadingError,
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           const SizedBox(height: 8),
@@ -396,7 +415,9 @@ class _IngredientSelectorWidgetState
                                   .read(availableIngredientsProvider.notifier)
                                   .refresh();
                             },
-                            child: const Text('다시 시도'),
+                            child: Text(
+                              AppLocalizations.of(context).actionRetry,
+                            ),
                           ),
                         ],
                       ),

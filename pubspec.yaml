@@ -94,6 +94,12 @@ flutter:
   assets:
     - .env
     - assets/main_image2.jpeg
+    - assets/main_image2.png
+    - assets/recipe_card_bg.png
+    - assets/recipe_book_cover.png
+    - assets/ingredient_icons_set.png
+    - assets/timer_hourglass.png
+    - assets/cooking_utensils_border.png
     - assets/sounds/
 
   # An image asset can refer to one or more resolution-specific "variants", see

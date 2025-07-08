@@ -153,6 +153,37 @@ class AppLocalizationsKo extends AppLocalizations {
   String get versionUpdateCurrent => '현재 버전을 업데이트합니다';
 
   @override
+  String get ingredientSearchOrAddHint => '재료를 검색하거나 새로 추가하세요...';
+
+  @override
+  String get ingredientUserAdded => '사용자 추가 재료';
+
+  @override
+  String ingredientNewAdded(String name) {
+    return '새 재료 \"$name\"이(가) 추가되었습니다';
+  }
+
+  @override
+  String get ingredientQuantityLabel => '양';
+
+  @override
+  String get ingredientUnitLabel => '단위';
+
+  @override
+  String ingredientAddNew(String name) {
+    return '새 재료 추가: \"$name\"';
+  }
+
+  @override
+  String get ingredientAddNewSubtitle => '새로운 재료를 추가합니다';
+
+  @override
+  String get ingredientSearchPlaceholder => '재료를 입력하여 검색하세요';
+
+  @override
+  String get ingredientLoadingError => '재료를 불러오는 중 오류가 발생했습니다';
+
+  @override
   String versionBaseVersion(String versionName) {
     return '기반 버전: $versionName';
   }
@@ -216,6 +247,27 @@ class AppLocalizationsKo extends AppLocalizations {
   String timerRunning(String count) {
     return '$count개 타이머 진행 중';
   }
+
+  @override
+  String get timerPaused => '일시정지';
+
+  @override
+  String get timerCompleted => '완료';
+
+  @override
+  String get timerCancelled => '취소됨';
+
+  @override
+  String get timerStatusRunning => '진행 중';
+
+  @override
+  String get timerCompleteStatus => '완료!';
+
+  @override
+  String get timerRemainingTime => '남은 시간';
+
+  @override
+  String get timerTotalTime => '전체 시간';
 
   @override
   String timerInProgress(String count) {
@@ -355,6 +407,9 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get searchResults => '검색 결과';
+
+  @override
+  String get searchRecipeResults => '레시피 검색 결과';
 
   @override
   String get searchReset => '검색 초기화';
