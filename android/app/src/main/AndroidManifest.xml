@@ -16,9 +16,10 @@
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
     
     <application
-        android:label="Recipick"
+        android:label="RecipeLabo"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false">
         <activity
             android:name=".MainActivity"
             android:exported="true"

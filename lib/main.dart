@@ -25,7 +25,7 @@ class MyApp extends ConsumerWidget {
     final localeAsync = ref.watch(localeNotifierProvider);
 
     return MaterialApp.router(
-      title: 'Recipick',
+      title: 'Recilab',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,

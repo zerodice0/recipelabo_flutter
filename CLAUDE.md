@@ -8,9 +8,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Provide explanations, error messages, and all text responses in Korean
 - Code comments and documentation should be in Korean when added
 
+## Internationalization Guidelines
+
+When adding or modifying UI text:
+1. **Always update translation files first** before implementing UI changes
+2. **Add translations for all supported languages**: Korean (ko), English (en), Japanese (ja)
+3. **Use localization keys** instead of hardcoded strings in code
+4. **Follow existing translation patterns** in the .arb files
+5. **Test with different languages** to ensure UI layout works properly
+
+### Translation Process:
+- Update `lib/l10n/app_ko.arb`, `lib/l10n/app_en.arb`, `lib/l10n/app_ja.arb`
+- Run `flutter gen-l10n` to generate localization classes
+- Use `AppLocalizations.of(context).keyName` in code
+- Use interactive i18n tools: `./i18n.sh` for translation management
+
 ## Project Overview
 
-Recipick is a Flutter cross-platform mobile application for creating, sharing, and discovering recipes. The project follows Clean Architecture principles with clear separation between data, domain, and presentation layers.
+Recilab is a Flutter cross-platform mobile application for creating, sharing, and discovering recipes. The project follows Clean Architecture principles with clear separation between data, domain, and presentation layers.
 
 ## Current Implementation Status
 

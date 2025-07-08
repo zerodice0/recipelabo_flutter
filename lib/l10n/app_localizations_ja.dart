@@ -9,7 +9,7 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
-  String get appName => 'レシピック';
+  String get appName => 'レシピラボ';
 
   @override
   String get navigationRecipes => 'レシピ';
@@ -299,42 +299,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String get timerPresetSaveFailed => 'プリセットの保存に失敗しました';
 
   @override
-  String get timerPresetPastaCooking => 'パスタを茹でる';
-
-  @override
-  String get timerPresetPastaCookingDescription => '標準パスタ調理時間';
-
-  @override
-  String get timerPresetHardBoiledEgg => '固茹で卵';
-
-  @override
-  String get timerPresetHardBoiledEggDescription => '完璧な固茹で卵';
-
-  @override
-  String get timerPresetSoftBoiledEgg => '半熟卵';
-
-  @override
-  String get timerPresetSoftBoiledEggDescription => '柔らかくとろける黄身';
-
-  @override
-  String get timerPresetInstantNoodles => 'インスタントラーメン';
-
-  @override
-  String get timerPresetInstantNoodlesDescription => '手軽なインスタントラーメン';
-
-  @override
-  String get timerPresetTeaBrewing => 'お茶を淹れる';
-
-  @override
-  String get timerPresetTeaBrewingDescription => '完璧なお茶の抽出時間';
-
-  @override
-  String get timerPresetSteakCooking => 'ステーキを焼く';
-
-  @override
-  String get timerPresetSteakCookingDescription => 'ミディアムレアステーキ';
-
-  @override
   String get cookingLogAdd => '料理記録を追加';
 
   @override
@@ -533,7 +497,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get notificationTurnOffInstructions =>
-      '1. iPhone設定アプリを開く\n2. 通知 > Recipickを選択\n3. 通知を許可をオフにする';
+      '1. iPhone設定アプリを開く\n2. 通知 > Recilabを選択\n3. 通知を許可をオフにする';
 
   @override
   String get notificationTurnOffWarning => '通知を無効にすると、タイマー完了時に通知を受け取れません';
@@ -625,5 +589,137 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String get recipeNoDescription => '説明がありません';
+
+  @override
   String get ingredientClearAll => 'すべて削除';
+
+  @override
+  String get timerPresetPastaCooking => 'パスタ茹で';
+
+  @override
+  String get timerPresetPastaCookingDesc => 'アルデンテパスタの標準時間';
+
+  @override
+  String get timerPresetPastaCookingDescription => 'アルデンテパスタの標準時間';
+
+  @override
+  String get timerPresetHardBoiledEgg => '固茹で卵';
+
+  @override
+  String get timerPresetHardBoiledEggDesc => '完全に火を通した茹で卵';
+
+  @override
+  String get timerPresetHardBoiledEggDescription => '完全に火を通した茹で卵';
+
+  @override
+  String get timerPresetSoftBoiledEgg => '半熟卵';
+
+  @override
+  String get timerPresetSoftBoiledEggDesc => '黄身が柔らかい半熟卵';
+
+  @override
+  String get timerPresetSoftBoiledEggDescription => '黄身が柔らかい半熟卵';
+
+  @override
+  String get timerPresetInstantNoodle => 'インスタントラーメン';
+
+  @override
+  String get timerPresetInstantNoodleDesc => '標準インスタントラーメン調理時間';
+
+  @override
+  String get timerPresetInstantNoodles => 'インスタントラーメン';
+
+  @override
+  String get timerPresetInstantNoodlesDescription => '標準インスタントラーメン調理時間';
+
+  @override
+  String get timerPresetTeaBrewing => '茶を淹れる';
+
+  @override
+  String get timerPresetTeaBrewingDesc => '紅茶や緑茶を淹れる時間';
+
+  @override
+  String get timerPresetTeaBrewingDescription => '紅茶や緑茶の抽出時間';
+
+  @override
+  String get timerPresetSteakMedium => 'ステーキ（ミディアム）';
+
+  @override
+  String get timerPresetSteakMediumDesc => '両面それぞれ焼く時間';
+
+  @override
+  String get timerPresetSteakCooking => 'ステーキ調理';
+
+  @override
+  String get timerPresetSteakCookingDescription => 'ミディアムレアステーキの時間';
+
+  @override
+  String get timerPresetRiceSteaming => 'ご飯の蒸らし';
+
+  @override
+  String get timerPresetRiceSteamingDesc => 'ご飯が完成した後の蒸らし時間';
+
+  @override
+  String get timerPresetOvenPreheating => 'オーブン予熱';
+
+  @override
+  String get timerPresetOvenPreheatingDesc => 'オーブン予熱時間';
+
+  @override
+  String get timerPresetCookieBaking => 'クッキー焼き';
+
+  @override
+  String get timerPresetCookieBakingDesc => '一般的なクッキー焼き時間';
+
+  @override
+  String get timerPresetSteaming => '蒸し料理';
+
+  @override
+  String get timerPresetSteamingDesc => '蒸し器での基本蒸し時間';
+
+  @override
+  String get dateCreated => '作成日:';
+
+  @override
+  String get dateLastUpdated => '最終更新:';
+
+  @override
+  String get versionSelect => 'バージョン選択';
+
+  @override
+  String get versionNoVersionsAvailable => '利用可能なバージョンがありません';
+
+  @override
+  String get versionChanges => '変更点';
+
+  @override
+  String get versionDeleted => '削除されたバージョン';
+
+  @override
+  String get versionBase => 'ベースバージョン';
+
+  @override
+  String get versionBaseDeleted => 'ベースバージョンが削除されました';
+
+  @override
+  String get versionIsInitial => 'これは最初のバージョンです';
+
+  @override
+  String get ingredientNoIngredientsAvailable => '利用可能な材料がありません';
+
+  @override
+  String get cookingStepNoStepsAvailable => '利用可能な調理手順がありません';
+
+  @override
+  String get cookingLog => 'クッキングログ';
+
+  @override
+  String get cookingLogLoadingError => 'クッキングログの読み込み中にエラーが発生しました:';
+
+  @override
+  String get cookingLogNoLogsAvailable => 'まだクッキングログがありません';
+
+  @override
+  String get cookingLogAddFirstLog => '最初のクッキングログを追加してみてください！';
 }

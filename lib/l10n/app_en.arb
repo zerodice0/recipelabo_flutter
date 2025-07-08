@@ -1,6 +1,9 @@
 {
   "@@locale": "en",
-  "appName": "Recipick",
+  "appName": "RecipeLabo",
+  "@appName": {
+    "description": "앱 이름"
+  },
   "navigationRecipes": "Recipes",
   "@navigationRecipes": {
     "description": "메인 네비게이션: 레시피 탭"
@@ -408,54 +411,6 @@
   "@timerPresetSaveFailed": {
     "description": "프리셋 저장 실패 메시지"
   },
-  "timerPresetPastaCooking": "Pasta Cooking",
-  "@timerPresetPastaCooking": {
-    "description": "파스타 조리 프리셋"
-  },
-  "timerPresetPastaCookingDescription": "Standard pasta cooking time",
-  "@timerPresetPastaCookingDescription": {
-    "description": "파스타 조리 프리셋 설명"
-  },
-  "timerPresetHardBoiledEgg": "Hard-boiled Egg",
-  "@timerPresetHardBoiledEgg": {
-    "description": "완숙 계란 프리셋"
-  },
-  "timerPresetHardBoiledEggDescription": "Perfect hard-boiled egg",
-  "@timerPresetHardBoiledEggDescription": {
-    "description": "완숙 계란 프리셋 설명"
-  },
-  "timerPresetSoftBoiledEgg": "Soft-boiled Egg",
-  "@timerPresetSoftBoiledEgg": {
-    "description": "반숙 계란 프리셋"
-  },
-  "timerPresetSoftBoiledEggDescription": "Soft and runny egg yolk",
-  "@timerPresetSoftBoiledEggDescription": {
-    "description": "반숙 계란 프리셋 설명"
-  },
-  "timerPresetInstantNoodles": "Instant Noodles",
-  "@timerPresetInstantNoodles": {
-    "description": "라면 프리셋"
-  },
-  "timerPresetInstantNoodlesDescription": "Quick instant noodles",
-  "@timerPresetInstantNoodlesDescription": {
-    "description": "라면 프리셋 설명"
-  },
-  "timerPresetTeaBrewing": "Tea Brewing",
-  "@timerPresetTeaBrewing": {
-    "description": "차 우리기 프리셋"
-  },
-  "timerPresetTeaBrewingDescription": "Perfect tea steeping time",
-  "@timerPresetTeaBrewingDescription": {
-    "description": "차 우리기 프리셋 설명"
-  },
-  "timerPresetSteakCooking": "Steak Cooking",
-  "@timerPresetSteakCooking": {
-    "description": "스테이크 굽기 프리셋"
-  },
-  "timerPresetSteakCookingDescription": "Medium-rare steak",
-  "@timerPresetSteakCookingDescription": {
-    "description": "스테이크 굽기 프리셋 설명"
-  },
   "cookingLogAdd": "Add Cooking Log",
   "@cookingLogAdd": {
     "description": "요리 기록 추가 버튼"
@@ -738,7 +693,7 @@
   "@notificationTurnOff": {
     "description": "알림 끄기 안내"
   },
-  "notificationTurnOffInstructions": "1. Open iPhone Settings app\n2. Select Notifications > Recipick\n3. Turn off Allow Notifications",
+  "notificationTurnOffInstructions": "1. Open iPhone Settings app\n2. Select Notifications > Recilab\n3. Turn off Allow Notifications",
   "@notificationTurnOffInstructions": {
     "description": "알림 끄기 방법"
   },
@@ -870,8 +825,184 @@
       }
     }
   },
+  "recipeNoDescription": "No description",
+  "@recipeNoDescription": {
+    "description": "레시피 설명이 없을 때 표시되는 메시지"
+  },
   "ingredientClearAll": "Clear All",
   "@ingredientClearAll": {
     "description": "전체 삭제 버튼"
+  },
+  "timerPresetPastaCooking": "Pasta Cooking",
+  "@timerPresetPastaCooking": {
+    "description": "파스타 조리 타이머 프리셋"
+  },
+  "timerPresetPastaCookingDesc": "Standard time for al dente pasta",
+  "@timerPresetPastaCookingDesc": {
+    "description": "파스타 조리 타이머 프리셋 설명"
+  },
+  "timerPresetPastaCookingDescription": "Standard time for al dente pasta",
+  "@timerPresetPastaCookingDescription": {
+    "description": "파스타 조리 타이머 프리셋 설명"
+  },
+  "timerPresetHardBoiledEgg": "Hard-boiled Egg",
+  "@timerPresetHardBoiledEgg": {
+    "description": "계란 조리 타이머 프리셋"
+  },
+  "timerPresetHardBoiledEggDesc": "Fully cooked boiled egg",
+  "@timerPresetHardBoiledEggDesc": {
+    "description": "계란 조리 타이머 프리셋 설명"
+  },
+  "timerPresetHardBoiledEggDescription": "Fully cooked boiled egg",
+  "@timerPresetHardBoiledEggDescription": {
+    "description": "계란 조리 타이머 프리셋 설명"
+  },
+  "timerPresetSoftBoiledEgg": "Soft-boiled Egg",
+  "@timerPresetSoftBoiledEgg": {
+    "description": "계란 조리 타이머 프리셋"
+  },
+  "timerPresetSoftBoiledEggDesc": "Soft-yolk boiled egg",
+  "@timerPresetSoftBoiledEggDesc": {
+    "description": "계란 조리 타이머 프리셋 설명"
+  },
+  "timerPresetSoftBoiledEggDescription": "Soft-yolk boiled egg",
+  "@timerPresetSoftBoiledEggDescription": {
+    "description": "계란 조리 타이머 프리셋 설명"
+  },
+  "timerPresetInstantNoodle": "Instant Noodle",
+  "@timerPresetInstantNoodle": {
+    "description": "인스턴트 라면 조리 타이머 프리셋"
+  },
+  "timerPresetInstantNoodleDesc": "Standard instant noodle cooking time",
+  "@timerPresetInstantNoodleDesc": {
+    "description": "인스턴트 라면 조리 타이머 프리셋 설명"
+  },
+  "timerPresetInstantNoodles": "Instant Noodles",
+  "@timerPresetInstantNoodles": {
+    "description": "인스턴트 라면 조리 타이머 프리셋"
+  },
+  "timerPresetInstantNoodlesDescription": "Standard instant noodle cooking time",
+  "@timerPresetInstantNoodlesDescription": {
+    "description": "인스턴트 라면 조리 타이머 프리셋 설명"
+  },
+  "timerPresetTeaBrewing": "Tea Brewing",
+  "@timerPresetTeaBrewing": {
+    "description": "차 조리 타이머 프리셋"
+  },
+  "timerPresetTeaBrewingDesc": "Time for brewing black or green tea",
+  "@timerPresetTeaBrewingDesc": {
+    "description": "차 조리 타이머 프리셋 설명"
+  },
+  "timerPresetTeaBrewingDescription": "Time for brewing black or green tea",
+  "@timerPresetTeaBrewingDescription": {
+    "description": "차 조리 타이머 프리셋 설명"
+  },
+  "timerPresetSteakMedium": "Steak (Medium)",
+  "@timerPresetSteakMedium": {
+    "description": "스테이크 조리 타이머 프리셋"
+  },
+  "timerPresetSteakMediumDesc": "Time for each side",
+  "@timerPresetSteakMediumDesc": {
+    "description": "스테이크 조리 타이머 프리셋 설명"
+  },
+  "timerPresetSteakCooking": "Steak Cooking",
+  "@timerPresetSteakCooking": {
+    "description": "스테이크 조리 타이머 프리셋"
+  },
+  "timerPresetSteakCookingDescription": "Time for medium-rare steak",
+  "@timerPresetSteakCookingDescription": {
+    "description": "스테이크 조리 타이머 프리셋 설명"
+  },
+  "timerPresetRiceSteaming": "Rice Steaming",
+  "@timerPresetRiceSteaming": {
+    "description": "밥 찜 타이머 프리셋"
+  },
+  "timerPresetRiceSteamingDesc": "Steaming time after rice is cooked",
+  "@timerPresetRiceSteamingDesc": {
+    "description": "밥 찜 타이머 프리셋 설명"
+  },
+  "timerPresetOvenPreheating": "Oven Preheating",
+  "@timerPresetOvenPreheating": {
+    "description": "오븐 예열 타이머 프리셋"
+  },
+  "timerPresetOvenPreheatingDesc": "Oven preheating time",
+  "@timerPresetOvenPreheatingDesc": {
+    "description": "오븐 예열 타이머 프리셋 설명"
+  },
+  "timerPresetCookieBaking": "Cookie Baking",
+  "@timerPresetCookieBaking": {
+    "description": "쿠키 조리 타이머 프리셋"
+  },  
+  "timerPresetCookieBakingDesc": "General cookie baking time",
+  "@timerPresetCookieBakingDesc": {
+    "description": "쿠키 조리 타이머 프리셋 설명"
+  },
+  "timerPresetSteaming": "Steaming",
+  "@timerPresetSteaming": {
+    "description": "찜 타이머 프리셋"
+  },
+  "timerPresetSteamingDesc": "Basic steaming time",
+  "@timerPresetSteamingDesc": {
+    "description": "찜 타이머 프리셋 설명"
+  },
+  "dateCreated": "Created:",
+  "@dateCreated": {
+    "description": "생성 날짜"
+  },
+  "dateLastUpdated": "Last Updated:",
+  "@dateLastUpdated": {
+    "description": "마지막 업데이트 날짜"
+  },
+  "versionSelect": "Select Version",
+  "@versionSelect": {
+    "description": "버전 선택 버튼"
+  },
+  "versionNoVersionsAvailable": "No versions available",
+  "@versionNoVersionsAvailable": {
+    "description": "버전 없음 메시지"
+  },
+  "versionChanges": "Changes",
+  "@versionChanges": {
+    "description": "버전 변경 내용"
+  },
+  "versionDeleted": "Deleted Version",
+  "@versionDeleted": {
+    "description": "삭제된 버전"
+  },
+  "versionBase": "Base Version",
+  "@versionBase": {
+    "description": "기반 버전"
+  },
+  "versionBaseDeleted": "Base version has been deleted",
+  "@versionBaseDeleted": {
+    "description": "기반 버전 삭제 메시지"
+  },
+  "versionIsInitial": "This is the initial version",
+  "@versionIsInitial": {
+    "description": "초기 버전 메시지"
+  },
+  "ingredientNoIngredientsAvailable": "No ingredients available",
+  "@ingredientNoIngredientsAvailable": {
+    "description": "재료 없음 메시지"
+  },
+  "cookingStepNoStepsAvailable": "No cooking steps available",
+  "@cookingStepNoStepsAvailable": {
+    "description": "요리 단계 없음 메시지"
+  },
+  "cookingLog": "Cooking Log",
+  "@cookingLog": {
+    "description": "요리 기록 메뉴"
+  },
+  "cookingLogLoadingError": "Error occurred while loading cooking logs:",
+  "@cookingLogLoadingError": {
+    "description": "요리 기록 로딩 오류 메시지"
+  },
+  "cookingLogNoLogsAvailable": "No cooking logs yet",
+  "@cookingLogNoLogsAvailable": {
+    "description": "요리 기록 없음 메시지"
+  },
+  "cookingLogAddFirstLog": "Add your first cooking log!",
+  "@cookingLogAddFirstLog": {
+    "description": "첫 번째 요리 기록 추가 메시지"
   }
 }

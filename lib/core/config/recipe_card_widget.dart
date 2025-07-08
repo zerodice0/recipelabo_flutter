@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipick_flutter/core/config/app_colors.dart';
 import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 /// 요리 앱을 위한 커스텀 레시피 카드 위젯
 /// 따뜻하고 매력적인 디자인으로 레시피를 표시
@@ -166,7 +167,7 @@ class RecipeCardWidget extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          '설명이 없습니다',
+                          AppLocalizations.of(context).recipeNoDescription,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant
                                 .withValues(alpha: 0.6),

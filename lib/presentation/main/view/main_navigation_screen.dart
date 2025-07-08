@@ -346,7 +346,7 @@ class _NotificationSettingsTileState
             const SizedBox(height: 8),
             const Text(
               '1. 아이폰 설정 앱 열기\n'
-              '2. 알림 > Recipick 선택\n'
+              '2. 알림 > Recilab 선택\n'
               '3. 알림 허용 끄기',
               style: TextStyle(color: AppColors.textBrown, height: 1.4),
             ),
@@ -561,7 +561,7 @@ class _BackgroundAppRefreshTile extends StatelessWidget {
                     '1. 설정 앱 열기\n'
                     '2. 일반 > 백그라운드 앱 새로고침\n'
                     '3. 백그라운드 앱 새로고침 켜기\n'
-                    '4. Recipick 앱 새로고침 켜기',
+                    '4. Recilab 앱 새로고침 켜기',
                     style: TextStyle(
                       color: AppColors.supportGreen,
                       height: 1.4,

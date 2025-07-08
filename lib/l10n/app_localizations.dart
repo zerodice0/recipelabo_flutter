@@ -100,10 +100,10 @@ abstract class AppLocalizations {
     Locale('ja'),
   ];
 
-  /// No description provided for @appName.
+  /// 앱 이름
   ///
   /// In en, this message translates to:
-  /// **'Recipick'**
+  /// **'RecipeLabo'**
   String get appName;
 
   /// 메인 네비게이션: 레시피 탭
@@ -634,78 +634,6 @@ abstract class AppLocalizations {
   /// **'Failed to save preset'**
   String get timerPresetSaveFailed;
 
-  /// 파스타 조리 프리셋
-  ///
-  /// In en, this message translates to:
-  /// **'Pasta Cooking'**
-  String get timerPresetPastaCooking;
-
-  /// 파스타 조리 프리셋 설명
-  ///
-  /// In en, this message translates to:
-  /// **'Standard pasta cooking time'**
-  String get timerPresetPastaCookingDescription;
-
-  /// 완숙 계란 프리셋
-  ///
-  /// In en, this message translates to:
-  /// **'Hard-boiled Egg'**
-  String get timerPresetHardBoiledEgg;
-
-  /// 완숙 계란 프리셋 설명
-  ///
-  /// In en, this message translates to:
-  /// **'Perfect hard-boiled egg'**
-  String get timerPresetHardBoiledEggDescription;
-
-  /// 반숙 계란 프리셋
-  ///
-  /// In en, this message translates to:
-  /// **'Soft-boiled Egg'**
-  String get timerPresetSoftBoiledEgg;
-
-  /// 반숙 계란 프리셋 설명
-  ///
-  /// In en, this message translates to:
-  /// **'Soft and runny egg yolk'**
-  String get timerPresetSoftBoiledEggDescription;
-
-  /// 라면 프리셋
-  ///
-  /// In en, this message translates to:
-  /// **'Instant Noodles'**
-  String get timerPresetInstantNoodles;
-
-  /// 라면 프리셋 설명
-  ///
-  /// In en, this message translates to:
-  /// **'Quick instant noodles'**
-  String get timerPresetInstantNoodlesDescription;
-
-  /// 차 우리기 프리셋
-  ///
-  /// In en, this message translates to:
-  /// **'Tea Brewing'**
-  String get timerPresetTeaBrewing;
-
-  /// 차 우리기 프리셋 설명
-  ///
-  /// In en, this message translates to:
-  /// **'Perfect tea steeping time'**
-  String get timerPresetTeaBrewingDescription;
-
-  /// 스테이크 굽기 프리셋
-  ///
-  /// In en, this message translates to:
-  /// **'Steak Cooking'**
-  String get timerPresetSteakCooking;
-
-  /// 스테이크 굽기 프리셋 설명
-  ///
-  /// In en, this message translates to:
-  /// **'Medium-rare steak'**
-  String get timerPresetSteakCookingDescription;
-
   /// 요리 기록 추가 버튼
   ///
   /// In en, this message translates to:
@@ -1075,7 +1003,7 @@ abstract class AppLocalizations {
   /// 알림 끄기 방법
   ///
   /// In en, this message translates to:
-  /// **'1. Open iPhone Settings app\n2. Select Notifications > Recipick\n3. Turn off Allow Notifications'**
+  /// **'1. Open iPhone Settings app\n2. Select Notifications > Recilab\n3. Turn off Allow Notifications'**
   String get notificationTurnOffInstructions;
 
   /// 알림 끄기 경고
@@ -1240,11 +1168,275 @@ abstract class AppLocalizations {
   /// **'Selected ingredients ({count})'**
   String ingredientSelectedCount(String count);
 
+  /// 레시피 설명이 없을 때 표시되는 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'No description'**
+  String get recipeNoDescription;
+
   /// 전체 삭제 버튼
   ///
   /// In en, this message translates to:
   /// **'Clear All'**
   String get ingredientClearAll;
+
+  /// 파스타 조리 타이머 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Pasta Cooking'**
+  String get timerPresetPastaCooking;
+
+  /// 파스타 조리 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Standard time for al dente pasta'**
+  String get timerPresetPastaCookingDesc;
+
+  /// 파스타 조리 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Standard time for al dente pasta'**
+  String get timerPresetPastaCookingDescription;
+
+  /// 계란 조리 타이머 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Hard-boiled Egg'**
+  String get timerPresetHardBoiledEgg;
+
+  /// 계란 조리 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Fully cooked boiled egg'**
+  String get timerPresetHardBoiledEggDesc;
+
+  /// 계란 조리 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Fully cooked boiled egg'**
+  String get timerPresetHardBoiledEggDescription;
+
+  /// 계란 조리 타이머 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Soft-boiled Egg'**
+  String get timerPresetSoftBoiledEgg;
+
+  /// 계란 조리 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Soft-yolk boiled egg'**
+  String get timerPresetSoftBoiledEggDesc;
+
+  /// 계란 조리 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Soft-yolk boiled egg'**
+  String get timerPresetSoftBoiledEggDescription;
+
+  /// 인스턴트 라면 조리 타이머 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Instant Noodle'**
+  String get timerPresetInstantNoodle;
+
+  /// 인스턴트 라면 조리 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Standard instant noodle cooking time'**
+  String get timerPresetInstantNoodleDesc;
+
+  /// 인스턴트 라면 조리 타이머 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Instant Noodles'**
+  String get timerPresetInstantNoodles;
+
+  /// 인스턴트 라면 조리 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Standard instant noodle cooking time'**
+  String get timerPresetInstantNoodlesDescription;
+
+  /// 차 조리 타이머 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Tea Brewing'**
+  String get timerPresetTeaBrewing;
+
+  /// 차 조리 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Time for brewing black or green tea'**
+  String get timerPresetTeaBrewingDesc;
+
+  /// 차 조리 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Time for brewing black or green tea'**
+  String get timerPresetTeaBrewingDescription;
+
+  /// 스테이크 조리 타이머 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Steak (Medium)'**
+  String get timerPresetSteakMedium;
+
+  /// 스테이크 조리 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Time for each side'**
+  String get timerPresetSteakMediumDesc;
+
+  /// 스테이크 조리 타이머 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Steak Cooking'**
+  String get timerPresetSteakCooking;
+
+  /// 스테이크 조리 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Time for medium-rare steak'**
+  String get timerPresetSteakCookingDescription;
+
+  /// 밥 찜 타이머 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Rice Steaming'**
+  String get timerPresetRiceSteaming;
+
+  /// 밥 찜 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Steaming time after rice is cooked'**
+  String get timerPresetRiceSteamingDesc;
+
+  /// 오븐 예열 타이머 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Oven Preheating'**
+  String get timerPresetOvenPreheating;
+
+  /// 오븐 예열 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Oven preheating time'**
+  String get timerPresetOvenPreheatingDesc;
+
+  /// 쿠키 조리 타이머 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Cookie Baking'**
+  String get timerPresetCookieBaking;
+
+  /// 쿠키 조리 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'General cookie baking time'**
+  String get timerPresetCookieBakingDesc;
+
+  /// 찜 타이머 프리셋
+  ///
+  /// In en, this message translates to:
+  /// **'Steaming'**
+  String get timerPresetSteaming;
+
+  /// 찜 타이머 프리셋 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Basic steaming time'**
+  String get timerPresetSteamingDesc;
+
+  /// 생성 날짜
+  ///
+  /// In en, this message translates to:
+  /// **'Created:'**
+  String get dateCreated;
+
+  /// 마지막 업데이트 날짜
+  ///
+  /// In en, this message translates to:
+  /// **'Last Updated:'**
+  String get dateLastUpdated;
+
+  /// 버전 선택 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Select Version'**
+  String get versionSelect;
+
+  /// 버전 없음 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'No versions available'**
+  String get versionNoVersionsAvailable;
+
+  /// 버전 변경 내용
+  ///
+  /// In en, this message translates to:
+  /// **'Changes'**
+  String get versionChanges;
+
+  /// 삭제된 버전
+  ///
+  /// In en, this message translates to:
+  /// **'Deleted Version'**
+  String get versionDeleted;
+
+  /// 기반 버전
+  ///
+  /// In en, this message translates to:
+  /// **'Base Version'**
+  String get versionBase;
+
+  /// 기반 버전 삭제 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Base version has been deleted'**
+  String get versionBaseDeleted;
+
+  /// 초기 버전 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'This is the initial version'**
+  String get versionIsInitial;
+
+  /// 재료 없음 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'No ingredients available'**
+  String get ingredientNoIngredientsAvailable;
+
+  /// 요리 단계 없음 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'No cooking steps available'**
+  String get cookingStepNoStepsAvailable;
+
+  /// 요리 기록 메뉴
+  ///
+  /// In en, this message translates to:
+  /// **'Cooking Log'**
+  String get cookingLog;
+
+  /// 요리 기록 로딩 오류 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Error occurred while loading cooking logs:'**
+  String get cookingLogLoadingError;
+
+  /// 요리 기록 없음 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'No cooking logs yet'**
+  String get cookingLogNoLogsAvailable;
+
+  /// 첫 번째 요리 기록 추가 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first cooking log!'**
+  String get cookingLogAddFirstLog;
 }
 
 class _AppLocalizationsDelegate

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
 import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
 import 'package:recipick_flutter/domain/entities/cooking_log_entity.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 import 'package:recipick_flutter/presentation/recipe/detail/viewmodel/recipe_detail_viewmodel.dart';
 import 'package:recipick_flutter/presentation/recipe/detail/viewmodel/cooking_log_viewmodel.dart';
 import 'package:recipick_flutter/domain/usecases/delete_recipe_version_usecase.dart';
@@ -32,8 +33,8 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
   ) async {
     if (allVersions.length <= 1) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('레시피에는 최소 하나의 버전이 있어야 합니다.'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context).recipeVersionsRequired),
           backgroundColor: Colors.orange,
         ),
       );
@@ -44,12 +45,12 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: const Text('버전 삭제'),
+        title: Text(AppLocalizations.of(context).versionDelete),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('정말로 이 버전을 삭제하시겠습니까?'),
+            Text(AppLocalizations.of(context).recipeDeleteConfirm),
             const SizedBox(height: 12),
             Container(
               padding: const EdgeInsets.all(12),
@@ -69,7 +70,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '생성일: ${_formatDate(version.createdAt)}',
+                    '${AppLocalizations.of(context).dateCreated} ${_formatDate(version.createdAt)}',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Theme.of(context).colorScheme.onErrorContainer,
                     ),
@@ -79,7 +80,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
             ),
             const SizedBox(height: 12),
             Text(
-              '⚠️ 이 작업은 되돌릴 수 없습니다.',
+              AppLocalizations.of(context).recipeDeleteConfirm,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.error,
                 fontWeight: FontWeight.w500,
@@ -90,7 +91,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('취소'),
+            child: Text(AppLocalizations.of(context).actionCancel),
           ),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop(true),
@@ -98,7 +99,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               backgroundColor: Theme.of(context).colorScheme.error,
               foregroundColor: Theme.of(context).colorScheme.onError,
             ),
-            child: const Text('삭제'),
+            child: Text(AppLocalizations.of(context).actionDelete),
           ),
         ],
       ),
@@ -137,7 +138,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              '버전 "${version.versionName ?? 'v${version.versionNumber}'}"이 삭제되었습니다.',
+              '${AppLocalizations.of(context).recipeDeleteSuccess}: "${version.versionName ?? 'v${version.versionNumber}'}"',
             ),
             backgroundColor: Colors.green,
           ),
@@ -147,7 +148,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('버전 삭제 중 오류가 발생했습니다: $e'),
+            content: Text(
+              '${AppLocalizations.of(context).recipeDeleteFailed}: $e',
+            ),
             backgroundColor: Colors.red,
           ),
         );
@@ -161,45 +164,50 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
       recipeDetailViewModelProvider(widget.recipeId),
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('레시피 상세'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () async {
-              // 현재 선택된 버전 ID를 쿼리 파라미터로 전달
-              final versionParam = _selectedVersionId != null
-                  ? '?versionId=$_selectedVersionId'
-                  : '';
-              final result = await context.push<bool>(
-                '/recipes/${widget.recipeId}/edit$versionParam',
-              );
-              if (result == true) {
-                // 편집 후 돌아온 경우 데이터 새로고침
-                ref.invalidate(recipeDetailViewModelProvider(widget.recipeId));
-              }
-            },
-          ),
-        ],
-      ),
-      body: recipeDetailState.when(
-        data: (data) => _buildContent(context, data.$1, data.$2),
-        error: (error, stackTrace) => Center(
-          child: SelectableText.rich(
-            TextSpan(
-              children: [
-                const TextSpan(
-                  text: '오류가 발생했습니다:\n\n',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                TextSpan(text: error.toString()),
-              ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(AppLocalizations.of(context).recipeDetail),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.edit),
+              onPressed: () async {
+                // 현재 선택된 버전 ID를 쿼리 파라미터로 전달
+                final versionParam = _selectedVersionId != null
+                    ? '?versionId=$_selectedVersionId'
+                    : '';
+                final result = await context.push<bool>(
+                  '/recipes/${widget.recipeId}/edit$versionParam',
+                );
+                if (result == true) {
+                  // 편집 후 돌아온 경우 데이터 새로고침
+                  ref.invalidate(
+                    recipeDetailViewModelProvider(widget.recipeId),
+                  );
+                }
+              },
             ),
-            style: const TextStyle(color: Colors.red),
-          ),
+          ],
         ),
-        loading: () => const Center(child: CircularProgressIndicator()),
+        body: recipeDetailState.when(
+          data: (data) => _buildContent(context, data.$1, data.$2),
+          error: (error, stackTrace) => Center(
+            child: SelectableText.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text:
+                        '${AppLocalizations.of(context).recipeLoadingError}:\n\n',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(text: error.toString()),
+                ],
+              ),
+              style: const TextStyle(color: Colors.red),
+            ),
+          ),
+          loading: () => const Center(child: CircularProgressIndicator()),
+        ),
       ),
     );
   }
@@ -274,7 +282,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  '생성일: ${_formatDate(recipe.createdAt)}',
+                  '${AppLocalizations.of(context).dateCreated} ${_formatDate(recipe.createdAt)}',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
@@ -291,7 +299,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  '최종 업데이트: ${_formatDate(recipe.updatedAt)}',
+                  '${AppLocalizations.of(context).dateLastUpdated} ${_formatDate(recipe.updatedAt)}',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
@@ -315,7 +323,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '버전 선택',
+              AppLocalizations.of(context).versionSelect,
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -323,7 +331,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
             const SizedBox(height: 12),
             if (versions.isEmpty)
               Text(
-                '등록된 버전이 없습니다',
+                AppLocalizations.of(context).versionNoVersionsAvailable,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
@@ -448,7 +456,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                       ).colorScheme.error,
                                       size: 20,
                                     ),
-                                    tooltip: '버전 삭제',
+                                    tooltip: AppLocalizations.of(
+                                      context,
+                                    ).versionDelete,
                                     constraints: const BoxConstraints(
                                       minWidth: 32,
                                       minHeight: 32,
@@ -489,7 +499,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
-                                          '변경사항',
+                                          AppLocalizations.of(
+                                            context,
+                                          ).versionChanges,
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall
@@ -533,7 +545,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                             ],
                             const SizedBox(height: 4),
                             Text(
-                              '생성일: ${_formatDate(version.createdAt)}',
+                              '${AppLocalizations.of(context).dateCreated} ${_formatDate(version.createdAt)}',
                               style: Theme.of(context).textTheme.bodySmall
                                   ?.copyWith(
                                     color: isSelected
@@ -629,7 +641,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               ),
               const SizedBox(width: 8),
               Text(
-                '기반 버전',
+                AppLocalizations.of(context).versionBase,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: isDeleted
                       ? Theme.of(context).colorScheme.error
@@ -652,7 +664,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    '기반 버전이 삭제되었습니다',
+                    AppLocalizations.of(context).versionBaseDeleted,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Theme.of(context).colorScheme.error,
                       fontStyle: FontStyle.italic,
@@ -720,7 +732,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
               child: Text(
-                '최초 버전입니다',
+                AppLocalizations.of(context).versionIsInitial,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
@@ -743,7 +755,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '재료',
+              AppLocalizations.of(context).recipeIngredients,
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -751,7 +763,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
             const SizedBox(height: 12),
             if (version.ingredients.isEmpty)
               Text(
-                '등록된 재료가 없습니다',
+                AppLocalizations.of(context).ingredientNoIngredientsAvailable,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
@@ -802,7 +814,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '조리 순서',
+              AppLocalizations.of(context).recipeCookingSteps,
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -810,7 +822,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
             const SizedBox(height: 12),
             if (version.steps.isEmpty)
               Text(
-                '등록된 조리 순서가 없습니다',
+                AppLocalizations.of(context).cookingStepNoStepsAvailable,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
@@ -906,7 +918,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '쿠킹 로그',
+                      AppLocalizations.of(context).cookingLog,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -931,7 +943,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                         }
                       },
                       icon: const Icon(Icons.add),
-                      label: const Text('로그 추가'),
+                      label: Text(AppLocalizations.of(context).cookingLogAdd),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         foregroundColor: Theme.of(
@@ -951,9 +963,10 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                     child: SelectableText.rich(
                       TextSpan(
                         children: [
-                          const TextSpan(
-                            text: '쿠킹 로그를 불러오는 중 오류가 발생했습니다:\n\n',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                          TextSpan(
+                            text:
+                                '${AppLocalizations.of(context).cookingLogLoadingError}\n\n',
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(text: error.toString()),
                         ],
@@ -987,14 +1000,14 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               ),
               const SizedBox(height: 8),
               Text(
-                '아직 쿠킹 로그가 없습니다',
+                AppLocalizations.of(context).cookingLogNoLogsAvailable,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
               const SizedBox(height: 4),
               Text(
-                '첫 번째 쿠킹 로그를 추가해보세요!',
+                AppLocalizations.of(context).cookingLogAddFirstLog,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),

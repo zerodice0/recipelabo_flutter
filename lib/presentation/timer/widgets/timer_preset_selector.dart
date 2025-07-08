@@ -54,6 +54,80 @@ class TimerPresetSelector extends StatelessWidget {
     return colors[index % colors.length];
   }
 
+  /// 기본 프리셋 이름을 다국어 키로 변환
+  String _getLocalizedPresetName(
+    BuildContext context,
+    TimerPresetEntity preset,
+  ) {
+    if (!preset.isDefault) {
+      return preset.name; // 커스텀 프리셋은 원래 이름 사용
+    }
+
+    final localizations = AppLocalizations.of(context);
+
+    switch (preset.name) {
+      case '파스타 면 삶기':
+        return localizations.timerPresetPastaCooking;
+      case '달걀 완숙':
+        return localizations.timerPresetHardBoiledEgg;
+      case '달걀 반숙':
+        return localizations.timerPresetSoftBoiledEgg;
+      case '라면 끓이기':
+        return localizations.timerPresetInstantNoodle;
+      case '차 우리기':
+        return localizations.timerPresetTeaBrewing;
+      case '스테이크 굽기 (미디엄)':
+        return localizations.timerPresetSteakMedium;
+      case '밥 뜸들이기':
+        return localizations.timerPresetRiceSteaming;
+      case '빵 굽기 예열':
+        return localizations.timerPresetOvenPreheating;
+      case '쿠키 굽기':
+        return localizations.timerPresetCookieBaking;
+      case '찜 요리':
+        return localizations.timerPresetSteaming;
+      default:
+        return preset.name; // fallback
+    }
+  }
+
+  /// 기본 프리셋 설명을 다국어 키로 변환
+  String? _getLocalizedPresetDescription(
+    BuildContext context,
+    TimerPresetEntity preset,
+  ) {
+    if (!preset.isDefault) {
+      return preset.description; // 커스텀 프리셋은 원래 설명 사용
+    }
+
+    final localizations = AppLocalizations.of(context);
+
+    switch (preset.name) {
+      case '파스타 면 삶기':
+        return localizations.timerPresetPastaCookingDesc;
+      case '달걀 완숙':
+        return localizations.timerPresetHardBoiledEggDesc;
+      case '달걀 반숙':
+        return localizations.timerPresetSoftBoiledEggDesc;
+      case '라면 끓이기':
+        return localizations.timerPresetInstantNoodleDesc;
+      case '차 우리기':
+        return localizations.timerPresetTeaBrewingDesc;
+      case '스테이크 굽기 (미디엄)':
+        return localizations.timerPresetSteakMediumDesc;
+      case '밥 뜸들이기':
+        return localizations.timerPresetRiceSteamingDesc;
+      case '빵 굽기 예열':
+        return localizations.timerPresetOvenPreheatingDesc;
+      case '쿠키 굽기':
+        return localizations.timerPresetCookieBakingDesc;
+      case '찜 요리':
+        return localizations.timerPresetSteamingDesc;
+      default:
+        return preset.description; // fallback
+    }
+  }
+
   void _showDeleteDialog(BuildContext context, TimerPresetEntity preset) {
     showDialog(
       context: context,
@@ -67,7 +141,9 @@ class TimerPresetSelector extends StatelessWidget {
           ),
         ),
         content: Text(
-          AppLocalizations.of(context).timerPresetDeleteConfirm(preset.name),
+          AppLocalizations.of(
+            context,
+          ).timerPresetDeleteConfirm(_getLocalizedPresetName(context, preset)),
           style: TextStyle(color: AppColors.textBrown),
         ),
         actions: [
@@ -246,7 +322,7 @@ class TimerPresetSelector extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  preset.name,
+                                  _getLocalizedPresetName(context, preset),
                                   style: theme.textTheme.titleSmall?.copyWith(
                                     fontWeight: FontWeight.bold,
                                     color: AppColors.textBrown,
@@ -271,9 +347,16 @@ class TimerPresetSelector extends StatelessWidget {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   )
-                                else if (preset.description != null)
+                                else if (_getLocalizedPresetDescription(
+                                      context,
+                                      preset,
+                                    ) !=
+                                    null)
                                   Text(
-                                    preset.description!,
+                                    _getLocalizedPresetDescription(
+                                      context,
+                                      preset,
+                                    )!,
                                     style: theme.textTheme.bodySmall?.copyWith(
                                       color: AppColors.textBrown.withValues(
                                         alpha: 0.6,

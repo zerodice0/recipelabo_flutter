@@ -9,7 +9,7 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
-  String get appName => '레시픽';
+  String get appName => '레시피라보';
 
   @override
   String get navigationRecipes => '레시피';
@@ -298,42 +298,6 @@ class AppLocalizationsKo extends AppLocalizations {
   String get timerPresetSaveFailed => '프리셋 저장에 실패했습니다';
 
   @override
-  String get timerPresetPastaCooking => '파스타 삶기';
-
-  @override
-  String get timerPresetPastaCookingDescription => '표준 파스타 조리 시간';
-
-  @override
-  String get timerPresetHardBoiledEgg => '완숙 계란';
-
-  @override
-  String get timerPresetHardBoiledEggDescription => '완벽한 완숙 계란';
-
-  @override
-  String get timerPresetSoftBoiledEgg => '반숙 계란';
-
-  @override
-  String get timerPresetSoftBoiledEggDescription => '부드럽고 흐르는 노른자';
-
-  @override
-  String get timerPresetInstantNoodles => '라면';
-
-  @override
-  String get timerPresetInstantNoodlesDescription => '빠른 라면 조리';
-
-  @override
-  String get timerPresetTeaBrewing => '차 우리기';
-
-  @override
-  String get timerPresetTeaBrewingDescription => '완벽한 차 우리는 시간';
-
-  @override
-  String get timerPresetSteakCooking => '스테이크 굽기';
-
-  @override
-  String get timerPresetSteakCookingDescription => '미디움 레어 스테이크';
-
-  @override
   String get cookingLogAdd => '요리 기록 추가';
 
   @override
@@ -532,7 +496,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get notificationTurnOffInstructions =>
-      '1. 아이폰 설정 앱 열기\n2. 알림 > Recipick 선택\n3. 알림 허용 끄기';
+      '1. 아이폰 설정 앱 열기\n2. 알림 > Recilab 선택\n3. 알림 허용 끄기';
 
   @override
   String get notificationTurnOffWarning => '알림을 끄면 타이머 완료 시 알림을 받을 수 없습니다';
@@ -624,5 +588,137 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String get recipeNoDescription => '설명이 없습니다';
+
+  @override
   String get ingredientClearAll => '전체 삭제';
+
+  @override
+  String get timerPresetPastaCooking => '파스타 면 삶기';
+
+  @override
+  String get timerPresetPastaCookingDesc => '알덴테 파스타를 위한 표준 시간';
+
+  @override
+  String get timerPresetPastaCookingDescription => '알덴테 파스타를 위한 표준 시간';
+
+  @override
+  String get timerPresetHardBoiledEgg => '달걀 완숙';
+
+  @override
+  String get timerPresetHardBoiledEggDesc => '완전히 익힌 삶은 달걀';
+
+  @override
+  String get timerPresetHardBoiledEggDescription => '완전히 익힌 삶은 달걀';
+
+  @override
+  String get timerPresetSoftBoiledEgg => '달걀 반숙';
+
+  @override
+  String get timerPresetSoftBoiledEggDesc => '노른자가 부드러운 반숙 달걀';
+
+  @override
+  String get timerPresetSoftBoiledEggDescription => '노른자가 부드러운 반숙 달걀';
+
+  @override
+  String get timerPresetInstantNoodle => '라면 끓이기';
+
+  @override
+  String get timerPresetInstantNoodleDesc => '표준 라면 조리 시간';
+
+  @override
+  String get timerPresetInstantNoodles => '라면 끓이기';
+
+  @override
+  String get timerPresetInstantNoodlesDescription => '표준 라면 조리 시간';
+
+  @override
+  String get timerPresetTeaBrewing => '차 우리기';
+
+  @override
+  String get timerPresetTeaBrewingDesc => '홍차나 녹차 우리는 시간';
+
+  @override
+  String get timerPresetTeaBrewingDescription => '홍차나 녹차 우리는 시간';
+
+  @override
+  String get timerPresetSteakMedium => '스테이크 굽기 (미디엄)';
+
+  @override
+  String get timerPresetSteakMediumDesc => '양면 각각 굽는 시간';
+
+  @override
+  String get timerPresetSteakCooking => '스테이크 굽기 (미디엄)';
+
+  @override
+  String get timerPresetSteakCookingDescription => '양면 각각 굽는 시간';
+
+  @override
+  String get timerPresetRiceSteaming => '밥 뜸들이기';
+
+  @override
+  String get timerPresetRiceSteamingDesc => '밥솥 밥이 완성된 후 뜸들이는 시간';
+
+  @override
+  String get timerPresetOvenPreheating => '빵 굽기 예열';
+
+  @override
+  String get timerPresetOvenPreheatingDesc => '오븐 예열 시간';
+
+  @override
+  String get timerPresetCookieBaking => '쿠키 굽기';
+
+  @override
+  String get timerPresetCookieBakingDesc => '일반적인 쿠키 굽는 시간';
+
+  @override
+  String get timerPresetSteaming => '찜 요리';
+
+  @override
+  String get timerPresetSteamingDesc => '찜기에서 찌는 기본 시간';
+
+  @override
+  String get dateCreated => '생성일:';
+
+  @override
+  String get dateLastUpdated => '최근 업데이트:';
+
+  @override
+  String get versionSelect => '버전 선택';
+
+  @override
+  String get versionNoVersionsAvailable => '버전이 없습니다';
+
+  @override
+  String get versionChanges => '변경 사항';
+
+  @override
+  String get versionDeleted => '삭제된 버전';
+
+  @override
+  String get versionBase => '기반 버전';
+
+  @override
+  String get versionBaseDeleted => '기반 버전이 삭제되었습니다';
+
+  @override
+  String get versionIsInitial => '초기 버전';
+
+  @override
+  String get ingredientNoIngredientsAvailable => '재료가 없습니다';
+
+  @override
+  String get cookingStepNoStepsAvailable => '조리 단계가 없습니다';
+
+  @override
+  String get cookingLog => '요리 기록';
+
+  @override
+  String get cookingLogLoadingError => '요리 기록을 불러오는 중 오류가 발생했습니다:';
+
+  @override
+  String get cookingLogNoLogsAvailable => '아직 요리 기록이 없습니다';
+
+  @override
+  String get cookingLogAddFirstLog => '첫 번째 요리 기록을 추가해주세요!';
 }

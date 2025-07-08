@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appName => 'Recipick';
+  String get appName => 'RecipeLabo';
 
   @override
   String get navigationRecipes => 'Recipes';
@@ -302,43 +302,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timerPresetSaveFailed => 'Failed to save preset';
 
   @override
-  String get timerPresetPastaCooking => 'Pasta Cooking';
-
-  @override
-  String get timerPresetPastaCookingDescription =>
-      'Standard pasta cooking time';
-
-  @override
-  String get timerPresetHardBoiledEgg => 'Hard-boiled Egg';
-
-  @override
-  String get timerPresetHardBoiledEggDescription => 'Perfect hard-boiled egg';
-
-  @override
-  String get timerPresetSoftBoiledEgg => 'Soft-boiled Egg';
-
-  @override
-  String get timerPresetSoftBoiledEggDescription => 'Soft and runny egg yolk';
-
-  @override
-  String get timerPresetInstantNoodles => 'Instant Noodles';
-
-  @override
-  String get timerPresetInstantNoodlesDescription => 'Quick instant noodles';
-
-  @override
-  String get timerPresetTeaBrewing => 'Tea Brewing';
-
-  @override
-  String get timerPresetTeaBrewingDescription => 'Perfect tea steeping time';
-
-  @override
-  String get timerPresetSteakCooking => 'Steak Cooking';
-
-  @override
-  String get timerPresetSteakCookingDescription => 'Medium-rare steak';
-
-  @override
   String get cookingLogAdd => 'Add Cooking Log';
 
   @override
@@ -542,7 +505,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notificationTurnOffInstructions =>
-      '1. Open iPhone Settings app\n2. Select Notifications > Recipick\n3. Turn off Allow Notifications';
+      '1. Open iPhone Settings app\n2. Select Notifications > Recilab\n3. Turn off Allow Notifications';
 
   @override
   String get notificationTurnOffWarning =>
@@ -639,5 +602,143 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get recipeNoDescription => 'No description';
+
+  @override
   String get ingredientClearAll => 'Clear All';
+
+  @override
+  String get timerPresetPastaCooking => 'Pasta Cooking';
+
+  @override
+  String get timerPresetPastaCookingDesc => 'Standard time for al dente pasta';
+
+  @override
+  String get timerPresetPastaCookingDescription =>
+      'Standard time for al dente pasta';
+
+  @override
+  String get timerPresetHardBoiledEgg => 'Hard-boiled Egg';
+
+  @override
+  String get timerPresetHardBoiledEggDesc => 'Fully cooked boiled egg';
+
+  @override
+  String get timerPresetHardBoiledEggDescription => 'Fully cooked boiled egg';
+
+  @override
+  String get timerPresetSoftBoiledEgg => 'Soft-boiled Egg';
+
+  @override
+  String get timerPresetSoftBoiledEggDesc => 'Soft-yolk boiled egg';
+
+  @override
+  String get timerPresetSoftBoiledEggDescription => 'Soft-yolk boiled egg';
+
+  @override
+  String get timerPresetInstantNoodle => 'Instant Noodle';
+
+  @override
+  String get timerPresetInstantNoodleDesc =>
+      'Standard instant noodle cooking time';
+
+  @override
+  String get timerPresetInstantNoodles => 'Instant Noodles';
+
+  @override
+  String get timerPresetInstantNoodlesDescription =>
+      'Standard instant noodle cooking time';
+
+  @override
+  String get timerPresetTeaBrewing => 'Tea Brewing';
+
+  @override
+  String get timerPresetTeaBrewingDesc => 'Time for brewing black or green tea';
+
+  @override
+  String get timerPresetTeaBrewingDescription =>
+      'Time for brewing black or green tea';
+
+  @override
+  String get timerPresetSteakMedium => 'Steak (Medium)';
+
+  @override
+  String get timerPresetSteakMediumDesc => 'Time for each side';
+
+  @override
+  String get timerPresetSteakCooking => 'Steak Cooking';
+
+  @override
+  String get timerPresetSteakCookingDescription => 'Time for medium-rare steak';
+
+  @override
+  String get timerPresetRiceSteaming => 'Rice Steaming';
+
+  @override
+  String get timerPresetRiceSteamingDesc =>
+      'Steaming time after rice is cooked';
+
+  @override
+  String get timerPresetOvenPreheating => 'Oven Preheating';
+
+  @override
+  String get timerPresetOvenPreheatingDesc => 'Oven preheating time';
+
+  @override
+  String get timerPresetCookieBaking => 'Cookie Baking';
+
+  @override
+  String get timerPresetCookieBakingDesc => 'General cookie baking time';
+
+  @override
+  String get timerPresetSteaming => 'Steaming';
+
+  @override
+  String get timerPresetSteamingDesc => 'Basic steaming time';
+
+  @override
+  String get dateCreated => 'Created:';
+
+  @override
+  String get dateLastUpdated => 'Last Updated:';
+
+  @override
+  String get versionSelect => 'Select Version';
+
+  @override
+  String get versionNoVersionsAvailable => 'No versions available';
+
+  @override
+  String get versionChanges => 'Changes';
+
+  @override
+  String get versionDeleted => 'Deleted Version';
+
+  @override
+  String get versionBase => 'Base Version';
+
+  @override
+  String get versionBaseDeleted => 'Base version has been deleted';
+
+  @override
+  String get versionIsInitial => 'This is the initial version';
+
+  @override
+  String get ingredientNoIngredientsAvailable => 'No ingredients available';
+
+  @override
+  String get cookingStepNoStepsAvailable => 'No cooking steps available';
+
+  @override
+  String get cookingLog => 'Cooking Log';
+
+  @override
+  String get cookingLogLoadingError =>
+      'Error occurred while loading cooking logs:';
+
+  @override
+  String get cookingLogNoLogsAvailable => 'No cooking logs yet';
+
+  @override
+  String get cookingLogAddFirstLog => 'Add your first cooking log!';
 }
