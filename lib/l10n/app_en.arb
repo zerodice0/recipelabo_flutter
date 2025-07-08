@@ -739,6 +739,198 @@
       }
     }
   },
+  "unitWeightGrams": "g",
+  "@unitWeightGrams": {
+    "description": "그램 단위 라벨"
+  },
+  "unitWeightGramsDesc": "grams",
+  "@unitWeightGramsDesc": {
+    "description": "그램 단위 설명"
+  },
+  "unitWeightKilograms": "kg",
+  "@unitWeightKilograms": {
+    "description": "킬로그램 단위 라벨"
+  },
+  "unitWeightKilogramsDesc": "kilograms",
+  "@unitWeightKilogramsDesc": {
+    "description": "킬로그램 단위 설명"
+  },
+  "unitWeightMilligrams": "mg",
+  "@unitWeightMilligrams": {
+    "description": "밀리그램 단위 라벨"
+  },
+  "unitWeightMilligramsDesc": "milligrams",
+  "@unitWeightMilligramsDesc": {
+    "description": "밀리그램 단위 설명"
+  },
+  "unitVolumeMilliliters": "ml",
+  "@unitVolumeMilliliters": {
+    "description": "밀리리터 단위 라벨"
+  },
+  "unitVolumeLiters": "l",
+  "@unitVolumeLiters": {
+    "description": "리터 단위 라벨"
+  },
+  "unitVolumeTablespoon": "tbsp",
+  "@unitVolumeTablespoon": {
+    "description": "테이블스푼 단위 라벨"
+  },
+  "unitVolumeTeaspoon": "tsp",
+  "@unitVolumeTeaspoon": {
+    "description": "티스푼 단위 라벨"
+  },
+  "unitVolumeCup": "cup",
+  "@unitVolumeCup": {
+    "description": "컵 단위 라벨"
+  },
+  "unitVolumeDrops": "drops",
+  "@unitVolumeDrops": {
+    "description": "드롭 단위 라벨"
+  },
+  "unitVolumeMillilitersDesc": "milliliters",
+  "@unitVolumeMillilitersDesc": {
+    "description": "밀리리터 단위 설명"
+  },
+  "unitVolumeLitersDesc": "liters",
+  "@unitVolumeLitersDesc": {
+    "description": "리터 단위 설명"
+  },
+  "unitVolumeTablespoonDesc": "tablespoon (15ml)",
+  "@unitVolumeTablespoonDesc": {
+    "description": "테이블스푼 단위 설명"
+  },
+  "unitVolumeTeaspoonDesc": "teaspoon (5ml)",
+  "@unitVolumeTeaspoonDesc": {
+    "description": "티스푼 단위 설명"
+  },
+  "unitVolumeCupDesc": "cup (200ml)",
+  "@unitVolumeCupDesc": {
+    "description": "컵 단위 설명"
+  },
+  "unitVolumeDropsDesc": "drops",
+  "@unitVolumeDropsDesc": {
+    "description": "드롭 단위 설명"
+  },
+  "unitCountPieces": "pcs",
+  "@unitCountPieces": {
+    "description": "개수 단위 라벨"
+  },
+  "unitCountSlices": "slices",
+  "@unitCountSlices": {
+    "description": "슬라이스 단위 라벨"
+  },
+  "unitCountCloves": "cloves",
+  "@unitCountCloves": {
+    "description": "오이 단위 라벨"
+  },
+  "unitCountBalls": "balls",
+  "@unitCountBalls": {
+    "description": "볼 단위 라벨"
+  },
+  "unitCountContainers": "containers",
+  "@unitCountContainers": {
+    "description": "컨테이너 단위 라벨"
+  },
+  "unitCountContainersDesc": "containers",
+  "@unitCountContainersDesc": {
+    "description": "컨테이너 단위 설명"
+  },
+  "unitCountBunches": "bunches",
+  "@unitCountBunches": {
+    "description": "묶음 단위 라벨"
+  },
+  "unitCountBunchesDesc": "bunches",
+  "@unitCountBunchesDesc": {
+    "description": "묶음 단위 설명"
+  },
+  "unitCountStalks": "stalks",
+  "@unitCountStalks": {
+    "description": "대 단위 라벨"
+  },
+  "unitCountSheets": "sheets",
+  "@unitCountSheets": {
+    "description": "종이 단위 라벨"
+  },
+  "unitCountPiecesDesc": "pieces",
+  "@unitCountPiecesDesc": {
+    "description": "개수 단위 설명"
+  },
+  "unitCountSlicesDesc": "slices",
+  "@unitCountSlicesDesc": {
+    "description": "슬라이스 단위 설명"
+  },
+  "unitCountClovesDesc": "cloves",
+  "@unitCountClovesDesc": {
+    "description": "오이 단위 설명"
+  },
+  "unitCountBallsDesc": "balls",
+  "@unitCountBallsDesc": {
+    "description": "볼 단위 설명"
+  },
+  "unitCountStalksDesc": "stalks",
+  "@unitCountStalksDesc": {
+    "description": "대 단위 설명"
+  },
+  "unitCountSheetsDesc": "sheets",
+  "@unitCountSheetsDesc": {
+    "description": "종이 단위 설명"
+  },
+  "unitMiscPinch": "pinch",
+  "@unitMiscPinch": {
+    "description": "꼬집 단위 라벨"
+  },
+  "unitMiscHandful": "handful",
+  "@unitMiscHandful": {
+    "description": "한줌 단위 라벨"
+  },
+  "unitMiscModerate": "moderate amount",
+  "@unitMiscModerate": {
+    "description": "적당량 단위 라벨"
+  },
+  "unitMiscLittle": "a little",
+  "@unitMiscLittle": {
+    "description": "조금 단위 라벨"
+  },
+  "unitMiscSlightly": "slightly",
+  "@unitMiscSlightly": {
+    "description": "약간 단위 라벨"
+  },
+  "unitMiscPinchDesc": "pinch",
+  "@unitMiscPinchDesc": {
+    "description": "꼬집 단위 설명"
+  },
+  "unitMiscHandfulDesc": "handful",
+  "@unitMiscHandfulDesc": {
+    "description": "한줌 단위 설명"
+  },
+  "unitMiscModerateDesc": "moderate amount",
+  "@unitMiscModerateDesc": {
+    "description": "적당량 단위 설명"
+  },
+  "unitMiscLittleDesc": "a little",
+  "@unitMiscLittleDesc": {
+    "description": "조금 단위 설명"
+  },
+  "unitMiscSlightlyDesc": "slightly",
+  "@unitMiscSlightlyDesc": {
+    "description": "약간 단위 설명"
+  },
+  "unitCategoryWeight": "Weight",
+  "@unitCategoryWeight": {
+    "description": "무게 카테고리"
+  },
+  "unitCategoryVolume": "Volume",
+  "@unitCategoryVolume": {
+    "description": "부피 카테고리"
+  },
+  "unitCategoryCount": "Count",
+  "@unitCategoryCount": {
+    "description": "개수 카테고리"
+  },
+  "unitCategoryMisc": "Misc",
+  "@unitCategoryMisc": {
+    "description": "기타 카테고리"
+  },
   "notificationTimerTitle": "Timer Notification",
   "@notificationTimerTitle": {
     "description": "타이머 알림 설정"
@@ -1082,5 +1274,62 @@
   "cookingLogAddFirstLog": "Add your first cooking log!",
   "@cookingLogAddFirstLog": {
     "description": "첫 번째 요리 기록 추가 메시지"
-  }
+  },
+  "seasoningManagement": "Category Management",
+  "@seasoningManagement": {
+    "description": "카테고리 관리 메뉴"
+  },
+  "seasoningManagementTooltip": "Add Category",
+  "@seasoningManagementTooltip": {
+    "description": "카테고리 추가 버튼"
+  },
+  "seasoningSearchPlaceholder": "Search category names...",
+  "@seasoningSearchPlaceholder": {
+    "description": "카테고리 검색 플레이스홀더"
+  },
+  "seasoningCategoryLabel": "Category",
+  "@seasoningCategoryLabel": {
+    "description": "카테고리 라벨"
+  },
+  "seasoningFilterAll": "All",
+  "@seasoningFilterAll": {
+    "description": "전체 카테고리 필터"
+  },
+  "seasoningNoResults": "No search results",
+  "@seasoningNoResults": {
+    "description": "검색 결과 없음 메시지"
+  },
+  "seasoningEmpty": "No ingredients registered",
+  "@seasoningEmpty": {
+    "description": "등록된 재료 없음 메시지"
+  },
+  "seasoningEmptySubtitle": "Add a category!",
+  "@seasoningEmptySubtitle": {
+    "description": "카테고리 추가 메시지"
+  },
+  "seasoningDeleteTitle": "Delete Ingredient",
+  "@seasoningDeleteTitle": {
+    "description": "재료 삭제 메시지"
+  },
+  "seasoningDeleteConfirm": "Are you sure you want to delete {name}?\nThis action cannot be undone.",
+  "@seasoningDeleteConfirm": {
+    "description": "재료 삭제 확인 메시지",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "seasoningDeleteTooltip": "Delete",
+  "@seasoningDeleteTooltip": {
+    "description": "재료 삭제 버튼"
+  },
+  "seasoningCreateTitle": "Add Item",
+  "seasoningCreateNameLabel": "Ingredient Name",
+  "seasoningCreateNameHint": "e.g., Salt, Sugar, Soy Sauce, etc.",
+  "seasoningCreateNameRequired": "Please enter ingredient name",
+  "seasoningCreateNewCategory": "New Category",
+  "seasoningCreateCategoryHint": "e.g., Basic Seasonings, Special Seasonings, Spices, etc.",
+  "seasoningCreateDescriptionLabel": "Description (Optional)",
+  "seasoningCreateDescriptionHint": "Brief description of the item"
 }

@@ -4,6 +4,7 @@ import 'package:recipick_flutter/domain/entities/ingredient_master_entity.dart';
 import 'package:recipick_flutter/domain/entities/category_entity.dart';
 import 'package:recipick_flutter/presentation/seasoning/viewmodel/seasoning_management_viewmodel.dart';
 import 'package:recipick_flutter/presentation/seasoning/widgets/seasoning_create_dialog.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 class SeasoningManagementScreen extends ConsumerStatefulWidget {
   const SeasoningManagementScreen({super.key});
@@ -41,7 +42,7 @@ class _SeasoningManagementScreenState
             content: Text(next.error!),
             backgroundColor: Theme.of(context).colorScheme.error,
             action: SnackBarAction(
-              label: '확인',
+              label: AppLocalizations.of(context).actionConfirm,
               onPressed: () => viewModel.clearError(),
             ),
           ),
@@ -51,12 +52,12 @@ class _SeasoningManagementScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('카테고리 관리'),
+        title: Text(AppLocalizations.of(context).generalCategoryManagement),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () => viewModel.refresh(),
-            tooltip: '새로고침',
+            tooltip: AppLocalizations.of(context).actionRefresh,
           ),
         ],
       ),
@@ -68,7 +69,7 @@ class _SeasoningManagementScreenState
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showCreateDialog(context, viewModel),
-        tooltip: '카테고리 추가',
+        tooltip: AppLocalizations.of(context).generalAddCategory,
         child: const Icon(Icons.add),
       ),
     );
@@ -87,7 +88,7 @@ class _SeasoningManagementScreenState
           SearchBar(
             controller: _searchController,
             focusNode: _searchFocusNode,
-            hintText: '카테고리 이름을 검색하세요...',
+            hintText: AppLocalizations.of(context).seasoningSearchPlaceholder,
             leading: const Icon(Icons.search),
             trailing: [
               if (_searchController.text.isNotEmpty)
@@ -112,7 +113,7 @@ class _SeasoningManagementScreenState
           // 카테고리 필터
           if (state.categories.isNotEmpty) ...[
             Text(
-              '카테고리',
+              AppLocalizations.of(context).seasoningCategoryLabel,
               style: Theme.of(
                 context,
               ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
@@ -123,7 +124,9 @@ class _SeasoningManagementScreenState
               child: Row(
                 children: [
                   FilterChip(
-                    label: const Text('전체'),
+                    label: Text(
+                      AppLocalizations.of(context).seasoningFilterAll,
+                    ),
                     selected: state.selectedCategory == null,
                     onSelected: (_) => viewModel.filterByCategory(null),
                   ),
@@ -168,14 +171,16 @@ class _SeasoningManagementScreenState
             ),
             const SizedBox(height: 16),
             Text(
-              state.searchQuery.isNotEmpty ? '검색 결과가 없습니다' : '등록된 재료가 없습니다',
+              state.searchQuery.isNotEmpty
+                  ? AppLocalizations.of(context).seasoningNoResults
+                  : AppLocalizations.of(context).seasoningEmpty,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              '카테고리를 추가해보세요!',
+              AppLocalizations.of(context).seasoningEmptySubtitle,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
@@ -260,7 +265,7 @@ class _SeasoningManagementScreenState
         trailing: IconButton(
           icon: const Icon(Icons.delete_outline),
           onPressed: () => _showDeleteDialog(context, seasoning, viewModel),
-          tooltip: '삭제',
+          tooltip: AppLocalizations.of(context).seasoningDeleteTooltip,
         ),
       ),
     );
@@ -295,12 +300,14 @@ class _SeasoningManagementScreenState
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('재료 삭제'),
-        content: Text('${seasoning.name}을(를) 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.'),
+        title: Text(AppLocalizations.of(context).seasoningDeleteTitle),
+        content: Text(
+          AppLocalizations.of(context).seasoningDeleteConfirm(seasoning.name),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('취소'),
+            child: Text(AppLocalizations.of(context).actionCancel),
           ),
           TextButton(
             onPressed: () {
@@ -310,7 +317,7 @@ class _SeasoningManagementScreenState
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(context).colorScheme.error,
             ),
-            child: const Text('삭제'),
+            child: Text(AppLocalizations.of(context).actionDelete),
           ),
         ],
       ),

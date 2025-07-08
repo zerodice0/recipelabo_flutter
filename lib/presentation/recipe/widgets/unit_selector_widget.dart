@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipick_flutter/domain/entities/ingredient_master_entity.dart';
 import 'package:recipick_flutter/domain/entities/category_entity.dart';
 import 'package:recipick_flutter/domain/entities/preset_units.dart';
+import 'package:recipick_flutter/domain/entities/unit_localizer.dart';
 import 'package:recipick_flutter/domain/usecases/create_ingredient_master_usecase.dart';
 import 'package:recipick_flutter/presentation/recipe/providers/units_provider.dart';
 import 'package:recipick_flutter/presentation/recipe/widgets/unit_category_dialog.dart';
@@ -269,18 +270,24 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
         ...units.map(
           (unit) => ListTile(
             leading: Icon(
-              PresetUnits.isPresetUnit(unit.name)
+              UnitLocalizer.isPresetUnit(unit.name)
                   ? Icons.widgets_rounded
                   : Icons.straighten,
-              color: PresetUnits.isPresetUnit(unit.name)
+              color: UnitLocalizer.isPresetUnit(unit.name)
                   ? Theme.of(context).colorScheme.primary
                   : Theme.of(context).colorScheme.onSurfaceVariant,
               size: 24,
             ),
             title: Row(
               children: [
-                Expanded(child: Text(unit.name)),
-                if (PresetUnits.isPresetUnit(unit.name))
+                Expanded(
+                  child: Text(
+                    UnitLocalizer.isPresetUnit(unit.name)
+                        ? UnitLocalizer.getLocalizedUnitName(unit.name, context)
+                        : unit.name,
+                  ),
+                ),
+                if (UnitLocalizer.isPresetUnit(unit.name))
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 6,
@@ -291,7 +298,7 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      '기본',
+                      AppLocalizations.of(context).unitBasic,
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         color: Theme.of(context).colorScheme.onPrimaryContainer,
                         fontWeight: FontWeight.bold,
@@ -301,10 +308,15 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
               ],
             ),
             subtitle: unit.description?.isNotEmpty == true
-                ? Text(unit.description!)
+                ? Text(
+                    UnitLocalizer.isPresetUnit(unit.name)
+                        ? UnitLocalizer.getLocalizedUnitDescription(unit.name, context)
+                        : unit.description!,
+                  )
                 : null,
             trailing:
-                unit.usageCount > 0 && !PresetUnits.isPresetUnit(unit.name)
+                unit.usageCount > 0 &&
+                    !UnitLocalizer.isPresetUnit(unit.name)
                 ? Text(
                     '${unit.usageCount}회',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -327,10 +339,18 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
       ..sort((a, b) => b.usageCount.compareTo(a.usageCount));
 
     // 프리셋 단위들을 우선 표시 (사용빈도가 높게 설정됨)
+    final l10n = AppLocalizations.of(context);
+    final weightCategory = l10n.unitCategoryWeight;
+    final volumeCategory = l10n.unitCategoryVolume;
+    final countCategory = l10n.unitCategoryCount;
+    final miscCategory = l10n.unitCategoryMisc;
+
     final presetWeightUnits =
         _filteredUnits
             .where(
-              (u) => u.subCategory == '무게' && PresetUnits.isPresetUnit(u.name),
+              (u) =>
+                  (u.subCategory == weightCategory || u.subCategory == '무게') &&
+                  PresetUnits.isPresetUnit(u.name),
             )
             .toList()
           ..sort((a, b) => a.name.compareTo(b.name));
@@ -338,7 +358,9 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
     final customWeightUnits =
         _filteredUnits
             .where(
-              (u) => u.subCategory == '무게' && !PresetUnits.isPresetUnit(u.name),
+              (u) =>
+                  (u.subCategory == weightCategory || u.subCategory == '무게') &&
+                  !PresetUnits.isPresetUnit(u.name),
             )
             .toList()
           ..sort((a, b) => a.name.compareTo(b.name));
@@ -346,7 +368,9 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
     final presetVolumeUnits =
         _filteredUnits
             .where(
-              (u) => u.subCategory == '부피' && PresetUnits.isPresetUnit(u.name),
+              (u) =>
+                  (u.subCategory == volumeCategory || u.subCategory == '부피') &&
+                  PresetUnits.isPresetUnit(u.name),
             )
             .toList()
           ..sort((a, b) => a.name.compareTo(b.name));
@@ -354,7 +378,9 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
     final customVolumeUnits =
         _filteredUnits
             .where(
-              (u) => u.subCategory == '부피' && !PresetUnits.isPresetUnit(u.name),
+              (u) =>
+                  (u.subCategory == volumeCategory || u.subCategory == '부피') &&
+                  !PresetUnits.isPresetUnit(u.name),
             )
             .toList()
           ..sort((a, b) => a.name.compareTo(b.name));
@@ -362,7 +388,9 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
     final presetCountUnits =
         _filteredUnits
             .where(
-              (u) => u.subCategory == '개수' && PresetUnits.isPresetUnit(u.name),
+              (u) =>
+                  (u.subCategory == countCategory || u.subCategory == '개수') &&
+                  PresetUnits.isPresetUnit(u.name),
             )
             .toList()
           ..sort((a, b) => a.name.compareTo(b.name));
@@ -370,7 +398,9 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
     final customCountUnits =
         _filteredUnits
             .where(
-              (u) => u.subCategory == '개수' && !PresetUnits.isPresetUnit(u.name),
+              (u) =>
+                  (u.subCategory == countCategory || u.subCategory == '개수') &&
+                  !PresetUnits.isPresetUnit(u.name),
             )
             .toList()
           ..sort((a, b) => a.name.compareTo(b.name));
@@ -379,7 +409,8 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
         _filteredUnits
             .where(
               (u) =>
-                  (u.subCategory == '기타' || u.subCategory == null) &&
+                  ((u.subCategory == miscCategory || u.subCategory == '기타') ||
+                      u.subCategory == null) &&
                   PresetUnits.isPresetUnit(u.name),
             )
             .toList()
@@ -389,7 +420,8 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
         _filteredUnits
             .where(
               (u) =>
-                  (u.subCategory == '기타' || u.subCategory == null) &&
+                  ((u.subCategory == miscCategory || u.subCategory == '기타') ||
+                      u.subCategory == null) &&
                   !PresetUnits.isPresetUnit(u.name),
             )
             .toList()
@@ -470,7 +502,7 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
               children: [
                 if (frequentUnits.isNotEmpty)
                   _buildUnitGroup(
-                    '자주 사용하는 단위',
+                    l10n.unitFrequentlyUsed,
                     frequentUnits.take(5).toList(),
                     icon: Icons.star,
                   ),
@@ -478,52 +510,52 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
                 // 사용자 추가 단위를 우선 표시
                 if (customWeightUnits.isNotEmpty)
                   _buildUnitGroup(
-                    '무게 (사용자 추가)',
+                    l10n.unitWeightCustom,
                     customWeightUnits,
                     icon: Icons.monitor_weight_outlined,
                   ),
                 if (presetWeightUnits.isNotEmpty)
                   _buildUnitGroup(
-                    '무게 (기본)',
+                    l10n.unitWeightBasic,
                     presetWeightUnits,
                     icon: Icons.monitor_weight,
                   ),
 
                 if (customVolumeUnits.isNotEmpty)
                   _buildUnitGroup(
-                    '부피 (사용자 추가)',
+                    l10n.unitVolumeCustom,
                     customVolumeUnits,
                     icon: Icons.local_drink_outlined,
                   ),
                 if (presetVolumeUnits.isNotEmpty)
                   _buildUnitGroup(
-                    '부피 (기본)',
+                    l10n.unitVolumeBasic,
                     presetVolumeUnits,
                     icon: Icons.local_drink,
                   ),
 
                 if (customCountUnits.isNotEmpty)
                   _buildUnitGroup(
-                    '개수 (사용자 추가)',
+                    l10n.unitCountCustom,
                     customCountUnits,
                     icon: Icons.numbers_outlined,
                   ),
                 if (presetCountUnits.isNotEmpty)
                   _buildUnitGroup(
-                    '개수 (기본)',
+                    l10n.unitCountBasic,
                     presetCountUnits,
                     icon: Icons.numbers,
                   ),
 
                 if (customOtherUnits.isNotEmpty)
                   _buildUnitGroup(
-                    '기타 (사용자 추가)',
+                    l10n.unitMiscCustom,
                     customOtherUnits,
                     icon: Icons.more_horiz_outlined,
                   ),
                 if (presetOtherUnits.isNotEmpty)
                   _buildUnitGroup(
-                    '기타 (기본)',
+                    l10n.unitMiscBasic,
                     presetOtherUnits,
                     icon: Icons.more_horiz,
                   ),

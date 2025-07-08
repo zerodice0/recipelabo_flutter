@@ -1054,6 +1054,294 @@ abstract class AppLocalizations {
   /// **'Used {count} times'**
   String unitUsedTimes(String count);
 
+  /// 그램 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'g'**
+  String get unitWeightGrams;
+
+  /// 그램 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'grams'**
+  String get unitWeightGramsDesc;
+
+  /// 킬로그램 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'kg'**
+  String get unitWeightKilograms;
+
+  /// 킬로그램 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'kilograms'**
+  String get unitWeightKilogramsDesc;
+
+  /// 밀리그램 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'mg'**
+  String get unitWeightMilligrams;
+
+  /// 밀리그램 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'milligrams'**
+  String get unitWeightMilligramsDesc;
+
+  /// 밀리리터 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'ml'**
+  String get unitVolumeMilliliters;
+
+  /// 리터 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'l'**
+  String get unitVolumeLiters;
+
+  /// 테이블스푼 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'tbsp'**
+  String get unitVolumeTablespoon;
+
+  /// 티스푼 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'tsp'**
+  String get unitVolumeTeaspoon;
+
+  /// 컵 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'cup'**
+  String get unitVolumeCup;
+
+  /// 드롭 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'drops'**
+  String get unitVolumeDrops;
+
+  /// 밀리리터 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'milliliters'**
+  String get unitVolumeMillilitersDesc;
+
+  /// 리터 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'liters'**
+  String get unitVolumeLitersDesc;
+
+  /// 테이블스푼 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'tablespoon (15ml)'**
+  String get unitVolumeTablespoonDesc;
+
+  /// 티스푼 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'teaspoon (5ml)'**
+  String get unitVolumeTeaspoonDesc;
+
+  /// 컵 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'cup (200ml)'**
+  String get unitVolumeCupDesc;
+
+  /// 드롭 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'drops'**
+  String get unitVolumeDropsDesc;
+
+  /// 개수 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'pcs'**
+  String get unitCountPieces;
+
+  /// 슬라이스 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'slices'**
+  String get unitCountSlices;
+
+  /// 오이 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'cloves'**
+  String get unitCountCloves;
+
+  /// 볼 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'balls'**
+  String get unitCountBalls;
+
+  /// 컨테이너 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'containers'**
+  String get unitCountContainers;
+
+  /// 컨테이너 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'containers'**
+  String get unitCountContainersDesc;
+
+  /// 묶음 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'bunches'**
+  String get unitCountBunches;
+
+  /// 묶음 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'bunches'**
+  String get unitCountBunchesDesc;
+
+  /// 대 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'stalks'**
+  String get unitCountStalks;
+
+  /// 종이 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'sheets'**
+  String get unitCountSheets;
+
+  /// 개수 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'pieces'**
+  String get unitCountPiecesDesc;
+
+  /// 슬라이스 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'slices'**
+  String get unitCountSlicesDesc;
+
+  /// 오이 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'cloves'**
+  String get unitCountClovesDesc;
+
+  /// 볼 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'balls'**
+  String get unitCountBallsDesc;
+
+  /// 대 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'stalks'**
+  String get unitCountStalksDesc;
+
+  /// 종이 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'sheets'**
+  String get unitCountSheetsDesc;
+
+  /// 꼬집 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'pinch'**
+  String get unitMiscPinch;
+
+  /// 한줌 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'handful'**
+  String get unitMiscHandful;
+
+  /// 적당량 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'moderate amount'**
+  String get unitMiscModerate;
+
+  /// 조금 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'a little'**
+  String get unitMiscLittle;
+
+  /// 약간 단위 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'slightly'**
+  String get unitMiscSlightly;
+
+  /// 꼬집 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'pinch'**
+  String get unitMiscPinchDesc;
+
+  /// 한줌 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'handful'**
+  String get unitMiscHandfulDesc;
+
+  /// 적당량 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'moderate amount'**
+  String get unitMiscModerateDesc;
+
+  /// 조금 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'a little'**
+  String get unitMiscLittleDesc;
+
+  /// 약간 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'slightly'**
+  String get unitMiscSlightlyDesc;
+
+  /// 무게 카테고리
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get unitCategoryWeight;
+
+  /// 부피 카테고리
+  ///
+  /// In en, this message translates to:
+  /// **'Volume'**
+  String get unitCategoryVolume;
+
+  /// 개수 카테고리
+  ///
+  /// In en, this message translates to:
+  /// **'Count'**
+  String get unitCategoryCount;
+
+  /// 기타 카테고리
+  ///
+  /// In en, this message translates to:
+  /// **'Misc'**
+  String get unitCategoryMisc;
+
   /// 타이머 알림 설정
   ///
   /// In en, this message translates to:
@@ -1539,6 +1827,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add your first cooking log!'**
   String get cookingLogAddFirstLog;
+
+  /// 카테고리 관리 메뉴
+  ///
+  /// In en, this message translates to:
+  /// **'Category Management'**
+  String get seasoningManagement;
+
+  /// 카테고리 추가 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Add Category'**
+  String get seasoningManagementTooltip;
+
+  /// 카테고리 검색 플레이스홀더
+  ///
+  /// In en, this message translates to:
+  /// **'Search category names...'**
+  String get seasoningSearchPlaceholder;
+
+  /// 카테고리 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get seasoningCategoryLabel;
+
+  /// 전체 카테고리 필터
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get seasoningFilterAll;
+
+  /// 검색 결과 없음 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'No search results'**
+  String get seasoningNoResults;
+
+  /// 등록된 재료 없음 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'No ingredients registered'**
+  String get seasoningEmpty;
+
+  /// 카테고리 추가 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Add a category!'**
+  String get seasoningEmptySubtitle;
+
+  /// 재료 삭제 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Ingredient'**
+  String get seasoningDeleteTitle;
+
+  /// 재료 삭제 확인 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {name}?\nThis action cannot be undone.'**
+  String seasoningDeleteConfirm(String name);
+
+  /// 재료 삭제 버튼
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get seasoningDeleteTooltip;
+
+  /// No description provided for @seasoningCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Item'**
+  String get seasoningCreateTitle;
+
+  /// No description provided for @seasoningCreateNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredient Name'**
+  String get seasoningCreateNameLabel;
+
+  /// No description provided for @seasoningCreateNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Salt, Sugar, Soy Sauce, etc.'**
+  String get seasoningCreateNameHint;
+
+  /// No description provided for @seasoningCreateNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter ingredient name'**
+  String get seasoningCreateNameRequired;
+
+  /// No description provided for @seasoningCreateNewCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'New Category'**
+  String get seasoningCreateNewCategory;
+
+  /// No description provided for @seasoningCreateCategoryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Basic Seasonings, Special Seasonings, Spices, etc.'**
+  String get seasoningCreateCategoryHint;
+
+  /// No description provided for @seasoningCreateDescriptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Optional)'**
+  String get seasoningCreateDescriptionLabel;
+
+  /// No description provided for @seasoningCreateDescriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Brief description of the item'**
+  String get seasoningCreateDescriptionHint;
 }
 
 class _AppLocalizationsDelegate

@@ -527,6 +527,150 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String get unitWeightGrams => 'g';
+
+  @override
+  String get unitWeightGramsDesc => 'グラム';
+
+  @override
+  String get unitWeightKilograms => 'kg';
+
+  @override
+  String get unitWeightKilogramsDesc => 'キログラム';
+
+  @override
+  String get unitWeightMilligrams => 'mg';
+
+  @override
+  String get unitWeightMilligramsDesc => 'ミリグラム';
+
+  @override
+  String get unitVolumeMilliliters => 'ml';
+
+  @override
+  String get unitVolumeLiters => 'l';
+
+  @override
+  String get unitVolumeTablespoon => '大さじ';
+
+  @override
+  String get unitVolumeTeaspoon => '小さじ';
+
+  @override
+  String get unitVolumeCup => 'カップ';
+
+  @override
+  String get unitVolumeDrops => '滴';
+
+  @override
+  String get unitVolumeMillilitersDesc => 'ミリリットル';
+
+  @override
+  String get unitVolumeLitersDesc => 'リットル';
+
+  @override
+  String get unitVolumeTablespoonDesc => '大さじ (15ml)';
+
+  @override
+  String get unitVolumeTeaspoonDesc => '小さじ (5ml)';
+
+  @override
+  String get unitVolumeCupDesc => 'カップ (200ml)';
+
+  @override
+  String get unitVolumeDropsDesc => '滴';
+
+  @override
+  String get unitCountPieces => '個';
+
+  @override
+  String get unitCountSlices => '切れ';
+
+  @override
+  String get unitCountCloves => '片';
+
+  @override
+  String get unitCountBalls => '粒';
+
+  @override
+  String get unitCountContainers => '缶';
+
+  @override
+  String get unitCountContainersDesc => '缶';
+
+  @override
+  String get unitCountBunches => '束';
+
+  @override
+  String get unitCountBunchesDesc => '束';
+
+  @override
+  String get unitCountStalks => '本';
+
+  @override
+  String get unitCountSheets => '枚';
+
+  @override
+  String get unitCountPiecesDesc => '個';
+
+  @override
+  String get unitCountSlicesDesc => '切れ';
+
+  @override
+  String get unitCountClovesDesc => '片';
+
+  @override
+  String get unitCountBallsDesc => '粒';
+
+  @override
+  String get unitCountStalksDesc => '本';
+
+  @override
+  String get unitCountSheetsDesc => '枚';
+
+  @override
+  String get unitMiscPinch => 'つまみ';
+
+  @override
+  String get unitMiscHandful => 'ひとつかみ';
+
+  @override
+  String get unitMiscModerate => '適量';
+
+  @override
+  String get unitMiscLittle => '少し';
+
+  @override
+  String get unitMiscSlightly => '少々';
+
+  @override
+  String get unitMiscPinchDesc => 'つまみ';
+
+  @override
+  String get unitMiscHandfulDesc => 'ひとつかみ';
+
+  @override
+  String get unitMiscModerateDesc => '適量';
+
+  @override
+  String get unitMiscLittleDesc => '少し';
+
+  @override
+  String get unitMiscSlightlyDesc => '少々';
+
+  @override
+  String get unitCategoryWeight => '重量';
+
+  @override
+  String get unitCategoryVolume => '容量';
+
+  @override
+  String get unitCategoryCount => '個数';
+
+  @override
+  String get unitCategoryMisc => 'その他';
+
+  @override
   String get notificationTimerTitle => 'タイマー通知';
 
   @override
@@ -777,4 +921,63 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get cookingLogAddFirstLog => '最初のクッキングログを追加してみてください！';
+
+  @override
+  String get seasoningManagement => 'カテゴリ管理';
+
+  @override
+  String get seasoningManagementTooltip => 'カテゴリを追加';
+
+  @override
+  String get seasoningSearchPlaceholder => 'カテゴリ名を検索してください...';
+
+  @override
+  String get seasoningCategoryLabel => 'カテゴリ';
+
+  @override
+  String get seasoningFilterAll => 'すべて';
+
+  @override
+  String get seasoningNoResults => '検索結果がありません';
+
+  @override
+  String get seasoningEmpty => '登録された材料がありません';
+
+  @override
+  String get seasoningEmptySubtitle => 'カテゴリを追加してみてください！';
+
+  @override
+  String get seasoningDeleteTitle => '材料を削除';
+
+  @override
+  String seasoningDeleteConfirm(String name) {
+    return '$nameを削除しますか？\nこの操作は元に戻せません。';
+  }
+
+  @override
+  String get seasoningDeleteTooltip => '削除';
+
+  @override
+  String get seasoningCreateTitle => '項目追加';
+
+  @override
+  String get seasoningCreateNameLabel => '材料名';
+
+  @override
+  String get seasoningCreateNameHint => '例：塩、砂糖、醤油など';
+
+  @override
+  String get seasoningCreateNameRequired => '材料名を入力してください';
+
+  @override
+  String get seasoningCreateNewCategory => '新しいカテゴリ';
+
+  @override
+  String get seasoningCreateCategoryHint => '例：基本調味料、特別調味料、香辛料など';
+
+  @override
+  String get seasoningCreateDescriptionLabel => '説明（任意）';
+
+  @override
+  String get seasoningCreateDescriptionHint => '項目についての簡単な説明';
 }

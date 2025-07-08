@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 class SeasoningCreateDialog extends StatefulWidget {
   final List<String> categories;
@@ -19,7 +20,7 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
   final _descriptionController = TextEditingController();
   final _categoryController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  
+
   String? _selectedCategory;
   bool _isCustomCategory = false;
 
@@ -34,7 +35,7 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('조미료 추가'),
+      title: Text(AppLocalizations.of(context).seasoningCreateTitle),
       content: SizedBox(
         width: MediaQuery.of(context).size.width * 0.8,
         child: Form(
@@ -46,31 +47,31 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
               // 조미료 이름
               TextFormField(
                 controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: '조미료 이름',
-                  hintText: '예: 소금, 설탕, 간장 등',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context).seasoningCreateNameLabel,
+                  hintText: AppLocalizations.of(context).seasoningCreateNameHint,
+                  border: const OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return '조미료 이름을 입력해주세요';
+                    return AppLocalizations.of(context).seasoningCreateNameRequired;
                   }
                   return null;
                 },
                 autofocus: true,
               ),
-              
+
               const SizedBox(height: 16),
-              
+
               // 카테고리 선택
               Text(
-                '카테고리',
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                AppLocalizations.of(context).seasoningCategoryLabel,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
-              
+
               if (widget.categories.isNotEmpty) ...[
                 Wrap(
                   spacing: 8,
@@ -79,7 +80,8 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
                     ...widget.categories.map((category) {
                       return FilterChip(
                         label: Text(category),
-                        selected: _selectedCategory == category && !_isCustomCategory,
+                        selected:
+                            _selectedCategory == category && !_isCustomCategory,
                         onSelected: (selected) {
                           setState(() {
                             if (selected) {
@@ -94,7 +96,7 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
                       );
                     }),
                     FilterChip(
-                      label: const Text('새 카테고리'),
+                      label: Text(AppLocalizations.of(context).seasoningCreateNewCategory),
                       selected: _isCustomCategory,
                       onSelected: (selected) {
                         setState(() {
@@ -111,26 +113,26 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
                 ),
                 const SizedBox(height: 8),
               ],
-              
+
               if (_isCustomCategory || widget.categories.isEmpty) ...[
                 TextFormField(
                   controller: _categoryController,
-                  decoration: const InputDecoration(
-                    labelText: '새 카테고리',
-                    hintText: '예: 기본양념, 특수양념, 향신료 등',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context).seasoningCreateNewCategory,
+                    hintText: AppLocalizations.of(context).seasoningCreateCategoryHint,
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 16),
               ],
-              
+
               // 설명 (선택사항)
               TextFormField(
                 controller: _descriptionController,
-                decoration: const InputDecoration(
-                  labelText: '설명 (선택사항)',
-                  hintText: '조미료에 대한 간단한 설명',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context).seasoningCreateDescriptionLabel,
+                  hintText: AppLocalizations.of(context).seasoningCreateDescriptionHint,
+                  border: const OutlineInputBorder(),
                 ),
                 maxLines: 2,
               ),
@@ -141,11 +143,11 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('취소'),
+          child: Text(AppLocalizations.of(context).actionCancel),
         ),
         ElevatedButton(
-          onPressed: _saveSeasoning,
-          child: const Text('추가'),
+          onPressed: _saveSeasoning, 
+          child: Text(AppLocalizations.of(context).recipeAdd),
         ),
       ],
     );

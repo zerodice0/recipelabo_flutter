@@ -526,6 +526,150 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String get unitWeightGrams => 'g';
+
+  @override
+  String get unitWeightGramsDesc => '그램';
+
+  @override
+  String get unitWeightKilograms => 'kg';
+
+  @override
+  String get unitWeightKilogramsDesc => '킬로그램';
+
+  @override
+  String get unitWeightMilligrams => 'mg';
+
+  @override
+  String get unitWeightMilligramsDesc => '밀리그램';
+
+  @override
+  String get unitVolumeMilliliters => 'ml';
+
+  @override
+  String get unitVolumeLiters => 'l';
+
+  @override
+  String get unitVolumeTablespoon => '큰술';
+
+  @override
+  String get unitVolumeTeaspoon => '작은술';
+
+  @override
+  String get unitVolumeCup => '컵';
+
+  @override
+  String get unitVolumeDrops => '방울';
+
+  @override
+  String get unitVolumeMillilitersDesc => '밀리리터';
+
+  @override
+  String get unitVolumeLitersDesc => '리터';
+
+  @override
+  String get unitVolumeTablespoonDesc => '큰술 (15ml)';
+
+  @override
+  String get unitVolumeTeaspoonDesc => '작은술 (5ml)';
+
+  @override
+  String get unitVolumeCupDesc => '컵 (200ml)';
+
+  @override
+  String get unitVolumeDropsDesc => '방울';
+
+  @override
+  String get unitCountPieces => '개';
+
+  @override
+  String get unitCountSlices => '조각';
+
+  @override
+  String get unitCountCloves => '쪽';
+
+  @override
+  String get unitCountBalls => '알';
+
+  @override
+  String get unitCountContainers => '통';
+
+  @override
+  String get unitCountContainersDesc => '통';
+
+  @override
+  String get unitCountBunches => '포기';
+
+  @override
+  String get unitCountBunchesDesc => '포기';
+
+  @override
+  String get unitCountStalks => '줄기';
+
+  @override
+  String get unitCountSheets => '장';
+
+  @override
+  String get unitCountPiecesDesc => '개';
+
+  @override
+  String get unitCountSlicesDesc => '조각';
+
+  @override
+  String get unitCountClovesDesc => '쪽';
+
+  @override
+  String get unitCountBallsDesc => '알';
+
+  @override
+  String get unitCountStalksDesc => '줄기';
+
+  @override
+  String get unitCountSheetsDesc => '장';
+
+  @override
+  String get unitMiscPinch => '꼬집';
+
+  @override
+  String get unitMiscHandful => '한 줌';
+
+  @override
+  String get unitMiscModerate => '적당량';
+
+  @override
+  String get unitMiscLittle => '조금';
+
+  @override
+  String get unitMiscSlightly => '약간';
+
+  @override
+  String get unitMiscPinchDesc => '꼬집';
+
+  @override
+  String get unitMiscHandfulDesc => '한 줌';
+
+  @override
+  String get unitMiscModerateDesc => '적당량';
+
+  @override
+  String get unitMiscLittleDesc => '조금';
+
+  @override
+  String get unitMiscSlightlyDesc => '약간';
+
+  @override
+  String get unitCategoryWeight => '무게';
+
+  @override
+  String get unitCategoryVolume => '부피';
+
+  @override
+  String get unitCategoryCount => '개수';
+
+  @override
+  String get unitCategoryMisc => '기타';
+
+  @override
   String get notificationTimerTitle => '타이머 알림';
 
   @override
@@ -776,4 +920,63 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get cookingLogAddFirstLog => '첫 번째 요리 기록을 추가해주세요!';
+
+  @override
+  String get seasoningManagement => '카테고리 관리';
+
+  @override
+  String get seasoningManagementTooltip => '카테고리 추가';
+
+  @override
+  String get seasoningSearchPlaceholder => '카테고리 이름을 검색하세요...';
+
+  @override
+  String get seasoningCategoryLabel => '카테고리';
+
+  @override
+  String get seasoningFilterAll => '전체';
+
+  @override
+  String get seasoningNoResults => '검색 결과가 없습니다';
+
+  @override
+  String get seasoningEmpty => '등록된 재료가 없습니다';
+
+  @override
+  String get seasoningEmptySubtitle => '카테고리를 추가해보세요!';
+
+  @override
+  String get seasoningDeleteTitle => '재료 삭제';
+
+  @override
+  String seasoningDeleteConfirm(String name) {
+    return '$name을(를) 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get seasoningDeleteTooltip => '삭제';
+
+  @override
+  String get seasoningCreateTitle => '항목 추가';
+
+  @override
+  String get seasoningCreateNameLabel => '재료 이름';
+
+  @override
+  String get seasoningCreateNameHint => '예: 소금, 설탕, 간장 등';
+
+  @override
+  String get seasoningCreateNameRequired => '재료 이름을 입력해주세요';
+
+  @override
+  String get seasoningCreateNewCategory => '새 카테고리';
+
+  @override
+  String get seasoningCreateCategoryHint => '예: 기본양념, 특수양념, 향신료 등';
+
+  @override
+  String get seasoningCreateDescriptionLabel => '설명 (선택사항)';
+
+  @override
+  String get seasoningCreateDescriptionHint => '항목에 대한 간단한 설명';
 }

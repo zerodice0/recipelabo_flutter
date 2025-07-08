@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:recipick_flutter/domain/entities/preset_units.dart';
-import 'package:recipick_flutter/data/models/ingredient_master_model.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
@@ -22,7 +21,7 @@ class DatabaseHelper {
     final path = join(dbPath, 'saucerer.db');
     return await openDatabase(
       path,
-      version: 15,
+      version: 16,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -494,14 +493,21 @@ class DatabaseHelper {
       // Version 15: 프리셋 단위 초기화
       await _initializePresetUnits(db);
     }
+
+    if (oldVersion < 16) {
+      // Version 16: 기존 프리셋 단위 삭제 후 새로운 중립적 ID 방식으로 초기화
+      await _migrateToNeutralPresetUnits(db);
+    }
   }
 
-  /// 프리셋 단위를 데이터베이스에 초기화하는 메서드
+  /// 프리셋 단위를 데이터베이스에 초기화하는 메서드 - 중립적 ID 방식
   Future<void> _initializePresetUnits(Database db) async {
-    final presetUnits = PresetUnits.allPresetUnits;
+    final now = DateTime.now().toIso8601String();
+    final presetUnitIds = PresetUnits.neutralUnitIds;
 
-    for (final unit in presetUnits) {
-      final model = IngredientMasterModelX.fromEntity(unit);
+    for (final unitId in presetUnitIds) {
+      final category = PresetUnits.getCategoryForUnitId(unitId);
+      
       await db.execute(
         '''
         INSERT OR REPLACE INTO seasonings (
@@ -509,19 +515,42 @@ class DatabaseHelper {
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''',
         [
-          model.id,
-          model.name,
-          model.categoryId,
-          model.category,
-          model.subCategory,
-          model.description,
-          model.createdAt,
-          model.updatedAt,
-          model.usageCount,
+          'preset_$unitId',
+          unitId, // 중립적 ID를 name으로 저장
+          'unit',
+          null,
+          category, // Weight, Volume, Count, Misc
+          unitId, // description으로 중립적 ID 저장
+          now,
+          now,
+          1000, // 프리셋 단위는 높은 사용 빈도로 설정
         ],
       );
     }
 
-    debugPrint('Initialized ${presetUnits.length} preset units');
+    debugPrint('Initialized ${presetUnitIds.length} preset units with neutral IDs');
+  }
+
+  /// 기존 프리셋 단위들을 삭제하고 새로운 중립적 ID 방식으로 마이그레이션
+  Future<void> _migrateToNeutralPresetUnits(Database db) async {
+    try {
+      // 1. 기존 모든 프리셋 단위들 삭제 (category_id = 'unit'인 항목들)
+      // 사용자 커스텀 단위는 보존하기 위해 usage_count로 구분
+      await db.execute(
+        '''
+        DELETE FROM seasonings 
+        WHERE category_id = 'unit' 
+        AND (usage_count >= 1000 OR name LIKE 'unit_%' OR id LIKE 'preset_%')
+        ''',
+      );
+
+      // 2. 새로운 중립적 ID 방식으로 프리셋 단위 초기화
+      await _initializePresetUnits(db);
+
+      debugPrint('Successfully migrated to neutral preset units');
+    } catch (e) {
+      debugPrint('Error migrating to neutral preset units: $e');
+      rethrow;
+    }
   }
 }

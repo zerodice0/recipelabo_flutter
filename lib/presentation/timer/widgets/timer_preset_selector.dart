@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipick_flutter/core/config/app_colors.dart';
+import 'package:recipick_flutter/core/config/responsive_helper.dart';
 import 'package:recipick_flutter/domain/entities/timer_preset_entity.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 
@@ -174,21 +175,15 @@ class TimerPresetSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    debugPrint('=== TIMER PRESET SELECTOR DEBUG ===');
-    debugPrint('Presets count: ${presets.length}');
-    for (int i = 0; i < presets.length; i++) {
-      debugPrint(
-        'Preset $i: ${presets[i].name} - ${presets[i].formattedDuration}',
-      );
-    }
-    debugPrint('=== TIMER PRESET SELECTOR DEBUG END ===');
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // 헤더
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: EdgeInsets.symmetric(
+            horizontal: context.responsiveSpacing * 2,
+            vertical: context.responsiveSpacing,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -197,12 +192,13 @@ class TimerPresetSelector extends StatelessWidget {
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: AppColors.textBrown,
+                  fontSize: context.responsiveTextSize + 2,
                 ),
               ),
               if (onAddCustomTimer != null)
                 TextButton.icon(
                   onPressed: onAddCustomTimer,
-                  icon: const Icon(Icons.add, size: 18),
+                  icon: Icon(Icons.add, size: context.responsiveIconSize * 0.9),
                   label: Text(AppLocalizations.of(context).timerCustom),
                   style: TextButton.styleFrom(
                     foregroundColor: AppColors.primaryOrange,
@@ -214,15 +210,25 @@ class TimerPresetSelector extends StatelessWidget {
 
         // 프리셋 그리드
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: EdgeInsets.symmetric(horizontal: context.responsiveSpacing),
           child: GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 1.6,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: ResponsiveHelper.getGridCrossAxisCount(
+                context,
+                mobile: 2,
+                tablet: 3,
+                desktop: 4,
+              ),
+              childAspectRatio: ResponsiveHelper.getGridChildAspectRatio(
+                context,
+                mobile: 1.6,
+                tablet: 1.8,
+                desktop: 2.0,
+              ),
+              crossAxisSpacing: context.responsiveSpacing,
+              mainAxisSpacing: context.responsiveSpacing,
             ),
             itemCount: presets.length,
             itemBuilder: (context, index) {
@@ -253,7 +259,7 @@ class TimerPresetSelector extends StatelessWidget {
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(12),
+                      padding: EdgeInsets.all(context.responsiveSpacing * 1.5),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -262,7 +268,9 @@ class TimerPresetSelector extends StatelessWidget {
                           Row(
                             children: [
                               Container(
-                                padding: const EdgeInsets.all(8),
+                                padding: EdgeInsets.all(
+                                  context.responsiveSpacing,
+                                ),
                                 decoration: BoxDecoration(
                                   color: color,
                                   borderRadius: BorderRadius.circular(8),
@@ -270,10 +278,12 @@ class TimerPresetSelector extends StatelessWidget {
                                 child: Icon(
                                   _getPresetIcon(preset.icon),
                                   color: AppColors.warmWhite,
-                                  size: 20,
+                                  size: context.responsiveIconSize,
                                 ),
                               ),
-                              const Spacer(),
+
+                              // 유연한 공간 분배
+                              SizedBox(width: context.responsiveSpacing),
 
                               // 커스텀 프리셋인 경우 삭제 버튼 표시
                               if (!preset.isDefault && onPresetDeleted != null)
@@ -281,10 +291,12 @@ class TimerPresetSelector extends StatelessWidget {
                                   onTap: () =>
                                       _showDeleteDialog(context, preset),
                                   child: Container(
-                                    padding: const EdgeInsets.all(4),
+                                    padding: EdgeInsets.all(
+                                      context.responsiveSpacing * 0.5,
+                                    ),
                                     child: Icon(
                                       Icons.close,
-                                      size: 16,
+                                      size: context.responsiveIconSize * 0.8,
                                       color: AppColors.textBrown.withValues(
                                         alpha: 0.6,
                                       ),
@@ -292,28 +304,36 @@ class TimerPresetSelector extends StatelessWidget {
                                   ),
                                 ),
 
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 4,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: color.withValues(alpha: 0.2),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Text(
-                                  preset.formattedDuration,
-                                  style: theme.textTheme.bodySmall?.copyWith(
-                                    color: color,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'monospace',
+                              const Spacer(),
+
+                              // 시간 표시를 Flexible로 감싸서 오버플로우 방지
+                              Flexible(
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: context.responsiveSpacing,
+                                    vertical: context.responsiveSpacing * 0.5,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: color.withValues(alpha: 0.2),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Text(
+                                    preset.formattedDuration,
+                                    style: theme.textTheme.bodySmall?.copyWith(
+                                      color: color,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'monospace',
+                                      fontSize:
+                                          context.responsiveTextSize * 0.9,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                               ),
                             ],
                           ),
 
-                          const SizedBox(height: 8),
+                          SizedBox(height: context.responsiveSpacing),
 
                           // 타이머 이름과 설명을 Expanded로 감싸서 유연하게 처리
                           Expanded(
@@ -326,6 +346,7 @@ class TimerPresetSelector extends StatelessWidget {
                                   style: theme.textTheme.titleSmall?.copyWith(
                                     fontWeight: FontWeight.bold,
                                     color: AppColors.textBrown,
+                                    fontSize: context.responsiveTextSize,
                                   ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -343,6 +364,8 @@ class TimerPresetSelector extends StatelessWidget {
                                       color: AppColors.textBrown.withValues(
                                         alpha: 0.6,
                                       ),
+                                      fontSize:
+                                          context.responsiveTextSize * 0.8,
                                     ),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -361,6 +384,8 @@ class TimerPresetSelector extends StatelessWidget {
                                       color: AppColors.textBrown.withValues(
                                         alpha: 0.6,
                                       ),
+                                      fontSize:
+                                          context.responsiveTextSize * 0.8,
                                     ),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,

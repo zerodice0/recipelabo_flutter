@@ -534,6 +534,150 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get unitWeightGrams => 'g';
+
+  @override
+  String get unitWeightGramsDesc => 'grams';
+
+  @override
+  String get unitWeightKilograms => 'kg';
+
+  @override
+  String get unitWeightKilogramsDesc => 'kilograms';
+
+  @override
+  String get unitWeightMilligrams => 'mg';
+
+  @override
+  String get unitWeightMilligramsDesc => 'milligrams';
+
+  @override
+  String get unitVolumeMilliliters => 'ml';
+
+  @override
+  String get unitVolumeLiters => 'l';
+
+  @override
+  String get unitVolumeTablespoon => 'tbsp';
+
+  @override
+  String get unitVolumeTeaspoon => 'tsp';
+
+  @override
+  String get unitVolumeCup => 'cup';
+
+  @override
+  String get unitVolumeDrops => 'drops';
+
+  @override
+  String get unitVolumeMillilitersDesc => 'milliliters';
+
+  @override
+  String get unitVolumeLitersDesc => 'liters';
+
+  @override
+  String get unitVolumeTablespoonDesc => 'tablespoon (15ml)';
+
+  @override
+  String get unitVolumeTeaspoonDesc => 'teaspoon (5ml)';
+
+  @override
+  String get unitVolumeCupDesc => 'cup (200ml)';
+
+  @override
+  String get unitVolumeDropsDesc => 'drops';
+
+  @override
+  String get unitCountPieces => 'pcs';
+
+  @override
+  String get unitCountSlices => 'slices';
+
+  @override
+  String get unitCountCloves => 'cloves';
+
+  @override
+  String get unitCountBalls => 'balls';
+
+  @override
+  String get unitCountContainers => 'containers';
+
+  @override
+  String get unitCountContainersDesc => 'containers';
+
+  @override
+  String get unitCountBunches => 'bunches';
+
+  @override
+  String get unitCountBunchesDesc => 'bunches';
+
+  @override
+  String get unitCountStalks => 'stalks';
+
+  @override
+  String get unitCountSheets => 'sheets';
+
+  @override
+  String get unitCountPiecesDesc => 'pieces';
+
+  @override
+  String get unitCountSlicesDesc => 'slices';
+
+  @override
+  String get unitCountClovesDesc => 'cloves';
+
+  @override
+  String get unitCountBallsDesc => 'balls';
+
+  @override
+  String get unitCountStalksDesc => 'stalks';
+
+  @override
+  String get unitCountSheetsDesc => 'sheets';
+
+  @override
+  String get unitMiscPinch => 'pinch';
+
+  @override
+  String get unitMiscHandful => 'handful';
+
+  @override
+  String get unitMiscModerate => 'moderate amount';
+
+  @override
+  String get unitMiscLittle => 'a little';
+
+  @override
+  String get unitMiscSlightly => 'slightly';
+
+  @override
+  String get unitMiscPinchDesc => 'pinch';
+
+  @override
+  String get unitMiscHandfulDesc => 'handful';
+
+  @override
+  String get unitMiscModerateDesc => 'moderate amount';
+
+  @override
+  String get unitMiscLittleDesc => 'a little';
+
+  @override
+  String get unitMiscSlightlyDesc => 'slightly';
+
+  @override
+  String get unitCategoryWeight => 'Weight';
+
+  @override
+  String get unitCategoryVolume => 'Volume';
+
+  @override
+  String get unitCategoryCount => 'Count';
+
+  @override
+  String get unitCategoryMisc => 'Misc';
+
+  @override
   String get notificationTimerTitle => 'Timer Notification';
 
   @override
@@ -797,4 +941,64 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cookingLogAddFirstLog => 'Add your first cooking log!';
+
+  @override
+  String get seasoningManagement => 'Category Management';
+
+  @override
+  String get seasoningManagementTooltip => 'Add Category';
+
+  @override
+  String get seasoningSearchPlaceholder => 'Search category names...';
+
+  @override
+  String get seasoningCategoryLabel => 'Category';
+
+  @override
+  String get seasoningFilterAll => 'All';
+
+  @override
+  String get seasoningNoResults => 'No search results';
+
+  @override
+  String get seasoningEmpty => 'No ingredients registered';
+
+  @override
+  String get seasoningEmptySubtitle => 'Add a category!';
+
+  @override
+  String get seasoningDeleteTitle => 'Delete Ingredient';
+
+  @override
+  String seasoningDeleteConfirm(String name) {
+    return 'Are you sure you want to delete $name?\nThis action cannot be undone.';
+  }
+
+  @override
+  String get seasoningDeleteTooltip => 'Delete';
+
+  @override
+  String get seasoningCreateTitle => 'Add Item';
+
+  @override
+  String get seasoningCreateNameLabel => 'Ingredient Name';
+
+  @override
+  String get seasoningCreateNameHint => 'e.g., Salt, Sugar, Soy Sauce, etc.';
+
+  @override
+  String get seasoningCreateNameRequired => 'Please enter ingredient name';
+
+  @override
+  String get seasoningCreateNewCategory => 'New Category';
+
+  @override
+  String get seasoningCreateCategoryHint =>
+      'e.g., Basic Seasonings, Special Seasonings, Spices, etc.';
+
+  @override
+  String get seasoningCreateDescriptionLabel => 'Description (Optional)';
+
+  @override
+  String get seasoningCreateDescriptionHint => 'Brief description of the item';
 }
