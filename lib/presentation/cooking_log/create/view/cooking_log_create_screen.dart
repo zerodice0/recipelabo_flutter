@@ -94,54 +94,56 @@ class _CookingLogCreateScreenState
       }
     });
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).cookingLogWrite),
-        actions: [
-          if (state.isLoading)
-            const Center(
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(strokeWidth: 2),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(AppLocalizations.of(context).cookingLogWrite),
+          actions: [
+            if (state.isLoading)
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
                 ),
+              )
+            else
+              IconButton(
+                icon: const Icon(Icons.save),
+                onPressed: () async {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    viewModel.updateTitle(_titleController.text);
+                    viewModel.updateMemo(_memoController.text);
+                    await viewModel.saveCookingLog(
+                      widget.recipeVersionId,
+                      'default_user', // TODO: 실제 사용자 ID로 변경
+                    );
+                  }
+                },
               ),
-            )
-          else
-            TextButton(
-              onPressed: () async {
-                if (_formKey.currentState?.validate() ?? false) {
-                  viewModel.updateTitle(_titleController.text);
-                  viewModel.updateMemo(_memoController.text);
-                  await viewModel.saveCookingLog(
-                    widget.recipeVersionId,
-                    'default_user', // TODO: 실제 사용자 ID로 변경
-                  );
-                }
-              },
-              child: Text(AppLocalizations.of(context).actionSave),
+          ],
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildRecipeInfo(),
+                const SizedBox(height: 24),
+                _buildTitleField(),
+                const SizedBox(height: 16),
+                _buildDateTimeField(state),
+                const SizedBox(height: 16),
+                _buildImageSection(state, viewModel),
+                const SizedBox(height: 16),
+                _buildMemoField(),
+              ],
             ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildRecipeInfo(),
-              const SizedBox(height: 24),
-              _buildTitleField(),
-              const SizedBox(height: 16),
-              _buildDateTimeField(state),
-              const SizedBox(height: 16),
-              _buildImageSection(state, viewModel),
-              const SizedBox(height: 16),
-              _buildMemoField(),
-            ],
           ),
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
 import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
 import 'package:recipick_flutter/domain/entities/cooking_log_entity.dart';
+import 'package:recipick_flutter/domain/entities/unit_localizer.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 import 'package:recipick_flutter/presentation/recipe/detail/viewmodel/recipe_detail_viewmodel.dart';
 import 'package:recipick_flutter/presentation/recipe/detail/viewmodel/cooking_log_viewmodel.dart';
@@ -788,7 +789,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                           ),
                         ),
                         Text(
-                          '${ingredient.quantity} ${ingredient.unit}',
+                          '${ingredient.quantity} ${UnitLocalizer.getLocalizedUnitName(ingredient.unit, context)}',
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(
                                 fontWeight: FontWeight.w500,
