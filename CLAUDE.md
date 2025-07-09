@@ -191,6 +191,18 @@ The project follows Clean Architecture with these key layers, as detailed in [AR
 - Implement proper error handling in all async operations
 - Follow the established naming conventions for files and classes
 
+### Code Generation and Auto-Generated Files
+
+**IMPORTANT: Never manually edit auto-generated files**
+
+- **Never modify** files with extensions `.freezed.dart`, `.g.dart`, `.gr.dart`
+- **Never modify** files in `lib/l10n/` except for `.arb` files
+- **Never modify** files with `// GENERATED CODE` header
+- If there are issues with generated files, fix the source files and regenerate using:
+  - `flutter packages pub run build_runner build --delete-conflicting-outputs`
+  - `flutter gen-l10n`
+- When encountering Freezed compilation errors, check the source `.dart` files for syntax issues, not the generated `.freezed.dart` files
+
 ## Project Overview
 
 ### 1. Project Goals

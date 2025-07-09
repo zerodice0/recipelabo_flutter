@@ -200,6 +200,17 @@ lib/
 - **Pattern Consistency**: Follow established patterns for new feature development
 - **Offline Priority**: Ensure all core features work offline-first
 
+### Auto-Generated Files - DO NOT EDIT MANUALLY
+**🚨 CRITICAL: Never manually edit auto-generated files**
+
+- **NEVER edit** files with extensions: `.freezed.dart`, `.g.dart`, `.gr.dart`
+- **NEVER edit** files in `lib/l10n/` except for `.arb` files
+- **NEVER edit** files containing `// GENERATED CODE` header
+- **When issues occur**: Fix source files and regenerate using:
+  - `flutter packages pub run build_runner build --delete-conflicting-outputs`
+  - `flutter gen-l10n`
+- **For Freezed compilation errors**: Check syntax in original `.dart` files, not generated `.freezed.dart` files
+
 ## Current Tech Stack
 - **Flutter SDK**: 3.7.2+
 - **State Management**: Riverpod (flutter_riverpod, riverpod_annotation)

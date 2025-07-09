@@ -236,6 +236,18 @@ flutter build apk --analyze-size
 - **코드 리뷰**: Pull Request 활용
 - **테스트 작성**: 새 기능 개발 시 테스트 함께 작성
 
+### 자동 생성 파일 관리 규칙
+
+**🚨 중요: 자동 생성 파일은 절대 수동으로 수정하지 마세요**
+
+- **수정 금지 파일**: `.freezed.dart`, `.g.dart`, `.gr.dart` 확장자
+- **수정 금지 파일**: `lib/l10n/` 폴더 내 `.arb` 파일 제외 모든 파일
+- **수정 금지 파일**: `// GENERATED CODE` 헤더가 있는 모든 파일
+- **문제 발생 시**: 소스 파일(`.dart`)을 수정하고 다시 생성
+  - `flutter packages pub run build_runner build --delete-conflicting-outputs`
+  - `flutter gen-l10n`
+- **Freezed 컴파일 오류**: 생성된 `.freezed.dart` 파일이 아닌 원본 `.dart` 파일의 문법 오류 확인
+
 ## 🔧 문제 해결
 
 ### 자주 발생하는 문제
