@@ -307,7 +307,9 @@ class _SeasoningManagementScreenState
       builder: (context) => AlertDialog(
         title: Text(AppLocalizations.of(context).seasoningDeleteTitle),
         content: Text(
-          AppLocalizations.of(context).seasoningDeleteConfirm(seasoning.name),
+          AppLocalizations.of(context).seasoningDeleteConfirm(
+            UnitLocalizer.getLocalizedUnitName(seasoning.name, context),
+          ),
         ),
         actions: [
           TextButton(

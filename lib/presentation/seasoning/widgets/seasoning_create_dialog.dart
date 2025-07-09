@@ -102,22 +102,22 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
                         },
                       );
                     }),
-                    FilterChip(
-                      label: Text(
-                        AppLocalizations.of(context).seasoningCreateNewCategory,
-                      ),
-                      selected: _isCustomCategory,
-                      onSelected: (selected) {
-                        setState(() {
-                          _isCustomCategory = selected;
-                          if (selected) {
-                            _selectedCategory = null;
-                          } else {
-                            _categoryController.clear();
-                          }
-                        });
-                      },
-                    ),
+                    // FilterChip(
+                    //   label: Text(
+                    //     AppLocalizations.of(context).seasoningCreateNewCategory,
+                    //   ),
+                    //   selected: _isCustomCategory,
+                    //   onSelected: (selected) {
+                    //     setState(() {
+                    //       _isCustomCategory = selected;
+                    //       if (selected) {
+                    //         _selectedCategory = null;
+                    //       } else {
+                    //         _categoryController.clear();
+                    //       }
+                    //     });
+                    //   },
+                    // ),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -164,7 +164,7 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
         ),
         ElevatedButton(
           onPressed: _saveSeasoning,
-          child: Text(AppLocalizations.of(context).recipeAdd),
+          child: Text(AppLocalizations.of(context).seasoningCreateTitle),
         ),
       ],
     );
