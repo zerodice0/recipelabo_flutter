@@ -155,5 +155,21 @@ class _CookingLogViewModelProviderElement
       (origin as CookingLogViewModelProvider).recipeVersionId;
 }
 
+String _$cookingLogActionsHash() => r'2e8f809056ee762809b54a0dc157c3b23703a287';
+
+/// See also [CookingLogActions].
+@ProviderFor(CookingLogActions)
+final cookingLogActionsProvider =
+    AutoDisposeNotifierProvider<CookingLogActions, String>.internal(
+      CookingLogActions.new,
+      name: r'cookingLogActionsProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$cookingLogActionsHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
+
+typedef _$CookingLogActions = AutoDisposeNotifier<String>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

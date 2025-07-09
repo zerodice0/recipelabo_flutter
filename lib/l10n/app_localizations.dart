@@ -235,7 +235,7 @@ abstract class AppLocalizations {
   /// 레시피 삭제 확인 메시지
   ///
   /// In en, this message translates to:
-  /// **'Are you sure you want to delete this recipe?\n\nThis action cannot be undone.'**
+  /// **'Are you sure you want to delete this recipe?\nThis action cannot be undone.'**
   String get recipeDeleteConfirm;
 
   /// 레시피 삭제 성공 메시지

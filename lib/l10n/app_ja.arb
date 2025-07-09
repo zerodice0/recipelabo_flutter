@@ -22,7 +22,7 @@
   "recipeCookingSteps": "調理手順",
   "recipeEmptyState": "まだレシピがありません",
   "recipeEmptyStateDescription": "美味しいレシピを記録して\nあなただけのバージョンに発展させましょう！",
-  "recipeDeleteConfirm": "このレシピを削除しますか？\n\nこの操作は元に戻せません。",
+  "recipeDeleteConfirm": "このレシピを削除しますか？\nこの操作は元に戻せません。",
   "recipeDeleteSuccess": "レシピが削除されました",
   "recipeDeleteFailed": "削除失敗",
   "recipeLoadingError": "レシピを読み込めません",

@@ -22,7 +22,7 @@
   "recipeCookingSteps": "조리 과정",
   "recipeEmptyState": "아직 레시피가 없습니다",
   "recipeEmptyStateDescription": "맛있는 레시피를 기록하고\n나만의 버전으로 발전시켜보세요!",
-  "recipeDeleteConfirm": "레시피를 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.",
+  "recipeDeleteConfirm": "레시피를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.",
   "recipeDeleteSuccess": "레시피가 삭제되었습니다",
   "recipeDeleteFailed": "삭제 실패",
   "recipeLoadingError": "레시피를 불러올 수 없습니다",

@@ -77,7 +77,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recipeDeleteConfirm =>
-      'Are you sure you want to delete this recipe?\n\nThis action cannot be undone.';
+      'Are you sure you want to delete this recipe?\nThis action cannot be undone.';
 
   @override
   String get recipeDeleteSuccess => 'Recipe has been deleted';

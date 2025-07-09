@@ -75,7 +75,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get recipeEmptyStateDescription => '맛있는 레시피를 기록하고\n나만의 버전으로 발전시켜보세요!';
 
   @override
-  String get recipeDeleteConfirm => '레시피를 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.';
+  String get recipeDeleteConfirm => '레시피를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.';
 
   @override
   String get recipeDeleteSuccess => '레시피가 삭제되었습니다';

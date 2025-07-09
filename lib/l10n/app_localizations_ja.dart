@@ -76,7 +76,7 @@ class AppLocalizationsJa extends AppLocalizations {
       '美味しいレシピを記録して\nあなただけのバージョンに発展させましょう！';
 
   @override
-  String get recipeDeleteConfirm => 'このレシピを削除しますか？\n\nこの操作は元に戻せません。';
+  String get recipeDeleteConfirm => 'このレシピを削除しますか？\nこの操作は元に戻せません。';
 
   @override
   String get recipeDeleteSuccess => 'レシピが削除されました';
