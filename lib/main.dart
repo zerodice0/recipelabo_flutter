@@ -28,7 +28,7 @@ class MyApp extends ConsumerWidget {
       title: 'Recilab',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light, // 항상 라이트 테마 사용 (브랜드 색상 일관성을 위해)
       routerConfig: appRouter,
       localizationsDelegates: const [
         AppLocalizations.delegate,

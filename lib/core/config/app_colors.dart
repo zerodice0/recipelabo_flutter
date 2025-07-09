@@ -23,8 +23,12 @@ class AppColors {
   // Ingredient Chip 전용 색상 (오렌지 계통으로 통일)
   static const Color chipBackground = Color(0xFFFAF0E6); // 크림색 배경
   static const Color chipBorder = Color(0xFFD2691E); // 갈색 테두리
-  static const Color chipSelectedBackground = Color(0xFFED6E3A); // 선택된 배경 (primaryOrange)
-  static const Color chipSelectedBorder = Color(0xFFA4330D); // 선택된 테두리 (primaryDark)
+  static const Color chipSelectedBackground = Color(
+    0xFFED6E3A,
+  ); // 선택된 배경 (primaryOrange)
+  static const Color chipSelectedBorder = Color(
+    0xFFA4330D,
+  ); // 선택된 테두리 (primaryDark)
   static const Color chipText = Color(0xFF4A2C17); // 진한 갈색 텍스트
   static const Color chipSelectedText = Color(0xFFF5F3E8); // 선택된 텍스트 (크림색)
   static const Color chipShadow = Color(0xFFB8860B); // 기본 그림자
@@ -58,6 +62,23 @@ class AppColors {
 
   static Color backgroundWithOpacity(double opacity) =>
       backgroundCream.withValues(alpha: opacity);
+
+  /// 테마별 동적 색상 선택 헬퍼 메서드 (항상 라이트 테마 사용)
+  static Color getPixelPaper(bool isDark) => pixelPaper;
+
+  static Color getPixelPaperDark(bool isDark) => pixelPaperDark;
+
+  static Color getPixelBrown(bool isDark) => pixelBrown;
+
+  static Color getPixelTextBrown(bool isDark) => pixelTextBrown;
+
+  static Color getChipBackground(bool isDark) => chipBackground;
+
+  static Color getChipBorder(bool isDark) => chipBorder;
+
+  static Color getChipText(bool isDark) => chipText;
+
+  static Color getChipShadow(bool isDark) => chipShadow;
 
   // Material Design 3 호환 색상 매핑
   static const Map<String, Color> materialColors = {
@@ -99,63 +120,106 @@ class AppColors {
   static const Color darkPrimary = Color(0xFFFFB4A1);
   static const Color darkOnPrimary = Color(0xFF5F1A00);
 
+  // 다크 테마용 픽셀 아트 색상
+  /// 다크 테마 레시피북 배경색 (어두운 종이)
+  static const Color darkPixelPaper = Color(0xFF2A2520);
+
+  /// 다크 테마 레시피북 더 어두운 배경
+  static const Color darkPixelPaperDark = Color(0xFF1F1A15);
+
+  /// 다크 테마 갈색 테두리
+  static const Color darkPixelBrown = Color(0xFF8B7355);
+
+  /// 다크 테마 텍스트 (밝은 갈색)
+  static const Color darkPixelTextBrown = Color(0xFFD4B896);
+
+  /// 다크 테마 중간 갈색
+  static const Color darkPixelMidBrown = Color(0xFFA68B5B);
+
+  /// 다크 테마 어두운 갈색
+  static const Color darkPixelDarkBrown = Color(0xFF6B4423);
+
+  /// 다크 테마 매우 어두운 갈색
+  static const Color darkPixelVeryDarkBrown = Color(0xFF3D2817);
+
+  // 다크 테마 Chip 색상
+  static const Color darkChipBackground = Color(0xFF3A2F24);
+  static const Color darkChipBorder = Color(0xFF8B7355);
+  static const Color darkChipText = Color(0xFFE8D5B7);
+  static const Color darkChipShadow = Color(0xFF2A1F16);
+
   // 픽셀 아트 스타일 게임 색상 팔레트
   /// 레시피북 배경색 (크림색 종이)
   static const Color pixelPaper = Color(0xFFF5F3E8);
+
   /// 레시피북 어두운 크림색
   static const Color pixelPaperDark = Color(0xFFEDE5D3);
+
   /// 갈색 테두리 (책 프레임)
   static const Color pixelBrown = Color(0xFF8B4513);
+
   /// 진한 갈색 (텍스트)
   static const Color pixelTextBrown = Color(0xFF4A2C17);
+
   /// 중간 갈색
   static const Color pixelMidBrown = Color(0xFF6B4423);
+
   /// 어두운 갈색 (그림자)
   static const Color pixelDarkBrown = Color(0xFF5D2E0A);
+
   /// 매우 어두운 갈색 (깊은 그림자)
   static const Color pixelVeryDarkBrown = Color(0xFF3D1E0A);
-  
+
   // 픽셀 아트 UI 색상
   /// 밝은 초록색 (성공/확인 버튼)
   static const Color pixelGreen = Color(0xFF32CD32);
+
   /// 어두운 초록색 (초록 버튼 테두리)
   static const Color pixelGreenDark = Color(0xFF228B22);
+
   /// 매우 어두운 초록색 (초록 그림자)
   static const Color pixelGreenShadow = Color(0xFF006400);
-  
+
   /// 로얄 블루 (검색 버튼)
   static const Color pixelBlue = Color(0xFF4169E1);
+
   /// 어두운 블루 (블루 버튼 테두리)
   static const Color pixelBlueDark = Color(0xFF0000CD);
+
   /// 네이비 블루 (블루 그림자)
   static const Color pixelBlueShadow = Color(0xFF000080);
-  
+
   /// 토마토 색상 (주요 액션 버튼)
   static const Color pixelRed = Color(0xFFFF6347);
+
   /// 크림슨 (빨강 버튼 테두리)
   static const Color pixelRedDark = Color(0xFFDC143C);
+
   /// 어두운 빨강 (빨강 그림자)
   static const Color pixelRedShadow = Color(0xFFB22222);
+
   /// 매우 어두운 빨강 (깊은 그림자)
   static const Color pixelRedDeepShadow = Color(0xFF8B0000);
-  
+
   /// 골드 (장식용)
   static const Color pixelGold = Color(0xFFFFD700);
+
   /// 어두운 골드
   static const Color pixelGoldDark = Color(0xFFDAA520);
-  
+
   /// 양피지 배경
   static const Color pixelParchment = Color(0xFFFAF0E6);
+
   /// 갈색 레시피 아이콘 배경
   static const Color pixelRecipeBrown = Color(0xFFD2691E);
-  
+
   // 픽셀 아트 그라데이션
   static const LinearGradient pixelPaperGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [pixelPaper, pixelPaperDark],
   );
-  
+
   static const LinearGradient pixelBrownGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
