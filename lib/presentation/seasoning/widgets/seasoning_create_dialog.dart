@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recipick_flutter/domain/entities/category_entity.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 class SeasoningCreateDialog extends StatefulWidget {
@@ -33,6 +32,37 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
     super.dispose();
   }
 
+  /// 카테고리 문자열을 다국어로 번역하는 헬퍼 함수
+  String _getCategoryDisplayNameFromString(
+    String categoryId,
+    BuildContext context,
+  ) {
+    final l10n = AppLocalizations.of(context);
+
+    // categoryId 기반으로 다국어 표시명 반환
+    switch (categoryId) {
+      case 'ingredient':
+        return l10n.generalCategoryIngredient;
+      case 'unit':
+        return l10n.generalCategoryUnit;
+      case 'seasoning':
+        return l10n.generalCategorySeasoning;
+      case 'vegetable':
+        return l10n.generalCategoryVegetable;
+      case 'meat':
+        return l10n.generalCategoryMeat;
+      case 'seafood':
+        return l10n.generalCategorySeafood;
+      case 'dairy':
+        return l10n.generalCategoryDairy;
+      case 'grain':
+        return l10n.generalCategoryGrain;
+      default:
+        // fallback: 원본 문자열 사용
+        return categoryId;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -45,7 +75,7 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 조미료 이름
+              // 재료/단위 이름
               TextFormField(
                 controller: _nameController,
                 decoration: InputDecoration(
@@ -86,7 +116,9 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
                   children: [
                     ...widget.categories.map((category) {
                       return FilterChip(
-                        label: Text(category),
+                        label: Text(
+                          _getCategoryDisplayNameFromString(category, context),
+                        ),
                         selected:
                             _selectedCategory == category && !_isCustomCategory,
                         onSelected: (selected) {
