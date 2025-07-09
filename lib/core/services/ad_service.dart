@@ -6,13 +6,17 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class AdService {
   static String get bannerAdUnitId {
     if (kDebugMode) {
-      return Platform.isAndroid 
-          ? dotenv.env['SAUCERER_TEST_ANDROID_BANNER_AD_ID'] ?? 'ca-app-pub-3940256099942544/6300978111'
-          : dotenv.env['SAUCERER_TEST_IOS_BANNER_AD_ID'] ?? 'ca-app-pub-3940256099942544/2934735716';
+      return Platform.isAndroid
+          ? dotenv.env['SAUCERER_TEST_ANDROID_BANNER_AD_ID'] ??
+                'ca-app-pub-3940256099942544/6300978111'
+          : dotenv.env['SAUCERER_TEST_IOS_BANNER_AD_ID'] ??
+                'ca-app-pub-3940256099942544/2934735716';
     } else {
-      return Platform.isAndroid 
-          ? dotenv.env['SAUCERER_ANDROID_BANNER_AD_ID'] ?? 'ca-app-pub-3940256099942544/6300978111'
-          : dotenv.env['SAUCERER_IOS_BANNER_AD_ID'] ?? 'ca-app-pub-3940256099942544/2934735716';
+      return Platform.isAndroid
+          ? dotenv.env['SAUCERER_ANDROID_BANNER_AD_ID'] ??
+                'ca-app-pub-3940256099942544/6300978111'
+          : dotenv.env['SAUCERER_IOS_BANNER_AD_ID'] ??
+                'ca-app-pub-3940256099942544/2934735716';
     }
   }
 

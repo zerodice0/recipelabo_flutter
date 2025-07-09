@@ -522,6 +522,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get unitErrorLoading => '単位の読み込み中にエラーが発生しました';
 
   @override
+  String get unitUserAddedDescription => 'ユーザー追加単位';
+
+  @override
   String unitUsedTimes(String count) {
     return '$count回使用';
   }
@@ -768,6 +771,30 @@ class AppLocalizationsJa extends AppLocalizations {
   String get generalAddCategory => 'カテゴリを追加';
 
   @override
+  String get generalCategoryIngredient => '材料';
+
+  @override
+  String get generalCategoryUnit => '単位';
+
+  @override
+  String get generalCategorySeasoning => '調味料';
+
+  @override
+  String get generalCategoryVegetable => '野菜';
+
+  @override
+  String get generalCategoryMeat => '肉類';
+
+  @override
+  String get generalCategorySeafood => '海産物';
+
+  @override
+  String get generalCategoryDairy => '乳製品';
+
+  @override
+  String get generalCategoryGrain => '穀物';
+
+  @override
   String get generalName => '名前';
 
   @override
@@ -980,4 +1007,28 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get seasoningCreateDescriptionHint => '項目についての簡単な説明';
+
+  @override
+  String get categoryCreateTitle => '新しいカテゴリを追加';
+
+  @override
+  String get categoryCreateNameLabel => 'カテゴリ名';
+
+  @override
+  String get categoryCreateNameHint => '例：果物、ナッツ、乳製品など';
+
+  @override
+  String get categoryCreateNameRequired => 'カテゴリ名を入力してください';
+
+  @override
+  String get categoryCreateIconLabel => 'アイコン選択（任意）';
+
+  @override
+  String get categoryCreateDescriptionLabel => '説明（任意）';
+
+  @override
+  String get categoryCreateDescriptionHint => 'カテゴリについての簡単な説明';
+
+  @override
+  String get actionCreate => '作成';
 }

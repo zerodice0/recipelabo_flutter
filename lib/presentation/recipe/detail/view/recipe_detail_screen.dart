@@ -35,7 +35,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(AppLocalizations.of(context).recipeVersionsRequired),
-          backgroundColor: Colors.orange,
+          backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );
       return;

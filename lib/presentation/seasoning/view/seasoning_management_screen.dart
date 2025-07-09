@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipick_flutter/domain/entities/ingredient_master_entity.dart';
 import 'package:recipick_flutter/domain/entities/category_entity.dart';
+import 'package:recipick_flutter/domain/entities/unit_localizer.dart';
 import 'package:recipick_flutter/presentation/seasoning/viewmodel/seasoning_management_viewmodel.dart';
 import 'package:recipick_flutter/presentation/seasoning/widgets/seasoning_create_dialog.dart';
+import 'package:recipick_flutter/presentation/seasoning/widgets/category_create_dialog.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 class SeasoningManagementScreen extends ConsumerStatefulWidget {
@@ -54,6 +56,11 @@ class _SeasoningManagementScreenState
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).generalCategoryManagement),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.add_box_outlined),
+            onPressed: () => _showCreateCategoryDialog(context, viewModel),
+            tooltip: AppLocalizations.of(context).categoryCreateTitle,
+          ),
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () => viewModel.refresh(),
@@ -135,7 +142,9 @@ class _SeasoningManagementScreenState
                     return Padding(
                       padding: const EdgeInsets.only(right: 8),
                       child: FilterChip(
-                        label: Text(category),
+                        label: Text(
+                          _getCategoryDisplayNameFromString(category, context),
+                        ),
                         selected: state.selectedCategory == category,
                         onSelected: (_) => viewModel.filterByCategory(category),
                       ),
@@ -221,7 +230,7 @@ class _SeasoningManagementScreenState
           ),
         ),
         title: Text(
-          seasoning.name,
+          _getDisplayName(seasoning, context),
           style: Theme.of(
             context,
           ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -237,8 +246,7 @@ class _SeasoningManagementScreenState
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
-                seasoning.predefinedCategory?.displayName ??
-                    seasoning.categoryId,
+                UnitLocalizer.getLocalizedUnitName(seasoning.name, context),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                 ),
@@ -247,7 +255,10 @@ class _SeasoningManagementScreenState
             if (seasoning.description != null) ...[
               const SizedBox(height: 4),
               Text(
-                seasoning.description!,
+                UnitLocalizer.getLocalizedUnitDescription(
+                  seasoning.description!,
+                  context,
+                ),
                 style: Theme.of(context).textTheme.bodySmall,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -292,6 +303,24 @@ class _SeasoningManagementScreenState
     );
   }
 
+  void _showCreateCategoryDialog(
+    BuildContext context,
+    SeasoningManagementViewModel viewModel,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) => CategoryCreateDialog(
+        onSave: (name, description, iconCode) {
+          viewModel.createCategory(
+            name: name,
+            description: description,
+            iconCode: iconCode,
+          );
+        },
+      ),
+    );
+  }
+
   void _showDeleteDialog(
     BuildContext context,
     IngredientMasterEntity seasoning,
@@ -322,6 +351,49 @@ class _SeasoningManagementScreenState
         ],
       ),
     );
+  }
+
+  /// 단위나 재료의 표시 이름을 가져오는 헬퍼 함수
+  String _getDisplayName(IngredientMasterEntity entity, BuildContext context) {
+    // 프리셋 단위인 경우 다국어 번역 적용
+    if (entity.categoryId == 'unit' &&
+        UnitLocalizer.isPresetUnit(entity.name)) {
+      return UnitLocalizer.getLocalizedUnitName(entity.name, context);
+    }
+
+    // 일반 재료나 커스텀 단위는 원본 이름 사용
+    return entity.name;
+  }
+
+  /// 카테고리 문자열을 다국어로 번역하는 헬퍼 함수
+  String _getCategoryDisplayNameFromString(
+    String categoryId,
+    BuildContext context,
+  ) {
+    final l10n = AppLocalizations.of(context);
+
+    // categoryId 기반으로 다국어 표시명 반환
+    switch (categoryId) {
+      case 'ingredient':
+        return l10n.generalCategoryIngredient;
+      case 'unit':
+        return l10n.generalCategoryUnit;
+      case 'seasoning':
+        return l10n.generalCategorySeasoning;
+      case 'vegetable':
+        return l10n.generalCategoryVegetable;
+      case 'meat':
+        return l10n.generalCategoryMeat;
+      case 'seafood':
+        return l10n.generalCategorySeafood;
+      case 'dairy':
+        return l10n.generalCategoryDairy;
+      case 'grain':
+        return l10n.generalCategoryGrain;
+      default:
+        // fallback: 원본 문자열 사용
+        return categoryId;
+    }
   }
 
   // 카테고리 표시명을 ID로 변환하는 헬퍼 함수

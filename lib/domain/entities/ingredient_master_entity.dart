@@ -4,7 +4,7 @@ import 'category_entity.dart';
 part 'ingredient_master_entity.freezed.dart';
 
 @freezed
-class IngredientMasterEntity with _$IngredientMasterEntity {
+abstract class IngredientMasterEntity with _$IngredientMasterEntity {
   const factory IngredientMasterEntity({
     required String id,
     required String name,

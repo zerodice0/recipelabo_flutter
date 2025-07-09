@@ -6,7 +6,7 @@ part 'step_model.g.dart';
 
 /// 레시피 조리 단계 모델
 @freezed
-class StepModel with _$StepModel {
+abstract class StepModel with _$StepModel {
   const factory StepModel({
     required String id,
     String? recipeVersionId,

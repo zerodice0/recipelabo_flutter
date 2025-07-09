@@ -111,12 +111,11 @@ class ImageStorageService {
   Future<List<File>> getAllImageFiles() async {
     try {
       final imagesDir = await _getImagesDirectory();
-      final files =
-          imagesDir
-              .listSync()
-              .whereType<File>()
-              .where((file) => _isImageFile(file.path))
-              .toList();
+      final files = imagesDir
+          .listSync()
+          .whereType<File>()
+          .where((file) => _isImageFile(file.path))
+          .toList();
 
       // 수정 시간 순으로 정렬 (최신순)
       files.sort(

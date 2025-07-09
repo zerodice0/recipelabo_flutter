@@ -507,7 +507,7 @@ class DatabaseHelper {
 
     for (final unitId in presetUnitIds) {
       final category = PresetUnits.getCategoryForUnitId(unitId);
-      
+
       await db.execute(
         '''
         INSERT OR REPLACE INTO seasonings (
@@ -523,12 +523,14 @@ class DatabaseHelper {
           unitId, // description으로 중립적 ID 저장
           now,
           now,
-          1000, // 프리셋 단위는 높은 사용 빈도로 설정
+          0, // usage_count 초기화
         ],
       );
     }
 
-    debugPrint('Initialized ${presetUnitIds.length} preset units with neutral IDs');
+    debugPrint(
+      'Initialized ${presetUnitIds.length} preset units with neutral IDs',
+    );
   }
 
   /// 기존 프리셋 단위들을 삭제하고 새로운 중립적 ID 방식으로 마이그레이션
@@ -536,13 +538,11 @@ class DatabaseHelper {
     try {
       // 1. 기존 모든 프리셋 단위들 삭제 (category_id = 'unit'인 항목들)
       // 사용자 커스텀 단위는 보존하기 위해 usage_count로 구분
-      await db.execute(
-        '''
+      await db.execute('''
         DELETE FROM seasonings 
         WHERE category_id = 'unit' 
         AND (usage_count >= 1000 OR name LIKE 'unit_%' OR id LIKE 'preset_%')
-        ''',
-      );
+        ''');
 
       // 2. 새로운 중립적 ID 방식으로 프리셋 단위 초기화
       await _initializePresetUnits(db);

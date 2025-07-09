@@ -5,7 +5,7 @@ part 'ingredient_master_model.freezed.dart';
 part 'ingredient_master_model.g.dart';
 
 @freezed
-class IngredientMasterModel with _$IngredientMasterModel {
+abstract class IngredientMasterModel with _$IngredientMasterModel {
   const factory IngredientMasterModel({
     required String id,
     required String name,

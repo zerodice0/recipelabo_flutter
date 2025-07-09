@@ -5,7 +5,7 @@ part 'category_model.freezed.dart';
 part 'category_model.g.dart';
 
 @freezed
-class CategoryModel with _$CategoryModel {
+abstract class CategoryModel with _$CategoryModel {
   const factory CategoryModel({
     required String id,
     required String name,
@@ -34,8 +34,9 @@ class CategoryModel with _$CategoryModel {
       description: description,
       iconCode: iconCode,
       colorCode: colorCode,
-      type:
-          type == 'predefined' ? CategoryType.predefined : CategoryType.custom,
+      type: type == 'predefined'
+          ? CategoryType.predefined
+          : CategoryType.custom,
       createdAt: DateTime.parse(createdAt),
       updatedAt: DateTime.parse(updatedAt),
       usageCount: usageCount,

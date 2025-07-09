@@ -4,7 +4,7 @@ part 'step_entity.freezed.dart';
 
 /// 레시피 조리 단계 엔티티
 @freezed
-class StepEntity with _$StepEntity {
+abstract class StepEntity with _$StepEntity {
   const factory StepEntity({
     required String id,
     String? recipeVersionId,

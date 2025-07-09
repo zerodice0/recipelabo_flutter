@@ -442,10 +442,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: AppColors.pixelGreen,
-          border: Border.all(
-            color: AppColors.pixelGreenDark,
-            width: 3,
-          ),
+          border: Border.all(color: AppColors.pixelGreenDark, width: 3),
           boxShadow: [
             BoxShadow(
               color: AppColors.pixelGreenShadow.withValues(alpha: 0.8),
@@ -453,7 +450,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
               blurRadius: 0,
             ),
             BoxShadow(
-              color: const Color(0xFF003300).withValues(alpha: 0.6),
+              color: AppColors.pixelGreenShadow.withValues(alpha: 0.6),
               offset: const Offset(6, 6),
               blurRadius: 0,
             ),
@@ -472,10 +469,7 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
               fit: BoxFit.contain,
               errorBuilder: (context, error, stackTrace) {
                 // 이미지 로딩 실패 시 대체 이모지 표시
-                return const Text(
-                  '⏳',
-                  style: TextStyle(fontSize: 24),
-                );
+                return const Text('⏳', style: TextStyle(fontSize: 24));
               },
             ),
           ),

@@ -6,7 +6,7 @@ part 'ingredient_model.g.dart';
 
 /// 레시피 재료 모델
 @freezed
-class IngredientModel with _$IngredientModel {
+abstract class IngredientModel with _$IngredientModel {
   const factory IngredientModel({
     required String id,
     String? recipeVersionId,

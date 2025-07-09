@@ -8,7 +8,7 @@ part 'recipe_version_model.g.dart';
 
 /// 레시피의 특정 버전 모델
 @freezed
-class RecipeVersionModel with _$RecipeVersionModel {
+abstract class RecipeVersionModel with _$RecipeVersionModel {
   const factory RecipeVersionModel({
     required String id,
     required String recipeId,

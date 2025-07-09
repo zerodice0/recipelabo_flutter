@@ -5,7 +5,7 @@ part 'user_model.g.dart';
 
 /// 사용자 정보 모델
 @freezed
-class UserModel with _$UserModel {
+abstract class UserModel with _$UserModel {
   const factory UserModel({
     required String id,
     required String username,
@@ -17,7 +17,6 @@ class UserModel with _$UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
-
 }
 
 /// UserModel을 위한 SQLite 매핑 확장

@@ -43,9 +43,7 @@ class IngredientChipWidget extends StatelessWidget {
       child: Text(
         ingredientName,
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
-          color: isSelected
-              ? AppColors.chipSelectedText
-              : AppColors.chipText,
+          color: isSelected ? AppColors.chipSelectedText : AppColors.chipText,
           fontWeight: isSelected ? FontWeight.bold : FontWeight.w600,
           fontFamily: 'monospace', // 픽셀 아트 폰트
           fontSize: 12,

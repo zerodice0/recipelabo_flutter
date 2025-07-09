@@ -4,7 +4,7 @@ part 'ingredient_entity.freezed.dart';
 
 /// 레시피 재료 엔티티
 @freezed
-class IngredientEntity with _$IngredientEntity {
+abstract class IngredientEntity with _$IngredientEntity {
   const factory IngredientEntity({
     required String id,
     String? recipeVersionId,

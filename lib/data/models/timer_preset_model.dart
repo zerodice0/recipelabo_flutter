@@ -6,7 +6,7 @@ part 'timer_preset_model.g.dart';
 
 /// 타이머 프리셋 데이터 모델
 @freezed
-class TimerPresetModel with _$TimerPresetModel {
+abstract class TimerPresetModel with _$TimerPresetModel {
   const factory TimerPresetModel({
     required String id,
     required String name,

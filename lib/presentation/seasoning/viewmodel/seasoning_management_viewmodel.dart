@@ -5,12 +5,13 @@ import 'package:recipick_flutter/domain/usecases/get_all_ingredient_masters_usec
 import 'package:recipick_flutter/domain/usecases/search_ingredient_masters_usecase.dart';
 import 'package:recipick_flutter/domain/usecases/create_ingredient_master_usecase.dart';
 import 'package:recipick_flutter/domain/usecases/delete_ingredient_master_usecase.dart';
+import 'package:recipick_flutter/domain/usecases/create_custom_category_usecase.dart';
 
 part 'seasoning_management_viewmodel.freezed.dart';
 part 'seasoning_management_viewmodel.g.dart';
 
 @freezed
-class SeasoningManagementState with _$SeasoningManagementState {
+abstract class SeasoningManagementState with _$SeasoningManagementState {
   const factory SeasoningManagementState({
     @Default([]) List<IngredientMasterEntity> seasonings, // 현재 표시되는 데이터
     @Default([]) List<IngredientMasterEntity> allSeasonings, // 원본 전체 데이터
@@ -39,12 +40,8 @@ class SeasoningManagementViewModel extends _$SeasoningManagementViewModel {
       final seasonings = await getAllUseCase();
 
       // 카테고리 추출 - 표시명 사용
-      final categories =
-          seasonings
-              .map((s) => s.predefinedCategory?.displayName ?? s.categoryId)
-              .toSet()
-              .toList()
-            ..sort();
+      final categories = seasonings.map((s) => s.categoryId).toSet().toList()
+        ..sort();
 
       state = state.copyWith(
         allSeasonings: seasonings, // 원본 데이터 저장
@@ -136,5 +133,30 @@ class SeasoningManagementViewModel extends _$SeasoningManagementViewModel {
 
   Future<void> refresh() async {
     await _loadSeasonings();
+  }
+
+  Future<void> createCategory({
+    required String name,
+    String? description,
+    String? iconCode,
+  }) async {
+    state = state.copyWith(isCreating: true, error: null);
+
+    try {
+      final createCategoryUseCase = ref.read(
+        createCustomCategoryUseCaseProvider,
+      );
+      await createCategoryUseCase(
+        name: name,
+        displayName: name,
+        description: description,
+        iconCode: iconCode,
+      );
+
+      state = state.copyWith(isCreating: false);
+      await _loadSeasonings();
+    } catch (error) {
+      state = state.copyWith(isCreating: false, error: error.toString());
+    }
   }
 }

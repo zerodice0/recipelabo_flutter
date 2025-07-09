@@ -730,6 +730,10 @@
   "@unitErrorLoading": {
     "description": "단위 로딩 오류 메시지"
   },
+  "unitUserAddedDescription": "User added unit",
+  "@unitUserAddedDescription": {
+    "description": "사용자 추가 단위 설명"
+  },
   "unitUsedTimes": "Used {count} times",
   "@unitUsedTimes": {
     "description": "단위 사용 횟수 표시",
@@ -1066,6 +1070,38 @@
   "@generalAddCategory": {
     "description": "카테고리 추가 버튼"
   },
+  "generalCategoryIngredient": "Ingredient",
+  "@generalCategoryIngredient": {
+    "description": "재료 카테고리명"
+  },
+  "generalCategoryUnit": "Unit",
+  "@generalCategoryUnit": {
+    "description": "단위 카테고리명"
+  },
+  "generalCategorySeasoning": "Seasoning",
+  "@generalCategorySeasoning": {
+    "description": "양념 카테고리명"
+  },
+  "generalCategoryVegetable": "Vegetable",
+  "@generalCategoryVegetable": {
+    "description": "채소 카테고리명"
+  },
+  "generalCategoryMeat": "Meat",
+  "@generalCategoryMeat": {
+    "description": "육류 카테고리명"
+  },
+  "generalCategorySeafood": "Seafood",
+  "@generalCategorySeafood": {
+    "description": "해산물 카테고리명"
+  },
+  "generalCategoryDairy": "Dairy",
+  "@generalCategoryDairy": {
+    "description": "유제품 카테고리명"
+  },
+  "generalCategoryGrain": "Grain",
+  "@generalCategoryGrain": {
+    "description": "곡물 카테고리명"
+  },
   "generalName": "Name",
   "@generalName": {
     "description": "이름 라벨"
@@ -1325,11 +1361,67 @@
     "description": "재료 삭제 버튼"
   },
   "seasoningCreateTitle": "Add Item",
+  "@seasoningCreateTitle": {
+    "description": "항목 추가 메시지"
+  },
   "seasoningCreateNameLabel": "Ingredient Name",
+  "@seasoningCreateNameLabel": {
+    "description": "항목 이름 라벨"
+  },
   "seasoningCreateNameHint": "e.g., Salt, Sugar, Soy Sauce, etc.",
+  "@seasoningCreateNameHint": {
+    "description": "항목 이름 힌트"
+  },
   "seasoningCreateNameRequired": "Please enter ingredient name",
+  "@seasoningCreateNameRequired": {
+    "description": "항목 이름 필수 메시지"
+  },
   "seasoningCreateNewCategory": "New Category",
+  "@seasoningCreateNewCategory": {
+    "description": "새 카테고리 라벨"
+  },  
   "seasoningCreateCategoryHint": "e.g., Basic Seasonings, Special Seasonings, Spices, etc.",
+  "@seasoningCreateCategoryHint": {
+    "description": "새 카테고리 힌트"
+  },
   "seasoningCreateDescriptionLabel": "Description (Optional)",
-  "seasoningCreateDescriptionHint": "Brief description of the item"
+  "@seasoningCreateDescriptionLabel": {
+    "description": "항목 설명 라벨"
+  },
+  "seasoningCreateDescriptionHint": "Brief description of the item",
+  "@seasoningCreateDescriptionHint": {
+    "description": "항목 설명 힌트"
+  },
+  "categoryCreateTitle": "Add New Category",
+  "@categoryCreateTitle": {
+    "description": "새 카테고리 추가 제목"
+  },
+  "categoryCreateNameLabel": "Category Name",
+  "@categoryCreateNameLabel": {
+    "description": "카테고리 이름 라벨"
+  },
+  "categoryCreateNameHint": "e.g., Fruits, Nuts, Dairy, etc.",
+  "@categoryCreateNameHint": {
+    "description": "카테고리 이름 힌트"
+  },
+  "categoryCreateNameRequired": "Please enter category name",
+  "@categoryCreateNameRequired": {
+    "description": "카테고리 이름 필수 메시지"
+  },
+  "categoryCreateIconLabel": "Select Icon (Optional)",
+  "@categoryCreateIconLabel": {
+    "description": "아이콘 선택 라벨"
+  },
+  "categoryCreateDescriptionLabel": "Description (Optional)",
+  "@categoryCreateDescriptionLabel": {
+    "description": "카테고리 설명 라벨"
+  },
+  "categoryCreateDescriptionHint": "Brief description of the category",
+  "@categoryCreateDescriptionHint": {
+    "description": "카테고리 설명 힌트"
+  },
+  "actionCreate": "Create",
+  "@actionCreate": {
+    "description": "생성 액션"
+  }
 }

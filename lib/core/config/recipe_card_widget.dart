@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
+import 'package:recipick_flutter/core/config/app_colors.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 class RecipeCardWidget extends StatelessWidget {
@@ -30,15 +31,21 @@ class RecipeCardWidget extends StatelessWidget {
         tag: heroTag ?? 'recipe_card_${recipe.id}',
         child: Container(
           decoration: BoxDecoration(
-            color: const Color(0xFFFAF0E6), // 크림색 배경
+            color: AppColors.getChipBackground(
+              Theme.of(context).brightness == Brightness.dark,
+            ),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: const Color(0xFFD2691E), // 갈색 테두리
+              color: AppColors.getChipBorder(
+                Theme.of(context).brightness == Brightness.dark,
+              ),
               width: 2,
             ),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF8B4513).withValues(alpha: 0.3),
+                color: AppColors.getChipShadow(
+                  Theme.of(context).brightness == Brightness.dark,
+                ).withValues(alpha: 0.3),
                 offset: const Offset(2, 2),
                 blurRadius: 0,
               ),
@@ -61,7 +68,9 @@ class RecipeCardWidget extends StatelessWidget {
                           recipe.name,
                           style: theme.textTheme.titleLarge?.copyWith(
                             fontWeight: FontWeight.w900, // 더 두꺼운 폰트
-                            color: const Color(0xFF4A2C17), // 진한 갈색
+                            color: AppColors.getPixelTextBrown(
+                              Theme.of(context).brightness == Brightness.dark,
+                            ),
                             fontSize: 18,
                             fontFamily: 'monospace', // 픽셀 아트 느낌의 폰트
                             letterSpacing: 0.5,
@@ -79,9 +88,11 @@ class RecipeCardWidget extends StatelessWidget {
                             horizontal: VisualDensity.minimumDensity,
                             vertical: VisualDensity.minimumDensity,
                           ),
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.close,
-                            color: Color(0xFF8B4513),
+                            color: AppColors.getPixelBrown(
+                              Theme.of(context).brightness == Brightness.dark,
+                            ),
                             size: 20,
                           ),
                           onPressed: onDelete,
@@ -98,7 +109,9 @@ class RecipeCardWidget extends StatelessWidget {
                         ? recipe.description!
                         : AppLocalizations.of(context).recipeNoDescription,
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: const Color(0xFF6B4423),
+                      color: AppColors.getPixelTextBrown(
+                        Theme.of(context).brightness == Brightness.dark,
+                      ).withValues(alpha: 0.8),
                       height: 1.4,
                       fontSize: 14,
                       fontStyle: recipe.description?.isNotEmpty == true
@@ -124,16 +137,20 @@ class RecipeCardWidget extends StatelessWidget {
                           Text(
                             _formatDate(recipe.updatedAt),
                             style: theme.textTheme.bodySmall?.copyWith(
-                              color: const Color(0xFF8B4513),
+                              color: AppColors.getPixelTextBrown(
+                                Theme.of(context).brightness == Brightness.dark,
+                              ).withValues(alpha: 0.7),
                               fontSize: 12,
                             ),
                           ),
                         ],
                       ),
                       // 화살표
-                      const Icon(
+                      Icon(
                         Icons.arrow_forward_ios,
-                        color: Color(0xFF8B4513),
+                        color: AppColors.getPixelBrown(
+                          Theme.of(context).brightness == Brightness.dark,
+                        ),
                         size: 16,
                       ),
                     ],

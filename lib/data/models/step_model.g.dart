@@ -6,19 +6,18 @@ part of 'step_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$StepModelImpl _$$StepModelImplFromJson(Map<String, dynamic> json) =>
-    _$StepModelImpl(
-      id: json['id'] as String,
-      recipeVersionId: json['recipeVersionId'] as String?,
-      stepNumber: (json['stepNumber'] as num).toInt(),
-      description: json['description'] as String,
-      imageUrl: json['imageUrl'] as String?,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
-      isDeleted: json['isDeleted'] as bool? ?? false,
-    );
+_StepModel _$StepModelFromJson(Map<String, dynamic> json) => _StepModel(
+  id: json['id'] as String,
+  recipeVersionId: json['recipeVersionId'] as String?,
+  stepNumber: (json['stepNumber'] as num).toInt(),
+  description: json['description'] as String,
+  imageUrl: json['imageUrl'] as String?,
+  createdAt: DateTime.parse(json['createdAt'] as String),
+  updatedAt: DateTime.parse(json['updatedAt'] as String),
+  isDeleted: json['isDeleted'] as bool? ?? false,
+);
 
-Map<String, dynamic> _$$StepModelImplToJson(_$StepModelImpl instance) =>
+Map<String, dynamic> _$StepModelToJson(_StepModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'recipeVersionId': instance.recipeVersionId,

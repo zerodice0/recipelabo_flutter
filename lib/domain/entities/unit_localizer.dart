@@ -6,7 +6,7 @@ class UnitLocalizer {
   /// 언어 중립적 단위 ID를 현재 언어의 단위명으로 번역
   static String getLocalizedUnitName(String unitId, BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    
+
     switch (unitId) {
       // 무게 단위
       case 'unit_gram':
@@ -15,7 +15,7 @@ class UnitLocalizer {
         return l10n.unitWeightKilograms;
       case 'unit_milligram':
         return l10n.unitWeightMilligrams;
-      
+
       // 부피 단위
       case 'unit_milliliter':
         return l10n.unitVolumeMilliliters;
@@ -29,7 +29,7 @@ class UnitLocalizer {
         return l10n.unitVolumeCup;
       case 'unit_drops':
         return l10n.unitVolumeDrops;
-      
+
       // 개수 단위
       case 'unit_pieces':
         return l10n.unitCountPieces;
@@ -47,7 +47,7 @@ class UnitLocalizer {
         return l10n.unitCountStalks;
       case 'unit_sheets':
         return l10n.unitCountSheets;
-      
+
       // 기타 단위
       case 'unit_pinch':
         return l10n.unitMiscPinch;
@@ -59,7 +59,7 @@ class UnitLocalizer {
         return l10n.unitMiscLittle;
       case 'unit_slightly':
         return l10n.unitMiscSlightly;
-      
+
       // 프리셋 단위가 아닌 경우 (커스텀 단위) 원본 그대로 반환
       default:
         return unitId;
@@ -67,9 +67,12 @@ class UnitLocalizer {
   }
 
   /// 언어 중립적 단위 ID를 현재 언어의 단위 설명으로 번역
-  static String getLocalizedUnitDescription(String unitId, BuildContext context) {
+  static String getLocalizedUnitDescription(
+    String unitId,
+    BuildContext context,
+  ) {
     final l10n = AppLocalizations.of(context);
-    
+
     switch (unitId) {
       // 무게 단위
       case 'unit_gram':
@@ -78,7 +81,7 @@ class UnitLocalizer {
         return l10n.unitWeightKilogramsDesc;
       case 'unit_milligram':
         return l10n.unitWeightMilligramsDesc;
-      
+
       // 부피 단위
       case 'unit_milliliter':
         return l10n.unitVolumeMillilitersDesc;
@@ -92,7 +95,7 @@ class UnitLocalizer {
         return l10n.unitVolumeCupDesc;
       case 'unit_drops':
         return l10n.unitVolumeDropsDesc;
-      
+
       // 개수 단위
       case 'unit_pieces':
         return l10n.unitCountPiecesDesc;
@@ -110,7 +113,7 @@ class UnitLocalizer {
         return l10n.unitCountStalksDesc;
       case 'unit_sheets':
         return l10n.unitCountSheetsDesc;
-      
+
       // 기타 단위
       case 'unit_pinch':
         return l10n.unitMiscPinchDesc;
@@ -122,7 +125,7 @@ class UnitLocalizer {
         return l10n.unitMiscLittleDesc;
       case 'unit_slightly':
         return l10n.unitMiscSlightlyDesc;
-      
+
       // 프리셋 단위가 아닌 경우 (커스텀 단위) 원본 그대로 반환
       default:
         return unitId;
@@ -130,9 +133,12 @@ class UnitLocalizer {
   }
 
   /// 언어 중립적 단위 ID를 현재 언어의 카테고리명으로 번역
-  static String getLocalizedCategoryName(String categoryKey, BuildContext context) {
+  static String getLocalizedCategoryName(
+    String categoryKey,
+    BuildContext context,
+  ) {
     final l10n = AppLocalizations.of(context);
-    
+
     switch (categoryKey) {
       case 'Weight':
         return l10n.unitCategoryWeight;
@@ -158,7 +164,7 @@ class UnitLocalizer {
     'unit_gram',
     'unit_kilogram',
     'unit_milligram',
-    
+
     // 부피 단위
     'unit_milliliter',
     'unit_liter',
@@ -166,7 +172,7 @@ class UnitLocalizer {
     'unit_teaspoon',
     'unit_cup',
     'unit_drops',
-    
+
     // 개수 단위
     'unit_pieces',
     'unit_slices',
@@ -176,7 +182,7 @@ class UnitLocalizer {
     'unit_bunches',
     'unit_stalks',
     'unit_sheets',
-    
+
     // 기타 단위
     'unit_pinch',
     'unit_handful',

@@ -6,7 +6,7 @@ part 'recipe_version_entity.freezed.dart';
 
 /// 레시피 버전 엔티티
 @freezed
-class RecipeVersionEntity with _$RecipeVersionEntity {
+abstract class RecipeVersionEntity with _$RecipeVersionEntity {
   const factory RecipeVersionEntity({
     required String id,
     required String recipeId,

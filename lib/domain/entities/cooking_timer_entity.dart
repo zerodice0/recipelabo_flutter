@@ -4,7 +4,7 @@ part 'cooking_timer_entity.freezed.dart';
 
 /// 진행 중인 요리 타이머를 나타내는 엔티티
 @freezed
-class CookingTimerEntity with _$CookingTimerEntity {
+abstract class CookingTimerEntity with _$CookingTimerEntity {
   const factory CookingTimerEntity({
     required String id,
     required String name, // 타이머 이름
@@ -58,8 +58,8 @@ class CookingTimerEntity with _$CookingTimerEntity {
 
 /// 타이머 상태
 enum TimerStatus {
-  running,    // 진행 중
-  paused,     // 일시정지
-  completed,  // 완료
-  cancelled,  // 취소됨
+  running, // 진행 중
+  paused, // 일시정지
+  completed, // 완료
+  cancelled, // 취소됨
 }

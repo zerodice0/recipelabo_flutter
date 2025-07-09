@@ -48,13 +48,19 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
               TextFormField(
                 controller: _nameController,
                 decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context).seasoningCreateNameLabel,
-                  hintText: AppLocalizations.of(context).seasoningCreateNameHint,
+                  labelText: AppLocalizations.of(
+                    context,
+                  ).seasoningCreateNameLabel,
+                  hintText: AppLocalizations.of(
+                    context,
+                  ).seasoningCreateNameHint,
                   border: const OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return AppLocalizations.of(context).seasoningCreateNameRequired;
+                    return AppLocalizations.of(
+                      context,
+                    ).seasoningCreateNameRequired;
                   }
                   return null;
                 },
@@ -96,7 +102,9 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
                       );
                     }),
                     FilterChip(
-                      label: Text(AppLocalizations.of(context).seasoningCreateNewCategory),
+                      label: Text(
+                        AppLocalizations.of(context).seasoningCreateNewCategory,
+                      ),
                       selected: _isCustomCategory,
                       onSelected: (selected) {
                         setState(() {
@@ -118,8 +126,12 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
                 TextFormField(
                   controller: _categoryController,
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).seasoningCreateNewCategory,
-                    hintText: AppLocalizations.of(context).seasoningCreateCategoryHint,
+                    labelText: AppLocalizations.of(
+                      context,
+                    ).seasoningCreateNewCategory,
+                    hintText: AppLocalizations.of(
+                      context,
+                    ).seasoningCreateCategoryHint,
                     border: const OutlineInputBorder(),
                   ),
                 ),
@@ -130,8 +142,12 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
               TextFormField(
                 controller: _descriptionController,
                 decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context).seasoningCreateDescriptionLabel,
-                  hintText: AppLocalizations.of(context).seasoningCreateDescriptionHint,
+                  labelText: AppLocalizations.of(
+                    context,
+                  ).seasoningCreateDescriptionLabel,
+                  hintText: AppLocalizations.of(
+                    context,
+                  ).seasoningCreateDescriptionHint,
                   border: const OutlineInputBorder(),
                 ),
                 maxLines: 2,
@@ -146,7 +162,7 @@ class _SeasoningCreateDialogState extends State<SeasoningCreateDialog> {
           child: Text(AppLocalizations.of(context).actionCancel),
         ),
         ElevatedButton(
-          onPressed: _saveSeasoning, 
+          onPressed: _saveSeasoning,
           child: Text(AppLocalizations.of(context).recipeAdd),
         ),
       ],

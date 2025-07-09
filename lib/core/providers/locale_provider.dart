@@ -42,11 +42,11 @@ class LocaleNotifier extends _$LocaleNotifier {
   Future<SupportedLocale> build() async {
     final prefs = await SharedPreferences.getInstance();
     final savedLocale = prefs.getString(_localeKey);
-    
+
     if (savedLocale != null) {
       return SupportedLocale.fromCode(savedLocale);
     }
-    
+
     return SupportedLocale.system;
   }
 
@@ -65,15 +65,15 @@ class LocaleNotifier extends _$LocaleNotifier {
     if (currentLocale != null) {
       return currentLocale;
     }
-    
+
     // 시스템 언어가 선택된 경우, 지원하는 언어인지 확인
     final systemLocale = PlatformDispatcher.instance.locale;
     const supportedLocaleCodes = ['ko', 'en', 'ja'];
-    
+
     if (supportedLocaleCodes.contains(systemLocale.languageCode)) {
       return systemLocale;
     }
-    
+
     // 지원하지 않는 시스템 언어인 경우 한국어를 기본으로 사용
     return const Locale('ko');
   }

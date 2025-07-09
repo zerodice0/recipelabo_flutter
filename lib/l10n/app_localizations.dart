@@ -1048,6 +1048,12 @@ abstract class AppLocalizations {
   /// **'Error loading units'**
   String get unitErrorLoading;
 
+  /// 사용자 추가 단위 설명
+  ///
+  /// In en, this message translates to:
+  /// **'User added unit'**
+  String get unitUserAddedDescription;
+
   /// 단위 사용 횟수 표시
   ///
   /// In en, this message translates to:
@@ -1522,6 +1528,54 @@ abstract class AppLocalizations {
   /// **'Add Category'**
   String get generalAddCategory;
 
+  /// 재료 카테고리명
+  ///
+  /// In en, this message translates to:
+  /// **'Ingredient'**
+  String get generalCategoryIngredient;
+
+  /// 단위 카테고리명
+  ///
+  /// In en, this message translates to:
+  /// **'Unit'**
+  String get generalCategoryUnit;
+
+  /// 양념 카테고리명
+  ///
+  /// In en, this message translates to:
+  /// **'Seasoning'**
+  String get generalCategorySeasoning;
+
+  /// 채소 카테고리명
+  ///
+  /// In en, this message translates to:
+  /// **'Vegetable'**
+  String get generalCategoryVegetable;
+
+  /// 육류 카테고리명
+  ///
+  /// In en, this message translates to:
+  /// **'Meat'**
+  String get generalCategoryMeat;
+
+  /// 해산물 카테고리명
+  ///
+  /// In en, this message translates to:
+  /// **'Seafood'**
+  String get generalCategorySeafood;
+
+  /// 유제품 카테고리명
+  ///
+  /// In en, this message translates to:
+  /// **'Dairy'**
+  String get generalCategoryDairy;
+
+  /// 곡물 카테고리명
+  ///
+  /// In en, this message translates to:
+  /// **'Grain'**
+  String get generalCategoryGrain;
+
   /// 이름 라벨
   ///
   /// In en, this message translates to:
@@ -1894,53 +1948,101 @@ abstract class AppLocalizations {
   /// **'Delete'**
   String get seasoningDeleteTooltip;
 
-  /// No description provided for @seasoningCreateTitle.
+  /// 항목 추가 메시지
   ///
   /// In en, this message translates to:
   /// **'Add Item'**
   String get seasoningCreateTitle;
 
-  /// No description provided for @seasoningCreateNameLabel.
+  /// 항목 이름 라벨
   ///
   /// In en, this message translates to:
   /// **'Ingredient Name'**
   String get seasoningCreateNameLabel;
 
-  /// No description provided for @seasoningCreateNameHint.
+  /// 항목 이름 힌트
   ///
   /// In en, this message translates to:
   /// **'e.g., Salt, Sugar, Soy Sauce, etc.'**
   String get seasoningCreateNameHint;
 
-  /// No description provided for @seasoningCreateNameRequired.
+  /// 항목 이름 필수 메시지
   ///
   /// In en, this message translates to:
   /// **'Please enter ingredient name'**
   String get seasoningCreateNameRequired;
 
-  /// No description provided for @seasoningCreateNewCategory.
+  /// 새 카테고리 라벨
   ///
   /// In en, this message translates to:
   /// **'New Category'**
   String get seasoningCreateNewCategory;
 
-  /// No description provided for @seasoningCreateCategoryHint.
+  /// 새 카테고리 힌트
   ///
   /// In en, this message translates to:
   /// **'e.g., Basic Seasonings, Special Seasonings, Spices, etc.'**
   String get seasoningCreateCategoryHint;
 
-  /// No description provided for @seasoningCreateDescriptionLabel.
+  /// 항목 설명 라벨
   ///
   /// In en, this message translates to:
   /// **'Description (Optional)'**
   String get seasoningCreateDescriptionLabel;
 
-  /// No description provided for @seasoningCreateDescriptionHint.
+  /// 항목 설명 힌트
   ///
   /// In en, this message translates to:
   /// **'Brief description of the item'**
   String get seasoningCreateDescriptionHint;
+
+  /// 새 카테고리 추가 제목
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Category'**
+  String get categoryCreateTitle;
+
+  /// 카테고리 이름 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Category Name'**
+  String get categoryCreateNameLabel;
+
+  /// 카테고리 이름 힌트
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Fruits, Nuts, Dairy, etc.'**
+  String get categoryCreateNameHint;
+
+  /// 카테고리 이름 필수 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter category name'**
+  String get categoryCreateNameRequired;
+
+  /// 아이콘 선택 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Select Icon (Optional)'**
+  String get categoryCreateIconLabel;
+
+  /// 카테고리 설명 라벨
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Optional)'**
+  String get categoryCreateDescriptionLabel;
+
+  /// 카테고리 설명 힌트
+  ///
+  /// In en, this message translates to:
+  /// **'Brief description of the category'**
+  String get categoryCreateDescriptionHint;
+
+  /// 생성 액션
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get actionCreate;
 }
 
 class _AppLocalizationsDelegate

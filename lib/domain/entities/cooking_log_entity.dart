@@ -4,7 +4,7 @@ part 'cooking_log_entity.freezed.dart';
 
 /// 쿠킹 로그 엔티티
 @freezed
-class CookingLogEntity with _$CookingLogEntity {
+abstract class CookingLogEntity with _$CookingLogEntity {
   const factory CookingLogEntity({
     required String id,
     required String recipeVersionId,

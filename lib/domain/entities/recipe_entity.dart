@@ -4,7 +4,7 @@ part 'recipe_entity.freezed.dart';
 
 /// 레시피 기본 엔티티
 @freezed
-class RecipeEntity with _$RecipeEntity {
+abstract class RecipeEntity with _$RecipeEntity {
   const factory RecipeEntity({
     required String id,
     required String authorId,

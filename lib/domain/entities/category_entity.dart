@@ -3,10 +3,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'category_entity.freezed.dart';
 
 /// 카테고리 엔티티
-/// 
+///
 /// 사전 정의된 카테고리와 사용자 정의 카테고리를 모두 지원하는 Value Object
 @freezed
-class CategoryEntity with _$CategoryEntity {
+abstract class CategoryEntity with _$CategoryEntity {
   const factory CategoryEntity({
     required String id,
     required String name,
@@ -37,6 +37,7 @@ class CategoryEntity with _$CategoryEntity {
 enum CategoryType {
   /// 사전 정의된 카테고리 (시스템 제공)
   predefined,
+
   /// 사용자 정의 카테고리
   custom,
 }

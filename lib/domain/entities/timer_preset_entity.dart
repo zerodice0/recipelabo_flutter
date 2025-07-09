@@ -4,7 +4,7 @@ part 'timer_preset_entity.freezed.dart';
 
 /// 자주 사용하는 타이머 프리셋을 나타내는 엔티티
 @freezed
-class TimerPresetEntity with _$TimerPresetEntity {
+abstract class TimerPresetEntity with _$TimerPresetEntity {
   const factory TimerPresetEntity({
     required String id,
     required String name, // 예: "파스타 면 삶기", "달걀 완숙"
@@ -32,10 +32,7 @@ class TimerPresetEntity with _$TimerPresetEntity {
 
   /// 사용 횟수 증가
   TimerPresetEntity incrementUsage() {
-    return copyWith(
-      usageCount: usageCount + 1,
-      lastUsedAt: DateTime.now(),
-    );
+    return copyWith(usageCount: usageCount + 1, lastUsedAt: DateTime.now());
   }
 
   /// Map에서 TimerPresetEntity 생성
@@ -48,7 +45,7 @@ class TimerPresetEntity with _$TimerPresetEntity {
       description: map['description'] as String?,
       icon: map['icon'] as String?,
       createdAt: DateTime.parse(map['createdAt'] as String),
-      lastUsedAt: map['lastUsedAt'] != null 
+      lastUsedAt: map['lastUsedAt'] != null
           ? DateTime.parse(map['lastUsedAt'] as String)
           : null,
       usageCount: map['usageCount'] as int? ?? 0,

@@ -49,6 +49,11 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
   }
 
   Future<void> _createNewUnit(String name) async {
+    // BuildContext를 async gap 전에 미리 확보
+    final userAddedDescription = AppLocalizations.of(
+      context,
+    ).unitUserAddedDescription;
+
     // 카테고리 선택 다이얼로그 표시
     final selectedCategory = await UnitCategoryDialogs.show(
       context,
@@ -63,7 +68,7 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
         name: name,
         categoryId: PredefinedCategories.unit.id,
         subCategory: selectedCategory,
-        description: '사용자 추가 단위',
+        description: userAddedDescription,
       );
 
       // 단위 목록 새로고침 - Provider를 통해
@@ -310,13 +315,15 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
             subtitle: unit.description?.isNotEmpty == true
                 ? Text(
                     UnitLocalizer.isPresetUnit(unit.name)
-                        ? UnitLocalizer.getLocalizedUnitDescription(unit.name, context)
+                        ? UnitLocalizer.getLocalizedUnitDescription(
+                            unit.name,
+                            context,
+                          )
                         : unit.description!,
                   )
                 : null,
             trailing:
-                unit.usageCount > 0 &&
-                    !UnitLocalizer.isPresetUnit(unit.name)
+                unit.usageCount > 0 && !UnitLocalizer.isPresetUnit(unit.name)
                 ? Text(
                     '${unit.usageCount}회',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(

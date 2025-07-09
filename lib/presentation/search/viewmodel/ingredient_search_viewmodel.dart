@@ -10,7 +10,7 @@ part 'ingredient_search_viewmodel.freezed.dart';
 part 'ingredient_search_viewmodel.g.dart';
 
 @freezed
-class IngredientSearchState with _$IngredientSearchState {
+abstract class IngredientSearchState with _$IngredientSearchState {
   const factory IngredientSearchState({
     @Default([]) List<String> availableIngredients,
     @Default([]) List<String> selectedIngredients,

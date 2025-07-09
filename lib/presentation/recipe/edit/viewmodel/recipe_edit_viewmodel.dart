@@ -14,7 +14,7 @@ part 'recipe_edit_viewmodel.freezed.dart';
 part 'recipe_edit_viewmodel.g.dart';
 
 @freezed
-class RecipeEditState with _$RecipeEditState {
+abstract class RecipeEditState with _$RecipeEditState {
   const factory RecipeEditState({
     @Default('') String name,
     @Default('') String description,

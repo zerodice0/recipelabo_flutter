@@ -45,27 +45,37 @@ class RecipeListScreen extends ConsumerWidget {
                   constraints: const BoxConstraints(maxWidth: 500),
                   decoration: BoxDecoration(
                     // 픽셀 아트 스타일 레시피북 배경
-                    gradient: const LinearGradient(
+                    gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        Color(0xFFF5F3E8), // 크림색 종이
-                        Color(0xFFEDE5D3), // 약간 어두운 크림색
+                        AppColors.getPixelPaper(
+                          Theme.of(context).brightness == Brightness.dark,
+                        ),
+                        AppColors.getPixelPaperDark(
+                          Theme.of(context).brightness == Brightness.dark,
+                        ),
                       ],
                     ),
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: const Color(0xFF8B4513), // 갈색 테두리
+                      color: AppColors.getPixelBrown(
+                        Theme.of(context).brightness == Brightness.dark,
+                      ),
                       width: 4,
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF5D2E0A).withValues(alpha: 0.6),
+                        color: AppColors.getPixelBrown(
+                          Theme.of(context).brightness == Brightness.dark,
+                        ).withValues(alpha: 0.6),
                         offset: const Offset(6, 6),
                         blurRadius: 0, // 픽셀 아트는 블러 없음
                       ),
                       BoxShadow(
-                        color: const Color(0xFF3D1E0A).withValues(alpha: 0.3),
+                        color: AppColors.getPixelBrown(
+                          Theme.of(context).brightness == Brightness.dark,
+                        ).withValues(alpha: 0.3),
                         offset: const Offset(8, 8),
                         blurRadius: 0,
                       ),

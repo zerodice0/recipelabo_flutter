@@ -6,20 +6,19 @@ part of 'recipe_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$RecipeModelImpl _$$RecipeModelImplFromJson(Map<String, dynamic> json) =>
-    _$RecipeModelImpl(
-      id: json['id'] as String,
-      authorId: json['authorId'] as String,
-      latestVersionId: json['latestVersionId'] as String,
-      name: json['name'] as String,
-      description: json['description'] as String?,
-      isPublic: json['isPublic'] as bool? ?? true,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
-      isDeleted: json['isDeleted'] as bool? ?? false,
-    );
+_RecipeModel _$RecipeModelFromJson(Map<String, dynamic> json) => _RecipeModel(
+  id: json['id'] as String,
+  authorId: json['authorId'] as String,
+  latestVersionId: json['latestVersionId'] as String,
+  name: json['name'] as String,
+  description: json['description'] as String?,
+  isPublic: json['isPublic'] as bool? ?? true,
+  createdAt: DateTime.parse(json['createdAt'] as String),
+  updatedAt: DateTime.parse(json['updatedAt'] as String),
+  isDeleted: json['isDeleted'] as bool? ?? false,
+);
 
-Map<String, dynamic> _$$RecipeModelImplToJson(_$RecipeModelImpl instance) =>
+Map<String, dynamic> _$RecipeModelToJson(_RecipeModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'authorId': instance.authorId,

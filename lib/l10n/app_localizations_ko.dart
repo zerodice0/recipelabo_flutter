@@ -521,6 +521,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get unitErrorLoading => '단위를 불러오는 중 오류가 발생했습니다';
 
   @override
+  String get unitUserAddedDescription => '사용자 추가 단위';
+
+  @override
   String unitUsedTimes(String count) {
     return '$count회 사용';
   }
@@ -767,6 +770,30 @@ class AppLocalizationsKo extends AppLocalizations {
   String get generalAddCategory => '카테고리 추가';
 
   @override
+  String get generalCategoryIngredient => '재료';
+
+  @override
+  String get generalCategoryUnit => '단위';
+
+  @override
+  String get generalCategorySeasoning => '양념';
+
+  @override
+  String get generalCategoryVegetable => '채소';
+
+  @override
+  String get generalCategoryMeat => '육류';
+
+  @override
+  String get generalCategorySeafood => '해산물';
+
+  @override
+  String get generalCategoryDairy => '유제품';
+
+  @override
+  String get generalCategoryGrain => '곡물';
+
+  @override
   String get generalName => '이름';
 
   @override
@@ -979,4 +1006,28 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get seasoningCreateDescriptionHint => '항목에 대한 간단한 설명';
+
+  @override
+  String get categoryCreateTitle => '새 카테고리 추가';
+
+  @override
+  String get categoryCreateNameLabel => '카테고리 이름';
+
+  @override
+  String get categoryCreateNameHint => '예: 과일, 견과류, 유제품 등';
+
+  @override
+  String get categoryCreateNameRequired => '카테고리 이름을 입력해주세요';
+
+  @override
+  String get categoryCreateIconLabel => '아이콘 선택 (선택사항)';
+
+  @override
+  String get categoryCreateDescriptionLabel => '설명 (선택사항)';
+
+  @override
+  String get categoryCreateDescriptionHint => '카테고리에 대한 간단한 설명';
+
+  @override
+  String get actionCreate => '생성';
 }

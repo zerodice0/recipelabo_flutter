@@ -5,7 +5,7 @@ part 'recipe_model.g.dart';
 
 /// 레시피 기본 모델 (버전들을 포함)
 @freezed
-class RecipeModel with _$RecipeModel {
+abstract class RecipeModel with _$RecipeModel {
   const factory RecipeModel({
     required String id,
     required String authorId,

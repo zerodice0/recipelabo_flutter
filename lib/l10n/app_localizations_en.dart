@@ -529,6 +529,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unitErrorLoading => 'Error loading units';
 
   @override
+  String get unitUserAddedDescription => 'User added unit';
+
+  @override
   String unitUsedTimes(String count) {
     return 'Used $count times';
   }
@@ -782,6 +785,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get generalAddCategory => 'Add Category';
 
   @override
+  String get generalCategoryIngredient => 'Ingredient';
+
+  @override
+  String get generalCategoryUnit => 'Unit';
+
+  @override
+  String get generalCategorySeasoning => 'Seasoning';
+
+  @override
+  String get generalCategoryVegetable => 'Vegetable';
+
+  @override
+  String get generalCategoryMeat => 'Meat';
+
+  @override
+  String get generalCategorySeafood => 'Seafood';
+
+  @override
+  String get generalCategoryDairy => 'Dairy';
+
+  @override
+  String get generalCategoryGrain => 'Grain';
+
+  @override
   String get generalName => 'Name';
 
   @override
@@ -1001,4 +1028,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get seasoningCreateDescriptionHint => 'Brief description of the item';
+
+  @override
+  String get categoryCreateTitle => 'Add New Category';
+
+  @override
+  String get categoryCreateNameLabel => 'Category Name';
+
+  @override
+  String get categoryCreateNameHint => 'e.g., Fruits, Nuts, Dairy, etc.';
+
+  @override
+  String get categoryCreateNameRequired => 'Please enter category name';
+
+  @override
+  String get categoryCreateIconLabel => 'Select Icon (Optional)';
+
+  @override
+  String get categoryCreateDescriptionLabel => 'Description (Optional)';
+
+  @override
+  String get categoryCreateDescriptionHint =>
+      'Brief description of the category';
+
+  @override
+  String get actionCreate => 'Create';
 }

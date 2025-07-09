@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,296 +9,281 @@ part of 'cooking_log_create_viewmodel.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
-
 /// @nodoc
 mixin _$CookingLogCreateState {
-  String get title => throw _privateConstructorUsedError;
-  String get memo => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
-  DateTime? get cookedAt => throw _privateConstructorUsedError;
-  bool get isLoading => throw _privateConstructorUsedError;
-  String? get error => throw _privateConstructorUsedError;
-  bool get isSaved => throw _privateConstructorUsedError;
 
-  /// Create a copy of CookingLogCreateState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $CookingLogCreateStateCopyWith<CookingLogCreateState> get copyWith =>
-      throw _privateConstructorUsedError;
+ String get title; String get memo; String? get imageUrl; DateTime? get cookedAt; bool get isLoading; String? get error; bool get isSaved;
+/// Create a copy of CookingLogCreateState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CookingLogCreateStateCopyWith<CookingLogCreateState> get copyWith => _$CookingLogCreateStateCopyWithImpl<CookingLogCreateState>(this as CookingLogCreateState, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CookingLogCreateState&&(identical(other.title, title) || other.title == title)&&(identical(other.memo, memo) || other.memo == memo)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.cookedAt, cookedAt) || other.cookedAt == cookedAt)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error)&&(identical(other.isSaved, isSaved) || other.isSaved == isSaved));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,title,memo,imageUrl,cookedAt,isLoading,error,isSaved);
+
+@override
+String toString() {
+  return 'CookingLogCreateState(title: $title, memo: $memo, imageUrl: $imageUrl, cookedAt: $cookedAt, isLoading: $isLoading, error: $error, isSaved: $isSaved)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $CookingLogCreateStateCopyWith<$Res> {
-  factory $CookingLogCreateStateCopyWith(
-    CookingLogCreateState value,
-    $Res Function(CookingLogCreateState) then,
-  ) = _$CookingLogCreateStateCopyWithImpl<$Res, CookingLogCreateState>;
-  @useResult
-  $Res call({
-    String title,
-    String memo,
-    String? imageUrl,
-    DateTime? cookedAt,
-    bool isLoading,
-    String? error,
-    bool isSaved,
-  });
-}
+abstract mixin class $CookingLogCreateStateCopyWith<$Res>  {
+  factory $CookingLogCreateStateCopyWith(CookingLogCreateState value, $Res Function(CookingLogCreateState) _then) = _$CookingLogCreateStateCopyWithImpl;
+@useResult
+$Res call({
+ String title, String memo, String? imageUrl, DateTime? cookedAt, bool isLoading, String? error, bool isSaved
+});
 
+
+
+
+}
 /// @nodoc
-class _$CookingLogCreateStateCopyWithImpl<
-  $Res,
-  $Val extends CookingLogCreateState
->
+class _$CookingLogCreateStateCopyWithImpl<$Res>
     implements $CookingLogCreateStateCopyWith<$Res> {
-  _$CookingLogCreateStateCopyWithImpl(this._value, this._then);
+  _$CookingLogCreateStateCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final CookingLogCreateState _self;
+  final $Res Function(CookingLogCreateState) _then;
 
-  /// Create a copy of CookingLogCreateState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? title = null,
-    Object? memo = null,
-    Object? imageUrl = freezed,
-    Object? cookedAt = freezed,
-    Object? isLoading = null,
-    Object? error = freezed,
-    Object? isSaved = null,
-  }) {
-    return _then(
-      _value.copyWith(
-            title: null == title
-                ? _value.title
-                : title // ignore: cast_nullable_to_non_nullable
-                      as String,
-            memo: null == memo
-                ? _value.memo
-                : memo // ignore: cast_nullable_to_non_nullable
-                      as String,
-            imageUrl: freezed == imageUrl
-                ? _value.imageUrl
-                : imageUrl // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            cookedAt: freezed == cookedAt
-                ? _value.cookedAt
-                : cookedAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime?,
-            isLoading: null == isLoading
-                ? _value.isLoading
-                : isLoading // ignore: cast_nullable_to_non_nullable
-                      as bool,
-            error: freezed == error
-                ? _value.error
-                : error // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            isSaved: null == isSaved
-                ? _value.isSaved
-                : isSaved // ignore: cast_nullable_to_non_nullable
-                      as bool,
-          )
-          as $Val,
-    );
-  }
+/// Create a copy of CookingLogCreateState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? memo = null,Object? imageUrl = freezed,Object? cookedAt = freezed,Object? isLoading = null,Object? error = freezed,Object? isSaved = null,}) {
+  return _then(_self.copyWith(
+title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,memo: null == memo ? _self.memo : memo // ignore: cast_nullable_to_non_nullable
+as String,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
+as String?,cookedAt: freezed == cookedAt ? _self.cookedAt : cookedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as String?,isSaved: null == isSaved ? _self.isSaved : isSaved // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [CookingLogCreateState].
+extension CookingLogCreateStatePatterns on CookingLogCreateState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CookingLogCreateState value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _CookingLogCreateState() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CookingLogCreateState value)  $default,){
+final _that = this;
+switch (_that) {
+case _CookingLogCreateState():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CookingLogCreateState value)?  $default,){
+final _that = this;
+switch (_that) {
+case _CookingLogCreateState() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String title,  String memo,  String? imageUrl,  DateTime? cookedAt,  bool isLoading,  String? error,  bool isSaved)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _CookingLogCreateState() when $default != null:
+return $default(_that.title,_that.memo,_that.imageUrl,_that.cookedAt,_that.isLoading,_that.error,_that.isSaved);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String title,  String memo,  String? imageUrl,  DateTime? cookedAt,  bool isLoading,  String? error,  bool isSaved)  $default,) {final _that = this;
+switch (_that) {
+case _CookingLogCreateState():
+return $default(_that.title,_that.memo,_that.imageUrl,_that.cookedAt,_that.isLoading,_that.error,_that.isSaved);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String title,  String memo,  String? imageUrl,  DateTime? cookedAt,  bool isLoading,  String? error,  bool isSaved)?  $default,) {final _that = this;
+switch (_that) {
+case _CookingLogCreateState() when $default != null:
+return $default(_that.title,_that.memo,_that.imageUrl,_that.cookedAt,_that.isLoading,_that.error,_that.isSaved);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
-abstract class _$$CookingLogCreateStateImplCopyWith<$Res>
-    implements $CookingLogCreateStateCopyWith<$Res> {
-  factory _$$CookingLogCreateStateImplCopyWith(
-    _$CookingLogCreateStateImpl value,
-    $Res Function(_$CookingLogCreateStateImpl) then,
-  ) = __$$CookingLogCreateStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    String title,
-    String memo,
-    String? imageUrl,
-    DateTime? cookedAt,
-    bool isLoading,
-    String? error,
-    bool isSaved,
-  });
+
+
+class _CookingLogCreateState implements CookingLogCreateState {
+  const _CookingLogCreateState({this.title = '', this.memo = '', this.imageUrl, this.cookedAt, this.isLoading = false, this.error, this.isSaved = false});
+  
+
+@override@JsonKey() final  String title;
+@override@JsonKey() final  String memo;
+@override final  String? imageUrl;
+@override final  DateTime? cookedAt;
+@override@JsonKey() final  bool isLoading;
+@override final  String? error;
+@override@JsonKey() final  bool isSaved;
+
+/// Create a copy of CookingLogCreateState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CookingLogCreateStateCopyWith<_CookingLogCreateState> get copyWith => __$CookingLogCreateStateCopyWithImpl<_CookingLogCreateState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CookingLogCreateState&&(identical(other.title, title) || other.title == title)&&(identical(other.memo, memo) || other.memo == memo)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.cookedAt, cookedAt) || other.cookedAt == cookedAt)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error)&&(identical(other.isSaved, isSaved) || other.isSaved == isSaved));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,title,memo,imageUrl,cookedAt,isLoading,error,isSaved);
+
+@override
+String toString() {
+  return 'CookingLogCreateState(title: $title, memo: $memo, imageUrl: $imageUrl, cookedAt: $cookedAt, isLoading: $isLoading, error: $error, isSaved: $isSaved)';
+}
+
+
 }
 
 /// @nodoc
-class __$$CookingLogCreateStateImplCopyWithImpl<$Res>
-    extends
-        _$CookingLogCreateStateCopyWithImpl<$Res, _$CookingLogCreateStateImpl>
-    implements _$$CookingLogCreateStateImplCopyWith<$Res> {
-  __$$CookingLogCreateStateImplCopyWithImpl(
-    _$CookingLogCreateStateImpl _value,
-    $Res Function(_$CookingLogCreateStateImpl) _then,
-  ) : super(_value, _then);
+abstract mixin class _$CookingLogCreateStateCopyWith<$Res> implements $CookingLogCreateStateCopyWith<$Res> {
+  factory _$CookingLogCreateStateCopyWith(_CookingLogCreateState value, $Res Function(_CookingLogCreateState) _then) = __$CookingLogCreateStateCopyWithImpl;
+@override @useResult
+$Res call({
+ String title, String memo, String? imageUrl, DateTime? cookedAt, bool isLoading, String? error, bool isSaved
+});
 
-  /// Create a copy of CookingLogCreateState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? title = null,
-    Object? memo = null,
-    Object? imageUrl = freezed,
-    Object? cookedAt = freezed,
-    Object? isLoading = null,
-    Object? error = freezed,
-    Object? isSaved = null,
-  }) {
-    return _then(
-      _$CookingLogCreateStateImpl(
-        title: null == title
-            ? _value.title
-            : title // ignore: cast_nullable_to_non_nullable
-                  as String,
-        memo: null == memo
-            ? _value.memo
-            : memo // ignore: cast_nullable_to_non_nullable
-                  as String,
-        imageUrl: freezed == imageUrl
-            ? _value.imageUrl
-            : imageUrl // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        cookedAt: freezed == cookedAt
-            ? _value.cookedAt
-            : cookedAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime?,
-        isLoading: null == isLoading
-            ? _value.isLoading
-            : isLoading // ignore: cast_nullable_to_non_nullable
-                  as bool,
-        error: freezed == error
-            ? _value.error
-            : error // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        isSaved: null == isSaved
-            ? _value.isSaved
-            : isSaved // ignore: cast_nullable_to_non_nullable
-                  as bool,
-      ),
-    );
-  }
+
+
+
 }
-
 /// @nodoc
+class __$CookingLogCreateStateCopyWithImpl<$Res>
+    implements _$CookingLogCreateStateCopyWith<$Res> {
+  __$CookingLogCreateStateCopyWithImpl(this._self, this._then);
 
-class _$CookingLogCreateStateImpl implements _CookingLogCreateState {
-  const _$CookingLogCreateStateImpl({
-    this.title = '',
-    this.memo = '',
-    this.imageUrl,
-    this.cookedAt,
-    this.isLoading = false,
-    this.error,
-    this.isSaved = false,
-  });
+  final _CookingLogCreateState _self;
+  final $Res Function(_CookingLogCreateState) _then;
 
-  @override
-  @JsonKey()
-  final String title;
-  @override
-  @JsonKey()
-  final String memo;
-  @override
-  final String? imageUrl;
-  @override
-  final DateTime? cookedAt;
-  @override
-  @JsonKey()
-  final bool isLoading;
-  @override
-  final String? error;
-  @override
-  @JsonKey()
-  final bool isSaved;
-
-  @override
-  String toString() {
-    return 'CookingLogCreateState(title: $title, memo: $memo, imageUrl: $imageUrl, cookedAt: $cookedAt, isLoading: $isLoading, error: $error, isSaved: $isSaved)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CookingLogCreateStateImpl &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.memo, memo) || other.memo == memo) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
-            (identical(other.cookedAt, cookedAt) ||
-                other.cookedAt == cookedAt) &&
-            (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
-            (identical(other.error, error) || other.error == error) &&
-            (identical(other.isSaved, isSaved) || other.isSaved == isSaved));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    title,
-    memo,
-    imageUrl,
-    cookedAt,
-    isLoading,
-    error,
-    isSaved,
-  );
-
-  /// Create a copy of CookingLogCreateState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CookingLogCreateStateImplCopyWith<_$CookingLogCreateStateImpl>
-  get copyWith =>
-      __$$CookingLogCreateStateImplCopyWithImpl<_$CookingLogCreateStateImpl>(
-        this,
-        _$identity,
-      );
+/// Create a copy of CookingLogCreateState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? title = null,Object? memo = null,Object? imageUrl = freezed,Object? cookedAt = freezed,Object? isLoading = null,Object? error = freezed,Object? isSaved = null,}) {
+  return _then(_CookingLogCreateState(
+title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,memo: null == memo ? _self.memo : memo // ignore: cast_nullable_to_non_nullable
+as String,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
+as String?,cookedAt: freezed == cookedAt ? _self.cookedAt : cookedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as String?,isSaved: null == isSaved ? _self.isSaved : isSaved // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
 }
 
-abstract class _CookingLogCreateState implements CookingLogCreateState {
-  const factory _CookingLogCreateState({
-    final String title,
-    final String memo,
-    final String? imageUrl,
-    final DateTime? cookedAt,
-    final bool isLoading,
-    final String? error,
-    final bool isSaved,
-  }) = _$CookingLogCreateStateImpl;
 
-  @override
-  String get title;
-  @override
-  String get memo;
-  @override
-  String? get imageUrl;
-  @override
-  DateTime? get cookedAt;
-  @override
-  bool get isLoading;
-  @override
-  String? get error;
-  @override
-  bool get isSaved;
-
-  /// Create a copy of CookingLogCreateState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CookingLogCreateStateImplCopyWith<_$CookingLogCreateStateImpl>
-  get copyWith => throw _privateConstructorUsedError;
 }
+
+// dart format on

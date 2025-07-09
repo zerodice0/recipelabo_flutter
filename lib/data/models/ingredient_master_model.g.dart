@@ -6,9 +6,9 @@ part of 'ingredient_master_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$IngredientMasterModelImpl _$$IngredientMasterModelImplFromJson(
+_IngredientMasterModel _$IngredientMasterModelFromJson(
   Map<String, dynamic> json,
-) => _$IngredientMasterModelImpl(
+) => _IngredientMasterModel(
   id: json['id'] as String,
   name: json['name'] as String,
   categoryId: json['categoryId'] as String,
@@ -20,8 +20,8 @@ _$IngredientMasterModelImpl _$$IngredientMasterModelImplFromJson(
   usageCount: (json['usageCount'] as num?)?.toInt() ?? 0,
 );
 
-Map<String, dynamic> _$$IngredientMasterModelImplToJson(
-  _$IngredientMasterModelImpl instance,
+Map<String, dynamic> _$IngredientMasterModelToJson(
+  _IngredientMasterModel instance,
 ) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,

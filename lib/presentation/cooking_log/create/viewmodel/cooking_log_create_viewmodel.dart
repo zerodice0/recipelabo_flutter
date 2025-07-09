@@ -8,7 +8,7 @@ part 'cooking_log_create_viewmodel.freezed.dart';
 part 'cooking_log_create_viewmodel.g.dart';
 
 @freezed
-class CookingLogCreateState with _$CookingLogCreateState {
+abstract class CookingLogCreateState with _$CookingLogCreateState {
   const factory CookingLogCreateState({
     @Default('') String title,
     @Default('') String memo,

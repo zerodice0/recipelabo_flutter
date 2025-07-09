@@ -5,7 +5,7 @@ part 'cooking_log_model.g.dart';
 
 /// 쿠킹 로그 데이터 모델
 @freezed
-class CookingLogModel with _$CookingLogModel {
+abstract class CookingLogModel with _$CookingLogModel {
   const factory CookingLogModel({
     required String id,
     required String recipeVersionId,

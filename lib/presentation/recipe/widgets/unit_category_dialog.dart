@@ -28,33 +28,57 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
       {
         'id': l10n.unitCategoryWeight,
         'name': l10n.unitCategoryWeight,
-        'description': 'g, kg, ${l10n.unitWeightGramsDesc}, ${l10n.unitWeightKilogramsDesc} 등',
+        'description':
+            'g, kg, ${l10n.unitWeightGramsDesc}, ${l10n.unitWeightKilogramsDesc} 등',
         'icon': Icons.monitor_weight,
-        'examples': [l10n.unitWeightGrams, l10n.unitWeightKilograms, l10n.unitWeightGramsDesc, l10n.unitWeightKilogramsDesc],
+        'examples': [
+          l10n.unitWeightGrams,
+          l10n.unitWeightKilograms,
+          l10n.unitWeightGramsDesc,
+          l10n.unitWeightKilogramsDesc,
+        ],
         'legacy_id': '무게', // 하위 호환성용
       },
       {
         'id': l10n.unitCategoryVolume,
         'name': l10n.unitCategoryVolume,
-        'description': 'mL, L, ${l10n.unitVolumeCup}, ${l10n.unitVolumeTablespoon}, ${l10n.unitVolumeTeaspoon} 등',
+        'description':
+            'mL, L, ${l10n.unitVolumeCup}, ${l10n.unitVolumeTablespoon}, ${l10n.unitVolumeTeaspoon} 등',
         'icon': Icons.local_drink,
-        'examples': [l10n.unitVolumeMilliliters, l10n.unitVolumeLiters, l10n.unitVolumeCup, l10n.unitVolumeTablespoon, l10n.unitVolumeTeaspoon],
+        'examples': [
+          l10n.unitVolumeMilliliters,
+          l10n.unitVolumeLiters,
+          l10n.unitVolumeCup,
+          l10n.unitVolumeTablespoon,
+          l10n.unitVolumeTeaspoon,
+        ],
         'legacy_id': '부피', // 하위 호환성용
       },
       {
         'id': l10n.unitCategoryCount,
         'name': l10n.unitCategoryCount,
-        'description': '${l10n.unitCountPieces}, ${l10n.unitCountSlices}, ${l10n.unitCountCloves}, ${l10n.unitCountSheets} 등',
+        'description':
+            '${l10n.unitCountPieces}, ${l10n.unitCountSlices}, ${l10n.unitCountCloves}, ${l10n.unitCountSheets} 등',
         'icon': Icons.numbers,
-        'examples': [l10n.unitCountPieces, l10n.unitCountSlices, l10n.unitCountCloves, l10n.unitCountSheets],
+        'examples': [
+          l10n.unitCountPieces,
+          l10n.unitCountSlices,
+          l10n.unitCountCloves,
+          l10n.unitCountSheets,
+        ],
         'legacy_id': '개수', // 하위 호환성용
       },
       {
         'id': l10n.unitCategoryMisc,
         'name': l10n.unitCategoryMisc,
-        'description': '${l10n.unitMiscPinch}, ${l10n.unitMiscLittle}, ${l10n.unitMiscModerate} 등',
+        'description':
+            '${l10n.unitMiscPinch}, ${l10n.unitMiscLittle}, ${l10n.unitMiscModerate} 등',
         'icon': Icons.more_horiz,
-        'examples': [l10n.unitMiscPinch, l10n.unitMiscLittle, l10n.unitMiscModerate],
+        'examples': [
+          l10n.unitMiscPinch,
+          l10n.unitMiscLittle,
+          l10n.unitMiscModerate,
+        ],
         'legacy_id': '기타', // 하위 호환성용
       },
     ];
@@ -132,7 +156,7 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
   @override
   Widget build(BuildContext context) {
     final categories = _getCategories(context);
-    
+
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       title: Column(
