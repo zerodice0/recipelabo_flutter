@@ -27,19 +27,36 @@ class UnitSelectorWidget extends ConsumerStatefulWidget {
 
 class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
   final TextEditingController _controller = TextEditingController();
+  bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    _controller.text = widget.selectedUnit;
+    // context 사용 코드 제거 - didChangeDependencies에서 처리
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isInitialized) {
+      _updateControllerText();
+      _isInitialized = true;
+    }
   }
 
   @override
   void didUpdateWidget(UnitSelectorWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.selectedUnit != widget.selectedUnit) {
-      _controller.text = widget.selectedUnit;
+      _updateControllerText();
     }
+  }
+
+  void _updateControllerText() {
+    _controller.text = UnitLocalizer.getLocalizedUnitName(
+      widget.selectedUnit,
+      context,
+    );
   }
 
   @override
@@ -151,7 +168,7 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      '단위를 불러오는 중 오류가 발생했습니다',
+                      AppLocalizations.of(context).unitErrorLoading,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const SizedBox(height: 8),
@@ -159,7 +176,7 @@ class _UnitSelectorWidgetState extends ConsumerState<UnitSelectorWidget> {
                       onPressed: () {
                         ref.read(availableUnitsProvider.notifier).refresh();
                       },
-                      child: const Text('다시 시도'),
+                      child: Text(AppLocalizations.of(context).actionRetry),
                     ),
                   ],
                 ),
@@ -325,7 +342,9 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
             trailing:
                 unit.usageCount > 0 && !UnitLocalizer.isPresetUnit(unit.name)
                 ? Text(
-                    '${unit.usageCount}회',
+                    AppLocalizations.of(
+                      context,
+                    ).unitUsageCount(unit.usageCount.toString()),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -342,8 +361,9 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
   @override
   Widget build(BuildContext context) {
     // 단위들을 세부 카테고리별로 그룹화
-    final frequentUnits = _filteredUnits.where((u) => u.usageCount > 0).toList()
-      ..sort((a, b) => b.usageCount.compareTo(a.usageCount));
+    final frequentUnits =
+        _filteredUnits.where((u) => u.usageCount >= 0).toList()
+          ..sort((a, b) => b.usageCount.compareTo(a.usageCount));
 
     // 프리셋 단위들을 우선 표시 (사용빈도가 높게 설정됨)
     final l10n = AppLocalizations.of(context);
@@ -356,7 +376,8 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
         _filteredUnits
             .where(
               (u) =>
-                  (u.subCategory == weightCategory || u.subCategory == '무게') &&
+                  (u.subCategory == weightCategory ||
+                      u.subCategory == 'Weight') &&
                   PresetUnits.isPresetUnit(u.name),
             )
             .toList()
@@ -366,7 +387,8 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
         _filteredUnits
             .where(
               (u) =>
-                  (u.subCategory == weightCategory || u.subCategory == '무게') &&
+                  (u.subCategory == weightCategory ||
+                      u.subCategory == 'Weight') &&
                   !PresetUnits.isPresetUnit(u.name),
             )
             .toList()
@@ -376,7 +398,8 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
         _filteredUnits
             .where(
               (u) =>
-                  (u.subCategory == volumeCategory || u.subCategory == '부피') &&
+                  (u.subCategory == volumeCategory ||
+                      u.subCategory == 'Volume') &&
                   PresetUnits.isPresetUnit(u.name),
             )
             .toList()
@@ -386,7 +409,8 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
         _filteredUnits
             .where(
               (u) =>
-                  (u.subCategory == volumeCategory || u.subCategory == '부피') &&
+                  (u.subCategory == volumeCategory ||
+                      u.subCategory == 'Volume') &&
                   !PresetUnits.isPresetUnit(u.name),
             )
             .toList()
@@ -396,7 +420,8 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
         _filteredUnits
             .where(
               (u) =>
-                  (u.subCategory == countCategory || u.subCategory == '개수') &&
+                  (u.subCategory == countCategory ||
+                      u.subCategory == 'Count') &&
                   PresetUnits.isPresetUnit(u.name),
             )
             .toList()
@@ -406,7 +431,8 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
         _filteredUnits
             .where(
               (u) =>
-                  (u.subCategory == countCategory || u.subCategory == '개수') &&
+                  (u.subCategory == countCategory ||
+                      u.subCategory == 'Count') &&
                   !PresetUnits.isPresetUnit(u.name),
             )
             .toList()
@@ -416,7 +442,7 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
         _filteredUnits
             .where(
               (u) =>
-                  ((u.subCategory == miscCategory || u.subCategory == '기타') ||
+                  ((u.subCategory == miscCategory || u.subCategory == 'Misc') ||
                       u.subCategory == null) &&
                   PresetUnits.isPresetUnit(u.name),
             )
@@ -427,7 +453,7 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
         _filteredUnits
             .where(
               (u) =>
-                  ((u.subCategory == miscCategory || u.subCategory == '기타') ||
+                  ((u.subCategory == miscCategory || u.subCategory == 'Misc') ||
                       u.subCategory == null) &&
                   !PresetUnits.isPresetUnit(u.name),
             )
@@ -580,8 +606,14 @@ class _UnitBottomSheetState extends State<_UnitBottomSheet> {
                       Icons.add_circle,
                       color: Theme.of(context).colorScheme.primary,
                     ),
-                    title: Text('새 단위 추가: "${_searchController.text.trim()}"'),
-                    subtitle: const Text('새로운 단위를 추가합니다'),
+                    title: Text(
+                      AppLocalizations.of(
+                        context,
+                      ).unitAddNew(_searchController.text.trim()),
+                    ),
+                    subtitle: Text(
+                      AppLocalizations.of(context).unitAddNewSubtitle,
+                    ),
                     onTap: () async {
                       await widget.onCreateNewUnit(
                         _searchController.text.trim(),
