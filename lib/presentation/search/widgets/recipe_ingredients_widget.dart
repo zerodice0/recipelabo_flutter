@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipick_flutter/core/config/app_colors.dart';
 import 'package:recipick_flutter/domain/usecases/get_recipe_version_usecase.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 import 'package:recipick_flutter/presentation/search/widgets/ingredient_chip_widget.dart';
@@ -82,8 +83,15 @@ class _RecipeIngredientsWidgetState
   }
 
   Widget _buildIngredientsDisplay(List<String> ingredientNames) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
+      decoration: BoxDecoration(
+        color: AppColors.warmWhite,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(12),
+          bottomRight: Radius.circular(12),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
