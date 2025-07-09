@@ -426,10 +426,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settingsManagement => '관리';
 
   @override
-  String get settingsSeasoningUnitManagement => '조미료/단위 관리';
+  String get settingsSeasoningUnitManagement => '재료/단위 관리';
 
   @override
-  String get settingsSeasoningUnitDescription => '조미료/단위 추가, 수정, 삭제';
+  String get settingsSeasoningUnitDescription => '재료/단위 추가, 수정, 삭제';
 
   @override
   String get settingsAppInfo => '앱 정보';

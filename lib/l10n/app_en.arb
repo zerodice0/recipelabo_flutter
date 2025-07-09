@@ -591,11 +591,11 @@
   "@settingsManagement": {
     "description": "관리 섹션"
   },
-  "settingsSeasoningUnitManagement": "Seasoning/Unit Management",
+  "settingsSeasoningUnitManagement": "Ingredient/Unit Management",
   "@settingsSeasoningUnitManagement": {
-    "description": "조미료/단위 관리 메뉴"
+    "description": "재료/단위 관리 메뉴"
   },
-  "settingsSeasoningUnitDescription": "Add, edit, delete seasonings/units",
+  "settingsSeasoningUnitDescription": "Add, edit, delete ingredients/units",
   "@settingsSeasoningUnitDescription": {
     "description": "조미료/단위 관리 설명"
   },

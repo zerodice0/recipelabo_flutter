@@ -433,11 +433,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsManagement => 'Management';
 
   @override
-  String get settingsSeasoningUnitManagement => 'Seasoning/Unit Management';
+  String get settingsSeasoningUnitManagement => 'Ingredient/Unit Management';
 
   @override
   String get settingsSeasoningUnitDescription =>
-      'Add, edit, delete seasonings/units';
+      'Add, edit, delete ingredients/units';
 
   @override
   String get settingsAppInfo => 'App Info';

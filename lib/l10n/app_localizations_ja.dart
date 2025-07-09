@@ -427,10 +427,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsManagement => '管理';
 
   @override
-  String get settingsSeasoningUnitManagement => '調味料/単位管理';
+  String get settingsSeasoningUnitManagement => '材料/単位管理';
 
   @override
-  String get settingsSeasoningUnitDescription => '調味料/単位の追加、編集、削除';
+  String get settingsSeasoningUnitDescription => '材料/単位の追加、編集、削除';
 
   @override
   String get settingsAppInfo => 'アプリ情報';

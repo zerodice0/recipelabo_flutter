@@ -874,16 +874,16 @@ abstract class AppLocalizations {
   /// **'Management'**
   String get settingsManagement;
 
-  /// 조미료/단위 관리 메뉴
+  /// 재료/단위 관리 메뉴
   ///
   /// In en, this message translates to:
-  /// **'Seasoning/Unit Management'**
+  /// **'Ingredient/Unit Management'**
   String get settingsSeasoningUnitManagement;
 
   /// 조미료/단위 관리 설명
   ///
   /// In en, this message translates to:
-  /// **'Add, edit, delete seasonings/units'**
+  /// **'Add, edit, delete ingredients/units'**
   String get settingsSeasoningUnitDescription;
 
   /// 앱 정보 섹션
