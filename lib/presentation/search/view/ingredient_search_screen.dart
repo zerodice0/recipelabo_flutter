@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:recipick_flutter/core/config/app_colors.dart';
 import 'package:recipick_flutter/presentation/search/viewmodel/ingredient_search_viewmodel.dart';
 import 'package:recipick_flutter/presentation/search/widgets/ingredient_chip.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
@@ -163,6 +164,7 @@ class _IngredientSearchScreenState
         children: [
           // 사용 가능한 재료들
           _buildAvailableIngredients(state, viewModel),
+          const SizedBox(height: 24),
           // 선택된 재료들
           SelectedIngredientsChips(
             selectedIngredients: state.selectedIngredients,
@@ -273,9 +275,30 @@ class _IngredientSearchScreenState
   Widget _buildRecipeCard(BuildContext context, recipe) {
     final state = ref.watch(ingredientSearchViewModelProvider);
 
-    return Card(
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.getChipBackground(
+          Theme.of(context).brightness == Brightness.dark,
+        ),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.getChipBorder(
+            Theme.of(context).brightness == Brightness.dark,
+          ),
+          width: 2,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.getChipShadow(
+              Theme.of(context).brightness == Brightness.dark,
+            ).withValues(alpha: 0.3),
+            offset: const Offset(2, 2),
+            blurRadius: 0,
+          ),
+        ],
+      ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ListTile(
             contentPadding: const EdgeInsets.all(16),
@@ -315,7 +338,7 @@ class _IngredientSearchScreenState
     IngredientSearchViewModel viewModel,
   ) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
           state.searchQuery.isEmpty
