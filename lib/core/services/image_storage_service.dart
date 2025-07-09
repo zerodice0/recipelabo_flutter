@@ -1,8 +1,11 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:convert';
+import 'dart:math' as math;
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import 'package:uuid/uuid.dart';
+import 'package:image/image.dart' as img;
 
 /// 이미지 저장 및 관리를 담당하는 서비스
 class ImageStorageService {
@@ -189,6 +192,141 @@ class ImageStorageService {
       return deletedCount;
     } catch (e) {
       return 0;
+    }
+  }
+
+  /// 이미지 파일을 리사이징하고 Base64 문자열로 인코딩합니다
+  ///
+  /// [imageFile] 인코딩할 이미지 파일
+  /// [maxWidth] 최대 가로 길이 (기본값: 1920, Full HD)
+  /// [maxHeight] 최대 세로 길이 (기본값: 1080, Full HD)
+  /// [quality] JPEG 압축 품질 (기본값: 85, 0-100 범위)
+  ///
+  /// Returns: Base64로 인코딩된 문자열, 실패 시 null
+  Future<String?> encodeImageToBase64(
+    File imageFile, {
+    int maxWidth = 1920,
+    int maxHeight = 1080,
+    int quality = 85,
+  }) async {
+    try {
+      if (!await imageFile.exists()) {
+        return null;
+      }
+
+      // 이미지 리사이징 적용
+      final resizedBytes = await _resizeImage(
+        imageFile,
+        maxWidth: maxWidth,
+        maxHeight: maxHeight,
+        quality: quality,
+      );
+
+      if (resizedBytes == null) {
+        // 리사이징 실패 시 원본 파일 사용
+        final bytes = await imageFile.readAsBytes();
+        return base64Encode(bytes);
+      }
+
+      return base64Encode(resizedBytes);
+    } catch (e) {
+      throw Exception('이미지 Base64 인코딩 중 오류가 발생했습니다: $e');
+    }
+  }
+
+  /// 이미지를 리사이징하고 압축합니다
+  ///
+  /// [imageFile] 리사이징할 이미지 파일
+  /// [maxWidth] 최대 가로 길이
+  /// [maxHeight] 최대 세로 길이
+  /// [quality] JPEG 압축 품질 (0-100)
+  ///
+  /// Returns: 리사이징된 이미지 바이트 데이터, 실패 시 null
+  Future<Uint8List?> _resizeImage(
+    File imageFile, {
+    required int maxWidth,
+    required int maxHeight,
+    required int quality,
+  }) async {
+    try {
+      final bytes = await imageFile.readAsBytes();
+      final image = img.decodeImage(bytes);
+      
+      if (image == null) {
+        return null;
+      }
+
+      // 현재 이미지 크기
+      final currentWidth = image.width;
+      final currentHeight = image.height;
+
+      // 리사이징이 필요한지 확인
+      if (currentWidth <= maxWidth && currentHeight <= maxHeight) {
+        // 리사이징이 필요없으면 JPEG 압축만 적용
+        final compressedImage = img.encodeJpg(image, quality: quality);
+        return Uint8List.fromList(compressedImage);
+      }
+
+      // 비율을 유지하면서 리사이징할 크기 계산
+      final widthRatio = maxWidth / currentWidth;
+      final heightRatio = maxHeight / currentHeight;
+      final ratio = math.min(widthRatio, heightRatio);
+
+      final newWidth = (currentWidth * ratio).round();
+      final newHeight = (currentHeight * ratio).round();
+
+      // 이미지 리사이징
+      final resizedImage = img.copyResize(
+        image,
+        width: newWidth,
+        height: newHeight,
+        interpolation: img.Interpolation.linear,
+      );
+
+      // JPEG로 압축하여 바이트 배열로 변환
+      final compressedImage = img.encodeJpg(resizedImage, quality: quality);
+      return Uint8List.fromList(compressedImage);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// Base64 문자열을 이미지 바이트 데이터로 디코딩합니다
+  ///
+  /// [base64String] 디코딩할 Base64 문자열
+  ///
+  /// Returns: 디코딩된 이미지 바이트 데이터, 실패 시 null
+  Uint8List? decodeBase64ToBytes(String base64String) {
+    try {
+      return base64Decode(base64String);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// Base64 문자열에서 임시 이미지 파일을 생성합니다
+  ///
+  /// [base64String] Base64로 인코딩된 이미지 데이터
+  /// [extension] 파일 확장자 (예: '.jpg', '.png')
+  ///
+  /// Returns: 생성된 임시 파일, 실패 시 null
+  Future<File?> createTempFileFromBase64(
+    String base64String,
+    String extension,
+  ) async {
+    try {
+      final bytes = decodeBase64ToBytes(base64String);
+      if (bytes == null) return null;
+
+      final tempDir = await getTemporaryDirectory();
+      final tempFile = File(
+        path.join(tempDir.path, '${_uuid.v4()}$extension'),
+      );
+
+      await tempFile.writeAsBytes(bytes);
+      return tempFile;
+    } catch (e) {
+      return null;
     }
   }
 }

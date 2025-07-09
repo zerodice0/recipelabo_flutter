@@ -1,5 +1,5 @@
 name: recipick_flutter
-description: "A Flutter app for easy recipe management - create, evolve, and organize your recipes effortlessly."
+description: "Easy recipe management - create, evolve, and organize your recipes effortlessly."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.1+2
+version: 1.0.2+3
 
 environment:
   sdk: '>=3.8.0 <4.0.0'
@@ -45,6 +45,7 @@ dependencies:
   riverpod_annotation: ^2.3.5
   uuid: ^4.4.0
   image_picker: ^1.1.2
+  image: ^4.3.0
   path_provider: ^2.1.3
   go_router: ^16.0.0
   flutter_local_notifications: ^19.3.0
@@ -55,6 +56,7 @@ dependencies:
   permission_handler: ^11.3.1
   audioplayers: ^5.2.1
   alarm: ^5.1.4
+  package_info_plus: ^8.0.0
 
 dev_dependencies:
   flutter_test:

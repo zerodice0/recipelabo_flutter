@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -1048,17 +1048,10 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Theme.of(context).colorScheme.outline),
             ),
-            child: cookingLog.imageUrl != null
+            child: (cookingLog.base64EncodedImageData != null)
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(7),
-                    child: Image.file(
-                      File(cookingLog.imageUrl!),
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => Icon(
-                        Icons.broken_image,
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
-                    ),
+                    child: _buildCookingLogImage(cookingLog),
                   )
                 : Icon(
                     Icons.restaurant,
@@ -1107,6 +1100,29 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  /// 쿠킹 로그 이미지를 표시하는 위젯 (Base64 및 파일 경로 지원)
+  Widget _buildCookingLogImage(CookingLogEntity cookingLog) {
+    // Base64 이미지 데이터가 있는 경우 우선 사용
+    if (cookingLog.base64EncodedImageData != null) {
+      return Image.memory(
+        base64Decode(cookingLog.base64EncodedImageData!),
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) => _buildErrorIcon(),
+      );
+    }
+
+    // 이미지 데이터가 없는 경우
+    return _buildErrorIcon();
+  }
+
+  /// 에러 아이콘 위젯
+  Widget _buildErrorIcon() {
+    return Icon(
+      Icons.broken_image,
+      color: Theme.of(context).colorScheme.onSurfaceVariant,
     );
   }
 }

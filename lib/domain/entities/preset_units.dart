@@ -214,19 +214,4 @@ class PresetUnits {
 
     return isPresetUnit;
   }
-
-  /// 특정 단위의 프리셋 정보 가져오기 - 중립적 ID 기반
-  static IngredientMasterEntity? getPresetUnit(
-    BuildContext context,
-    String unitName,
-  ) {
-    try {
-      // 중립적 ID로 먼저 찾기
-      if (_neutralUnitIds.contains(unitName)) {
-        return createLocalizedUnit(context, unitName);
-      }
-    } catch (e) {
-      return null;
-    }
-  }
 }

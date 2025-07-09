@@ -11,6 +11,7 @@ import 'package:recipick_flutter/l10n/app_localizations.dart';
 import 'package:recipick_flutter/core/providers/locale_provider.dart';
 import 'package:recipick_flutter/presentation/settings/widgets/language_selection_dialog.dart';
 import 'package:recipick_flutter/core/widgets/ad_banner_widget.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class MainNavigationScreen extends ConsumerWidget {
   const MainNavigationScreen({super.key});
@@ -308,11 +309,21 @@ class ProfileScreen extends ConsumerWidget {
           Card(
             child: Column(
               children: [
-                ListTile(
-                  leading: const Icon(Icons.info_outline),
-                  title: Text(AppLocalizations.of(context).settingsVersion),
-                  subtitle: const Text('1.0.0'),
-                  trailing: const Icon(Icons.chevron_right),
+                FutureBuilder<PackageInfo>(
+                  future: PackageInfo.fromPlatform(),
+                  builder: (context, snapshot) {
+                    String version = '1.0.0';
+                    if (snapshot.hasData) {
+                      version = snapshot.data!.version;
+                    }
+
+                    return ListTile(
+                      leading: const Icon(Icons.info_outline),
+                      title: Text(AppLocalizations.of(context).settingsVersion),
+                      subtitle: Text(version),
+                      trailing: const Icon(Icons.chevron_right),
+                    );
+                  },
                 ),
                 const Divider(height: 1),
                 ListTile(

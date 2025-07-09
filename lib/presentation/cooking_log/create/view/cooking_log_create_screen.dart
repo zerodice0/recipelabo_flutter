@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -117,6 +117,7 @@ class _CookingLogCreateScreenState
                   if (_formKey.currentState?.validate() ?? false) {
                     viewModel.updateTitle(_titleController.text);
                     viewModel.updateMemo(_memoController.text);
+
                     await viewModel.saveCookingLog(
                       widget.recipeVersionId,
                       'default_user', // TODO: 실제 사용자 ID로 변경
@@ -280,8 +281,8 @@ class _CookingLogCreateScreenState
             ),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: state.imageUrl != null
-              ? _buildSelectedImage(state.imageUrl!, viewModel)
+          child: state.base64EncodedImageData != null
+              ? _buildSelectedImage(state.base64EncodedImageData!, viewModel)
               : _buildImagePlaceholder(viewModel),
         ),
       ],
@@ -289,27 +290,14 @@ class _CookingLogCreateScreenState
   }
 
   Widget _buildSelectedImage(
-    String imagePath,
+    String base64EncodedImageData,
     CookingLogCreateViewModel viewModel,
   ) {
     return Stack(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(7),
-          child: Image.file(
-            File(imagePath),
-            width: double.infinity,
-            height: double.infinity,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) => Container(
-              color: Theme.of(context).colorScheme.surfaceContainerHighest,
-              child: Icon(
-                Icons.broken_image,
-                size: 48,
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-            ),
-          ),
+          child: _buildImageWidget(base64EncodedImageData),
         ),
         Positioned(
           top: 8,
@@ -401,6 +389,38 @@ class _CookingLogCreateScreenState
           ),
         );
       },
+    );
+  }
+
+  /// Base64 데이터와 파일 경로를 모두 지원하는 이미지 위젯
+  Widget _buildImageWidget(String base64EncodedImageData) {
+    // Base64 문자열인지 확인
+    try {
+      // Base64 데이터 디코딩
+      final bytes = base64Decode(base64EncodedImageData);
+
+      return Image.memory(
+        bytes,
+        width: double.infinity,
+        height: double.infinity,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) => _buildErrorImage(),
+      );
+    } catch (e) {
+      // Base64 디코딩 실패 시 에러 이미지 표시
+      return _buildErrorImage();
+    }
+  }
+
+  /// 에러 이미지 위젯
+  Widget _buildErrorImage() {
+    return Container(
+      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+      child: Icon(
+        Icons.broken_image,
+        size: 48,
+        color: Theme.of(context).colorScheme.onSurfaceVariant,
+      ),
     );
   }
 

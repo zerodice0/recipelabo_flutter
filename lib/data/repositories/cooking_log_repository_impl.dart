@@ -47,7 +47,7 @@ class CookingLogRepositoryImpl implements CookingLogRepository {
       authorId: model.authorId,
       title: model.title,
       memo: model.memo,
-      imageUrl: model.imageUrl,
+      base64EncodedImageData: model.base64EncodedImageData,
       cookedAt: model.cookedAt,
       createdAt: model.createdAt,
     );
@@ -60,7 +60,7 @@ class CookingLogRepositoryImpl implements CookingLogRepository {
       authorId: entity.authorId,
       title: entity.title,
       memo: entity.memo,
-      imageUrl: entity.imageUrl,
+      base64EncodedImageData: entity.base64EncodedImageData,
       cookedAt: entity.cookedAt,
       createdAt: entity.createdAt,
       updatedAt: DateTime.now(),

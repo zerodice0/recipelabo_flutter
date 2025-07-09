@@ -11,7 +11,7 @@ abstract class CookingLogEntity with _$CookingLogEntity {
     required String authorId,
     required String title,
     String? memo,
-    String? imageUrl,
+    String? base64EncodedImageData, // Base64 인코딩된 이미지 데이터
     required DateTime cookedAt,
     required DateTime createdAt,
   }) = _CookingLogEntity;

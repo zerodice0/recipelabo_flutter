@@ -21,7 +21,7 @@ class DatabaseHelper {
     final path = join(dbPath, 'saucerer.db');
     return await openDatabase(
       path,
-      version: 16,
+      version: 17,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -108,7 +108,7 @@ class DatabaseHelper {
         authorId TEXT NOT NULL,
         title TEXT NOT NULL,
         memo TEXT,
-        imageUrl TEXT,
+        base64EncodedImageData TEXT,
         cookedAt TEXT NOT NULL,
         createdAt TEXT NOT NULL,
         updatedAt TEXT NOT NULL,
@@ -173,7 +173,7 @@ class DatabaseHelper {
           authorId TEXT NOT NULL,
           title TEXT NOT NULL,
           memo TEXT,
-          imageUrl TEXT,
+          base64EncodedImageData TEXT,
           cookedAt TEXT NOT NULL,
           createdAt TEXT NOT NULL,
           updatedAt TEXT NOT NULL,
@@ -489,14 +489,16 @@ class DatabaseHelper {
       debugPrint('Added baseVersionId column to recipe_versions table');
     }
 
-    if (oldVersion < 15) {
+    if (oldVersion < 16) {
       // Version 15: 프리셋 단위 초기화
       await _initializePresetUnits(db);
-    }
-
-    if (oldVersion < 16) {
       // Version 16: 기존 프리셋 단위 삭제 후 새로운 중립적 ID 방식으로 초기화
       await _migrateToNeutralPresetUnits(db);
+    }
+
+    if (oldVersion < 17) {
+      // Version 17: cooking_logs 테이블 구조 정리 - imageUrl, imageData 제거하고 imageData BLOB로 통합
+      await _migrateCookingLogsToBase64EndcodedImageData(db);
     }
   }
 
@@ -550,6 +552,66 @@ class DatabaseHelper {
       debugPrint('Successfully migrated to neutral preset units');
     } catch (e) {
       debugPrint('Error migrating to neutral preset units: $e');
+      rethrow;
+    }
+  }
+
+  /// cooking_logs 테이블을 imageData BLOB 구조로 마이그레이션
+  Future<void> _migrateCookingLogsToBase64EndcodedImageData(Database db) async {
+    try {
+      debugPrint('Starting cooking_logs migration to BLOB structure');
+
+      // 1. 현재 테이블 구조 확인
+      final tableInfo = await db.rawQuery("PRAGMA table_info(cooking_logs)");
+      final columnNames = tableInfo.map((row) => row['name'] as String).toSet();
+
+      debugPrint('Current cooking_logs columns: $columnNames');
+
+      // 2. imageUrl 또는 imageData 컬럼이 있는 경우에만 마이그레이션 수행
+      if (columnNames.contains('imageUrl') ||
+          columnNames.contains('imageData')) {
+        debugPrint('Found legacy image columns, starting migration...');
+
+        // 3. 새로운 구조의 임시 테이블 생성
+        await db.execute('''
+          CREATE TABLE cooking_logs_new(
+            id TEXT PRIMARY KEY,
+            recipeVersionId TEXT NOT NULL,
+            authorId TEXT NOT NULL,
+            title TEXT NOT NULL,
+            memo TEXT,
+            base64EncodedImageData TEXT,
+            cookedAt TEXT NOT NULL,
+            createdAt TEXT NOT NULL,
+            updatedAt TEXT NOT NULL,
+            isDeleted INTEGER NOT NULL DEFAULT 0,
+            FOREIGN KEY (recipeVersionId) REFERENCES recipe_versions(id),
+            FOREIGN KEY (authorId) REFERENCES users(id)
+          )
+        ''');
+
+        // 4. 기존 데이터를 새로운 테이블로 복사 (이미지 데이터는 null로 설정)
+        await db.execute('''
+          INSERT INTO cooking_logs_new (
+            id, recipeVersionId, authorId, title, memo, base64EncodedImageData,
+            cookedAt, createdAt, updatedAt, isDeleted
+          )
+          SELECT 
+            id, recipeVersionId, authorId, title, memo, imageData as base64EncodedImageData,
+            cookedAt, createdAt, updatedAt, isDeleted
+          FROM cooking_logs
+        ''');
+
+        // 5. 기존 테이블 삭제 후 새 테이블로 교체
+        await db.execute('DROP TABLE cooking_logs');
+        await db.execute('ALTER TABLE cooking_logs_new RENAME TO cooking_logs');
+
+        debugPrint('Successfully migrated cooking_logs to BLOB structure');
+      } else {
+        debugPrint('No legacy image columns found, migration not needed');
+      }
+    } catch (e) {
+      debugPrint('Error migrating cooking_logs to BLOB structure: $e');
       rethrow;
     }
   }

@@ -12,7 +12,7 @@ abstract class CookingLogCreateState with _$CookingLogCreateState {
   const factory CookingLogCreateState({
     @Default('') String title,
     @Default('') String memo,
-    String? imageUrl,
+    String? base64EncodedImageData,
     DateTime? cookedAt,
     @Default(false) bool isLoading,
     String? error,
@@ -39,8 +39,8 @@ class CookingLogCreateViewModel extends _$CookingLogCreateViewModel {
     state = state.copyWith(cookedAt: cookedAt);
   }
 
-  void updateImageUrl(String? imageUrl) {
-    state = state.copyWith(imageUrl: imageUrl);
+  void updateBase64EncodedImageData(String? base64EncodedImageData) {
+    state = state.copyWith(base64EncodedImageData: base64EncodedImageData);
   }
 
   Future<void> pickImageFromCamera() async {
@@ -48,9 +48,14 @@ class CookingLogCreateViewModel extends _$CookingLogCreateViewModel {
 
     try {
       final useCase = ref.read(pickImageUseCaseProvider);
-      final imagePath = await useCase(ImageSourceType.camera);
+      final String? base64EncodedImageData = (await useCase.pickImageAsBase64(
+        ImageSourceType.camera,
+      ));
 
-      state = state.copyWith(imageUrl: imagePath, isLoading: false);
+      state = state.copyWith(
+        base64EncodedImageData: base64EncodedImageData,
+        isLoading: false,
+      );
     } catch (error) {
       state = state.copyWith(isLoading: false, error: error.toString());
     }
@@ -61,16 +66,21 @@ class CookingLogCreateViewModel extends _$CookingLogCreateViewModel {
 
     try {
       final useCase = ref.read(pickImageUseCaseProvider);
-      final imagePath = await useCase(ImageSourceType.gallery);
+      final String? base64EncodedImageData = (await useCase.pickImageAsBase64(
+        ImageSourceType.gallery,
+      ));
 
-      state = state.copyWith(imageUrl: imagePath, isLoading: false);
+      state = state.copyWith(
+        base64EncodedImageData: base64EncodedImageData,
+        isLoading: false,
+      );
     } catch (error) {
       state = state.copyWith(isLoading: false, error: error.toString());
     }
   }
 
   void removeImage() {
-    state = state.copyWith(imageUrl: null);
+    state = state.copyWith(base64EncodedImageData: null);
   }
 
   Future<void> saveCookingLog(String recipeVersionId, String authorId) async {
@@ -93,7 +103,8 @@ class CookingLogCreateViewModel extends _$CookingLogCreateViewModel {
         authorId: authorId,
         title: state.title.trim(),
         memo: state.memo.trim().isEmpty ? null : state.memo.trim(),
-        imageUrl: state.imageUrl,
+        base64EncodedImageData:
+            state.base64EncodedImageData, // base64 인코딩된 이미지 데이터
         cookedAt: state.cookedAt!,
         createdAt: DateTime.now(),
       );

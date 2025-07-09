@@ -53,6 +53,52 @@ class PickImageUseCase {
     }
   }
 
+  /// 이미지를 선택하고 리사이징한 후 Base64로 인코딩하여 반환합니다
+  ///
+  /// [sourceType] 이미지를 가져올 소스 (카메라 또는 갤러리)
+  /// [maxWidth] 최대 가로 길이 (기본값: 1920, Full HD)
+  /// [maxHeight] 최대 세로 길이 (기본값: 1080, Full HD)
+  /// [quality] JPEG 압축 품질 (기본값: 85, 0-100 범위)
+  ///
+  /// Returns: Base64로 인코딩된 이미지 데이터, 취소되면 null
+  Future<String?> pickImageAsBase64(
+    ImageSourceType sourceType, {
+    int maxWidth = 1920,
+    int maxHeight = 1080,
+    int quality = 85,
+  }) async {
+    try {
+      final ImageSource source = sourceType == ImageSourceType.camera
+          ? ImageSource.camera
+          : ImageSource.gallery;
+
+      // ImagePicker에서도 초기 리사이징 적용 (네트워크 대역폭 절약)
+      final XFile? pickedFile = await _imagePicker.pickImage(
+        source: source,
+        maxWidth: maxWidth.toDouble(),
+        maxHeight: maxHeight.toDouble(),
+        imageQuality: quality,
+      );
+
+      if (pickedFile == null) {
+        return null; // 사용자가 취소함
+      }
+
+      // 선택된 이미지를 추가 리사이징 및 Base64로 인코딩
+      final File imageFile = File(pickedFile.path);
+      final String? base64Data = await _imageStorageService.encodeImageToBase64(
+        imageFile,
+        maxWidth: maxWidth,
+        maxHeight: maxHeight,
+        quality: quality,
+      );
+
+      return base64Data;
+    } catch (e) {
+      throw Exception('이미지 선택 중 오류가 발생했습니다: $e');
+    }
+  }
+
   /// 여러 이미지를 선택하고 앱 내부 저장소에 저장합니다
   ///
   /// [maxImages] 최대 선택 가능한 이미지 수 (기본값: 5)
