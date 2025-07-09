@@ -5,7 +5,6 @@ import 'package:recipick_flutter/domain/entities/category_entity.dart';
 import 'package:recipick_flutter/domain/entities/unit_localizer.dart';
 import 'package:recipick_flutter/presentation/seasoning/viewmodel/seasoning_management_viewmodel.dart';
 import 'package:recipick_flutter/presentation/seasoning/widgets/seasoning_create_dialog.dart';
-import 'package:recipick_flutter/presentation/seasoning/widgets/category_create_dialog.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 class SeasoningManagementScreen extends ConsumerStatefulWidget {
@@ -56,11 +55,6 @@ class _SeasoningManagementScreenState
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).generalCategoryManagement),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.add_box_outlined),
-            onPressed: () => _showCreateCategoryDialog(context, viewModel),
-            tooltip: AppLocalizations.of(context).categoryCreateTitle,
-          ),
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () => viewModel.refresh(),
@@ -265,12 +259,12 @@ class _SeasoningManagementScreenState
               ),
             ],
             const SizedBox(height: 4),
-            // Text(
-            //   '사용 횟수: ${seasoning.usageCount}회',
-            //   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            //     color: Theme.of(context).colorScheme.onSurfaceVariant,
-            //   ),
-            // ),
+            Text(
+              '사용 횟수: ${seasoning.usageCount}회',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+            ),
           ],
         ),
         trailing: IconButton(
@@ -297,24 +291,6 @@ class _SeasoningManagementScreenState
             name: name,
             categoryId: categoryId,
             description: description,
-          );
-        },
-      ),
-    );
-  }
-
-  void _showCreateCategoryDialog(
-    BuildContext context,
-    SeasoningManagementViewModel viewModel,
-  ) {
-    showDialog(
-      context: context,
-      builder: (context) => CategoryCreateDialog(
-        onSave: (name, description, iconCode) {
-          viewModel.createCategory(
-            name: name,
-            description: description,
-            iconCode: iconCode,
           );
         },
       ),

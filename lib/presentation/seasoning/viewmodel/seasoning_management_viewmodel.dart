@@ -88,8 +88,7 @@ class SeasoningManagementViewModel extends _$SeasoningManagementViewModel {
     } else {
       // 선택된 카테고리로 필터링 (항상 원본 데이터에서 필터링)
       final filtered = state.allSeasonings.where((s) {
-        final displayName = s.predefinedCategory?.displayName ?? s.categoryId;
-        return displayName == selectedCategory;
+        return s.categoryId == selectedCategory;
       }).toList();
       state = state.copyWith(seasonings: filtered);
     }

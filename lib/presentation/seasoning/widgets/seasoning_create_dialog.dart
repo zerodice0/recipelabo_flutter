@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipick_flutter/domain/entities/category_entity.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 
 class SeasoningCreateDialog extends StatefulWidget {
