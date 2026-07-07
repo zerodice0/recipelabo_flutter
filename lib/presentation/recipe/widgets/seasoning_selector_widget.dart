@@ -264,123 +264,7 @@ class _IngredientSelectorWidgetState
                   context,
                 ).colorScheme.primaryContainer.withValues(alpha: 0.3),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // 재료명
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          ingredient.name,
-                          style: Theme.of(context).textTheme.bodyMedium
-                              ?.copyWith(fontWeight: FontWeight.w500),
-                        ),
-                        if (_buildDeltaText(ingredient) != null) ...[
-                          const SizedBox(height: 4),
-                          Text(
-                            _buildDeltaText(ingredient)!,
-                            style: Theme.of(context).textTheme.bodySmall
-                                ?.copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                          ),
-                        ],
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  // 양 입력
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.remove),
-                              onPressed: () =>
-                                  _adjustIngredientQuantity(ingredient, -0.5),
-                              visualDensity: VisualDensity.compact,
-                            ),
-                            Expanded(
-                              child: TextFormField(
-                                key: ValueKey(
-                                  '${ingredient.id}-${ingredient.quantity}',
-                                ),
-                                initialValue: ingredient.quantity.toString(),
-                                decoration: InputDecoration(
-                                  labelText: AppLocalizations.of(
-                                    context,
-                                  ).ingredientQuantityLabel,
-                                  isDense: true,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 8,
-                                  ),
-                                ),
-                                keyboardType: TextInputType.text,
-                                onChanged: (value) {
-                                  final quantity = _parseQuantity(value);
-                                  if (quantity == null) return;
-                                  _updateIngredient(
-                                    ingredient.copyWith(quantity: quantity),
-                                  );
-                                },
-                              ),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.add),
-                              onPressed: () =>
-                                  _adjustIngredientQuantity(ingredient, 0.5),
-                              visualDensity: VisualDensity.compact,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 6),
-                        Wrap(
-                          spacing: 4,
-                          children: [
-                            _buildQuickQuantityChip(ingredient, '1/4', 0.25),
-                            _buildQuickQuantityChip(ingredient, '1/2', 0.5),
-                            _buildQuickQuantityChip(ingredient, '1', 1),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  // 단위 선택
-                  Expanded(
-                    child: UnitSelectorWidget(
-                      selectedUnit: ingredient.unit,
-                      onUnitChanged: (value) {
-                        _updateIngredient(ingredient.copyWith(unit: value));
-                      },
-                      decoration: InputDecoration(
-                        labelText: AppLocalizations.of(
-                          context,
-                        ).ingredientUnitLabel,
-                        isDense: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 8,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  // 삭제 버튼
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => _removeIngredient(ingredient.name),
-                    visualDensity: VisualDensity.compact,
-                  ),
-                ],
-              ),
+              child: _buildIngredientEditor(context, ingredient),
             ),
           const SizedBox(height: 12),
         ],
@@ -571,6 +455,156 @@ class _IngredientSelectorWidgetState
           ],
         ),
       ],
+    );
+  }
+
+  Widget _buildIngredientEditor(
+    BuildContext context,
+    IngredientEntity ingredient,
+  ) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 560) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(child: _buildIngredientName(context, ingredient)),
+                  _buildRemoveIngredientButton(ingredient),
+                ],
+              ),
+              const SizedBox(height: 12),
+              _buildQuantityControls(context, ingredient),
+              const SizedBox(height: 12),
+              _buildUnitSelector(context, ingredient),
+            ],
+          );
+        }
+
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(flex: 2, child: _buildIngredientName(context, ingredient)),
+            const SizedBox(width: 8),
+            Expanded(
+              flex: 2,
+              child: _buildQuantityControls(context, ingredient),
+            ),
+            const SizedBox(width: 8),
+            Expanded(child: _buildUnitSelector(context, ingredient)),
+            const SizedBox(width: 8),
+            _buildRemoveIngredientButton(ingredient),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildIngredientName(
+    BuildContext context,
+    IngredientEntity ingredient,
+  ) {
+    final deltaText = _buildDeltaText(ingredient);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          ingredient.name,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+        ),
+        if (deltaText != null) ...[
+          const SizedBox(height: 4),
+          Text(
+            deltaText,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildQuantityControls(
+    BuildContext context,
+    IngredientEntity ingredient,
+  ) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.remove),
+              onPressed: () => _adjustIngredientQuantity(ingredient, -0.5),
+              visualDensity: VisualDensity.compact,
+            ),
+            Expanded(
+              child: TextFormField(
+                key: ValueKey('${ingredient.id}-${ingredient.quantity}'),
+                initialValue: ingredient.quantity.toString(),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(
+                    context,
+                  ).ingredientQuantityLabel,
+                  isDense: true,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 8,
+                  ),
+                ),
+                keyboardType: TextInputType.text,
+                onChanged: (value) {
+                  final quantity = _parseQuantity(value);
+                  if (quantity == null) return;
+                  _updateIngredient(ingredient.copyWith(quantity: quantity));
+                },
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () => _adjustIngredientQuantity(ingredient, 0.5),
+              visualDensity: VisualDensity.compact,
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Wrap(
+          spacing: 4,
+          children: [
+            _buildQuickQuantityChip(ingredient, '1/4', 0.25),
+            _buildQuickQuantityChip(ingredient, '1/2', 0.5),
+            _buildQuickQuantityChip(ingredient, '1', 1),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildUnitSelector(BuildContext context, IngredientEntity ingredient) {
+    return UnitSelectorWidget(
+      selectedUnit: ingredient.unit,
+      onUnitChanged: (value) {
+        _updateIngredient(ingredient.copyWith(unit: value));
+      },
+      decoration: InputDecoration(
+        labelText: AppLocalizations.of(context).ingredientUnitLabel,
+        isDense: true,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      ),
+    );
+  }
+
+  Widget _buildRemoveIngredientButton(IngredientEntity ingredient) {
+    return IconButton(
+      icon: const Icon(Icons.close),
+      onPressed: () => _removeIngredient(ingredient.name),
+      visualDensity: VisualDensity.compact,
     );
   }
 
