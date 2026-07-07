@@ -15,6 +15,9 @@ void main() {
         latestVersionId: 'version-test-1',
         name: '김치찌개',
         description: '얼큰한 김치찌개',
+        sourceUrl: 'https://example.com/kimchi-jjigae',
+        sourceName: 'Example Recipe',
+        importedAt: testTime,
         isPublic: true,
         createdAt: testTime,
         updatedAt: testTime,
@@ -23,6 +26,9 @@ void main() {
       expect(recipe.id, 'recipe-test-1');
       expect(recipe.name, '김치찌개');
       expect(recipe.description, '얼큰한 김치찌개');
+      expect(recipe.sourceUrl, 'https://example.com/kimchi-jjigae');
+      expect(recipe.sourceName, 'Example Recipe');
+      expect(recipe.importedAt, testTime);
       expect(recipe.isPublic, true);
     });
 

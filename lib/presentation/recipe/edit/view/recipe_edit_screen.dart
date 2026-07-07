@@ -192,6 +192,25 @@ class RecipeEditScreen extends ConsumerWidget {
                     onChanged: notifier.updateDescription,
                     maxLines: 3,
                   ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    initialValue: viewModel.sourceUrl,
+                    decoration: const InputDecoration(
+                      labelText: '원본 레시피 URL',
+                      hintText: 'https://example.com/recipe',
+                    ),
+                    keyboardType: TextInputType.url,
+                    onChanged: notifier.updateSourceUrl,
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    initialValue: viewModel.sourceName,
+                    decoration: const InputDecoration(
+                      labelText: '출처 이름',
+                      hintText: '블로그, 사이트명 또는 API 이름',
+                    ),
+                    onChanged: notifier.updateSourceName,
+                  ),
                   const SizedBox(height: 24),
                   IngredientSelectorWidget(
                     label: AppLocalizations.of(context).recipeIngredients,

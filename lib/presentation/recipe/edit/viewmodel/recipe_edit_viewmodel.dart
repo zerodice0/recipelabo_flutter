@@ -18,6 +18,9 @@ abstract class RecipeEditState with _$RecipeEditState {
   const factory RecipeEditState({
     @Default('') String name,
     @Default('') String description,
+    @Default('') String sourceUrl,
+    @Default('') String sourceName,
+    DateTime? importedAt,
     @Default([]) List<IngredientEntity> ingredients,
     @Default([]) List<StepEntity> steps,
     @Default(AsyncValue.data(null)) AsyncValue<void> saveState,
@@ -91,6 +94,9 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
       state = state.copyWith(
         name: recipe.name,
         description: recipe.description ?? '',
+        sourceUrl: recipe.sourceUrl ?? '',
+        sourceName: recipe.sourceName ?? '',
+        importedAt: recipe.importedAt,
         ingredients: targetVersion.ingredients,
         steps: targetVersion.steps,
         recipeVersionId: targetVersion.id,
@@ -129,6 +135,14 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
 
   void updateDescription(String description) {
     state = state.copyWith(description: description);
+  }
+
+  void updateSourceUrl(String sourceUrl) {
+    state = state.copyWith(sourceUrl: sourceUrl);
+  }
+
+  void updateSourceName(String sourceName) {
+    state = state.copyWith(sourceName: sourceName);
   }
 
   void updateIngredients(List<IngredientEntity> ingredients) {
@@ -259,6 +273,10 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
     try {
       final now = DateTime.now();
       const uuid = Uuid();
+      final normalizedSourceUrl = state.sourceUrl.trim();
+      final normalizedSourceName = state.sourceName.trim();
+      final hasSource = normalizedSourceUrl.isNotEmpty;
+      final importedAt = hasSource ? (state.importedAt ?? now) : null;
 
       if (state.isEditMode &&
           state.recipeId != null &&
@@ -278,6 +296,11 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
             latestVersionId: newVersionId,
             name: state.name,
             description: state.description,
+            sourceUrl: hasSource ? normalizedSourceUrl : null,
+            sourceName: normalizedSourceName.isEmpty
+                ? null
+                : normalizedSourceName,
+            importedAt: importedAt,
             updatedAt: now,
           );
 
@@ -317,6 +340,11 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
           final updatedRecipe = state.originalRecipe!.copyWith(
             name: state.name,
             description: state.description,
+            sourceUrl: hasSource ? normalizedSourceUrl : null,
+            sourceName: normalizedSourceName.isEmpty
+                ? null
+                : normalizedSourceName,
+            importedAt: importedAt,
             updatedAt: now,
           );
 
@@ -341,6 +369,9 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
           latestVersionId: versionId,
           name: state.name,
           description: state.description,
+          sourceUrl: hasSource ? normalizedSourceUrl : null,
+          sourceName: normalizedSourceName.isEmpty ? null : normalizedSourceName,
+          importedAt: importedAt,
           isPublic: true,
           createdAt: now,
           updatedAt: now,

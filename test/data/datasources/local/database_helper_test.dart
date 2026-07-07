@@ -132,6 +132,9 @@ void main() {
       expect(columnNames, contains('latestVersionId'));
       expect(columnNames, contains('name'));
       expect(columnNames, contains('description'));
+      expect(columnNames, contains('sourceUrl'));
+      expect(columnNames, contains('sourceName'));
+      expect(columnNames, contains('importedAt'));
       expect(columnNames, contains('isPublic'));
       expect(columnNames, contains('createdAt'));
       expect(columnNames, contains('updatedAt'));
@@ -162,6 +165,9 @@ void main() {
         'latestVersionId': 'test-version-1',
         'name': '테스트 레시피',
         'description': '테스트용 레시피 설명',
+        'sourceUrl': 'https://example.com/recipe',
+        'sourceName': 'Example Recipe',
+        'importedAt': '2025-06-26T13:00:00.000Z',
         'isPublic': 1,
         'createdAt': '2025-06-26T12:00:00.000Z',
         'updatedAt': '2025-06-26T12:00:00.000Z',
@@ -180,6 +186,9 @@ void main() {
       expect(result.length, 1);
       expect(result.first['name'], '테스트 레시피');
       expect(result.first['authorId'], 'test-user-1');
+      expect(result.first['sourceUrl'], 'https://example.com/recipe');
+      expect(result.first['sourceName'], 'Example Recipe');
+      expect(result.first['importedAt'], '2025-06-26T13:00:00.000Z');
     });
 
     test('레시피 버전 데이터 삽입 및 조회 테스트', () async {

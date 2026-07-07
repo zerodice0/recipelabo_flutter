@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RecipeEditState implements DiagnosticableTreeMixin {
 
- String get name; String get description; List<IngredientEntity> get ingredients; List<StepEntity> get steps; AsyncValue<void> get saveState; bool get isLoading; bool get isEditMode; String? get recipeId; String? get recipeVersionId; String? get initialVersionId;// 편집할 특정 버전 ID
+ String get name; String get description; String get sourceUrl; String get sourceName; DateTime? get importedAt; List<IngredientEntity> get ingredients; List<StepEntity> get steps; AsyncValue<void> get saveState; bool get isLoading; bool get isEditMode; String? get recipeId; String? get recipeVersionId; String? get initialVersionId;// 편집할 특정 버전 ID
  String? get error; bool get showSaveOptions; bool get createNewVersion; String get changeLog; String get versionName;// 사용자 정의 버전명
  RecipeEntity? get originalRecipe; List<RecipeVersionEntity>? get allVersions;
 /// Create a copy of RecipeEditState
@@ -28,21 +28,21 @@ $RecipeEditStateCopyWith<RecipeEditState> get copyWith => _$RecipeEditStateCopyW
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'RecipeEditState'))
-    ..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('description', description))..add(DiagnosticsProperty('ingredients', ingredients))..add(DiagnosticsProperty('steps', steps))..add(DiagnosticsProperty('saveState', saveState))..add(DiagnosticsProperty('isLoading', isLoading))..add(DiagnosticsProperty('isEditMode', isEditMode))..add(DiagnosticsProperty('recipeId', recipeId))..add(DiagnosticsProperty('recipeVersionId', recipeVersionId))..add(DiagnosticsProperty('initialVersionId', initialVersionId))..add(DiagnosticsProperty('error', error))..add(DiagnosticsProperty('showSaveOptions', showSaveOptions))..add(DiagnosticsProperty('createNewVersion', createNewVersion))..add(DiagnosticsProperty('changeLog', changeLog))..add(DiagnosticsProperty('versionName', versionName))..add(DiagnosticsProperty('originalRecipe', originalRecipe))..add(DiagnosticsProperty('allVersions', allVersions));
+    ..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('description', description))..add(DiagnosticsProperty('sourceUrl', sourceUrl))..add(DiagnosticsProperty('sourceName', sourceName))..add(DiagnosticsProperty('importedAt', importedAt))..add(DiagnosticsProperty('ingredients', ingredients))..add(DiagnosticsProperty('steps', steps))..add(DiagnosticsProperty('saveState', saveState))..add(DiagnosticsProperty('isLoading', isLoading))..add(DiagnosticsProperty('isEditMode', isEditMode))..add(DiagnosticsProperty('recipeId', recipeId))..add(DiagnosticsProperty('recipeVersionId', recipeVersionId))..add(DiagnosticsProperty('initialVersionId', initialVersionId))..add(DiagnosticsProperty('error', error))..add(DiagnosticsProperty('showSaveOptions', showSaveOptions))..add(DiagnosticsProperty('createNewVersion', createNewVersion))..add(DiagnosticsProperty('changeLog', changeLog))..add(DiagnosticsProperty('versionName', versionName))..add(DiagnosticsProperty('originalRecipe', originalRecipe))..add(DiagnosticsProperty('allVersions', allVersions));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeEditState&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.ingredients, ingredients)&&const DeepCollectionEquality().equals(other.steps, steps)&&(identical(other.saveState, saveState) || other.saveState == saveState)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isEditMode, isEditMode) || other.isEditMode == isEditMode)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.recipeVersionId, recipeVersionId) || other.recipeVersionId == recipeVersionId)&&(identical(other.initialVersionId, initialVersionId) || other.initialVersionId == initialVersionId)&&(identical(other.error, error) || other.error == error)&&(identical(other.showSaveOptions, showSaveOptions) || other.showSaveOptions == showSaveOptions)&&(identical(other.createNewVersion, createNewVersion) || other.createNewVersion == createNewVersion)&&(identical(other.changeLog, changeLog) || other.changeLog == changeLog)&&(identical(other.versionName, versionName) || other.versionName == versionName)&&(identical(other.originalRecipe, originalRecipe) || other.originalRecipe == originalRecipe)&&const DeepCollectionEquality().equals(other.allVersions, allVersions));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeEditState&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.sourceUrl, sourceUrl) || other.sourceUrl == sourceUrl)&&(identical(other.sourceName, sourceName) || other.sourceName == sourceName)&&(identical(other.importedAt, importedAt) || other.importedAt == importedAt)&&const DeepCollectionEquality().equals(other.ingredients, ingredients)&&const DeepCollectionEquality().equals(other.steps, steps)&&(identical(other.saveState, saveState) || other.saveState == saveState)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isEditMode, isEditMode) || other.isEditMode == isEditMode)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.recipeVersionId, recipeVersionId) || other.recipeVersionId == recipeVersionId)&&(identical(other.initialVersionId, initialVersionId) || other.initialVersionId == initialVersionId)&&(identical(other.error, error) || other.error == error)&&(identical(other.showSaveOptions, showSaveOptions) || other.showSaveOptions == showSaveOptions)&&(identical(other.createNewVersion, createNewVersion) || other.createNewVersion == createNewVersion)&&(identical(other.changeLog, changeLog) || other.changeLog == changeLog)&&(identical(other.versionName, versionName) || other.versionName == versionName)&&(identical(other.originalRecipe, originalRecipe) || other.originalRecipe == originalRecipe)&&const DeepCollectionEquality().equals(other.allVersions, allVersions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,description,const DeepCollectionEquality().hash(ingredients),const DeepCollectionEquality().hash(steps),saveState,isLoading,isEditMode,recipeId,recipeVersionId,initialVersionId,error,showSaveOptions,createNewVersion,changeLog,versionName,originalRecipe,const DeepCollectionEquality().hash(allVersions));
+int get hashCode => Object.hashAll([runtimeType,name,description,sourceUrl,sourceName,importedAt,const DeepCollectionEquality().hash(ingredients),const DeepCollectionEquality().hash(steps),saveState,isLoading,isEditMode,recipeId,recipeVersionId,initialVersionId,error,showSaveOptions,createNewVersion,changeLog,versionName,originalRecipe,const DeepCollectionEquality().hash(allVersions)]);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'RecipeEditState(name: $name, description: $description, ingredients: $ingredients, steps: $steps, saveState: $saveState, isLoading: $isLoading, isEditMode: $isEditMode, recipeId: $recipeId, recipeVersionId: $recipeVersionId, initialVersionId: $initialVersionId, error: $error, showSaveOptions: $showSaveOptions, createNewVersion: $createNewVersion, changeLog: $changeLog, versionName: $versionName, originalRecipe: $originalRecipe, allVersions: $allVersions)';
+  return 'RecipeEditState(name: $name, description: $description, sourceUrl: $sourceUrl, sourceName: $sourceName, importedAt: $importedAt, ingredients: $ingredients, steps: $steps, saveState: $saveState, isLoading: $isLoading, isEditMode: $isEditMode, recipeId: $recipeId, recipeVersionId: $recipeVersionId, initialVersionId: $initialVersionId, error: $error, showSaveOptions: $showSaveOptions, createNewVersion: $createNewVersion, changeLog: $changeLog, versionName: $versionName, originalRecipe: $originalRecipe, allVersions: $allVersions)';
 }
 
 
@@ -53,7 +53,7 @@ abstract mixin class $RecipeEditStateCopyWith<$Res>  {
   factory $RecipeEditStateCopyWith(RecipeEditState value, $Res Function(RecipeEditState) _then) = _$RecipeEditStateCopyWithImpl;
 @useResult
 $Res call({
- String name, String description, List<IngredientEntity> ingredients, List<StepEntity> steps, AsyncValue<void> saveState, bool isLoading, bool isEditMode, String? recipeId, String? recipeVersionId, String? initialVersionId, String? error, bool showSaveOptions, bool createNewVersion, String changeLog, String versionName, RecipeEntity? originalRecipe, List<RecipeVersionEntity>? allVersions
+ String name, String description, String sourceUrl, String sourceName, DateTime? importedAt, List<IngredientEntity> ingredients, List<StepEntity> steps, AsyncValue<void> saveState, bool isLoading, bool isEditMode, String? recipeId, String? recipeVersionId, String? initialVersionId, String? error, bool showSaveOptions, bool createNewVersion, String changeLog, String versionName, RecipeEntity? originalRecipe, List<RecipeVersionEntity>? allVersions
 });
 
 
@@ -70,11 +70,14 @@ class _$RecipeEditStateCopyWithImpl<$Res>
 
 /// Create a copy of RecipeEditState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? description = null,Object? ingredients = null,Object? steps = null,Object? saveState = null,Object? isLoading = null,Object? isEditMode = null,Object? recipeId = freezed,Object? recipeVersionId = freezed,Object? initialVersionId = freezed,Object? error = freezed,Object? showSaveOptions = null,Object? createNewVersion = null,Object? changeLog = null,Object? versionName = null,Object? originalRecipe = freezed,Object? allVersions = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? description = null,Object? sourceUrl = null,Object? sourceName = null,Object? importedAt = freezed,Object? ingredients = null,Object? steps = null,Object? saveState = null,Object? isLoading = null,Object? isEditMode = null,Object? recipeId = freezed,Object? recipeVersionId = freezed,Object? initialVersionId = freezed,Object? error = freezed,Object? showSaveOptions = null,Object? createNewVersion = null,Object? changeLog = null,Object? versionName = null,Object? originalRecipe = freezed,Object? allVersions = freezed,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,ingredients: null == ingredients ? _self.ingredients : ingredients // ignore: cast_nullable_to_non_nullable
+as String,sourceUrl: null == sourceUrl ? _self.sourceUrl : sourceUrl // ignore: cast_nullable_to_non_nullable
+as String,sourceName: null == sourceName ? _self.sourceName : sourceName // ignore: cast_nullable_to_non_nullable
+as String,importedAt: freezed == importedAt ? _self.importedAt : importedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,ingredients: null == ingredients ? _self.ingredients : ingredients // ignore: cast_nullable_to_non_nullable
 as List<IngredientEntity>,steps: null == steps ? _self.steps : steps // ignore: cast_nullable_to_non_nullable
 as List<StepEntity>,saveState: null == saveState ? _self.saveState : saveState // ignore: cast_nullable_to_non_nullable
 as AsyncValue<void>,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
@@ -186,10 +189,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String description,  List<IngredientEntity> ingredients,  List<StepEntity> steps,  AsyncValue<void> saveState,  bool isLoading,  bool isEditMode,  String? recipeId,  String? recipeVersionId,  String? initialVersionId,  String? error,  bool showSaveOptions,  bool createNewVersion,  String changeLog,  String versionName,  RecipeEntity? originalRecipe,  List<RecipeVersionEntity>? allVersions)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String description,  String sourceUrl,  String sourceName,  DateTime? importedAt,  List<IngredientEntity> ingredients,  List<StepEntity> steps,  AsyncValue<void> saveState,  bool isLoading,  bool isEditMode,  String? recipeId,  String? recipeVersionId,  String? initialVersionId,  String? error,  bool showSaveOptions,  bool createNewVersion,  String changeLog,  String versionName,  RecipeEntity? originalRecipe,  List<RecipeVersionEntity>? allVersions)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RecipeEditState() when $default != null:
-return $default(_that.name,_that.description,_that.ingredients,_that.steps,_that.saveState,_that.isLoading,_that.isEditMode,_that.recipeId,_that.recipeVersionId,_that.initialVersionId,_that.error,_that.showSaveOptions,_that.createNewVersion,_that.changeLog,_that.versionName,_that.originalRecipe,_that.allVersions);case _:
+return $default(_that.name,_that.description,_that.sourceUrl,_that.sourceName,_that.importedAt,_that.ingredients,_that.steps,_that.saveState,_that.isLoading,_that.isEditMode,_that.recipeId,_that.recipeVersionId,_that.initialVersionId,_that.error,_that.showSaveOptions,_that.createNewVersion,_that.changeLog,_that.versionName,_that.originalRecipe,_that.allVersions);case _:
   return orElse();
 
 }
@@ -207,10 +210,10 @@ return $default(_that.name,_that.description,_that.ingredients,_that.steps,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String description,  List<IngredientEntity> ingredients,  List<StepEntity> steps,  AsyncValue<void> saveState,  bool isLoading,  bool isEditMode,  String? recipeId,  String? recipeVersionId,  String? initialVersionId,  String? error,  bool showSaveOptions,  bool createNewVersion,  String changeLog,  String versionName,  RecipeEntity? originalRecipe,  List<RecipeVersionEntity>? allVersions)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String description,  String sourceUrl,  String sourceName,  DateTime? importedAt,  List<IngredientEntity> ingredients,  List<StepEntity> steps,  AsyncValue<void> saveState,  bool isLoading,  bool isEditMode,  String? recipeId,  String? recipeVersionId,  String? initialVersionId,  String? error,  bool showSaveOptions,  bool createNewVersion,  String changeLog,  String versionName,  RecipeEntity? originalRecipe,  List<RecipeVersionEntity>? allVersions)  $default,) {final _that = this;
 switch (_that) {
 case _RecipeEditState():
-return $default(_that.name,_that.description,_that.ingredients,_that.steps,_that.saveState,_that.isLoading,_that.isEditMode,_that.recipeId,_that.recipeVersionId,_that.initialVersionId,_that.error,_that.showSaveOptions,_that.createNewVersion,_that.changeLog,_that.versionName,_that.originalRecipe,_that.allVersions);case _:
+return $default(_that.name,_that.description,_that.sourceUrl,_that.sourceName,_that.importedAt,_that.ingredients,_that.steps,_that.saveState,_that.isLoading,_that.isEditMode,_that.recipeId,_that.recipeVersionId,_that.initialVersionId,_that.error,_that.showSaveOptions,_that.createNewVersion,_that.changeLog,_that.versionName,_that.originalRecipe,_that.allVersions);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -227,10 +230,10 @@ return $default(_that.name,_that.description,_that.ingredients,_that.steps,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String description,  List<IngredientEntity> ingredients,  List<StepEntity> steps,  AsyncValue<void> saveState,  bool isLoading,  bool isEditMode,  String? recipeId,  String? recipeVersionId,  String? initialVersionId,  String? error,  bool showSaveOptions,  bool createNewVersion,  String changeLog,  String versionName,  RecipeEntity? originalRecipe,  List<RecipeVersionEntity>? allVersions)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String description,  String sourceUrl,  String sourceName,  DateTime? importedAt,  List<IngredientEntity> ingredients,  List<StepEntity> steps,  AsyncValue<void> saveState,  bool isLoading,  bool isEditMode,  String? recipeId,  String? recipeVersionId,  String? initialVersionId,  String? error,  bool showSaveOptions,  bool createNewVersion,  String changeLog,  String versionName,  RecipeEntity? originalRecipe,  List<RecipeVersionEntity>? allVersions)?  $default,) {final _that = this;
 switch (_that) {
 case _RecipeEditState() when $default != null:
-return $default(_that.name,_that.description,_that.ingredients,_that.steps,_that.saveState,_that.isLoading,_that.isEditMode,_that.recipeId,_that.recipeVersionId,_that.initialVersionId,_that.error,_that.showSaveOptions,_that.createNewVersion,_that.changeLog,_that.versionName,_that.originalRecipe,_that.allVersions);case _:
+return $default(_that.name,_that.description,_that.sourceUrl,_that.sourceName,_that.importedAt,_that.ingredients,_that.steps,_that.saveState,_that.isLoading,_that.isEditMode,_that.recipeId,_that.recipeVersionId,_that.initialVersionId,_that.error,_that.showSaveOptions,_that.createNewVersion,_that.changeLog,_that.versionName,_that.originalRecipe,_that.allVersions);case _:
   return null;
 
 }
@@ -242,11 +245,14 @@ return $default(_that.name,_that.description,_that.ingredients,_that.steps,_that
 
 
 class _RecipeEditState with DiagnosticableTreeMixin implements RecipeEditState {
-  const _RecipeEditState({this.name = '', this.description = '', final  List<IngredientEntity> ingredients = const [], final  List<StepEntity> steps = const [], this.saveState = const AsyncValue.data(null), this.isLoading = false, this.isEditMode = false, this.recipeId, this.recipeVersionId, this.initialVersionId, this.error, this.showSaveOptions = false, this.createNewVersion = true, this.changeLog = '', this.versionName = '', this.originalRecipe, final  List<RecipeVersionEntity>? allVersions}): _ingredients = ingredients,_steps = steps,_allVersions = allVersions;
+  const _RecipeEditState({this.name = '', this.description = '', this.sourceUrl = '', this.sourceName = '', this.importedAt, final  List<IngredientEntity> ingredients = const [], final  List<StepEntity> steps = const [], this.saveState = const AsyncValue.data(null), this.isLoading = false, this.isEditMode = false, this.recipeId, this.recipeVersionId, this.initialVersionId, this.error, this.showSaveOptions = false, this.createNewVersion = true, this.changeLog = '', this.versionName = '', this.originalRecipe, final  List<RecipeVersionEntity>? allVersions}): _ingredients = ingredients,_steps = steps,_allVersions = allVersions;
   
 
 @override@JsonKey() final  String name;
 @override@JsonKey() final  String description;
+@override@JsonKey() final  String sourceUrl;
+@override@JsonKey() final  String sourceName;
+@override final  DateTime? importedAt;
  final  List<IngredientEntity> _ingredients;
 @override@JsonKey() List<IngredientEntity> get ingredients {
   if (_ingredients is EqualUnmodifiableListView) return _ingredients;
@@ -296,21 +302,21 @@ _$RecipeEditStateCopyWith<_RecipeEditState> get copyWith => __$RecipeEditStateCo
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'RecipeEditState'))
-    ..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('description', description))..add(DiagnosticsProperty('ingredients', ingredients))..add(DiagnosticsProperty('steps', steps))..add(DiagnosticsProperty('saveState', saveState))..add(DiagnosticsProperty('isLoading', isLoading))..add(DiagnosticsProperty('isEditMode', isEditMode))..add(DiagnosticsProperty('recipeId', recipeId))..add(DiagnosticsProperty('recipeVersionId', recipeVersionId))..add(DiagnosticsProperty('initialVersionId', initialVersionId))..add(DiagnosticsProperty('error', error))..add(DiagnosticsProperty('showSaveOptions', showSaveOptions))..add(DiagnosticsProperty('createNewVersion', createNewVersion))..add(DiagnosticsProperty('changeLog', changeLog))..add(DiagnosticsProperty('versionName', versionName))..add(DiagnosticsProperty('originalRecipe', originalRecipe))..add(DiagnosticsProperty('allVersions', allVersions));
+    ..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('description', description))..add(DiagnosticsProperty('sourceUrl', sourceUrl))..add(DiagnosticsProperty('sourceName', sourceName))..add(DiagnosticsProperty('importedAt', importedAt))..add(DiagnosticsProperty('ingredients', ingredients))..add(DiagnosticsProperty('steps', steps))..add(DiagnosticsProperty('saveState', saveState))..add(DiagnosticsProperty('isLoading', isLoading))..add(DiagnosticsProperty('isEditMode', isEditMode))..add(DiagnosticsProperty('recipeId', recipeId))..add(DiagnosticsProperty('recipeVersionId', recipeVersionId))..add(DiagnosticsProperty('initialVersionId', initialVersionId))..add(DiagnosticsProperty('error', error))..add(DiagnosticsProperty('showSaveOptions', showSaveOptions))..add(DiagnosticsProperty('createNewVersion', createNewVersion))..add(DiagnosticsProperty('changeLog', changeLog))..add(DiagnosticsProperty('versionName', versionName))..add(DiagnosticsProperty('originalRecipe', originalRecipe))..add(DiagnosticsProperty('allVersions', allVersions));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeEditState&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._ingredients, _ingredients)&&const DeepCollectionEquality().equals(other._steps, _steps)&&(identical(other.saveState, saveState) || other.saveState == saveState)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isEditMode, isEditMode) || other.isEditMode == isEditMode)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.recipeVersionId, recipeVersionId) || other.recipeVersionId == recipeVersionId)&&(identical(other.initialVersionId, initialVersionId) || other.initialVersionId == initialVersionId)&&(identical(other.error, error) || other.error == error)&&(identical(other.showSaveOptions, showSaveOptions) || other.showSaveOptions == showSaveOptions)&&(identical(other.createNewVersion, createNewVersion) || other.createNewVersion == createNewVersion)&&(identical(other.changeLog, changeLog) || other.changeLog == changeLog)&&(identical(other.versionName, versionName) || other.versionName == versionName)&&(identical(other.originalRecipe, originalRecipe) || other.originalRecipe == originalRecipe)&&const DeepCollectionEquality().equals(other._allVersions, _allVersions));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeEditState&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.sourceUrl, sourceUrl) || other.sourceUrl == sourceUrl)&&(identical(other.sourceName, sourceName) || other.sourceName == sourceName)&&(identical(other.importedAt, importedAt) || other.importedAt == importedAt)&&const DeepCollectionEquality().equals(other._ingredients, _ingredients)&&const DeepCollectionEquality().equals(other._steps, _steps)&&(identical(other.saveState, saveState) || other.saveState == saveState)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isEditMode, isEditMode) || other.isEditMode == isEditMode)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.recipeVersionId, recipeVersionId) || other.recipeVersionId == recipeVersionId)&&(identical(other.initialVersionId, initialVersionId) || other.initialVersionId == initialVersionId)&&(identical(other.error, error) || other.error == error)&&(identical(other.showSaveOptions, showSaveOptions) || other.showSaveOptions == showSaveOptions)&&(identical(other.createNewVersion, createNewVersion) || other.createNewVersion == createNewVersion)&&(identical(other.changeLog, changeLog) || other.changeLog == changeLog)&&(identical(other.versionName, versionName) || other.versionName == versionName)&&(identical(other.originalRecipe, originalRecipe) || other.originalRecipe == originalRecipe)&&const DeepCollectionEquality().equals(other._allVersions, _allVersions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,description,const DeepCollectionEquality().hash(_ingredients),const DeepCollectionEquality().hash(_steps),saveState,isLoading,isEditMode,recipeId,recipeVersionId,initialVersionId,error,showSaveOptions,createNewVersion,changeLog,versionName,originalRecipe,const DeepCollectionEquality().hash(_allVersions));
+int get hashCode => Object.hashAll([runtimeType,name,description,sourceUrl,sourceName,importedAt,const DeepCollectionEquality().hash(_ingredients),const DeepCollectionEquality().hash(_steps),saveState,isLoading,isEditMode,recipeId,recipeVersionId,initialVersionId,error,showSaveOptions,createNewVersion,changeLog,versionName,originalRecipe,const DeepCollectionEquality().hash(_allVersions)]);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'RecipeEditState(name: $name, description: $description, ingredients: $ingredients, steps: $steps, saveState: $saveState, isLoading: $isLoading, isEditMode: $isEditMode, recipeId: $recipeId, recipeVersionId: $recipeVersionId, initialVersionId: $initialVersionId, error: $error, showSaveOptions: $showSaveOptions, createNewVersion: $createNewVersion, changeLog: $changeLog, versionName: $versionName, originalRecipe: $originalRecipe, allVersions: $allVersions)';
+  return 'RecipeEditState(name: $name, description: $description, sourceUrl: $sourceUrl, sourceName: $sourceName, importedAt: $importedAt, ingredients: $ingredients, steps: $steps, saveState: $saveState, isLoading: $isLoading, isEditMode: $isEditMode, recipeId: $recipeId, recipeVersionId: $recipeVersionId, initialVersionId: $initialVersionId, error: $error, showSaveOptions: $showSaveOptions, createNewVersion: $createNewVersion, changeLog: $changeLog, versionName: $versionName, originalRecipe: $originalRecipe, allVersions: $allVersions)';
 }
 
 
@@ -321,7 +327,7 @@ abstract mixin class _$RecipeEditStateCopyWith<$Res> implements $RecipeEditState
   factory _$RecipeEditStateCopyWith(_RecipeEditState value, $Res Function(_RecipeEditState) _then) = __$RecipeEditStateCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String description, List<IngredientEntity> ingredients, List<StepEntity> steps, AsyncValue<void> saveState, bool isLoading, bool isEditMode, String? recipeId, String? recipeVersionId, String? initialVersionId, String? error, bool showSaveOptions, bool createNewVersion, String changeLog, String versionName, RecipeEntity? originalRecipe, List<RecipeVersionEntity>? allVersions
+ String name, String description, String sourceUrl, String sourceName, DateTime? importedAt, List<IngredientEntity> ingredients, List<StepEntity> steps, AsyncValue<void> saveState, bool isLoading, bool isEditMode, String? recipeId, String? recipeVersionId, String? initialVersionId, String? error, bool showSaveOptions, bool createNewVersion, String changeLog, String versionName, RecipeEntity? originalRecipe, List<RecipeVersionEntity>? allVersions
 });
 
 
@@ -338,11 +344,14 @@ class __$RecipeEditStateCopyWithImpl<$Res>
 
 /// Create a copy of RecipeEditState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? description = null,Object? ingredients = null,Object? steps = null,Object? saveState = null,Object? isLoading = null,Object? isEditMode = null,Object? recipeId = freezed,Object? recipeVersionId = freezed,Object? initialVersionId = freezed,Object? error = freezed,Object? showSaveOptions = null,Object? createNewVersion = null,Object? changeLog = null,Object? versionName = null,Object? originalRecipe = freezed,Object? allVersions = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? description = null,Object? sourceUrl = null,Object? sourceName = null,Object? importedAt = freezed,Object? ingredients = null,Object? steps = null,Object? saveState = null,Object? isLoading = null,Object? isEditMode = null,Object? recipeId = freezed,Object? recipeVersionId = freezed,Object? initialVersionId = freezed,Object? error = freezed,Object? showSaveOptions = null,Object? createNewVersion = null,Object? changeLog = null,Object? versionName = null,Object? originalRecipe = freezed,Object? allVersions = freezed,}) {
   return _then(_RecipeEditState(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,ingredients: null == ingredients ? _self._ingredients : ingredients // ignore: cast_nullable_to_non_nullable
+as String,sourceUrl: null == sourceUrl ? _self.sourceUrl : sourceUrl // ignore: cast_nullable_to_non_nullable
+as String,sourceName: null == sourceName ? _self.sourceName : sourceName // ignore: cast_nullable_to_non_nullable
+as String,importedAt: freezed == importedAt ? _self.importedAt : importedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,ingredients: null == ingredients ? _self._ingredients : ingredients // ignore: cast_nullable_to_non_nullable
 as List<IngredientEntity>,steps: null == steps ? _self._steps : steps // ignore: cast_nullable_to_non_nullable
 as List<StepEntity>,saveState: null == saveState ? _self.saveState : saveState // ignore: cast_nullable_to_non_nullable
 as AsyncValue<void>,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
