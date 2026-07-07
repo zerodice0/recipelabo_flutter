@@ -24,6 +24,7 @@ abstract class RecipeVersionModel with _$RecipeVersionModel {
     @Default(false) bool isDeleted,
     String? changeLog,
     String? baseVersionId, // 기반이 된 버전의 ID
+    String? versionStatus,
   }) = _RecipeVersionModel;
 
   factory RecipeVersionModel.fromJson(Map<String, dynamic> json) =>
@@ -47,6 +48,7 @@ extension RecipeVersionModelExtension on RecipeVersionModel {
       'isDeleted': isDeleted ? 1 : 0,
       'changeLog': changeLog,
       'baseVersionId': baseVersionId, // 기반 버전 ID 추가
+      'versionStatus': versionStatus,
     };
   }
 
@@ -67,6 +69,7 @@ extension RecipeVersionModelExtension on RecipeVersionModel {
       isDeleted: map['isDeleted'] == 1,
       changeLog: map['changeLog'],
       baseVersionId: map['baseVersionId'], // 기반 버전 ID 추가
+      versionStatus: map['versionStatus'] as String?,
     );
   }
 
@@ -85,6 +88,7 @@ extension RecipeVersionModelExtension on RecipeVersionModel {
       createdAt: createdAt,
       changeLog: changeLog,
       baseVersionId: baseVersionId, // 기반 버전 ID 추가
+      versionStatus: versionStatus,
     );
   }
 
@@ -111,6 +115,7 @@ extension RecipeVersionModelExtension on RecipeVersionModel {
       updatedAt: updatedAt,
       changeLog: entity.changeLog,
       baseVersionId: entity.baseVersionId, // 기반 버전 ID 추가
+      versionStatus: entity.versionStatus,
     );
   }
 }

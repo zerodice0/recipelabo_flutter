@@ -11,6 +11,7 @@ import 'package:recipick_flutter/presentation/recipe/detail/viewmodel/recipe_det
 import 'package:recipick_flutter/presentation/recipe/detail/viewmodel/cooking_log_viewmodel.dart';
 import 'package:recipick_flutter/presentation/recipe/widgets/step_with_timer_widget.dart';
 import 'package:recipick_flutter/domain/usecases/delete_recipe_version_usecase.dart';
+import 'package:recipick_flutter/domain/usecases/save_recipe_usecase.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RecipeDetailScreen extends ConsumerStatefulWidget {
@@ -373,7 +374,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
         children: [
           _buildRecipeHeader(context, recipe),
           const SizedBox(height: 24),
-          _buildVersionSelector(context, versions),
+          _buildVersionSelector(context, recipe, versions),
           const SizedBox(height: 16),
           if (versions.isNotEmpty) ...[
             if (versions.length > 1) ...[
@@ -529,6 +530,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
 
   Widget _buildVersionSelector(
     BuildContext context,
+    RecipeEntity recipe,
     List<RecipeVersionEntity> versions,
   ) {
     return Card(
@@ -656,6 +658,57 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                                                 ).colorScheme.onPrimaryContainer
                                               : null,
                                         ),
+                                  ),
+                                ),
+                                if (version.versionStatus != null) ...[
+                                  const SizedBox(width: 8),
+                                  _buildVersionStatusChip(
+                                    context,
+                                    version.versionStatus!,
+                                  ),
+                                ],
+                                PopupMenuButton<String>(
+                                  tooltip: '버전 상태 변경',
+                                  onSelected: (status) => _setVersionStatus(
+                                    context,
+                                    recipe,
+                                    version,
+                                    versions,
+                                    status == 'clear' ? null : status,
+                                  ),
+                                  itemBuilder: (context) => [
+                                    const PopupMenuItem<String>(
+                                      value: 'current',
+                                      child: Text('대표 버전'),
+                                    ),
+                                    const PopupMenuItem<String>(
+                                      value: 'favorite',
+                                      child: Text('최애 버전'),
+                                    ),
+                                    const PopupMenuItem<String>(
+                                      value: 'baseline',
+                                      child: Text('기준 버전'),
+                                    ),
+                                    const PopupMenuItem<String>(
+                                      value: 'failed',
+                                      child: Text('실패 버전'),
+                                    ),
+                                    const PopupMenuItem<String>(
+                                      value: 'archived',
+                                      child: Text('보관'),
+                                    ),
+                                    const PopupMenuDivider(),
+                                    const PopupMenuItem<String>(
+                                      value: 'clear',
+                                      child: Text('상태 없음'),
+                                    ),
+                                  ],
+                                  icon: Icon(
+                                    Icons.label_outline,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onSurfaceVariant,
+                                    size: 20,
                                   ),
                                 ),
                                 if (versions.length > 1)
@@ -787,6 +840,92 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
         ),
       ),
     );
+  }
+
+  Widget _buildVersionStatusChip(BuildContext context, String status) {
+    final label = _versionStatusLabel(status);
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: colorScheme.tertiaryContainer,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Text(
+        label,
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: colorScheme.onTertiaryContainer,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  String _versionStatusLabel(String status) {
+    return switch (status) {
+      'current' => '대표',
+      'favorite' => '최애',
+      'baseline' => '기준',
+      'failed' => '실패',
+      'archived' => '보관',
+      _ => status,
+    };
+  }
+
+  Future<void> _setVersionStatus(
+    BuildContext context,
+    RecipeEntity recipe,
+    RecipeVersionEntity targetVersion,
+    List<RecipeVersionEntity> allVersions,
+    String? status,
+  ) async {
+    try {
+      final saveRecipeUseCase = ref.read(saveRecipeUseCaseProvider);
+      final now = DateTime.now();
+      final updatedRecipe = status == 'current'
+          ? recipe.copyWith(latestVersionId: targetVersion.id, updatedAt: now)
+          : recipe.copyWith(updatedAt: now);
+
+      if (status == 'current') {
+        for (final version in allVersions) {
+          if (version.id != targetVersion.id &&
+              version.versionStatus == 'current') {
+            await saveRecipeUseCase(
+              updatedRecipe,
+              version.copyWith(versionStatus: null),
+            );
+          }
+        }
+      }
+
+      await saveRecipeUseCase(
+        updatedRecipe,
+        targetVersion.copyWith(versionStatus: status),
+      );
+
+      ref.invalidate(recipeDetailViewModelProvider(widget.recipeId));
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              status == null
+                  ? '버전 상태를 제거했습니다.'
+                  : '${targetVersion.fullDisplayName} 상태를 ${_versionStatusLabel(status)}로 변경했습니다.',
+            ),
+          ),
+        );
+      }
+    } catch (error) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('버전 상태 변경에 실패했습니다: $error'),
+            backgroundColor: Theme.of(context).colorScheme.error,
+          ),
+        );
+      }
+    }
   }
 
   Widget _buildVersionDiffCard(

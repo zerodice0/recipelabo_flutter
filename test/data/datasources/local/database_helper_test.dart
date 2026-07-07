@@ -170,6 +170,7 @@ void main() {
       expect(columnNames, contains('authorId'));
       expect(columnNames, contains('createdAt'));
       expect(columnNames, contains('isDeleted'));
+      expect(columnNames, contains('versionStatus'));
     });
 
     test('레시피 데이터 삽입 및 조회 테스트', () async {

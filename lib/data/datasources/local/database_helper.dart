@@ -21,7 +21,7 @@ class DatabaseHelper {
     final path = join(dbPath, 'saucerer.db');
     return await openDatabase(
       path,
-      version: 20,
+      version: 21,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -70,6 +70,7 @@ class DatabaseHelper {
         isDeleted INTEGER NOT NULL DEFAULT 0,
         changeLog TEXT,
         baseVersionId TEXT,
+        versionStatus TEXT,
         FOREIGN KEY (recipeId) REFERENCES recipes(id),
         FOREIGN KEY (authorId) REFERENCES users(id),
         FOREIGN KEY (baseVersionId) REFERENCES recipe_versions(id)
@@ -559,6 +560,16 @@ class DatabaseHelper {
       await _addColumnIfMissing(db, 'cooking_logs', 'umamiRating', 'INTEGER');
       await _addColumnIfMissing(db, 'cooking_logs', 'failureReason', 'TEXT');
       await _addColumnIfMissing(db, 'cooking_logs', 'nextAdjustment', 'TEXT');
+    }
+
+    if (oldVersion < 21) {
+      // Version 21: Store per-version status such as current/favorite/failed.
+      await _addColumnIfMissing(
+        db,
+        'recipe_versions',
+        'versionStatus',
+        'TEXT',
+      );
     }
   }
 

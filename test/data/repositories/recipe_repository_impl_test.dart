@@ -55,6 +55,7 @@ void main() {
         ],
         authorId: 'user-test-1',
         createdAt: testTime,
+        versionStatus: 'favorite',
       );
 
       expect(version.id, 'version-test-1');
@@ -63,6 +64,7 @@ void main() {
       expect(version.name, '김치찌개 기본 레시피');
       expect(version.ingredients.length, 1);
       expect(version.steps.length, 1);
+      expect(version.versionStatus, 'favorite');
     });
 
     test('재료 엔티티 생성 테스트', () {

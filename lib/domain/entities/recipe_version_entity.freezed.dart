@@ -16,7 +16,8 @@ mixin _$RecipeVersionEntity {
 
  String get id; String get recipeId; int get versionNumber; String get name;// 레시피 이름 (모든 버전에서 동일)
  String? get versionName;// 사용자 정의 버전명 (예: "라볶이", "설탕 대체제")
- String get description; List<IngredientEntity> get ingredients; List<StepEntity> get steps; String get authorId; DateTime get createdAt; String? get changeLog; String? get baseVersionId;
+ String get description; List<IngredientEntity> get ingredients; List<StepEntity> get steps; String get authorId; DateTime get createdAt; String? get changeLog; String? get baseVersionId;// 기반이 된 버전의 ID
+ String? get versionStatus;
 /// Create a copy of RecipeVersionEntity
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,16 +28,16 @@ $RecipeVersionEntityCopyWith<RecipeVersionEntity> get copyWith => _$RecipeVersio
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeVersionEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.versionNumber, versionNumber) || other.versionNumber == versionNumber)&&(identical(other.name, name) || other.name == name)&&(identical(other.versionName, versionName) || other.versionName == versionName)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.ingredients, ingredients)&&const DeepCollectionEquality().equals(other.steps, steps)&&(identical(other.authorId, authorId) || other.authorId == authorId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.changeLog, changeLog) || other.changeLog == changeLog)&&(identical(other.baseVersionId, baseVersionId) || other.baseVersionId == baseVersionId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RecipeVersionEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.versionNumber, versionNumber) || other.versionNumber == versionNumber)&&(identical(other.name, name) || other.name == name)&&(identical(other.versionName, versionName) || other.versionName == versionName)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.ingredients, ingredients)&&const DeepCollectionEquality().equals(other.steps, steps)&&(identical(other.authorId, authorId) || other.authorId == authorId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.changeLog, changeLog) || other.changeLog == changeLog)&&(identical(other.baseVersionId, baseVersionId) || other.baseVersionId == baseVersionId)&&(identical(other.versionStatus, versionStatus) || other.versionStatus == versionStatus));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,recipeId,versionNumber,name,versionName,description,const DeepCollectionEquality().hash(ingredients),const DeepCollectionEquality().hash(steps),authorId,createdAt,changeLog,baseVersionId);
+int get hashCode => Object.hash(runtimeType,id,recipeId,versionNumber,name,versionName,description,const DeepCollectionEquality().hash(ingredients),const DeepCollectionEquality().hash(steps),authorId,createdAt,changeLog,baseVersionId,versionStatus);
 
 @override
 String toString() {
-  return 'RecipeVersionEntity(id: $id, recipeId: $recipeId, versionNumber: $versionNumber, name: $name, versionName: $versionName, description: $description, ingredients: $ingredients, steps: $steps, authorId: $authorId, createdAt: $createdAt, changeLog: $changeLog, baseVersionId: $baseVersionId)';
+  return 'RecipeVersionEntity(id: $id, recipeId: $recipeId, versionNumber: $versionNumber, name: $name, versionName: $versionName, description: $description, ingredients: $ingredients, steps: $steps, authorId: $authorId, createdAt: $createdAt, changeLog: $changeLog, baseVersionId: $baseVersionId, versionStatus: $versionStatus)';
 }
 
 
@@ -47,7 +48,7 @@ abstract mixin class $RecipeVersionEntityCopyWith<$Res>  {
   factory $RecipeVersionEntityCopyWith(RecipeVersionEntity value, $Res Function(RecipeVersionEntity) _then) = _$RecipeVersionEntityCopyWithImpl;
 @useResult
 $Res call({
- String id, String recipeId, int versionNumber, String name, String? versionName, String description, List<IngredientEntity> ingredients, List<StepEntity> steps, String authorId, DateTime createdAt, String? changeLog, String? baseVersionId
+ String id, String recipeId, int versionNumber, String name, String? versionName, String description, List<IngredientEntity> ingredients, List<StepEntity> steps, String authorId, DateTime createdAt, String? changeLog, String? baseVersionId, String? versionStatus
 });
 
 
@@ -64,7 +65,7 @@ class _$RecipeVersionEntityCopyWithImpl<$Res>
 
 /// Create a copy of RecipeVersionEntity
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? recipeId = null,Object? versionNumber = null,Object? name = null,Object? versionName = freezed,Object? description = null,Object? ingredients = null,Object? steps = null,Object? authorId = null,Object? createdAt = null,Object? changeLog = freezed,Object? baseVersionId = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? recipeId = null,Object? versionNumber = null,Object? name = null,Object? versionName = freezed,Object? description = null,Object? ingredients = null,Object? steps = null,Object? authorId = null,Object? createdAt = null,Object? changeLog = freezed,Object? baseVersionId = freezed,Object? versionStatus = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,recipeId: null == recipeId ? _self.recipeId : recipeId // ignore: cast_nullable_to_non_nullable
@@ -78,6 +79,7 @@ as List<StepEntity>,authorId: null == authorId ? _self.authorId : authorId // ig
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,changeLog: freezed == changeLog ? _self.changeLog : changeLog // ignore: cast_nullable_to_non_nullable
 as String?,baseVersionId: freezed == baseVersionId ? _self.baseVersionId : baseVersionId // ignore: cast_nullable_to_non_nullable
+as String?,versionStatus: freezed == versionStatus ? _self.versionStatus : versionStatus // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -163,10 +165,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String recipeId,  int versionNumber,  String name,  String? versionName,  String description,  List<IngredientEntity> ingredients,  List<StepEntity> steps,  String authorId,  DateTime createdAt,  String? changeLog,  String? baseVersionId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String recipeId,  int versionNumber,  String name,  String? versionName,  String description,  List<IngredientEntity> ingredients,  List<StepEntity> steps,  String authorId,  DateTime createdAt,  String? changeLog,  String? baseVersionId,  String? versionStatus)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RecipeVersionEntity() when $default != null:
-return $default(_that.id,_that.recipeId,_that.versionNumber,_that.name,_that.versionName,_that.description,_that.ingredients,_that.steps,_that.authorId,_that.createdAt,_that.changeLog,_that.baseVersionId);case _:
+return $default(_that.id,_that.recipeId,_that.versionNumber,_that.name,_that.versionName,_that.description,_that.ingredients,_that.steps,_that.authorId,_that.createdAt,_that.changeLog,_that.baseVersionId,_that.versionStatus);case _:
   return orElse();
 
 }
@@ -184,10 +186,10 @@ return $default(_that.id,_that.recipeId,_that.versionNumber,_that.name,_that.ver
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String recipeId,  int versionNumber,  String name,  String? versionName,  String description,  List<IngredientEntity> ingredients,  List<StepEntity> steps,  String authorId,  DateTime createdAt,  String? changeLog,  String? baseVersionId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String recipeId,  int versionNumber,  String name,  String? versionName,  String description,  List<IngredientEntity> ingredients,  List<StepEntity> steps,  String authorId,  DateTime createdAt,  String? changeLog,  String? baseVersionId,  String? versionStatus)  $default,) {final _that = this;
 switch (_that) {
 case _RecipeVersionEntity():
-return $default(_that.id,_that.recipeId,_that.versionNumber,_that.name,_that.versionName,_that.description,_that.ingredients,_that.steps,_that.authorId,_that.createdAt,_that.changeLog,_that.baseVersionId);case _:
+return $default(_that.id,_that.recipeId,_that.versionNumber,_that.name,_that.versionName,_that.description,_that.ingredients,_that.steps,_that.authorId,_that.createdAt,_that.changeLog,_that.baseVersionId,_that.versionStatus);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -204,10 +206,10 @@ return $default(_that.id,_that.recipeId,_that.versionNumber,_that.name,_that.ver
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String recipeId,  int versionNumber,  String name,  String? versionName,  String description,  List<IngredientEntity> ingredients,  List<StepEntity> steps,  String authorId,  DateTime createdAt,  String? changeLog,  String? baseVersionId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String recipeId,  int versionNumber,  String name,  String? versionName,  String description,  List<IngredientEntity> ingredients,  List<StepEntity> steps,  String authorId,  DateTime createdAt,  String? changeLog,  String? baseVersionId,  String? versionStatus)?  $default,) {final _that = this;
 switch (_that) {
 case _RecipeVersionEntity() when $default != null:
-return $default(_that.id,_that.recipeId,_that.versionNumber,_that.name,_that.versionName,_that.description,_that.ingredients,_that.steps,_that.authorId,_that.createdAt,_that.changeLog,_that.baseVersionId);case _:
+return $default(_that.id,_that.recipeId,_that.versionNumber,_that.name,_that.versionName,_that.description,_that.ingredients,_that.steps,_that.authorId,_that.createdAt,_that.changeLog,_that.baseVersionId,_that.versionStatus);case _:
   return null;
 
 }
@@ -219,7 +221,7 @@ return $default(_that.id,_that.recipeId,_that.versionNumber,_that.name,_that.ver
 
 
 class _RecipeVersionEntity extends RecipeVersionEntity {
-  const _RecipeVersionEntity({required this.id, required this.recipeId, required this.versionNumber, required this.name, this.versionName, required this.description, required final  List<IngredientEntity> ingredients, required final  List<StepEntity> steps, required this.authorId, required this.createdAt, this.changeLog, this.baseVersionId}): _ingredients = ingredients,_steps = steps,super._();
+  const _RecipeVersionEntity({required this.id, required this.recipeId, required this.versionNumber, required this.name, this.versionName, required this.description, required final  List<IngredientEntity> ingredients, required final  List<StepEntity> steps, required this.authorId, required this.createdAt, this.changeLog, this.baseVersionId, this.versionStatus}): _ingredients = ingredients,_steps = steps,super._();
   
 
 @override final  String id;
@@ -248,6 +250,8 @@ class _RecipeVersionEntity extends RecipeVersionEntity {
 @override final  DateTime createdAt;
 @override final  String? changeLog;
 @override final  String? baseVersionId;
+// 기반이 된 버전의 ID
+@override final  String? versionStatus;
 
 /// Create a copy of RecipeVersionEntity
 /// with the given fields replaced by the non-null parameter values.
@@ -259,16 +263,16 @@ _$RecipeVersionEntityCopyWith<_RecipeVersionEntity> get copyWith => __$RecipeVer
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeVersionEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.versionNumber, versionNumber) || other.versionNumber == versionNumber)&&(identical(other.name, name) || other.name == name)&&(identical(other.versionName, versionName) || other.versionName == versionName)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._ingredients, _ingredients)&&const DeepCollectionEquality().equals(other._steps, _steps)&&(identical(other.authorId, authorId) || other.authorId == authorId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.changeLog, changeLog) || other.changeLog == changeLog)&&(identical(other.baseVersionId, baseVersionId) || other.baseVersionId == baseVersionId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RecipeVersionEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.recipeId, recipeId) || other.recipeId == recipeId)&&(identical(other.versionNumber, versionNumber) || other.versionNumber == versionNumber)&&(identical(other.name, name) || other.name == name)&&(identical(other.versionName, versionName) || other.versionName == versionName)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._ingredients, _ingredients)&&const DeepCollectionEquality().equals(other._steps, _steps)&&(identical(other.authorId, authorId) || other.authorId == authorId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.changeLog, changeLog) || other.changeLog == changeLog)&&(identical(other.baseVersionId, baseVersionId) || other.baseVersionId == baseVersionId)&&(identical(other.versionStatus, versionStatus) || other.versionStatus == versionStatus));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,recipeId,versionNumber,name,versionName,description,const DeepCollectionEquality().hash(_ingredients),const DeepCollectionEquality().hash(_steps),authorId,createdAt,changeLog,baseVersionId);
+int get hashCode => Object.hash(runtimeType,id,recipeId,versionNumber,name,versionName,description,const DeepCollectionEquality().hash(_ingredients),const DeepCollectionEquality().hash(_steps),authorId,createdAt,changeLog,baseVersionId,versionStatus);
 
 @override
 String toString() {
-  return 'RecipeVersionEntity(id: $id, recipeId: $recipeId, versionNumber: $versionNumber, name: $name, versionName: $versionName, description: $description, ingredients: $ingredients, steps: $steps, authorId: $authorId, createdAt: $createdAt, changeLog: $changeLog, baseVersionId: $baseVersionId)';
+  return 'RecipeVersionEntity(id: $id, recipeId: $recipeId, versionNumber: $versionNumber, name: $name, versionName: $versionName, description: $description, ingredients: $ingredients, steps: $steps, authorId: $authorId, createdAt: $createdAt, changeLog: $changeLog, baseVersionId: $baseVersionId, versionStatus: $versionStatus)';
 }
 
 
@@ -279,7 +283,7 @@ abstract mixin class _$RecipeVersionEntityCopyWith<$Res> implements $RecipeVersi
   factory _$RecipeVersionEntityCopyWith(_RecipeVersionEntity value, $Res Function(_RecipeVersionEntity) _then) = __$RecipeVersionEntityCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String recipeId, int versionNumber, String name, String? versionName, String description, List<IngredientEntity> ingredients, List<StepEntity> steps, String authorId, DateTime createdAt, String? changeLog, String? baseVersionId
+ String id, String recipeId, int versionNumber, String name, String? versionName, String description, List<IngredientEntity> ingredients, List<StepEntity> steps, String authorId, DateTime createdAt, String? changeLog, String? baseVersionId, String? versionStatus
 });
 
 
@@ -296,7 +300,7 @@ class __$RecipeVersionEntityCopyWithImpl<$Res>
 
 /// Create a copy of RecipeVersionEntity
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? recipeId = null,Object? versionNumber = null,Object? name = null,Object? versionName = freezed,Object? description = null,Object? ingredients = null,Object? steps = null,Object? authorId = null,Object? createdAt = null,Object? changeLog = freezed,Object? baseVersionId = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? recipeId = null,Object? versionNumber = null,Object? name = null,Object? versionName = freezed,Object? description = null,Object? ingredients = null,Object? steps = null,Object? authorId = null,Object? createdAt = null,Object? changeLog = freezed,Object? baseVersionId = freezed,Object? versionStatus = freezed,}) {
   return _then(_RecipeVersionEntity(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,recipeId: null == recipeId ? _self.recipeId : recipeId // ignore: cast_nullable_to_non_nullable
@@ -310,6 +314,7 @@ as List<StepEntity>,authorId: null == authorId ? _self.authorId : authorId // ig
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,changeLog: freezed == changeLog ? _self.changeLog : changeLog // ignore: cast_nullable_to_non_nullable
 as String?,baseVersionId: freezed == baseVersionId ? _self.baseVersionId : baseVersionId // ignore: cast_nullable_to_non_nullable
+as String?,versionStatus: freezed == versionStatus ? _self.versionStatus : versionStatus // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

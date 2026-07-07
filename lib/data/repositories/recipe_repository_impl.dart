@@ -144,6 +144,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
       createdAt: model.createdAt,
       changeLog: model.changeLog,
       baseVersionId: model.baseVersionId,
+      versionStatus: model.versionStatus,
     );
   }
 
@@ -168,6 +169,7 @@ class RecipeRepositoryImpl implements RecipeRepository {
       updatedAt: DateTime.now(), // Should be handled properly
       changeLog: entity.changeLog,
       baseVersionId: entity.baseVersionId,
+      versionStatus: entity.versionStatus,
     );
   }
 

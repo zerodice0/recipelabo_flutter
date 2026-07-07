@@ -26,6 +26,7 @@ _RecipeVersionModel _$RecipeVersionModelFromJson(Map<String, dynamic> json) =>
       isDeleted: json['isDeleted'] as bool? ?? false,
       changeLog: json['changeLog'] as String?,
       baseVersionId: json['baseVersionId'] as String?,
+      versionStatus: json['versionStatus'] as String?,
     );
 
 Map<String, dynamic> _$RecipeVersionModelToJson(_RecipeVersionModel instance) =>
@@ -44,4 +45,5 @@ Map<String, dynamic> _$RecipeVersionModelToJson(_RecipeVersionModel instance) =>
       'isDeleted': instance.isDeleted,
       'changeLog': instance.changeLog,
       'baseVersionId': instance.baseVersionId,
+      'versionStatus': instance.versionStatus,
     };
