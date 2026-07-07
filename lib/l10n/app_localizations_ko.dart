@@ -1030,4 +1030,38 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get actionCreate => '생성';
+
+  @override
+  String get settingsBackup => '데이터 백업/복원';
+
+  @override
+  String get settingsBackupDescription => '레시피와 요리 기록 JSON 파일 관리';
+
+  @override
+  String get backupExport => '백업 내보내기';
+
+  @override
+  String get backupImport => '백업 가져오기';
+
+  @override
+  String get backupImportConfirmTitle => '백업 가져오기';
+
+  @override
+  String get backupImportConfirmMessage =>
+      '같은 ID의 데이터는 백업 파일 내용으로 덮어쓰고, 백업에 없는 기존 데이터는 유지합니다. 계속할까요?';
+
+  @override
+  String get backupExported => '백업 파일을 만들었습니다';
+
+  @override
+  String get backupImported => '백업을 가져왔습니다';
+
+  @override
+  String get backupActionFailed => '백업 작업 중 오류가 발생했습니다';
+
+  @override
+  String get backupNoFileSelected => '선택한 파일이 없습니다';
+
+  @override
+  String get backupShareText => '레시피 백업 파일';
 }

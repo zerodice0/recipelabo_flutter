@@ -1053,4 +1053,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get actionCreate => 'Create';
+
+  @override
+  String get settingsBackup => 'Data Backup/Restore';
+
+  @override
+  String get settingsBackupDescription =>
+      'Manage recipes and cooking logs as JSON files';
+
+  @override
+  String get backupExport => 'Export Backup';
+
+  @override
+  String get backupImport => 'Import Backup';
+
+  @override
+  String get backupImportConfirmTitle => 'Import Backup';
+
+  @override
+  String get backupImportConfirmMessage =>
+      'Data with the same ID will be replaced by the backup file. Existing data that is not in the backup will be kept. Continue?';
+
+  @override
+  String get backupExported => 'Backup file created';
+
+  @override
+  String get backupImported => 'Backup imported';
+
+  @override
+  String get backupActionFailed =>
+      'An error occurred during the backup operation';
+
+  @override
+  String get backupNoFileSelected => 'No file selected';
+
+  @override
+  String get backupShareText => 'Recipe backup file';
 }

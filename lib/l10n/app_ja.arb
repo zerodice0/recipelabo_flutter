@@ -324,5 +324,16 @@
   "categoryCreateIconLabel": "アイコン選択（任意）",
   "categoryCreateDescriptionLabel": "説明（任意）",
   "categoryCreateDescriptionHint": "カテゴリについての簡単な説明",
-  "actionCreate": "作成"
+  "actionCreate": "作成",
+  "settingsBackup": "データのバックアップ/復元",
+  "settingsBackupDescription": "レシピと調理記録をJSONファイルで管理",
+  "backupExport": "バックアップを書き出す",
+  "backupImport": "バックアップを読み込む",
+  "backupImportConfirmTitle": "バックアップを読み込む",
+  "backupImportConfirmMessage": "同じIDのデータはバックアップファイルの内容で置き換えられます。バックアップに含まれない既存データは保持されます。続行しますか？",
+  "backupExported": "バックアップファイルを作成しました",
+  "backupImported": "バックアップを読み込みました",
+  "backupActionFailed": "バックアップ処理中にエラーが発生しました",
+  "backupNoFileSelected": "ファイルが選択されていません",
+  "backupShareText": "レシピのバックアップファイル"
 }

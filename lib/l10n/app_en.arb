@@ -1423,5 +1423,49 @@
   "actionCreate": "Create",
   "@actionCreate": {
     "description": "생성 액션"
+  },
+  "settingsBackup": "Data Backup/Restore",
+  "@settingsBackup": {
+    "description": "백업/복원 설정 제목"
+  },
+  "settingsBackupDescription": "Manage recipes and cooking logs as JSON files",
+  "@settingsBackupDescription": {
+    "description": "백업/복원 설정 설명"
+  },
+  "backupExport": "Export Backup",
+  "@backupExport": {
+    "description": "백업 내보내기 액션"
+  },
+  "backupImport": "Import Backup",
+  "@backupImport": {
+    "description": "백업 가져오기 액션"
+  },
+  "backupImportConfirmTitle": "Import Backup",
+  "@backupImportConfirmTitle": {
+    "description": "백업 가져오기 확인 제목"
+  },
+  "backupImportConfirmMessage": "Data with the same ID will be replaced by the backup file. Existing data that is not in the backup will be kept. Continue?",
+  "@backupImportConfirmMessage": {
+    "description": "백업 가져오기 병합 정책 확인 메시지"
+  },
+  "backupExported": "Backup file created",
+  "@backupExported": {
+    "description": "백업 내보내기 완료 메시지"
+  },
+  "backupImported": "Backup imported",
+  "@backupImported": {
+    "description": "백업 가져오기 완료 메시지"
+  },
+  "backupActionFailed": "An error occurred during the backup operation",
+  "@backupActionFailed": {
+    "description": "백업 오류 메시지"
+  },
+  "backupNoFileSelected": "No file selected",
+  "@backupNoFileSelected": {
+    "description": "백업 파일 미선택 메시지"
+  },
+  "backupShareText": "Recipe backup file",
+  "@backupShareText": {
+    "description": "백업 공유 텍스트"
   }
 }

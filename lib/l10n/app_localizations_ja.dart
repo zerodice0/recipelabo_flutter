@@ -1031,4 +1031,38 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get actionCreate => '作成';
+
+  @override
+  String get settingsBackup => 'データのバックアップ/復元';
+
+  @override
+  String get settingsBackupDescription => 'レシピと調理記録をJSONファイルで管理';
+
+  @override
+  String get backupExport => 'バックアップを書き出す';
+
+  @override
+  String get backupImport => 'バックアップを読み込む';
+
+  @override
+  String get backupImportConfirmTitle => 'バックアップを読み込む';
+
+  @override
+  String get backupImportConfirmMessage =>
+      '同じIDのデータはバックアップファイルの内容で置き換えられます。バックアップに含まれない既存データは保持されます。続行しますか？';
+
+  @override
+  String get backupExported => 'バックアップファイルを作成しました';
+
+  @override
+  String get backupImported => 'バックアップを読み込みました';
+
+  @override
+  String get backupActionFailed => 'バックアップ処理中にエラーが発生しました';
+
+  @override
+  String get backupNoFileSelected => 'ファイルが選択されていません';
+
+  @override
+  String get backupShareText => 'レシピのバックアップファイル';
 }
