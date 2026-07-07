@@ -21,7 +21,7 @@ class DatabaseHelper {
     final path = join(dbPath, 'saucerer.db');
     return await openDatabase(
       path,
-      version: 21,
+      version: 22,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -49,7 +49,7 @@ class DatabaseHelper {
         sourceUrl TEXT,
         sourceName TEXT,
         importedAt TEXT,
-        isPublic INTEGER NOT NULL DEFAULT 1,
+        isPublic INTEGER NOT NULL DEFAULT 0,
         createdAt TEXT NOT NULL,
         updatedAt TEXT NOT NULL,
         isDeleted INTEGER NOT NULL DEFAULT 0,
@@ -564,12 +564,12 @@ class DatabaseHelper {
 
     if (oldVersion < 21) {
       // Version 21: Store per-version status such as current/favorite/failed.
-      await _addColumnIfMissing(
-        db,
-        'recipe_versions',
-        'versionStatus',
-        'TEXT',
-      );
+      await _addColumnIfMissing(db, 'recipe_versions', 'versionStatus', 'TEXT');
+    }
+
+    if (oldVersion < 22) {
+      // Version 22: Local recipe experiments are private by default.
+      await _migrateRecipesToPrivateDefault(db);
     }
   }
 
@@ -601,6 +601,48 @@ class DatabaseHelper {
         'ALTER TABLE $tableName ADD COLUMN $columnName $columnType',
       );
     }
+  }
+
+  Future<void> _migrateRecipesToPrivateDefault(Database db) async {
+    final tableInfo = await db.rawQuery('PRAGMA table_info(recipes)');
+    if (tableInfo.isEmpty) {
+      debugPrint('Skipping recipes privacy migration: table missing');
+      return;
+    }
+
+    await db.execute('''
+      CREATE TABLE recipes_new(
+        id TEXT PRIMARY KEY,
+        authorId TEXT NOT NULL,
+        latestVersionId TEXT NOT NULL,
+        name TEXT NOT NULL,
+        description TEXT,
+        sourceUrl TEXT,
+        sourceName TEXT,
+        importedAt TEXT,
+        isPublic INTEGER NOT NULL DEFAULT 0,
+        createdAt TEXT NOT NULL,
+        updatedAt TEXT NOT NULL,
+        isDeleted INTEGER NOT NULL DEFAULT 0,
+        FOREIGN KEY (authorId) REFERENCES users(id)
+      )
+    ''');
+
+    await db.execute('''
+      INSERT INTO recipes_new (
+        id, authorId, latestVersionId, name, description,
+        sourceUrl, sourceName, importedAt, isPublic,
+        createdAt, updatedAt, isDeleted
+      )
+      SELECT
+        id, authorId, latestVersionId, name, description,
+        sourceUrl, sourceName, importedAt, 0,
+        createdAt, updatedAt, COALESCE(isDeleted, 0)
+      FROM recipes
+    ''');
+
+    await db.execute('DROP TABLE recipes');
+    await db.execute('ALTER TABLE recipes_new RENAME TO recipes');
   }
 
   /// 프리셋 단위를 데이터베이스에 초기화하는 메서드 - 중립적 ID 방식

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:recipick_flutter/core/config/local_user_policy.dart';
 import 'package:recipick_flutter/core/services/image_storage_service.dart';
 import 'package:recipick_flutter/core/services/recipe_backup_service.dart';
 import 'package:recipick_flutter/data/datasources/local/database_helper.dart';
@@ -68,8 +69,8 @@ void main() {
     final users = tables['users'] as List<dynamic>;
 
     expect(users, hasLength(1));
-    expect(users.single['id'], 'user-1');
-    expect(users.single['username'], 'Local User');
+    expect(users.single['id'], LocalUserPolicy.localUserId);
+    expect(users.single['username'], LocalUserPolicy.localUsername);
   });
 
   test('JSON 복원은 같은 ID의 기존 레시피 데이터를 백업 내용으로 교체한다', () async {
@@ -271,7 +272,9 @@ Future<void> _insertBackupFixture(
   String? stepImageUrl,
 }) async {
   const createdAt = '2026-07-07T12:00:00.000Z';
-  final userId = 'user-$idSuffix';
+  final userId = idSuffix == '1'
+      ? LocalUserPolicy.localUserId
+      : '${LocalUserPolicy.localUserId}-$idSuffix';
   final recipeId = 'recipe-$idSuffix';
   final versionId = 'version-$idSuffix';
 

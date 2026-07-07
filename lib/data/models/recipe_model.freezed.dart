@@ -220,7 +220,7 @@ return $default(_that.id,_that.authorId,_that.latestVersionId,_that.name,_that.d
 @JsonSerializable()
 
 class _RecipeModel implements RecipeModel {
-  const _RecipeModel({required this.id, required this.authorId, required this.latestVersionId, required this.name, this.description, this.sourceUrl, this.sourceName, this.importedAt, this.isPublic = true, required this.createdAt, required this.updatedAt, this.isDeleted = false});
+  const _RecipeModel({required this.id, required this.authorId, required this.latestVersionId, required this.name, this.description, this.sourceUrl, this.sourceName, this.importedAt, this.isPublic = false, required this.createdAt, required this.updatedAt, this.isDeleted = false});
   factory _RecipeModel.fromJson(Map<String, dynamic> json) => _$RecipeModelFromJson(json);
 
 @override final  String id;

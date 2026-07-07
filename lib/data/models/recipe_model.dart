@@ -15,7 +15,7 @@ abstract class RecipeModel with _$RecipeModel {
     String? sourceUrl,
     String? sourceName,
     DateTime? importedAt,
-    @Default(true) bool isPublic,
+    @Default(false) bool isPublic,
     required DateTime createdAt,
     required DateTime updatedAt,
     @Default(false) bool isDeleted,

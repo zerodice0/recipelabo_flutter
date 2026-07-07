@@ -1,4 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:recipick_flutter/core/config/local_user_policy.dart';
+import 'package:recipick_flutter/data/models/recipe_model.dart';
 import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
 import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
 import 'package:recipick_flutter/domain/entities/ingredient_entity.dart';
@@ -31,6 +33,21 @@ void main() {
       expect(recipe.sourceName, 'Example Recipe');
       expect(recipe.importedAt, testTime);
       expect(recipe.isPublic, true);
+    });
+
+    test('레시피 모델 기본 공개 상태는 비공개다', () {
+      final testTime = DateTime.now();
+
+      final recipe = RecipeModel(
+        id: 'recipe-private-default',
+        authorId: LocalUserPolicy.localUserId,
+        latestVersionId: 'version-private-default',
+        name: '비공개 기본 레시피',
+        createdAt: testTime,
+        updatedAt: testTime,
+      );
+
+      expect(recipe.isPublic, false);
     });
 
     test('레시피 버전 엔티티 생성 테스트', () {

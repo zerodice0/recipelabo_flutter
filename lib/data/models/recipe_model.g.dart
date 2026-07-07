@@ -17,7 +17,7 @@ _RecipeModel _$RecipeModelFromJson(Map<String, dynamic> json) => _RecipeModel(
   importedAt: json['importedAt'] == null
       ? null
       : DateTime.parse(json['importedAt'] as String),
-  isPublic: json['isPublic'] as bool? ?? true,
+  isPublic: json['isPublic'] as bool? ?? false,
   createdAt: DateTime.parse(json['createdAt'] as String),
   updatedAt: DateTime.parse(json['updatedAt'] as String),
   isDeleted: json['isDeleted'] as bool? ?? false,

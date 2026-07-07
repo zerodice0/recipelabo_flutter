@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:recipick_flutter/core/config/local_user_policy.dart';
 import 'package:recipick_flutter/presentation/cooking_log/create/viewmodel/cooking_log_create_viewmodel.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 
@@ -130,7 +131,7 @@ class _CookingLogCreateScreenState
 
                     await viewModel.saveCookingLog(
                       widget.recipeVersionId,
-                      'default_user', // TODO: 실제 사용자 ID로 변경
+                      LocalUserPolicy.localUserId,
                     );
                   }
                 },

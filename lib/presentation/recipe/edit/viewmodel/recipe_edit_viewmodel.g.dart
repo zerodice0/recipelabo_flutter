@@ -7,7 +7,7 @@ part of 'recipe_edit_viewmodel.dart';
 // **************************************************************************
 
 String _$recipeEditViewModelHash() =>
-    r'7340f2b8a414db5502fc4f973d5c5cd8774af336';
+    r'3bbf6b77b78245ae1097d405d48ae8f694cd3908';
 
 /// Copied from Dart SDK
 class _SystemHash {

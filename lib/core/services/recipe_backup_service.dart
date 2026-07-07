@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:recipick_flutter/core/config/local_user_policy.dart';
 import 'package:recipick_flutter/core/di/provider.dart';
 import 'package:recipick_flutter/core/services/image_storage_service.dart';
 import 'package:recipick_flutter/data/datasources/local/database_helper.dart';
@@ -363,7 +364,7 @@ class RecipeBackupService {
 
       users.add({
         'id': userId,
-        'username': 'Local User',
+        'username': LocalUserPolicy.localUsername,
         'avatarUrl': null,
         'createdAt': now,
         'updatedAt': now,
@@ -611,7 +612,7 @@ class RecipeBackupService {
 
       importedUsers.add({
         'id': userId,
-        'username': 'Local User',
+        'username': LocalUserPolicy.localUsername,
         'avatarUrl': null,
         'createdAt': now,
         'updatedAt': now,

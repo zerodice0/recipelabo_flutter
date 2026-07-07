@@ -156,6 +156,71 @@ void main() {
       expect(columnNames, contains('isDeleted'));
     });
 
+    test('recipes 테이블의 기본 공개 상태는 비공개다', () async {
+      final columns = await database.rawQuery('PRAGMA table_info(recipes)');
+      final isPublicColumn = columns.firstWhere(
+        (col) => col['name'] == 'isPublic',
+      );
+
+      expect(isPublicColumn['dflt_value']?.toString(), '0');
+    });
+
+    test('v21 recipes 공개 기본값 마이그레이션은 기존 로컬 레시피를 비공개로 정규화한다', () async {
+      final legacyDb = await openDatabase(
+        inMemoryDatabasePath,
+        version: 21,
+        onCreate: (db, version) async {
+          await db.execute('''
+            CREATE TABLE recipes(
+              id TEXT PRIMARY KEY,
+              authorId TEXT NOT NULL,
+              latestVersionId TEXT NOT NULL,
+              name TEXT NOT NULL,
+              description TEXT,
+              sourceUrl TEXT,
+              sourceName TEXT,
+              importedAt TEXT,
+              isPublic INTEGER NOT NULL DEFAULT 1,
+              createdAt TEXT NOT NULL,
+              updatedAt TEXT NOT NULL,
+              isDeleted INTEGER NOT NULL DEFAULT 0
+            )
+          ''');
+        },
+      );
+      addTearDown(legacyDb.close);
+
+      await legacyDb.insert('recipes', const {
+        'id': 'legacy-public-recipe',
+        'authorId': 'user-1',
+        'latestVersionId': 'legacy-version-1',
+        'name': '기존 공개 기본값 레시피',
+        'description': '마이그레이션 대상',
+        'sourceUrl': null,
+        'sourceName': null,
+        'importedAt': null,
+        'isPublic': 1,
+        'createdAt': '2026-07-07T12:00:00.000Z',
+        'updatedAt': '2026-07-07T12:00:00.000Z',
+        'isDeleted': 0,
+      });
+
+      await databaseHelper.upgradeForTest(legacyDb, 21, 22);
+
+      final columns = await legacyDb.rawQuery('PRAGMA table_info(recipes)');
+      final isPublicColumn = columns.firstWhere(
+        (col) => col['name'] == 'isPublic',
+      );
+      final rows = await legacyDb.query(
+        'recipes',
+        where: 'id = ?',
+        whereArgs: ['legacy-public-recipe'],
+      );
+
+      expect(isPublicColumn['dflt_value']?.toString(), '0');
+      expect(rows.single['isPublic'], 0);
+    });
+
     test('recipe_versions 테이블 스키마가 올바른지 확인', () async {
       final columns = await database.rawQuery(
         'PRAGMA table_info(recipe_versions)',
