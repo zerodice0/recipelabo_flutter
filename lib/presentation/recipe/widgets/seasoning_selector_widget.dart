@@ -32,13 +32,33 @@ class _IngredientSelectorWidgetState
     extends ConsumerState<IngredientSelectorWidget> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
+  final Map<String, TextEditingController> _quantityControllers = {};
+  final Map<String, FocusNode> _quantityFocusNodes = {};
   List<IngredientMasterEntity> _filteredSeasonings = [];
   bool _showDropdown = false;
+
+  @override
+  void didUpdateWidget(covariant IngredientSelectorWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _disposeRemovedQuantityFields();
+
+    for (final ingredient in widget.selectedIngredients) {
+      final focusNode = _quantityFocusNodes[ingredient.id];
+      if (focusNode != null && focusNode.hasFocus) continue;
+      _syncQuantityController(ingredient.id, ingredient.quantity);
+    }
+  }
 
   @override
   void dispose() {
     _searchController.dispose();
     _searchFocusNode.dispose();
+    for (final controller in _quantityControllers.values) {
+      controller.dispose();
+    }
+    for (final focusNode in _quantityFocusNodes.values) {
+      focusNode.dispose();
+    }
     super.dispose();
   }
 
@@ -135,9 +155,11 @@ class _IngredientSelectorWidgetState
   }
 
   void _adjustIngredientQuantity(IngredientEntity ingredient, double delta) {
-    final nextQuantity = ingredient.quantity + delta;
+    final nextQuantity = double.parse(
+      (ingredient.quantity + delta).toStringAsFixed(2),
+    );
     if (nextQuantity < 0) return;
-    _updateIngredient(ingredient.copyWith(quantity: nextQuantity));
+    _setIngredientQuantity(ingredient, nextQuantity);
   }
 
   void _scaleAllQuantities(double scale) {
@@ -150,7 +172,57 @@ class _IngredientSelectorWidgetState
           ),
         )
         .toList();
+    for (final ingredient in currentIngredients) {
+      _syncQuantityController(ingredient.id, ingredient.quantity);
+    }
     widget.onIngredientsChanged(currentIngredients);
+  }
+
+  void _setIngredientQuantity(IngredientEntity ingredient, double quantity) {
+    _syncQuantityController(ingredient.id, quantity);
+    _updateIngredient(ingredient.copyWith(quantity: quantity));
+  }
+
+  TextEditingController _quantityControllerFor(IngredientEntity ingredient) {
+    return _quantityControllers.putIfAbsent(
+      ingredient.id,
+      () => TextEditingController(
+        text: _formatCompactQuantity(ingredient.quantity),
+      ),
+    );
+  }
+
+  FocusNode _quantityFocusNodeFor(String ingredientId) {
+    return _quantityFocusNodes.putIfAbsent(ingredientId, FocusNode.new);
+  }
+
+  void _syncQuantityController(String ingredientId, double quantity) {
+    final controller = _quantityControllers[ingredientId];
+    if (controller == null) return;
+
+    final text = _formatCompactQuantity(quantity);
+    if (controller.text == text) return;
+
+    controller.value = TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
+    );
+  }
+
+  void _disposeRemovedQuantityFields() {
+    final activeIds = widget.selectedIngredients
+        .map((ingredient) => ingredient.id)
+        .toSet();
+
+    for (final ingredientId in _quantityControllers.keys.toList()) {
+      if (activeIds.contains(ingredientId)) continue;
+      _quantityControllers.remove(ingredientId)?.dispose();
+    }
+
+    for (final ingredientId in _quantityFocusNodes.keys.toList()) {
+      if (activeIds.contains(ingredientId)) continue;
+      _quantityFocusNodes.remove(ingredientId)?.dispose();
+    }
   }
 
   IngredientEntity? _findBaselineIngredient(IngredientEntity ingredient) {
@@ -546,8 +618,9 @@ class _IngredientSelectorWidgetState
             ),
             Expanded(
               child: TextFormField(
-                key: ValueKey('${ingredient.id}-${ingredient.quantity}'),
-                initialValue: ingredient.quantity.toString(),
+                key: ValueKey('quantity-${ingredient.id}'),
+                controller: _quantityControllerFor(ingredient),
+                focusNode: _quantityFocusNodeFor(ingredient.id),
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(
                     context,
@@ -647,8 +720,7 @@ class _IngredientSelectorWidgetState
     return ActionChip(
       label: Text(label),
       visualDensity: VisualDensity.compact,
-      onPressed: () =>
-          _updateIngredient(ingredient.copyWith(quantity: quantity)),
+      onPressed: () => _setIngredientQuantity(ingredient, quantity),
     );
   }
 }
