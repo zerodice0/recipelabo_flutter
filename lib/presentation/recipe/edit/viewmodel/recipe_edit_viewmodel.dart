@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -193,14 +191,12 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
 
   void removeStep(int index) {
     final newSteps = [...state.steps];
-    final removedImagePath = newSteps[index].imageUrl;
     newSteps.removeAt(index);
     // Re-number subsequent steps
     for (var i = index; i < newSteps.length; i++) {
       newSteps[i] = newSteps[i].copyWith(stepNumber: i + 1);
     }
     state = state.copyWith(steps: newSteps);
-    unawaited(_deleteImageIfUnused(removedImagePath));
   }
 
   Future<void> pickStepImageFromGallery(int index) {
@@ -214,47 +210,31 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
   Future<void> _pickStepImage(int index, ImageSourceType sourceType) async {
     if (index < 0 || index >= state.steps.length) return;
 
+    final targetStepId = state.steps[index].id;
     final pickImageUseCase = ref.read(pickImageUseCaseProvider);
     final imagePath = await pickImageUseCase(sourceType);
     if (imagePath == null) return;
 
-    final oldImagePath = state.steps[index].imageUrl;
-    final updatedSteps = [...state.steps];
-    updatedSteps[index] = updatedSteps[index].copyWith(imageUrl: imagePath);
-    state = state.copyWith(steps: updatedSteps);
+    final currentIndex = state.steps.indexWhere(
+      (step) => step.id == targetStepId,
+    );
+    if (currentIndex == -1) return;
 
-    await _deleteImageIfUnused(oldImagePath);
+    final updatedSteps = [...state.steps];
+    updatedSteps[currentIndex] = updatedSteps[currentIndex].copyWith(
+      imageUrl: imagePath,
+    );
+    state = state.copyWith(steps: updatedSteps);
   }
 
-  Future<void> removeStepImage(int index) async {
-    if (index < 0 || index >= state.steps.length) return;
+  Future<void> removeStepImage(int index) {
+    if (index < 0 || index >= state.steps.length) return Future.value();
 
-    final oldImagePath = state.steps[index].imageUrl;
     final updatedSteps = [...state.steps];
     updatedSteps[index] = updatedSteps[index].copyWith(imageUrl: null);
     state = state.copyWith(steps: updatedSteps);
 
-    await _deleteImageIfUnused(oldImagePath);
-  }
-
-  Future<void> _deleteImageIfUnused(String? imagePath) async {
-    final normalizedPath = imagePath?.trim();
-    if (normalizedPath == null || normalizedPath.isEmpty) return;
-
-    final uri = Uri.tryParse(normalizedPath);
-    if (uri != null &&
-        (uri.scheme == 'http' || uri.scheme == 'https') &&
-        uri.host.isNotEmpty) {
-      return;
-    }
-
-    final stillUsed = state.steps.any(
-      (step) => step.imageUrl == normalizedPath,
-    );
-    if (stillUsed) return;
-
-    final imageStorageService = ref.read(imageStorageServiceProvider);
-    await imageStorageService.deleteImageFile(normalizedPath);
+    return Future.value();
   }
 
   void showSaveOptions() {

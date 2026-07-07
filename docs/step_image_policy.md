@@ -5,7 +5,9 @@
 - Step photos are selected through `PickImageUseCase`.
 - Selected photos are copied into the app image storage directory by `ImageStorageService`.
 - `steps.imageUrl` stores the resulting local file path.
-- Replacing or deleting a step photo clears the step reference and attempts to remove the old local image file when no other edited step still references it.
+- Replacing or deleting a step photo clears the step reference in the edited recipe state.
+- Edit actions do not immediately delete existing local image files, because saved versions and canceled edits may still reference the same path.
+- Any future orphan cleanup must check persisted step references across recipes and versions before deleting a local image file.
 
 ## Display
 
