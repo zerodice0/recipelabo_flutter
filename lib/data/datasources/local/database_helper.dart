@@ -21,7 +21,7 @@ class DatabaseHelper {
     final path = join(dbPath, 'saucerer.db');
     return await openDatabase(
       path,
-      version: 19,
+      version: 20,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -115,6 +115,13 @@ class DatabaseHelper {
         title TEXT NOT NULL,
         memo TEXT,
         base64EncodedImageData TEXT,
+        overallRating INTEGER,
+        saltinessRating INTEGER,
+        sweetnessRating INTEGER,
+        spicinessRating INTEGER,
+        umamiRating INTEGER,
+        failureReason TEXT,
+        nextAdjustment TEXT,
         cookedAt TEXT NOT NULL,
         createdAt TEXT NOT NULL,
         updatedAt TEXT NOT NULL,
@@ -180,6 +187,13 @@ class DatabaseHelper {
           title TEXT NOT NULL,
           memo TEXT,
           base64EncodedImageData TEXT,
+          overallRating INTEGER,
+          saltinessRating INTEGER,
+          sweetnessRating INTEGER,
+          spicinessRating INTEGER,
+          umamiRating INTEGER,
+          failureReason TEXT,
+          nextAdjustment TEXT,
           cookedAt TEXT NOT NULL,
           createdAt TEXT NOT NULL,
           updatedAt TEXT NOT NULL,
@@ -520,6 +534,32 @@ class DatabaseHelper {
       await _addColumnIfMissing(db, 'recipes', 'sourceName', 'TEXT');
       await _addColumnIfMissing(db, 'recipes', 'importedAt', 'TEXT');
     }
+
+    if (oldVersion < 20) {
+      // Version 20: Store structured tasting feedback on cooking logs.
+      await _addColumnIfMissing(db, 'cooking_logs', 'overallRating', 'INTEGER');
+      await _addColumnIfMissing(
+        db,
+        'cooking_logs',
+        'saltinessRating',
+        'INTEGER',
+      );
+      await _addColumnIfMissing(
+        db,
+        'cooking_logs',
+        'sweetnessRating',
+        'INTEGER',
+      );
+      await _addColumnIfMissing(
+        db,
+        'cooking_logs',
+        'spicinessRating',
+        'INTEGER',
+      );
+      await _addColumnIfMissing(db, 'cooking_logs', 'umamiRating', 'INTEGER');
+      await _addColumnIfMissing(db, 'cooking_logs', 'failureReason', 'TEXT');
+      await _addColumnIfMissing(db, 'cooking_logs', 'nextAdjustment', 'TEXT');
+    }
   }
 
   @visibleForTesting
@@ -631,6 +671,13 @@ class DatabaseHelper {
             title TEXT NOT NULL,
             memo TEXT,
             base64EncodedImageData TEXT,
+            overallRating INTEGER,
+            saltinessRating INTEGER,
+            sweetnessRating INTEGER,
+            spicinessRating INTEGER,
+            umamiRating INTEGER,
+            failureReason TEXT,
+            nextAdjustment TEXT,
             cookedAt TEXT NOT NULL,
             createdAt TEXT NOT NULL,
             updatedAt TEXT NOT NULL,

@@ -7,7 +7,7 @@ part of 'cooking_log_create_viewmodel.dart';
 // **************************************************************************
 
 String _$cookingLogCreateViewModelHash() =>
-    r'6d4cee5d21cdea56001bb0ba9816a6d9872054a3';
+    r'48dab6efe0882f7bb61b33034a04a3d3dafd3b86';
 
 /// See also [CookingLogCreateViewModel].
 @ProviderFor(CookingLogCreateViewModel)

@@ -52,6 +52,21 @@ void main() {
       expect(columnNames, contains('timerName'));
     });
 
+    test('cooking_logs 테이블에 맛 평가 컬럼이 포함되는지 확인', () async {
+      final columns = await database.rawQuery(
+        'PRAGMA table_info(cooking_logs)',
+      );
+      final columnNames = columns.map((col) => col['name'] as String).toList();
+
+      expect(columnNames, contains('overallRating'));
+      expect(columnNames, contains('saltinessRating'));
+      expect(columnNames, contains('sweetnessRating'));
+      expect(columnNames, contains('spicinessRating'));
+      expect(columnNames, contains('umamiRating'));
+      expect(columnNames, contains('failureReason'));
+      expect(columnNames, contains('nextAdjustment'));
+    });
+
     test('v17 steps 데이터가 v18 타이머 컬럼 마이그레이션 후 보존되는지 확인', () async {
       final legacyDb = await openDatabase(
         inMemoryDatabasePath,

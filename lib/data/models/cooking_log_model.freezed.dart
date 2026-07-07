@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CookingLogModel {
 
- String get id; String get recipeVersionId; String get authorId; String get title; String? get memo; String? get base64EncodedImageData; DateTime get cookedAt; DateTime get createdAt; DateTime get updatedAt; bool get isDeleted;
+ String get id; String get recipeVersionId; String get authorId; String get title; String? get memo; String? get base64EncodedImageData; int? get overallRating; int? get saltinessRating; int? get sweetnessRating; int? get spicinessRating; int? get umamiRating; String? get failureReason; String? get nextAdjustment; DateTime get cookedAt; DateTime get createdAt; DateTime get updatedAt; bool get isDeleted;
 /// Create a copy of CookingLogModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $CookingLogModelCopyWith<CookingLogModel> get copyWith => _$CookingLogModelCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CookingLogModel&&(identical(other.id, id) || other.id == id)&&(identical(other.recipeVersionId, recipeVersionId) || other.recipeVersionId == recipeVersionId)&&(identical(other.authorId, authorId) || other.authorId == authorId)&&(identical(other.title, title) || other.title == title)&&(identical(other.memo, memo) || other.memo == memo)&&(identical(other.base64EncodedImageData, base64EncodedImageData) || other.base64EncodedImageData == base64EncodedImageData)&&(identical(other.cookedAt, cookedAt) || other.cookedAt == cookedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CookingLogModel&&(identical(other.id, id) || other.id == id)&&(identical(other.recipeVersionId, recipeVersionId) || other.recipeVersionId == recipeVersionId)&&(identical(other.authorId, authorId) || other.authorId == authorId)&&(identical(other.title, title) || other.title == title)&&(identical(other.memo, memo) || other.memo == memo)&&(identical(other.base64EncodedImageData, base64EncodedImageData) || other.base64EncodedImageData == base64EncodedImageData)&&(identical(other.overallRating, overallRating) || other.overallRating == overallRating)&&(identical(other.saltinessRating, saltinessRating) || other.saltinessRating == saltinessRating)&&(identical(other.sweetnessRating, sweetnessRating) || other.sweetnessRating == sweetnessRating)&&(identical(other.spicinessRating, spicinessRating) || other.spicinessRating == spicinessRating)&&(identical(other.umamiRating, umamiRating) || other.umamiRating == umamiRating)&&(identical(other.failureReason, failureReason) || other.failureReason == failureReason)&&(identical(other.nextAdjustment, nextAdjustment) || other.nextAdjustment == nextAdjustment)&&(identical(other.cookedAt, cookedAt) || other.cookedAt == cookedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,recipeVersionId,authorId,title,memo,base64EncodedImageData,cookedAt,createdAt,updatedAt,isDeleted);
+int get hashCode => Object.hash(runtimeType,id,recipeVersionId,authorId,title,memo,base64EncodedImageData,overallRating,saltinessRating,sweetnessRating,spicinessRating,umamiRating,failureReason,nextAdjustment,cookedAt,createdAt,updatedAt,isDeleted);
 
 @override
 String toString() {
-  return 'CookingLogModel(id: $id, recipeVersionId: $recipeVersionId, authorId: $authorId, title: $title, memo: $memo, base64EncodedImageData: $base64EncodedImageData, cookedAt: $cookedAt, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted)';
+  return 'CookingLogModel(id: $id, recipeVersionId: $recipeVersionId, authorId: $authorId, title: $title, memo: $memo, base64EncodedImageData: $base64EncodedImageData, overallRating: $overallRating, saltinessRating: $saltinessRating, sweetnessRating: $sweetnessRating, spicinessRating: $spicinessRating, umamiRating: $umamiRating, failureReason: $failureReason, nextAdjustment: $nextAdjustment, cookedAt: $cookedAt, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $CookingLogModelCopyWith<$Res>  {
   factory $CookingLogModelCopyWith(CookingLogModel value, $Res Function(CookingLogModel) _then) = _$CookingLogModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String recipeVersionId, String authorId, String title, String? memo, String? base64EncodedImageData, DateTime cookedAt, DateTime createdAt, DateTime updatedAt, bool isDeleted
+ String id, String recipeVersionId, String authorId, String title, String? memo, String? base64EncodedImageData, int? overallRating, int? saltinessRating, int? sweetnessRating, int? spicinessRating, int? umamiRating, String? failureReason, String? nextAdjustment, DateTime cookedAt, DateTime createdAt, DateTime updatedAt, bool isDeleted
 });
 
 
@@ -65,7 +65,7 @@ class _$CookingLogModelCopyWithImpl<$Res>
 
 /// Create a copy of CookingLogModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? recipeVersionId = null,Object? authorId = null,Object? title = null,Object? memo = freezed,Object? base64EncodedImageData = freezed,Object? cookedAt = null,Object? createdAt = null,Object? updatedAt = null,Object? isDeleted = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? recipeVersionId = null,Object? authorId = null,Object? title = null,Object? memo = freezed,Object? base64EncodedImageData = freezed,Object? overallRating = freezed,Object? saltinessRating = freezed,Object? sweetnessRating = freezed,Object? spicinessRating = freezed,Object? umamiRating = freezed,Object? failureReason = freezed,Object? nextAdjustment = freezed,Object? cookedAt = null,Object? createdAt = null,Object? updatedAt = null,Object? isDeleted = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,recipeVersionId: null == recipeVersionId ? _self.recipeVersionId : recipeVersionId // ignore: cast_nullable_to_non_nullable
@@ -73,6 +73,13 @@ as String,authorId: null == authorId ? _self.authorId : authorId // ignore: cast
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,memo: freezed == memo ? _self.memo : memo // ignore: cast_nullable_to_non_nullable
 as String?,base64EncodedImageData: freezed == base64EncodedImageData ? _self.base64EncodedImageData : base64EncodedImageData // ignore: cast_nullable_to_non_nullable
+as String?,overallRating: freezed == overallRating ? _self.overallRating : overallRating // ignore: cast_nullable_to_non_nullable
+as int?,saltinessRating: freezed == saltinessRating ? _self.saltinessRating : saltinessRating // ignore: cast_nullable_to_non_nullable
+as int?,sweetnessRating: freezed == sweetnessRating ? _self.sweetnessRating : sweetnessRating // ignore: cast_nullable_to_non_nullable
+as int?,spicinessRating: freezed == spicinessRating ? _self.spicinessRating : spicinessRating // ignore: cast_nullable_to_non_nullable
+as int?,umamiRating: freezed == umamiRating ? _self.umamiRating : umamiRating // ignore: cast_nullable_to_non_nullable
+as int?,failureReason: freezed == failureReason ? _self.failureReason : failureReason // ignore: cast_nullable_to_non_nullable
+as String?,nextAdjustment: freezed == nextAdjustment ? _self.nextAdjustment : nextAdjustment // ignore: cast_nullable_to_non_nullable
 as String?,cookedAt: null == cookedAt ? _self.cookedAt : cookedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -162,10 +169,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String recipeVersionId,  String authorId,  String title,  String? memo,  String? base64EncodedImageData,  DateTime cookedAt,  DateTime createdAt,  DateTime updatedAt,  bool isDeleted)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String recipeVersionId,  String authorId,  String title,  String? memo,  String? base64EncodedImageData,  int? overallRating,  int? saltinessRating,  int? sweetnessRating,  int? spicinessRating,  int? umamiRating,  String? failureReason,  String? nextAdjustment,  DateTime cookedAt,  DateTime createdAt,  DateTime updatedAt,  bool isDeleted)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CookingLogModel() when $default != null:
-return $default(_that.id,_that.recipeVersionId,_that.authorId,_that.title,_that.memo,_that.base64EncodedImageData,_that.cookedAt,_that.createdAt,_that.updatedAt,_that.isDeleted);case _:
+return $default(_that.id,_that.recipeVersionId,_that.authorId,_that.title,_that.memo,_that.base64EncodedImageData,_that.overallRating,_that.saltinessRating,_that.sweetnessRating,_that.spicinessRating,_that.umamiRating,_that.failureReason,_that.nextAdjustment,_that.cookedAt,_that.createdAt,_that.updatedAt,_that.isDeleted);case _:
   return orElse();
 
 }
@@ -183,10 +190,10 @@ return $default(_that.id,_that.recipeVersionId,_that.authorId,_that.title,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String recipeVersionId,  String authorId,  String title,  String? memo,  String? base64EncodedImageData,  DateTime cookedAt,  DateTime createdAt,  DateTime updatedAt,  bool isDeleted)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String recipeVersionId,  String authorId,  String title,  String? memo,  String? base64EncodedImageData,  int? overallRating,  int? saltinessRating,  int? sweetnessRating,  int? spicinessRating,  int? umamiRating,  String? failureReason,  String? nextAdjustment,  DateTime cookedAt,  DateTime createdAt,  DateTime updatedAt,  bool isDeleted)  $default,) {final _that = this;
 switch (_that) {
 case _CookingLogModel():
-return $default(_that.id,_that.recipeVersionId,_that.authorId,_that.title,_that.memo,_that.base64EncodedImageData,_that.cookedAt,_that.createdAt,_that.updatedAt,_that.isDeleted);case _:
+return $default(_that.id,_that.recipeVersionId,_that.authorId,_that.title,_that.memo,_that.base64EncodedImageData,_that.overallRating,_that.saltinessRating,_that.sweetnessRating,_that.spicinessRating,_that.umamiRating,_that.failureReason,_that.nextAdjustment,_that.cookedAt,_that.createdAt,_that.updatedAt,_that.isDeleted);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +210,10 @@ return $default(_that.id,_that.recipeVersionId,_that.authorId,_that.title,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String recipeVersionId,  String authorId,  String title,  String? memo,  String? base64EncodedImageData,  DateTime cookedAt,  DateTime createdAt,  DateTime updatedAt,  bool isDeleted)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String recipeVersionId,  String authorId,  String title,  String? memo,  String? base64EncodedImageData,  int? overallRating,  int? saltinessRating,  int? sweetnessRating,  int? spicinessRating,  int? umamiRating,  String? failureReason,  String? nextAdjustment,  DateTime cookedAt,  DateTime createdAt,  DateTime updatedAt,  bool isDeleted)?  $default,) {final _that = this;
 switch (_that) {
 case _CookingLogModel() when $default != null:
-return $default(_that.id,_that.recipeVersionId,_that.authorId,_that.title,_that.memo,_that.base64EncodedImageData,_that.cookedAt,_that.createdAt,_that.updatedAt,_that.isDeleted);case _:
+return $default(_that.id,_that.recipeVersionId,_that.authorId,_that.title,_that.memo,_that.base64EncodedImageData,_that.overallRating,_that.saltinessRating,_that.sweetnessRating,_that.spicinessRating,_that.umamiRating,_that.failureReason,_that.nextAdjustment,_that.cookedAt,_that.createdAt,_that.updatedAt,_that.isDeleted);case _:
   return null;
 
 }
@@ -218,7 +225,7 @@ return $default(_that.id,_that.recipeVersionId,_that.authorId,_that.title,_that.
 @JsonSerializable()
 
 class _CookingLogModel implements CookingLogModel {
-  const _CookingLogModel({required this.id, required this.recipeVersionId, required this.authorId, required this.title, this.memo, this.base64EncodedImageData, required this.cookedAt, required this.createdAt, required this.updatedAt, this.isDeleted = false});
+  const _CookingLogModel({required this.id, required this.recipeVersionId, required this.authorId, required this.title, this.memo, this.base64EncodedImageData, this.overallRating, this.saltinessRating, this.sweetnessRating, this.spicinessRating, this.umamiRating, this.failureReason, this.nextAdjustment, required this.cookedAt, required this.createdAt, required this.updatedAt, this.isDeleted = false});
   factory _CookingLogModel.fromJson(Map<String, dynamic> json) => _$CookingLogModelFromJson(json);
 
 @override final  String id;
@@ -227,6 +234,13 @@ class _CookingLogModel implements CookingLogModel {
 @override final  String title;
 @override final  String? memo;
 @override final  String? base64EncodedImageData;
+@override final  int? overallRating;
+@override final  int? saltinessRating;
+@override final  int? sweetnessRating;
+@override final  int? spicinessRating;
+@override final  int? umamiRating;
+@override final  String? failureReason;
+@override final  String? nextAdjustment;
 @override final  DateTime cookedAt;
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
@@ -245,16 +259,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CookingLogModel&&(identical(other.id, id) || other.id == id)&&(identical(other.recipeVersionId, recipeVersionId) || other.recipeVersionId == recipeVersionId)&&(identical(other.authorId, authorId) || other.authorId == authorId)&&(identical(other.title, title) || other.title == title)&&(identical(other.memo, memo) || other.memo == memo)&&(identical(other.base64EncodedImageData, base64EncodedImageData) || other.base64EncodedImageData == base64EncodedImageData)&&(identical(other.cookedAt, cookedAt) || other.cookedAt == cookedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CookingLogModel&&(identical(other.id, id) || other.id == id)&&(identical(other.recipeVersionId, recipeVersionId) || other.recipeVersionId == recipeVersionId)&&(identical(other.authorId, authorId) || other.authorId == authorId)&&(identical(other.title, title) || other.title == title)&&(identical(other.memo, memo) || other.memo == memo)&&(identical(other.base64EncodedImageData, base64EncodedImageData) || other.base64EncodedImageData == base64EncodedImageData)&&(identical(other.overallRating, overallRating) || other.overallRating == overallRating)&&(identical(other.saltinessRating, saltinessRating) || other.saltinessRating == saltinessRating)&&(identical(other.sweetnessRating, sweetnessRating) || other.sweetnessRating == sweetnessRating)&&(identical(other.spicinessRating, spicinessRating) || other.spicinessRating == spicinessRating)&&(identical(other.umamiRating, umamiRating) || other.umamiRating == umamiRating)&&(identical(other.failureReason, failureReason) || other.failureReason == failureReason)&&(identical(other.nextAdjustment, nextAdjustment) || other.nextAdjustment == nextAdjustment)&&(identical(other.cookedAt, cookedAt) || other.cookedAt == cookedAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,recipeVersionId,authorId,title,memo,base64EncodedImageData,cookedAt,createdAt,updatedAt,isDeleted);
+int get hashCode => Object.hash(runtimeType,id,recipeVersionId,authorId,title,memo,base64EncodedImageData,overallRating,saltinessRating,sweetnessRating,spicinessRating,umamiRating,failureReason,nextAdjustment,cookedAt,createdAt,updatedAt,isDeleted);
 
 @override
 String toString() {
-  return 'CookingLogModel(id: $id, recipeVersionId: $recipeVersionId, authorId: $authorId, title: $title, memo: $memo, base64EncodedImageData: $base64EncodedImageData, cookedAt: $cookedAt, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted)';
+  return 'CookingLogModel(id: $id, recipeVersionId: $recipeVersionId, authorId: $authorId, title: $title, memo: $memo, base64EncodedImageData: $base64EncodedImageData, overallRating: $overallRating, saltinessRating: $saltinessRating, sweetnessRating: $sweetnessRating, spicinessRating: $spicinessRating, umamiRating: $umamiRating, failureReason: $failureReason, nextAdjustment: $nextAdjustment, cookedAt: $cookedAt, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted)';
 }
 
 
@@ -265,7 +279,7 @@ abstract mixin class _$CookingLogModelCopyWith<$Res> implements $CookingLogModel
   factory _$CookingLogModelCopyWith(_CookingLogModel value, $Res Function(_CookingLogModel) _then) = __$CookingLogModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String recipeVersionId, String authorId, String title, String? memo, String? base64EncodedImageData, DateTime cookedAt, DateTime createdAt, DateTime updatedAt, bool isDeleted
+ String id, String recipeVersionId, String authorId, String title, String? memo, String? base64EncodedImageData, int? overallRating, int? saltinessRating, int? sweetnessRating, int? spicinessRating, int? umamiRating, String? failureReason, String? nextAdjustment, DateTime cookedAt, DateTime createdAt, DateTime updatedAt, bool isDeleted
 });
 
 
@@ -282,7 +296,7 @@ class __$CookingLogModelCopyWithImpl<$Res>
 
 /// Create a copy of CookingLogModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? recipeVersionId = null,Object? authorId = null,Object? title = null,Object? memo = freezed,Object? base64EncodedImageData = freezed,Object? cookedAt = null,Object? createdAt = null,Object? updatedAt = null,Object? isDeleted = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? recipeVersionId = null,Object? authorId = null,Object? title = null,Object? memo = freezed,Object? base64EncodedImageData = freezed,Object? overallRating = freezed,Object? saltinessRating = freezed,Object? sweetnessRating = freezed,Object? spicinessRating = freezed,Object? umamiRating = freezed,Object? failureReason = freezed,Object? nextAdjustment = freezed,Object? cookedAt = null,Object? createdAt = null,Object? updatedAt = null,Object? isDeleted = null,}) {
   return _then(_CookingLogModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,recipeVersionId: null == recipeVersionId ? _self.recipeVersionId : recipeVersionId // ignore: cast_nullable_to_non_nullable
@@ -290,6 +304,13 @@ as String,authorId: null == authorId ? _self.authorId : authorId // ignore: cast
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,memo: freezed == memo ? _self.memo : memo // ignore: cast_nullable_to_non_nullable
 as String?,base64EncodedImageData: freezed == base64EncodedImageData ? _self.base64EncodedImageData : base64EncodedImageData // ignore: cast_nullable_to_non_nullable
+as String?,overallRating: freezed == overallRating ? _self.overallRating : overallRating // ignore: cast_nullable_to_non_nullable
+as int?,saltinessRating: freezed == saltinessRating ? _self.saltinessRating : saltinessRating // ignore: cast_nullable_to_non_nullable
+as int?,sweetnessRating: freezed == sweetnessRating ? _self.sweetnessRating : sweetnessRating // ignore: cast_nullable_to_non_nullable
+as int?,spicinessRating: freezed == spicinessRating ? _self.spicinessRating : spicinessRating // ignore: cast_nullable_to_non_nullable
+as int?,umamiRating: freezed == umamiRating ? _self.umamiRating : umamiRating // ignore: cast_nullable_to_non_nullable
+as int?,failureReason: freezed == failureReason ? _self.failureReason : failureReason // ignore: cast_nullable_to_non_nullable
+as String?,nextAdjustment: freezed == nextAdjustment ? _self.nextAdjustment : nextAdjustment // ignore: cast_nullable_to_non_nullable
 as String?,cookedAt: null == cookedAt ? _self.cookedAt : cookedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable

@@ -26,12 +26,16 @@ class _CookingLogCreateScreenState
     extends ConsumerState<CookingLogCreateScreen> {
   final _titleController = TextEditingController();
   final _memoController = TextEditingController();
+  final _failureReasonController = TextEditingController();
+  final _nextAdjustmentController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     _titleController.dispose();
     _memoController.dispose();
+    _failureReasonController.dispose();
+    _nextAdjustmentController.dispose();
     super.dispose();
   }
 
@@ -117,6 +121,12 @@ class _CookingLogCreateScreenState
                   if (_formKey.currentState?.validate() ?? false) {
                     viewModel.updateTitle(_titleController.text);
                     viewModel.updateMemo(_memoController.text);
+                    viewModel.updateFailureReason(
+                      _failureReasonController.text,
+                    );
+                    viewModel.updateNextAdjustment(
+                      _nextAdjustmentController.text,
+                    );
 
                     await viewModel.saveCookingLog(
                       widget.recipeVersionId,
@@ -142,7 +152,11 @@ class _CookingLogCreateScreenState
                 const SizedBox(height: 16),
                 _buildImageSection(state, viewModel),
                 const SizedBox(height: 16),
+                _buildTasteEvaluationSection(state, viewModel),
+                const SizedBox(height: 16),
                 _buildMemoField(),
+                const SizedBox(height: 16),
+                _buildExperimentFields(viewModel),
               ],
             ),
           ),
@@ -442,6 +456,126 @@ class _CookingLogCreateScreenState
             border: const OutlineInputBorder(),
           ),
           maxLines: 5,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTasteEvaluationSection(
+    CookingLogCreateState state,
+    CookingLogCreateViewModel viewModel,
+  ) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '맛 평가',
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            _buildRatingSlider(
+              label: '전체 만족도',
+              value: state.overallRating,
+              onChanged: viewModel.updateOverallRating,
+            ),
+            _buildRatingSlider(
+              label: '짠맛',
+              value: state.saltinessRating,
+              onChanged: viewModel.updateSaltinessRating,
+            ),
+            _buildRatingSlider(
+              label: '단맛',
+              value: state.sweetnessRating,
+              onChanged: viewModel.updateSweetnessRating,
+            ),
+            _buildRatingSlider(
+              label: '매운맛',
+              value: state.spicinessRating,
+              onChanged: viewModel.updateSpicinessRating,
+            ),
+            _buildRatingSlider(
+              label: '감칠맛',
+              value: state.umamiRating,
+              onChanged: viewModel.updateUmamiRating,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRatingSlider({
+    required String label,
+    required int value,
+    required ValueChanged<int> onChanged,
+  }) {
+    final displayValue = value == 0 ? '미입력' : '$value/5';
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 84,
+            child: Text(label, style: Theme.of(context).textTheme.bodyMedium),
+          ),
+          Expanded(
+            child: Slider(
+              value: value.toDouble(),
+              min: 0,
+              max: 5,
+              divisions: 5,
+              label: displayValue,
+              onChanged: (newValue) => onChanged(newValue.round()),
+            ),
+          ),
+          SizedBox(
+            width: 48,
+            child: Text(
+              displayValue,
+              textAlign: TextAlign.end,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildExperimentFields(CookingLogCreateViewModel viewModel) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '실험 결과',
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 8),
+        TextFormField(
+          controller: _failureReasonController,
+          decoration: const InputDecoration(
+            hintText: '실패하거나 아쉬웠던 이유',
+            border: OutlineInputBorder(),
+          ),
+          maxLines: 3,
+          onChanged: viewModel.updateFailureReason,
+        ),
+        const SizedBox(height: 12),
+        TextFormField(
+          controller: _nextAdjustmentController,
+          decoration: const InputDecoration(
+            hintText: '다음에 바꿔볼 양념/재료/조리 방법',
+            border: OutlineInputBorder(),
+          ),
+          maxLines: 3,
+          onChanged: viewModel.updateNextAdjustment,
         ),
       ],
     );

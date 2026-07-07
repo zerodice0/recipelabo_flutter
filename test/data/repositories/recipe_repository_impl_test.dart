@@ -3,6 +3,7 @@ import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
 import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
 import 'package:recipick_flutter/domain/entities/ingredient_entity.dart';
 import 'package:recipick_flutter/domain/entities/step_entity.dart';
+import 'package:recipick_flutter/domain/entities/cooking_log_entity.dart';
 
 void main() {
   group('RecipeRepositoryImpl 테스트', () {
@@ -88,6 +89,31 @@ void main() {
       expect(step.id, 'step-1');
       expect(step.stepNumber, 1);
       expect(step.description, '김치를 볶는다');
+    });
+
+    test('쿠킹 로그 맛 평가 엔티티 생성 테스트', () {
+      final testTime = DateTime.now();
+
+      final cookingLog = CookingLogEntity(
+        id: 'log-1',
+        recipeVersionId: 'version-test-1',
+        authorId: 'user-test-1',
+        title: '덜 짠 2차 시도',
+        overallRating: 4,
+        saltinessRating: 3,
+        sweetnessRating: 2,
+        spicinessRating: 4,
+        umamiRating: 5,
+        failureReason: '간장이 아직 조금 많음',
+        nextAdjustment: '간장 0.5T 감소',
+        cookedAt: testTime,
+        createdAt: testTime,
+      );
+
+      expect(cookingLog.overallRating, 4);
+      expect(cookingLog.saltinessRating, 3);
+      expect(cookingLog.failureReason, '간장이 아직 조금 많음');
+      expect(cookingLog.nextAdjustment, '간장 0.5T 감소');
     });
   });
 }

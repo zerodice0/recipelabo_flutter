@@ -1241,6 +1241,10 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                         ),
                         const SizedBox(height: 4),
                       ],
+                      if (_hasStructuredFeedback(cookingLog)) ...[
+                        _buildCookingLogFeedback(context, cookingLog),
+                        const SizedBox(height: 4),
+                      ],
                       Row(
                         children: [
                           Icon(
@@ -1276,6 +1280,79 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  bool _hasStructuredFeedback(CookingLogEntity cookingLog) {
+    return cookingLog.overallRating != null ||
+        cookingLog.saltinessRating != null ||
+        cookingLog.sweetnessRating != null ||
+        cookingLog.spicinessRating != null ||
+        cookingLog.umamiRating != null ||
+        (cookingLog.failureReason?.isNotEmpty ?? false) ||
+        (cookingLog.nextAdjustment?.isNotEmpty ?? false);
+  }
+
+  Widget _buildCookingLogFeedback(
+    BuildContext context,
+    CookingLogEntity cookingLog,
+  ) {
+    final ratings = <Widget>[
+      if (cookingLog.overallRating != null)
+        _buildRatingChip(context, '만족도', cookingLog.overallRating!),
+      if (cookingLog.saltinessRating != null)
+        _buildRatingChip(context, '짠맛', cookingLog.saltinessRating!),
+      if (cookingLog.sweetnessRating != null)
+        _buildRatingChip(context, '단맛', cookingLog.sweetnessRating!),
+      if (cookingLog.spicinessRating != null)
+        _buildRatingChip(context, '매운맛', cookingLog.spicinessRating!),
+      if (cookingLog.umamiRating != null)
+        _buildRatingChip(context, '감칠맛', cookingLog.umamiRating!),
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (ratings.isNotEmpty)
+          Wrap(spacing: 6, runSpacing: 6, children: ratings),
+        if (cookingLog.failureReason?.isNotEmpty ?? false) ...[
+          const SizedBox(height: 6),
+          Text(
+            '아쉬운 점: ${cookingLog.failureReason}',
+            style: Theme.of(context).textTheme.bodySmall,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+        if (cookingLog.nextAdjustment?.isNotEmpty ?? false) ...[
+          const SizedBox(height: 2),
+          Text(
+            '다음 개선: ${cookingLog.nextAdjustment}',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildRatingChip(BuildContext context, String label, int rating) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondaryContainer,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Text(
+        '$label $rating/5',
+        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: Theme.of(context).colorScheme.onSecondaryContainer,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
