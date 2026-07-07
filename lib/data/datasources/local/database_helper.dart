@@ -21,7 +21,7 @@ class DatabaseHelper {
     final path = join(dbPath, 'saucerer.db');
     return await openDatabase(
       path,
-      version: 18,
+      version: 19,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -46,6 +46,9 @@ class DatabaseHelper {
         latestVersionId TEXT NOT NULL,
         name TEXT NOT NULL,
         description TEXT,
+        sourceUrl TEXT,
+        sourceName TEXT,
+        importedAt TEXT,
         isPublic INTEGER NOT NULL DEFAULT 1,
         createdAt TEXT NOT NULL,
         updatedAt TEXT NOT NULL,
@@ -510,6 +513,13 @@ class DatabaseHelper {
       await _addColumnIfMissing(db, 'steps', 'timerSeconds', 'INTEGER');
       await _addColumnIfMissing(db, 'steps', 'timerName', 'TEXT');
     }
+
+    if (oldVersion < 19) {
+      // Version 19: Store source metadata for imported recipes.
+      await _addColumnIfMissing(db, 'recipes', 'sourceUrl', 'TEXT');
+      await _addColumnIfMissing(db, 'recipes', 'sourceName', 'TEXT');
+      await _addColumnIfMissing(db, 'recipes', 'importedAt', 'TEXT');
+    }
   }
 
   @visibleForTesting
@@ -528,6 +538,11 @@ class DatabaseHelper {
     String columnType,
   ) async {
     final tableInfo = await db.rawQuery('PRAGMA table_info($tableName)');
+    if (tableInfo.isEmpty) {
+      debugPrint('Skipping $tableName.$columnName migration: table missing');
+      return;
+    }
+
     final columnNames = tableInfo.map((row) => row['name'] as String).toSet();
 
     if (!columnNames.contains(columnName)) {

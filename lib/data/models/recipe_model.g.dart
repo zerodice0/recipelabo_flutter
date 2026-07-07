@@ -12,6 +12,11 @@ _RecipeModel _$RecipeModelFromJson(Map<String, dynamic> json) => _RecipeModel(
   latestVersionId: json['latestVersionId'] as String,
   name: json['name'] as String,
   description: json['description'] as String?,
+  sourceUrl: json['sourceUrl'] as String?,
+  sourceName: json['sourceName'] as String?,
+  importedAt: json['importedAt'] == null
+      ? null
+      : DateTime.parse(json['importedAt'] as String),
   isPublic: json['isPublic'] as bool? ?? true,
   createdAt: DateTime.parse(json['createdAt'] as String),
   updatedAt: DateTime.parse(json['updatedAt'] as String),
@@ -25,6 +30,9 @@ Map<String, dynamic> _$RecipeModelToJson(_RecipeModel instance) =>
       'latestVersionId': instance.latestVersionId,
       'name': instance.name,
       'description': instance.description,
+      'sourceUrl': instance.sourceUrl,
+      'sourceName': instance.sourceName,
+      'importedAt': instance.importedAt?.toIso8601String(),
       'isPublic': instance.isPublic,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt.toIso8601String(),

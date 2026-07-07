@@ -11,6 +11,7 @@ import 'package:recipick_flutter/presentation/recipe/detail/viewmodel/recipe_det
 import 'package:recipick_flutter/presentation/recipe/detail/viewmodel/cooking_log_viewmodel.dart';
 import 'package:recipick_flutter/presentation/recipe/widgets/step_with_timer_widget.dart';
 import 'package:recipick_flutter/domain/usecases/delete_recipe_version_usecase.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RecipeDetailScreen extends ConsumerStatefulWidget {
   final String recipeId;
@@ -26,6 +27,23 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
 
   String _formatDate(DateTime dateTime) {
     return '${dateTime.year}.${dateTime.month.toString().padLeft(2, '0')}.${dateTime.day.toString().padLeft(2, '0')}';
+  }
+
+  Future<void> _openSourceUrl(BuildContext context, String sourceUrl) async {
+    final uri = Uri.tryParse(sourceUrl);
+    if (uri == null || !['http', 'https'].contains(uri.scheme)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('http 또는 https 출처 URL만 열 수 있습니다.')),
+      );
+      return;
+    }
+
+    final launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (!launched && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('출처 링크를 열 수 없습니다.')),
+      );
+    }
   }
 
   Future<void> _showDeleteVersionDialog(
@@ -424,6 +442,82 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 ),
               ],
             ),
+            if (recipe.sourceUrl != null && recipe.sourceUrl!.isNotEmpty) ...[
+              const SizedBox(height: 12),
+              InkWell(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () => _openSourceUrl(context, recipe.sourceUrl!),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.secondaryContainer.withValues(alpha: 0.5),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.outline.withValues(alpha: 0.25),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.link,
+                        size: 18,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              recipe.sourceName?.isNotEmpty == true
+                                  ? recipe.sourceName!
+                                  : '원본 레시피',
+                              style: Theme.of(context).textTheme.bodyMedium
+                                  ?.copyWith(fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              recipe.sourceUrl!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.bodySmall
+                                  ?.copyWith(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                  ),
+                            ),
+                            if (recipe.importedAt != null) ...[
+                              const SizedBox(height: 2),
+                              Text(
+                                '가져온 날짜 ${_formatDate(recipe.importedAt!)}',
+                                style: Theme.of(context).textTheme.bodySmall
+                                    ?.copyWith(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onSurfaceVariant,
+                                    ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Icon(
+                        Icons.open_in_new,
+                        size: 18,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ],
         ),
       ),
