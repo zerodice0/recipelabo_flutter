@@ -191,95 +191,97 @@ class _UnitCategoryDialogState extends State<UnitCategoryDialog> {
           ),
         ],
       ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          for (final category in categories)
-            Container(
-              margin: const EdgeInsets.only(bottom: 8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
+      content: RadioGroup<String>(
+        groupValue: _selectedCategory,
+        onChanged: (value) {
+          setState(() {
+            _selectedCategory = value;
+          });
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (final category in categories)
+              Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: _selectedCategory == category['id']
+                        ? AppColors.primaryOrange
+                        : AppColors.textBrown.withValues(alpha: 0.3),
+                    width: _selectedCategory == category['id'] ? 2 : 1,
+                  ),
                   color: _selectedCategory == category['id']
-                      ? AppColors.primaryOrange
-                      : AppColors.textBrown.withValues(alpha: 0.3),
-                  width: _selectedCategory == category['id'] ? 2 : 1,
+                      ? AppColors.primaryOrange.withValues(alpha: 0.05)
+                      : null,
                 ),
-                color: _selectedCategory == category['id']
-                    ? AppColors.primaryOrange.withValues(alpha: 0.05)
-                    : null,
-              ),
-              child: RadioListTile<String>(
-                value: category['id'],
-                groupValue: _selectedCategory,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedCategory = value;
-                  });
-                },
-                title: Row(
-                  children: [
-                    Icon(
-                      category['icon'],
-                      color: _selectedCategory == category['id']
-                          ? AppColors.primaryOrange
-                          : AppColors.textBrown.withValues(alpha: 0.7),
-                      size: 20,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      category['name'],
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
+                child: RadioListTile<String>(
+                  value: category['id'],
+                  title: Row(
+                    children: [
+                      Icon(
+                        category['icon'],
                         color: _selectedCategory == category['id']
                             ? AppColors.primaryOrange
-                            : AppColors.textBrown,
+                            : AppColors.textBrown.withValues(alpha: 0.7),
+                        size: 20,
                       ),
-                    ),
-                  ],
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      category['description'],
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                    const SizedBox(height: 4),
-                    Wrap(
-                      spacing: 4,
-                      children: (category['examples'] as List<String>)
-                          .take(3)
-                          .map(
-                            (example) => Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 6,
-                                vertical: 2,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors.textBrown.withValues(
-                                  alpha: 0.1,
+                      const SizedBox(width: 8),
+                      Text(
+                        category['name'],
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: _selectedCategory == category['id']
+                              ? AppColors.primaryOrange
+                              : AppColors.textBrown,
+                        ),
+                      ),
+                    ],
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        category['description'],
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                      const SizedBox(height: 4),
+                      Wrap(
+                        spacing: 4,
+                        children: (category['examples'] as List<String>)
+                            .take(3)
+                            .map(
+                              (example) => Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 6,
+                                  vertical: 2,
                                 ),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                example,
-                                style: const TextStyle(
-                                  fontSize: 10,
-                                  color: AppColors.textBrown,
+                                decoration: BoxDecoration(
+                                  color: AppColors.textBrown.withValues(
+                                    alpha: 0.1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Text(
+                                  example,
+                                  style: const TextStyle(
+                                    fontSize: 10,
+                                    color: AppColors.textBrown,
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ],
+                            )
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                  activeColor: AppColors.primaryOrange,
+                  dense: true,
                 ),
-                activeColor: AppColors.primaryOrange,
-                dense: true,
               ),
-            ),
-        ],
+          ],
+        ),
       ),
       actions: [
         TextButton(

@@ -456,72 +456,62 @@ class RecipeEditScreen extends ConsumerWidget {
                                 ],
 
                                 Card(
-                                  child: Column(
-                                    children: [
-                                      RadioListTile<bool>(
-                                        title: Text(
-                                          AppLocalizations.of(
-                                            context,
-                                          ).versionSaveAsDerived,
-                                        ),
-                                        subtitle: currentVersion != null
-                                            ? Text(
-                                                AppLocalizations.of(
-                                                  context,
-                                                ).versionDerivedDescription(
-                                                  currentVersion
-                                                      .fullDisplayName,
+                                  child: RadioGroup<bool>(
+                                    groupValue: currentState.createNewVersion,
+                                    onChanged: (value) {
+                                      if (value != null) {
+                                        notifier.toggleCreateNewVersion(value);
+                                      }
+                                    },
+                                    child: Column(
+                                      children: [
+                                        RadioListTile<bool>(
+                                          title: Text(
+                                            AppLocalizations.of(
+                                              context,
+                                            ).versionSaveAsDerived,
+                                          ),
+                                          subtitle: currentVersion != null
+                                              ? Text(
+                                                  AppLocalizations.of(
+                                                    context,
+                                                  ).versionDerivedDescription(
+                                                    currentVersion
+                                                        .fullDisplayName,
+                                                  ),
+                                                )
+                                              : Text(
+                                                  AppLocalizations.of(
+                                                    context,
+                                                  ).versionKeepExisting,
                                                 ),
-                                              )
-                                            : Text(
-                                                AppLocalizations.of(
-                                                  context,
-                                                ).versionKeepExisting,
-                                              ),
-                                        value: true,
-                                        groupValue:
-                                            currentState.createNewVersion,
-                                        onChanged: (value) {
-                                          if (value != null) {
-                                            notifier.toggleCreateNewVersion(
-                                              value,
-                                            );
-                                          }
-                                        },
-                                      ),
-                                      const Divider(height: 1),
-                                      RadioListTile<bool>(
-                                        title: Text(
-                                          AppLocalizations.of(
-                                            context,
-                                          ).versionOverwrite,
+                                          value: true,
                                         ),
-                                        subtitle: currentVersion != null
-                                            ? Text(
-                                                AppLocalizations.of(
-                                                  context,
-                                                ).versionUpdateDescription(
-                                                  currentVersion
-                                                      .fullDisplayName,
+                                        const Divider(height: 1),
+                                        RadioListTile<bool>(
+                                          title: Text(
+                                            AppLocalizations.of(
+                                              context,
+                                            ).versionOverwrite,
+                                          ),
+                                          subtitle: currentVersion != null
+                                              ? Text(
+                                                  AppLocalizations.of(
+                                                    context,
+                                                  ).versionUpdateDescription(
+                                                    currentVersion
+                                                        .fullDisplayName,
+                                                  ),
+                                                )
+                                              : Text(
+                                                  AppLocalizations.of(
+                                                    context,
+                                                  ).versionUpdateCurrent,
                                                 ),
-                                              )
-                                            : Text(
-                                                AppLocalizations.of(
-                                                  context,
-                                                ).versionUpdateCurrent,
-                                              ),
-                                        value: false,
-                                        groupValue:
-                                            currentState.createNewVersion,
-                                        onChanged: (value) {
-                                          if (value != null) {
-                                            notifier.toggleCreateNewVersion(
-                                              value,
-                                            );
-                                          }
-                                        },
-                                      ),
-                                    ],
+                                          value: false,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 if (currentState.createNewVersion) ...[
