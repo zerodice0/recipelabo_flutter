@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:recipick_flutter/core/config/app_colors.dart';
 import 'package:recipick_flutter/core/services/alarm_timer_service.dart';
@@ -11,6 +13,9 @@ class StepWithTimerWidget extends StatefulWidget {
   final StepEntity step;
   final bool isEditing;
   final Function(StepEntity)? onStepChanged;
+  final Future<void> Function()? onPickImageFromGallery;
+  final Future<void> Function()? onCaptureImage;
+  final Future<void> Function()? onRemoveImage;
   final VoidCallback? onRemove;
 
   const StepWithTimerWidget({
@@ -18,6 +23,9 @@ class StepWithTimerWidget extends StatefulWidget {
     required this.step,
     this.isEditing = false,
     this.onStepChanged,
+    this.onPickImageFromGallery,
+    this.onCaptureImage,
+    this.onRemoveImage,
     this.onRemove,
   });
 
@@ -164,6 +172,17 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
 
   String _formatTime(int minutes, int seconds) {
     return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  }
+
+  String? get _stepImagePath {
+    final imageUrl = widget.step.imageUrl?.trim();
+    return imageUrl == null || imageUrl.isEmpty ? null : imageUrl;
+  }
+
+  bool get _hasImageActions {
+    return widget.onPickImageFromGallery != null ||
+        widget.onCaptureImage != null ||
+        widget.onRemoveImage != null;
   }
 
   @override
@@ -332,18 +351,19 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
                   height: 1.5,
                 ),
               ),
-              if (widget.step.imageUrl != null) ...[
+              if (_stepImagePath != null) ...[
                 const SizedBox(height: 8),
-                Container(
-                  height: 120,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: theme.colorScheme.outline),
-                  ),
-                  child: const Center(child: Icon(Icons.image)),
-                ),
+                _buildStepImage(context, _stepImagePath!),
               ],
+            ],
+
+            if (widget.isEditing) ...[
+              const SizedBox(height: 12),
+              if (_stepImagePath != null) ...[
+                _buildStepImage(context, _stepImagePath!),
+                const SizedBox(height: 8),
+              ],
+              if (_hasImageActions) _buildImageActions(context),
             ],
 
             // 타이머 설정 (편집 모드)
@@ -508,6 +528,91 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildStepImage(BuildContext context, String imagePath) {
+    final theme = Theme.of(context);
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        width: double.infinity,
+        constraints: const BoxConstraints(maxHeight: 220),
+        decoration: BoxDecoration(
+          color: AppColors.lightCream.withValues(alpha: 0.35),
+          border: Border.all(color: theme.colorScheme.outlineVariant),
+        ),
+        child: AspectRatio(
+          aspectRatio: 16 / 9,
+          child: _buildImageContent(imagePath),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildImageContent(String imagePath) {
+    final uri = Uri.tryParse(imagePath);
+    final isRemoteImage =
+        uri != null &&
+        (uri.scheme == 'http' || uri.scheme == 'https') &&
+        uri.host.isNotEmpty;
+
+    if (isRemoteImage) {
+      return Image.network(
+        imagePath,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) => _buildImageError(),
+      );
+    }
+
+    return Image.file(
+      File(imagePath),
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) => _buildImageError(),
+    );
+  }
+
+  Widget _buildImageError() {
+    return const Center(
+      child: Icon(Icons.broken_image_outlined, color: AppColors.textBrown),
+    );
+  }
+
+  Widget _buildImageActions(BuildContext context) {
+    final hasImage = _stepImagePath != null;
+
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        if (widget.onPickImageFromGallery != null)
+          OutlinedButton.icon(
+            onPressed: widget.onPickImageFromGallery,
+            icon: Icon(
+              hasImage ? Icons.photo_library : Icons.add_photo_alternate,
+            ),
+            label: Text(hasImage ? '사진 변경' : '사진 추가'),
+          ),
+        if (widget.onCaptureImage != null)
+          OutlinedButton.icon(
+            onPressed: widget.onCaptureImage,
+            icon: const Icon(Icons.photo_camera),
+            label: const Text('촬영'),
+          ),
+        if (hasImage && widget.onRemoveImage != null)
+          TextButton.icon(
+            onPressed: widget.onRemoveImage,
+            icon: Icon(
+              Icons.delete_outline,
+              color: Theme.of(context).colorScheme.error,
+            ),
+            label: Text(
+              '사진 삭제',
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ),
+          ),
+      ],
     );
   }
 }

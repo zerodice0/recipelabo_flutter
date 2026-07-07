@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -5,6 +7,7 @@ import 'package:recipick_flutter/domain/entities/ingredient_entity.dart';
 import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
 import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
 import 'package:recipick_flutter/domain/entities/step_entity.dart';
+import 'package:recipick_flutter/domain/usecases/pick_image_usecase.dart';
 import 'package:recipick_flutter/domain/usecases/save_recipe_usecase.dart';
 import 'package:recipick_flutter/domain/usecases/get_recipe_with_versions_usecase.dart';
 import 'package:recipick_flutter/domain/usecases/check_version_name_exists_usecase.dart';
@@ -190,12 +193,68 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
 
   void removeStep(int index) {
     final newSteps = [...state.steps];
+    final removedImagePath = newSteps[index].imageUrl;
     newSteps.removeAt(index);
     // Re-number subsequent steps
     for (var i = index; i < newSteps.length; i++) {
       newSteps[i] = newSteps[i].copyWith(stepNumber: i + 1);
     }
     state = state.copyWith(steps: newSteps);
+    unawaited(_deleteImageIfUnused(removedImagePath));
+  }
+
+  Future<void> pickStepImageFromGallery(int index) {
+    return _pickStepImage(index, ImageSourceType.gallery);
+  }
+
+  Future<void> captureStepImage(int index) {
+    return _pickStepImage(index, ImageSourceType.camera);
+  }
+
+  Future<void> _pickStepImage(int index, ImageSourceType sourceType) async {
+    if (index < 0 || index >= state.steps.length) return;
+
+    final pickImageUseCase = ref.read(pickImageUseCaseProvider);
+    final imagePath = await pickImageUseCase(sourceType);
+    if (imagePath == null) return;
+
+    final oldImagePath = state.steps[index].imageUrl;
+    final updatedSteps = [...state.steps];
+    updatedSteps[index] = updatedSteps[index].copyWith(imageUrl: imagePath);
+    state = state.copyWith(steps: updatedSteps);
+
+    await _deleteImageIfUnused(oldImagePath);
+  }
+
+  Future<void> removeStepImage(int index) async {
+    if (index < 0 || index >= state.steps.length) return;
+
+    final oldImagePath = state.steps[index].imageUrl;
+    final updatedSteps = [...state.steps];
+    updatedSteps[index] = updatedSteps[index].copyWith(imageUrl: null);
+    state = state.copyWith(steps: updatedSteps);
+
+    await _deleteImageIfUnused(oldImagePath);
+  }
+
+  Future<void> _deleteImageIfUnused(String? imagePath) async {
+    final normalizedPath = imagePath?.trim();
+    if (normalizedPath == null || normalizedPath.isEmpty) return;
+
+    final uri = Uri.tryParse(normalizedPath);
+    if (uri != null &&
+        (uri.scheme == 'http' || uri.scheme == 'https') &&
+        uri.host.isNotEmpty) {
+      return;
+    }
+
+    final stillUsed = state.steps.any(
+      (step) => step.imageUrl == normalizedPath,
+    );
+    if (stillUsed) return;
+
+    final imageStorageService = ref.read(imageStorageServiceProvider);
+    await imageStorageService.deleteImageFile(normalizedPath);
   }
 
   void showSaveOptions() {

@@ -247,7 +247,7 @@ class RecipeEditScreen extends ConsumerWidget {
                     AppLocalizations.of(context).recipeCookingSteps,
                     notifier.addStep,
                   ),
-                  ..._buildStepFields(viewModel.steps, notifier),
+                  ..._buildStepFields(context, viewModel.steps, notifier),
                 ],
               ),
             ),
@@ -269,6 +269,7 @@ class RecipeEditScreen extends ConsumerWidget {
   }
 
   List<Widget> _buildStepFields(
+    BuildContext context,
     List<StepEntity> steps,
     RecipeEditViewModel notifier,
   ) {
@@ -279,9 +280,33 @@ class RecipeEditScreen extends ConsumerWidget {
         step: step,
         isEditing: true,
         onStepChanged: (updatedStep) => notifier.updateStep(index, updatedStep),
+        onPickImageFromGallery: () => _runStepImageAction(
+          context,
+          () => notifier.pickStepImageFromGallery(index),
+        ),
+        onCaptureImage: () => _runStepImageAction(
+          context,
+          () => notifier.captureStepImage(index),
+        ),
+        onRemoveImage: () =>
+            _runStepImageAction(context, () => notifier.removeStepImage(index)),
         onRemove: () => notifier.removeStep(index),
       );
     });
+  }
+
+  Future<void> _runStepImageAction(
+    BuildContext context,
+    Future<void> Function() action,
+  ) async {
+    try {
+      await action();
+    } catch (error) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('단계 이미지를 처리하지 못했습니다: $error')));
+    }
   }
 
   List<IngredientEntity>? _findBaselineIngredients(RecipeEditState state) {
