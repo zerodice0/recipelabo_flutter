@@ -7,6 +7,7 @@ import './database_helper.dart';
 
 abstract class RecipeLocalDataSource {
   Future<List<RecipeModel>> getRecipes();
+  Future<List<RecipeModel>> searchRecipes(String query);
   Future<RecipeModel?> getRecipe(String id);
   Future<List<RecipeVersionModel>> getRecipeVersions(String recipeId);
   Future<RecipeVersionModel?> getRecipeVersion(String id);
@@ -28,6 +29,38 @@ class RecipeLocalDataSourceImpl implements RecipeLocalDataSource {
       where: 'isDeleted = ?',
       whereArgs: [0],
     );
+    return maps.map((map) => RecipeModelExtension.fromMap(map)).toList();
+  }
+
+  @override
+  Future<List<RecipeModel>> searchRecipes(String query) async {
+    final normalizedQuery = query.trim();
+    if (normalizedQuery.isEmpty) return [];
+
+    final db = await _dbHelper.database;
+    final likeQuery = '%${normalizedQuery.toLowerCase()}%';
+    final maps = await db.rawQuery('''
+      SELECT DISTINCT r.*
+      FROM recipes r
+      LEFT JOIN recipe_versions rv
+        ON rv.recipeId = r.id AND rv.isDeleted = 0
+      LEFT JOIN ingredients i
+        ON i.recipeVersionId = rv.id AND i.isDeleted = 0
+      LEFT JOIN steps s
+        ON s.recipeVersionId = rv.id AND s.isDeleted = 0
+      WHERE r.isDeleted = 0
+        AND (
+          LOWER(r.name) LIKE ?
+          OR LOWER(COALESCE(r.description, '')) LIKE ?
+          OR LOWER(COALESCE(r.sourceName, '')) LIKE ?
+          OR LOWER(COALESCE(r.sourceUrl, '')) LIKE ?
+          OR LOWER(COALESCE(rv.versionName, '')) LIKE ?
+          OR LOWER(COALESCE(rv.changeLog, '')) LIKE ?
+          OR LOWER(COALESCE(i.name, '')) LIKE ?
+          OR LOWER(COALESCE(s.description, '')) LIKE ?
+        )
+      ORDER BY r.updatedAt DESC
+      ''', List.filled(8, likeQuery));
     return maps.map((map) => RecipeModelExtension.fromMap(map)).toList();
   }
 

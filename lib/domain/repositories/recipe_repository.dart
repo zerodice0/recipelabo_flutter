@@ -6,6 +6,9 @@ abstract class RecipeRepository {
   /// 모든 레시피 목록을 가져옵니다.
   Future<List<RecipeEntity>> getRecipes();
 
+  /// 레시피 이름, 설명, 출처, 버전 메모, 재료, 조리 단계에서 검색합니다.
+  Future<List<RecipeEntity>> searchRecipes(String query);
+
   /// 특정 ID를 가진 레시피를 가져옵니다.
   Future<RecipeEntity?> getRecipe(String id);
 
