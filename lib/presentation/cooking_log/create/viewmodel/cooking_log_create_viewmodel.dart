@@ -13,6 +13,13 @@ abstract class CookingLogCreateState with _$CookingLogCreateState {
     @Default('') String title,
     @Default('') String memo,
     String? base64EncodedImageData,
+    @Default(0) int overallRating,
+    @Default(0) int saltinessRating,
+    @Default(0) int sweetnessRating,
+    @Default(0) int spicinessRating,
+    @Default(0) int umamiRating,
+    @Default('') String failureReason,
+    @Default('') String nextAdjustment,
     DateTime? cookedAt,
     @Default(false) bool isLoading,
     String? error,
@@ -33,6 +40,34 @@ class CookingLogCreateViewModel extends _$CookingLogCreateViewModel {
 
   void updateMemo(String memo) {
     state = state.copyWith(memo: memo);
+  }
+
+  void updateOverallRating(int rating) {
+    state = state.copyWith(overallRating: rating);
+  }
+
+  void updateSaltinessRating(int rating) {
+    state = state.copyWith(saltinessRating: rating);
+  }
+
+  void updateSweetnessRating(int rating) {
+    state = state.copyWith(sweetnessRating: rating);
+  }
+
+  void updateSpicinessRating(int rating) {
+    state = state.copyWith(spicinessRating: rating);
+  }
+
+  void updateUmamiRating(int rating) {
+    state = state.copyWith(umamiRating: rating);
+  }
+
+  void updateFailureReason(String failureReason) {
+    state = state.copyWith(failureReason: failureReason);
+  }
+
+  void updateNextAdjustment(String nextAdjustment) {
+    state = state.copyWith(nextAdjustment: nextAdjustment);
   }
 
   void updateCookedAt(DateTime cookedAt) {
@@ -105,6 +140,23 @@ class CookingLogCreateViewModel extends _$CookingLogCreateViewModel {
         memo: state.memo.trim().isEmpty ? null : state.memo.trim(),
         base64EncodedImageData:
             state.base64EncodedImageData, // base64 인코딩된 이미지 데이터
+        overallRating: state.overallRating == 0 ? null : state.overallRating,
+        saltinessRating: state.saltinessRating == 0
+            ? null
+            : state.saltinessRating,
+        sweetnessRating: state.sweetnessRating == 0
+            ? null
+            : state.sweetnessRating,
+        spicinessRating: state.spicinessRating == 0
+            ? null
+            : state.spicinessRating,
+        umamiRating: state.umamiRating == 0 ? null : state.umamiRating,
+        failureReason: state.failureReason.trim().isEmpty
+            ? null
+            : state.failureReason.trim(),
+        nextAdjustment: state.nextAdjustment.trim().isEmpty
+            ? null
+            : state.nextAdjustment.trim(),
         cookedAt: state.cookedAt!,
         createdAt: DateTime.now(),
       );
