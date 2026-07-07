@@ -2043,6 +2043,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create'**
   String get actionCreate;
+
+  /// 백업/복원 설정 제목
+  ///
+  /// In en, this message translates to:
+  /// **'Data Backup/Restore'**
+  String get settingsBackup;
+
+  /// 백업/복원 설정 설명
+  ///
+  /// In en, this message translates to:
+  /// **'Manage recipes and cooking logs as JSON files'**
+  String get settingsBackupDescription;
+
+  /// 백업 내보내기 액션
+  ///
+  /// In en, this message translates to:
+  /// **'Export Backup'**
+  String get backupExport;
+
+  /// 백업 가져오기 액션
+  ///
+  /// In en, this message translates to:
+  /// **'Import Backup'**
+  String get backupImport;
+
+  /// 백업 가져오기 확인 제목
+  ///
+  /// In en, this message translates to:
+  /// **'Import Backup'**
+  String get backupImportConfirmTitle;
+
+  /// 백업 가져오기 병합 정책 확인 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Data with the same ID will be replaced by the backup file. Existing data that is not in the backup will be kept. Continue?'**
+  String get backupImportConfirmMessage;
+
+  /// 백업 내보내기 완료 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Backup file created'**
+  String get backupExported;
+
+  /// 백업 가져오기 완료 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'Backup imported'**
+  String get backupImported;
+
+  /// 백업 오류 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred during the backup operation'**
+  String get backupActionFailed;
+
+  /// 백업 파일 미선택 메시지
+  ///
+  /// In en, this message translates to:
+  /// **'No file selected'**
+  String get backupNoFileSelected;
+
+  /// 백업 공유 텍스트
+  ///
+  /// In en, this message translates to:
+  /// **'Recipe backup file'**
+  String get backupShareText;
 }
 
 class _AppLocalizationsDelegate

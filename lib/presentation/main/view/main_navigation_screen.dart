@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:recipick_flutter/presentation/recipe/list/view/recipe_list_screen.dart';
 import 'package:recipick_flutter/presentation/search/view/ingredient_search_screen.dart';
 import 'package:recipick_flutter/presentation/timer/view/timer_screen.dart';
 import 'package:recipick_flutter/presentation/timer/widgets/notification_permission_dialog.dart';
 import 'package:recipick_flutter/presentation/main/viewmodel/main_navigation_viewmodel.dart';
 import 'package:recipick_flutter/core/services/alarm_timer_service.dart';
+import 'package:recipick_flutter/core/services/recipe_backup_service.dart';
 import 'package:recipick_flutter/core/config/app_colors.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 import 'package:recipick_flutter/core/providers/locale_provider.dart';
@@ -278,6 +281,8 @@ class ProfileScreen extends ConsumerWidget {
                 const Divider(height: 1),
                 _NotificationSettingsTile(),
                 const Divider(height: 1),
+                const _BackupSettingsTile(),
+                const Divider(height: 1),
                 ListTile(
                   leading: const Icon(Icons.spa),
                   title: Text(
@@ -343,6 +348,167 @@ class ProfileScreen extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+enum _BackupAction { export, import }
+
+class _BackupSettingsTile extends ConsumerStatefulWidget {
+  const _BackupSettingsTile();
+
+  @override
+  ConsumerState<_BackupSettingsTile> createState() =>
+      _BackupSettingsTileState();
+}
+
+class _BackupSettingsTileState extends ConsumerState<_BackupSettingsTile> {
+  bool _isBusy = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
+    return ListTile(
+      leading: const Icon(Icons.archive_outlined),
+      title: Text(l10n.settingsBackup),
+      subtitle: Text(l10n.settingsBackupDescription),
+      trailing: _isBusy
+          ? const SizedBox(
+              width: 24,
+              height: 24,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            )
+          : PopupMenuButton<_BackupAction>(
+              onSelected: (action) {
+                switch (action) {
+                  case _BackupAction.export:
+                    _exportBackup();
+                    break;
+                  case _BackupAction.import:
+                    _importBackup();
+                    break;
+                }
+              },
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  value: _BackupAction.export,
+                  child: ListTile(
+                    leading: const Icon(Icons.upload_file),
+                    title: Text(l10n.backupExport),
+                    contentPadding: EdgeInsets.zero,
+                  ),
+                ),
+                PopupMenuItem(
+                  value: _BackupAction.import,
+                  child: ListTile(
+                    leading: const Icon(Icons.download_for_offline_outlined),
+                    title: Text(l10n.backupImport),
+                    contentPadding: EdgeInsets.zero,
+                  ),
+                ),
+              ],
+            ),
+    );
+  }
+
+  Future<void> _exportBackup() async {
+    final l10n = AppLocalizations.of(context);
+    await _runBackupAction(() async {
+      final service = ref.read(recipeBackupServiceProvider);
+      final result = await service.exportToFile();
+      if (!mounted) return;
+
+      final box = context.findRenderObject() as RenderBox?;
+
+      await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(result.file.path)],
+          fileNameOverrides: [result.file.uri.pathSegments.last],
+          text: l10n.backupShareText,
+          title: l10n.backupExport,
+          sharePositionOrigin: box == null
+              ? null
+              : box.localToGlobal(Offset.zero) & box.size,
+        ),
+      );
+
+      if (!mounted) return;
+      _showSnackBar(l10n.backupExported);
+    });
+  }
+
+  Future<void> _importBackup() async {
+    final l10n = AppLocalizations.of(context);
+    await _runBackupAction(() async {
+      const typeGroup = XTypeGroup(
+        label: 'Recipe backup JSON',
+        extensions: ['json'],
+        mimeTypes: ['application/json'],
+        uniformTypeIdentifiers: ['public.json'],
+      );
+      final file = await openFile(acceptedTypeGroups: [typeGroup]);
+
+      if (!mounted) return;
+      if (file == null) {
+        _showSnackBar(l10n.backupNoFileSelected);
+        return;
+      }
+
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(l10n.backupImportConfirmTitle),
+          content: Text(l10n.backupImportConfirmMessage),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(l10n.actionCancel),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(l10n.actionConfirm),
+            ),
+          ],
+        ),
+      );
+
+      if (confirmed != true) return;
+
+      final jsonString = await file.readAsString();
+      final service = ref.read(recipeBackupServiceProvider);
+      await service.importFromJsonString(jsonString);
+
+      if (!mounted) return;
+      _showSnackBar(l10n.backupImported);
+    });
+  }
+
+  Future<void> _runBackupAction(Future<void> Function() action) async {
+    if (_isBusy) return;
+
+    setState(() {
+      _isBusy = true;
+    });
+
+    try {
+      await action();
+    } catch (error) {
+      if (!mounted) return;
+      final l10n = AppLocalizations.of(context);
+      _showSnackBar('${l10n.backupActionFailed}: $error');
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isBusy = false;
+        });
+      }
+    }
+  }
+
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), duration: const Duration(seconds: 3)),
     );
   }
 }
