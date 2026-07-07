@@ -5,6 +5,7 @@ import 'package:recipick_flutter/domain/entities/ingredient_entity.dart';
 import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
 import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
 import 'package:recipick_flutter/domain/entities/step_entity.dart';
+import 'package:recipick_flutter/domain/usecases/pick_image_usecase.dart';
 import 'package:recipick_flutter/domain/usecases/save_recipe_usecase.dart';
 import 'package:recipick_flutter/domain/usecases/get_recipe_with_versions_usecase.dart';
 import 'package:recipick_flutter/domain/usecases/check_version_name_exists_usecase.dart';
@@ -196,6 +197,44 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
       newSteps[i] = newSteps[i].copyWith(stepNumber: i + 1);
     }
     state = state.copyWith(steps: newSteps);
+  }
+
+  Future<void> pickStepImageFromGallery(int index) {
+    return _pickStepImage(index, ImageSourceType.gallery);
+  }
+
+  Future<void> captureStepImage(int index) {
+    return _pickStepImage(index, ImageSourceType.camera);
+  }
+
+  Future<void> _pickStepImage(int index, ImageSourceType sourceType) async {
+    if (index < 0 || index >= state.steps.length) return;
+
+    final targetStepId = state.steps[index].id;
+    final pickImageUseCase = ref.read(pickImageUseCaseProvider);
+    final imagePath = await pickImageUseCase(sourceType);
+    if (imagePath == null) return;
+
+    final currentIndex = state.steps.indexWhere(
+      (step) => step.id == targetStepId,
+    );
+    if (currentIndex == -1) return;
+
+    final updatedSteps = [...state.steps];
+    updatedSteps[currentIndex] = updatedSteps[currentIndex].copyWith(
+      imageUrl: imagePath,
+    );
+    state = state.copyWith(steps: updatedSteps);
+  }
+
+  Future<void> removeStepImage(int index) {
+    if (index < 0 || index >= state.steps.length) return Future.value();
+
+    final updatedSteps = [...state.steps];
+    updatedSteps[index] = updatedSteps[index].copyWith(imageUrl: null);
+    state = state.copyWith(steps: updatedSteps);
+
+    return Future.value();
   }
 
   void showSaveOptions() {

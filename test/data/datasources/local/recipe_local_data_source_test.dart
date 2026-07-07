@@ -204,4 +204,48 @@ void main() {
     );
     expect(await dataSource.searchRecipes('없는 검색어'), isEmpty);
   });
+
+  test('조리 단계 이미지 경로는 저장 후 조회 시 보존된다', () async {
+    final now = DateTime(2026, 7, 7, 12);
+    final recipe = RecipeModel(
+      id: 'recipe-step-image',
+      authorId: 'user-1',
+      latestVersionId: 'version-step-image',
+      name: '단계 이미지 레시피',
+      description: '단계별 사진 저장 테스트',
+      createdAt: now,
+      updatedAt: now,
+    );
+    final version = RecipeVersionModel(
+      id: 'version-step-image',
+      recipeId: 'recipe-step-image',
+      versionNumber: 1,
+      name: '단계 이미지 레시피',
+      description: '기본 버전',
+      ingredients: [],
+      steps: [
+        StepModel(
+          id: 'step-with-image',
+          recipeVersionId: 'version-step-image',
+          stepNumber: 1,
+          description: '팬에 양파를 볶는다',
+          imageUrl: '/local/images/onion.jpg',
+          createdAt: now,
+          updatedAt: now,
+        ),
+      ],
+      authorId: 'user-1',
+      createdAt: now,
+      updatedAt: now,
+    );
+
+    await dataSource.saveRecipe(recipe, version);
+
+    final restoredVersion = await dataSource.getRecipeVersion(
+      'version-step-image',
+    );
+
+    expect(restoredVersion, isNotNull);
+    expect(restoredVersion!.steps.single.imageUrl, '/local/images/onion.jpg');
+  });
 }
