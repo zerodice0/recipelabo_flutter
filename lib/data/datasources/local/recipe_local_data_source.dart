@@ -123,6 +123,8 @@ class RecipeLocalDataSourceImpl implements RecipeLocalDataSource {
   ) async {
     final db = await _dbHelper.database;
     await db.transaction((txn) async {
+      final now = DateTime.now().toIso8601String();
+
       await txn.insert(
         'recipes',
         recipe.toMap(),
@@ -133,6 +135,21 @@ class RecipeLocalDataSourceImpl implements RecipeLocalDataSource {
         'recipe_versions',
         version.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+
+      await _markRemovedChildrenDeleted(
+        txn,
+        tableName: 'ingredients',
+        versionId: version.id,
+        retainedIds: version.ingredients.map((ingredient) => ingredient.id),
+        updatedAt: now,
+      );
+      await _markRemovedChildrenDeleted(
+        txn,
+        tableName: 'steps',
+        versionId: version.id,
+        retainedIds: version.steps.map((step) => step.id),
+        updatedAt: now,
       );
 
       for (final ingredient in version.ingredients) {
@@ -150,6 +167,36 @@ class RecipeLocalDataSourceImpl implements RecipeLocalDataSource {
         );
       }
     });
+  }
+
+  Future<void> _markRemovedChildrenDeleted(
+    Transaction txn, {
+    required String tableName,
+    required String versionId,
+    required Iterable<String> retainedIds,
+    required String updatedAt,
+  }) async {
+    final retainedIdSet = retainedIds.toSet();
+    final existingRows = await txn.query(
+      tableName,
+      columns: ['id'],
+      where: 'recipeVersionId = ? AND isDeleted = ?',
+      whereArgs: [versionId, 0],
+    );
+
+    final removedIds = existingRows
+        .map((row) => row['id'] as String)
+        .where((id) => !retainedIdSet.contains(id))
+        .toList();
+
+    for (final id in removedIds) {
+      await txn.update(
+        tableName,
+        {'isDeleted': 1, 'updatedAt': updatedAt},
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+    }
   }
 
   @override
