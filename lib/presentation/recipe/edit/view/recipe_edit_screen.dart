@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:recipick_flutter/domain/entities/ingredient_entity.dart';
 import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
 import 'package:recipick_flutter/domain/entities/step_entity.dart';
 import 'package:recipick_flutter/presentation/recipe/edit/viewmodel/recipe_edit_viewmodel.dart';
@@ -215,6 +216,7 @@ class RecipeEditScreen extends ConsumerWidget {
                   IngredientSelectorWidget(
                     label: AppLocalizations.of(context).recipeIngredients,
                     selectedIngredients: viewModel.ingredients,
+                    baselineIngredients: _findBaselineIngredients(viewModel),
                     onIngredientsChanged: notifier.updateIngredients,
                   ),
                   const SizedBox(height: 24),
@@ -258,6 +260,42 @@ class RecipeEditScreen extends ConsumerWidget {
         onRemove: () => notifier.removeStep(index),
       );
     });
+  }
+
+  List<IngredientEntity>? _findBaselineIngredients(RecipeEditState state) {
+    final versions = state.allVersions;
+    final currentVersionId = state.recipeVersionId;
+    if (versions == null || versions.isEmpty || currentVersionId == null) {
+      return null;
+    }
+
+    RecipeVersionEntity? currentVersion;
+    for (final version in versions) {
+      if (version.id == currentVersionId) {
+        currentVersion = version;
+        break;
+      }
+    }
+    if (currentVersion == null) return null;
+
+    final baseVersionId = currentVersion.baseVersionId;
+    if (baseVersionId != null && baseVersionId.isNotEmpty) {
+      for (final version in versions) {
+        if (version.id == baseVersionId) {
+          return version.ingredients;
+        }
+      }
+    }
+
+    final previousVersionNumber = currentVersion.versionNumber - 1;
+    if (previousVersionNumber < 1) return null;
+
+    for (final version in versions) {
+      if (version.versionNumber == previousVersionNumber) {
+        return version.ingredients;
+      }
+    }
+    return null;
   }
 
   void _showSaveOptionsDialog(
