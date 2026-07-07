@@ -364,7 +364,7 @@ class RecipeBackupService {
 
       users.add({
         'id': userId,
-        'username': LocalUserPolicy.localUsername,
+        'username': LocalUserPolicy.syntheticUsernameFor(userId),
         'avatarUrl': null,
         'createdAt': now,
         'updatedAt': now,
@@ -612,7 +612,7 @@ class RecipeBackupService {
 
       importedUsers.add({
         'id': userId,
-        'username': LocalUserPolicy.localUsername,
+        'username': LocalUserPolicy.syntheticUsernameFor(userId),
         'avatarUrl': null,
         'createdAt': now,
         'updatedAt': now,

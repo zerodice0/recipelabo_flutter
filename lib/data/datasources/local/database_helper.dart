@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
+import 'package:recipick_flutter/core/config/local_user_policy.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:recipick_flutter/domain/entities/preset_units.dart';
 
@@ -628,6 +629,15 @@ class DatabaseHelper {
       )
     ''');
 
+    final localAuthorIds = [
+      LocalUserPolicy.localUserId,
+      ...LocalUserPolicy.legacyLocalUserIds,
+    ];
+    final localAuthorPlaceholders = List.filled(
+      localAuthorIds.length,
+      '?',
+    ).join(', ');
+
     await db.execute('''
       INSERT INTO recipes_new (
         id, authorId, latestVersionId, name, description,
@@ -636,10 +646,14 @@ class DatabaseHelper {
       )
       SELECT
         id, authorId, latestVersionId, name, description,
-        sourceUrl, sourceName, importedAt, 0,
+        sourceUrl, sourceName, importedAt,
+        CASE
+          WHEN authorId IN ($localAuthorPlaceholders) THEN 0
+          ELSE COALESCE(isPublic, 0)
+        END,
         createdAt, updatedAt, COALESCE(isDeleted, 0)
       FROM recipes
-    ''');
+    ''', localAuthorIds);
 
     await db.execute('DROP TABLE recipes');
     await db.execute('ALTER TABLE recipes_new RENAME TO recipes');

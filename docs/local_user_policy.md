@@ -4,14 +4,16 @@
 
 - Records created before account support use `LocalUserPolicy.localUserId`.
 - The stable local id is `local-device-user`.
-- Synthetic user rows created for backup/import use `Local Device User` as the display name.
+- Synthetic local user rows created for backup/import use `Local Device User` as the display name.
+- Synthetic rows for non-local imported author ids use `Imported User` so imported provenance is not labeled as the local device user.
 - Legacy local ids such as `user-1` and `default_user` are treated as local-only records during future migrations, but existing imported data keeps its original `authorId`.
 
 ## Recipe Visibility
 
 - New recipes are private by default: `isPublic = false`.
 - The SQLite `recipes.isPublic` default is `0`.
-- Database migration v22 reinterprets existing local recipes as private, because previous public values came from the old app default rather than an explicit sharing workflow.
+- Database migration v22 reinterprets recipes owned by `local-device-user`, `user-1`, or `default_user` as private, because previous public values for local records came from the old app default rather than an explicit sharing workflow.
+- Recipes with other imported author ids keep their existing `isPublic` value.
 
 ## Future Account Migration
 
