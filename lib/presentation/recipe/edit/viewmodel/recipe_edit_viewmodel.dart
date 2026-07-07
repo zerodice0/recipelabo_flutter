@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:recipick_flutter/core/config/local_user_policy.dart';
 import 'package:recipick_flutter/domain/entities/ingredient_entity.dart';
 import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
 import 'package:recipick_flutter/domain/entities/recipe_version_entity.dart';
@@ -423,7 +424,7 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
 
         final recipe = RecipeEntity(
           id: recipeId,
-          authorId: 'user-1', // TODO: Replace with actual user ID
+          authorId: LocalUserPolicy.localUserId,
           latestVersionId: versionId,
           name: state.name,
           description: state.description,
@@ -432,7 +433,7 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
               ? null
               : normalizedSourceName,
           importedAt: importedAt,
-          isPublic: true,
+          isPublic: LocalUserPolicy.defaultRecipeIsPublic,
           createdAt: now,
           updatedAt: now,
         );
@@ -445,7 +446,7 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
           description: state.description,
           ingredients: state.ingredients,
           steps: state.steps,
-          authorId: 'user-1', // TODO: Replace with actual user ID
+          authorId: LocalUserPolicy.localUserId,
           createdAt: now,
         );
 

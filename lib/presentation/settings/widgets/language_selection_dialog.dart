@@ -21,30 +21,37 @@ class LanguageSelectionDialog extends ConsumerWidget {
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 16),
-          ...SupportedLocale.values.map((locale) {
-            return RadioListTile<SupportedLocale>(
-              title: Text(_getLocaleName(context, locale)),
-              value: locale,
-              groupValue: localeAsync.valueOrNull,
-              onChanged: (SupportedLocale? value) async {
-                if (value != null) {
-                  await localeNotifier.setLocale(value);
-                  if (context.mounted) {
-                    Navigator.of(context).pop();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          AppLocalizations.of(context).settingsLanguageChanged,
-                        ),
-                        duration: const Duration(seconds: 2),
+          RadioGroup<SupportedLocale>(
+            groupValue: localeAsync.valueOrNull,
+            onChanged: (value) async {
+              if (value != null) {
+                await localeNotifier.setLocale(value);
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        AppLocalizations.of(context).settingsLanguageChanged,
                       ),
-                    );
-                  }
+                      duration: const Duration(seconds: 2),
+                    ),
+                  );
                 }
-              },
-              dense: true,
-            );
-          }),
+              }
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ...SupportedLocale.values.map((locale) {
+                  return RadioListTile<SupportedLocale>(
+                    title: Text(_getLocaleName(context, locale)),
+                    value: locale,
+                    dense: true,
+                  );
+                }),
+              ],
+            ),
+          ),
         ],
       ),
       actions: [

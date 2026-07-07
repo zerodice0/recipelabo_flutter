@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:recipick_flutter/core/config/local_user_policy.dart';
 import 'package:recipick_flutter/core/services/image_storage_service.dart';
 import 'package:recipick_flutter/core/services/recipe_backup_service.dart';
 import 'package:recipick_flutter/data/datasources/local/database_helper.dart';
@@ -68,8 +69,26 @@ void main() {
     final users = tables['users'] as List<dynamic>;
 
     expect(users, hasLength(1));
-    expect(users.single['id'], 'user-1');
-    expect(users.single['username'], 'Local User');
+    expect(users.single['id'], LocalUserPolicy.localUserId);
+    expect(users.single['username'], LocalUserPolicy.localUsername);
+  });
+
+  test('JSON 백업은 외부 참조 사용자 row를 imported synthetic user로 보강한다', () async {
+    await _insertBackupFixture(
+      database,
+      recipeName: '외부 사용자 레시피',
+      userId: 'external-author',
+    );
+    await database.delete('users');
+
+    final jsonString = await service.exportToJsonString();
+    final document = jsonDecode(jsonString) as Map<String, dynamic>;
+    final tables = document['tables'] as Map<String, dynamic>;
+    final users = tables['users'] as List<dynamic>;
+
+    expect(users, hasLength(1));
+    expect(users.single['id'], 'external-author');
+    expect(users.single['username'], LocalUserPolicy.importedUsername);
   });
 
   test('JSON 복원은 같은 ID의 기존 레시피 데이터를 백업 내용으로 교체한다', () async {
@@ -269,14 +288,19 @@ Future<void> _insertBackupFixture(
   String idSuffix = '1',
   required String recipeName,
   String? stepImageUrl,
+  String? userId,
 }) async {
   const createdAt = '2026-07-07T12:00:00.000Z';
-  final userId = 'user-$idSuffix';
+  final resolvedUserId =
+      userId ??
+      (idSuffix == '1'
+          ? LocalUserPolicy.localUserId
+          : '${LocalUserPolicy.localUserId}-$idSuffix');
   final recipeId = 'recipe-$idSuffix';
   final versionId = 'version-$idSuffix';
 
   await database.insert('users', {
-    'id': userId,
+    'id': resolvedUserId,
     'username': 'local-user',
     'avatarUrl': null,
     'createdAt': createdAt,
@@ -285,7 +309,7 @@ Future<void> _insertBackupFixture(
   });
   await database.insert('recipes', {
     'id': recipeId,
-    'authorId': userId,
+    'authorId': resolvedUserId,
     'latestVersionId': versionId,
     'name': recipeName,
     'description': '테스트 레시피',
@@ -304,7 +328,7 @@ Future<void> _insertBackupFixture(
     'name': '간장 계란밥',
     'versionName': '덜 짠 버전',
     'description': '기본 설명',
-    'authorId': userId,
+    'authorId': resolvedUserId,
     'createdAt': createdAt,
     'isDeleted': 0,
     'changeLog': '간장 감소',
@@ -337,7 +361,7 @@ Future<void> _insertBackupFixture(
   await database.insert('cooking_logs', {
     'id': 'log-$idSuffix',
     'recipeVersionId': versionId,
-    'authorId': userId,
+    'authorId': resolvedUserId,
     'title': '첫 시도',
     'memo': '조금 짰다',
     'base64EncodedImageData': 'encoded-image',

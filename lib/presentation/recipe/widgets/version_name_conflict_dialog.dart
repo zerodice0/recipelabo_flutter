@@ -110,114 +110,117 @@ class _VersionNameConflictDialogState extends State<VersionNameConflictDialog> {
 
           const SizedBox(height: 12),
 
-          // 덮어쓰기 옵션
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: _selectedOption == 'overwrite'
-                    ? AppColors.primaryOrange
-                    : AppColors.textBrown.withValues(alpha: 0.3),
-                width: _selectedOption == 'overwrite' ? 2 : 1,
-              ),
-              color: _selectedOption == 'overwrite'
-                  ? AppColors.primaryOrange.withValues(alpha: 0.05)
-                  : null,
-            ),
-            child: RadioListTile<String>(
-              value: 'overwrite',
-              groupValue: _selectedOption,
-              onChanged: (value) {
-                setState(() {
-                  _selectedOption = value!;
-                });
-              },
-              title: Text(
-                '기존 버전 덮어쓰기',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: _selectedOption == 'overwrite'
-                      ? AppColors.primaryOrange
-                      : AppColors.textBrown,
-                ),
-              ),
-              subtitle: Text(
-                '기존 "${widget.conflictingVersionName}" 버전을 삭제하고 새로운 내용으로 교체합니다.',
-                style: const TextStyle(fontSize: 12),
-              ),
-              activeColor: AppColors.primaryOrange,
-              dense: true,
-            ),
-          ),
-
-          const SizedBox(height: 8),
-
-          // 새 이름 옵션
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: _selectedOption == 'rename'
-                    ? AppColors.primaryOrange
-                    : AppColors.textBrown.withValues(alpha: 0.3),
-                width: _selectedOption == 'rename' ? 2 : 1,
-              ),
-              color: _selectedOption == 'rename'
-                  ? AppColors.primaryOrange.withValues(alpha: 0.05)
-                  : null,
-            ),
+          RadioGroup<String>(
+            groupValue: _selectedOption,
+            onChanged: (value) {
+              if (value == null) {
+                return;
+              }
+              setState(() {
+                _selectedOption = value;
+              });
+            },
             child: Column(
               children: [
-                RadioListTile<String>(
-                  value: 'rename',
-                  groupValue: _selectedOption,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedOption = value!;
-                    });
-                  },
-                  title: Text(
-                    '새로운 버전명 사용',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
+                // 덮어쓰기 옵션
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: _selectedOption == 'overwrite'
+                          ? AppColors.primaryOrange
+                          : AppColors.textBrown.withValues(alpha: 0.3),
+                      width: _selectedOption == 'overwrite' ? 2 : 1,
+                    ),
+                    color: _selectedOption == 'overwrite'
+                        ? AppColors.primaryOrange.withValues(alpha: 0.05)
+                        : null,
+                  ),
+                  child: RadioListTile<String>(
+                    value: 'overwrite',
+                    title: Text(
+                      '기존 버전 덮어쓰기',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: _selectedOption == 'overwrite'
+                            ? AppColors.primaryOrange
+                            : AppColors.textBrown,
+                      ),
+                    ),
+                    subtitle: Text(
+                      '기존 "${widget.conflictingVersionName}" 버전을 삭제하고 새로운 내용으로 교체합니다.',
+                      style: const TextStyle(fontSize: 12),
+                    ),
+                    activeColor: AppColors.primaryOrange,
+                    dense: true,
+                  ),
+                ),
+
+                const SizedBox(height: 8),
+
+                // 새 이름 옵션
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
                       color: _selectedOption == 'rename'
                           ? AppColors.primaryOrange
-                          : AppColors.textBrown,
+                          : AppColors.textBrown.withValues(alpha: 0.3),
+                      width: _selectedOption == 'rename' ? 2 : 1,
                     ),
+                    color: _selectedOption == 'rename'
+                        ? AppColors.primaryOrange.withValues(alpha: 0.05)
+                        : null,
                   ),
-                  subtitle: const Text(
-                    '다른 이름으로 새 버전을 생성합니다.',
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  activeColor: AppColors.primaryOrange,
-                  dense: true,
-                ),
-                if (_selectedOption == 'rename') ...[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-                    child: TextFormField(
-                      controller: _newNameController,
-                      decoration: InputDecoration(
-                        labelText: '새 버전명',
-                        hintText: '예: 라볶이, 설탕 대체제',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(
-                            color: AppColors.primaryOrange,
-                            width: 2,
+                  child: Column(
+                    children: [
+                      RadioListTile<String>(
+                        value: 'rename',
+                        title: Text(
+                          '새로운 버전명 사용',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: _selectedOption == 'rename'
+                                ? AppColors.primaryOrange
+                                : AppColors.textBrown,
                           ),
                         ),
+                        subtitle: const Text(
+                          '다른 이름으로 새 버전을 생성합니다.',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                        activeColor: AppColors.primaryOrange,
+                        dense: true,
                       ),
-                      maxLength: 50,
-                      onChanged: (value) {
-                        setState(() {}); // 버튼 상태 업데이트
-                      },
-                    ),
+                      if (_selectedOption == 'rename') ...[
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+                          child: TextFormField(
+                            controller: _newNameController,
+                            decoration: InputDecoration(
+                              labelText: '새 버전명',
+                              hintText: '예: 라볶이, 설탕 대체제',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(
+                                  color: AppColors.primaryOrange,
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                            maxLength: 50,
+                            onChanged: (value) {
+                              setState(() {}); // 버튼 상태 업데이트
+                            },
+                          ),
+                        ),
+                      ],
+                    ],
                   ),
-                ],
+                ),
               ],
             ),
           ),

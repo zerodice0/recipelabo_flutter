@@ -156,6 +156,253 @@ void main() {
       expect(columnNames, contains('isDeleted'));
     });
 
+    test('recipes 테이블의 기본 공개 상태는 비공개다', () async {
+      final columns = await database.rawQuery('PRAGMA table_info(recipes)');
+      final isPublicColumn = columns.firstWhere(
+        (col) => col['name'] == 'isPublic',
+      );
+
+      expect(isPublicColumn['dflt_value']?.toString(), '0');
+    });
+
+    test('v21 recipes 공개 기본값 마이그레이션은 로컬 레시피만 비공개로 정규화한다', () async {
+      final legacyDb = await openDatabase(
+        inMemoryDatabasePath,
+        version: 21,
+        onCreate: (db, version) async {
+          await db.execute('''
+            CREATE TABLE users(
+              id TEXT PRIMARY KEY,
+              username TEXT NOT NULL,
+              avatarUrl TEXT,
+              createdAt TEXT NOT NULL,
+              updatedAt TEXT NOT NULL,
+              isDeleted INTEGER NOT NULL DEFAULT 0
+            )
+          ''');
+          await db.execute('''
+            CREATE TABLE recipes(
+              id TEXT PRIMARY KEY,
+              authorId TEXT NOT NULL,
+              latestVersionId TEXT NOT NULL,
+              name TEXT NOT NULL,
+              description TEXT,
+              sourceUrl TEXT,
+              sourceName TEXT,
+              importedAt TEXT,
+              isPublic INTEGER NOT NULL DEFAULT 1,
+              createdAt TEXT NOT NULL,
+              updatedAt TEXT NOT NULL,
+              isDeleted INTEGER NOT NULL DEFAULT 0,
+              FOREIGN KEY (authorId) REFERENCES users(id)
+            )
+          ''');
+          await db.execute('''
+            CREATE TABLE recipe_versions(
+              id TEXT PRIMARY KEY,
+              recipeId TEXT NOT NULL,
+              versionNumber INTEGER NOT NULL,
+              name TEXT NOT NULL,
+              versionName TEXT,
+              description TEXT NOT NULL,
+              authorId TEXT NOT NULL,
+              createdAt TEXT NOT NULL,
+              isDeleted INTEGER NOT NULL DEFAULT 0,
+              changeLog TEXT,
+              baseVersionId TEXT,
+              versionStatus TEXT,
+              FOREIGN KEY (recipeId) REFERENCES recipes(id),
+              FOREIGN KEY (authorId) REFERENCES users(id)
+            )
+          ''');
+          await db.execute('''
+            CREATE TABLE ingredients(
+              id TEXT PRIMARY KEY,
+              recipeVersionId TEXT NOT NULL,
+              name TEXT NOT NULL,
+              quantity REAL NOT NULL,
+              unit TEXT NOT NULL,
+              createdAt TEXT NOT NULL,
+              updatedAt TEXT NOT NULL,
+              isDeleted INTEGER NOT NULL DEFAULT 0,
+              FOREIGN KEY (recipeVersionId) REFERENCES recipe_versions(id)
+            )
+          ''');
+          await db.execute('''
+            CREATE TABLE steps(
+              id TEXT PRIMARY KEY,
+              recipeVersionId TEXT NOT NULL,
+              stepNumber INTEGER NOT NULL,
+              description TEXT NOT NULL,
+              imageUrl TEXT,
+              timerMinutes INTEGER,
+              timerSeconds INTEGER,
+              timerName TEXT,
+              createdAt TEXT NOT NULL,
+              updatedAt TEXT NOT NULL,
+              isDeleted INTEGER NOT NULL DEFAULT 0,
+              FOREIGN KEY (recipeVersionId) REFERENCES recipe_versions(id)
+            )
+          ''');
+          await db.execute('''
+            CREATE TABLE cooking_logs(
+              id TEXT PRIMARY KEY,
+              recipeVersionId TEXT NOT NULL,
+              authorId TEXT NOT NULL,
+              title TEXT NOT NULL,
+              memo TEXT,
+              base64EncodedImageData TEXT,
+              overallRating INTEGER,
+              saltinessRating INTEGER,
+              sweetnessRating INTEGER,
+              spicinessRating INTEGER,
+              umamiRating INTEGER,
+              failureReason TEXT,
+              nextAdjustment TEXT,
+              cookedAt TEXT NOT NULL,
+              createdAt TEXT NOT NULL,
+              updatedAt TEXT NOT NULL,
+              isDeleted INTEGER NOT NULL DEFAULT 0,
+              FOREIGN KEY (recipeVersionId) REFERENCES recipe_versions(id),
+              FOREIGN KEY (authorId) REFERENCES users(id)
+            )
+          ''');
+        },
+      );
+      addTearDown(legacyDb.close);
+
+      const createdAt = '2026-07-07T12:00:00.000Z';
+      await legacyDb.insert('users', const {
+        'id': 'user-1',
+        'username': 'Legacy Local',
+        'avatarUrl': null,
+        'createdAt': createdAt,
+        'updatedAt': createdAt,
+        'isDeleted': 0,
+      });
+      await legacyDb.insert('users', const {
+        'id': 'external-author',
+        'username': 'External Author',
+        'avatarUrl': null,
+        'createdAt': createdAt,
+        'updatedAt': createdAt,
+        'isDeleted': 0,
+      });
+      await legacyDb.insert('recipes', const {
+        'id': 'legacy-local-recipe',
+        'authorId': 'user-1',
+        'latestVersionId': 'legacy-local-version',
+        'name': '기존 로컬 공개 기본값 레시피',
+        'description': '로컬 마이그레이션 대상',
+        'sourceUrl': null,
+        'sourceName': null,
+        'importedAt': null,
+        'isPublic': 1,
+        'createdAt': createdAt,
+        'updatedAt': createdAt,
+        'isDeleted': 0,
+      });
+      await legacyDb.insert('recipes', const {
+        'id': 'external-recipe',
+        'authorId': 'external-author',
+        'latestVersionId': 'external-version',
+        'name': '외부 공개 레시피',
+        'description': '공개 상태 보존 대상',
+        'sourceUrl': null,
+        'sourceName': null,
+        'importedAt': null,
+        'isPublic': 1,
+        'createdAt': createdAt,
+        'updatedAt': createdAt,
+        'isDeleted': 0,
+      });
+      await legacyDb.insert('recipe_versions', const {
+        'id': 'legacy-local-version',
+        'recipeId': 'legacy-local-recipe',
+        'versionNumber': 1,
+        'name': '기존 로컬 버전',
+        'versionName': null,
+        'description': '기본 버전',
+        'authorId': 'user-1',
+        'createdAt': createdAt,
+        'isDeleted': 0,
+        'changeLog': null,
+        'baseVersionId': null,
+        'versionStatus': 'active',
+      });
+      await legacyDb.insert('ingredients', const {
+        'id': 'legacy-local-ingredient',
+        'recipeVersionId': 'legacy-local-version',
+        'name': '간장',
+        'quantity': 1.0,
+        'unit': 'T',
+        'createdAt': createdAt,
+        'updatedAt': createdAt,
+        'isDeleted': 0,
+      });
+      await legacyDb.insert('steps', const {
+        'id': 'legacy-local-step',
+        'recipeVersionId': 'legacy-local-version',
+        'stepNumber': 1,
+        'description': '잘 섞는다',
+        'imageUrl': null,
+        'timerMinutes': null,
+        'timerSeconds': null,
+        'timerName': null,
+        'createdAt': createdAt,
+        'updatedAt': createdAt,
+        'isDeleted': 0,
+      });
+      await legacyDb.insert('cooking_logs', const {
+        'id': 'legacy-local-log',
+        'recipeVersionId': 'legacy-local-version',
+        'authorId': 'user-1',
+        'title': '첫 시도',
+        'memo': null,
+        'base64EncodedImageData': null,
+        'overallRating': null,
+        'saltinessRating': null,
+        'sweetnessRating': null,
+        'spicinessRating': null,
+        'umamiRating': null,
+        'failureReason': null,
+        'nextAdjustment': null,
+        'cookedAt': createdAt,
+        'createdAt': createdAt,
+        'updatedAt': createdAt,
+        'isDeleted': 0,
+      });
+
+      await databaseHelper.upgradeForTest(legacyDb, 21, 22);
+
+      final columns = await legacyDb.rawQuery('PRAGMA table_info(recipes)');
+      final isPublicColumn = columns.firstWhere(
+        (col) => col['name'] == 'isPublic',
+      );
+      final localRows = await legacyDb.query(
+        'recipes',
+        where: 'id = ?',
+        whereArgs: ['legacy-local-recipe'],
+      );
+      final externalRows = await legacyDb.query(
+        'recipes',
+        where: 'id = ?',
+        whereArgs: ['external-recipe'],
+      );
+      final versionRows = await legacyDb.query('recipe_versions');
+      final ingredientRows = await legacyDb.query('ingredients');
+      final stepRows = await legacyDb.query('steps');
+      final cookingLogRows = await legacyDb.query('cooking_logs');
+
+      expect(isPublicColumn['dflt_value']?.toString(), '0');
+      expect(localRows.single['isPublic'], 0);
+      expect(externalRows.single['isPublic'], 1);
+      expect(versionRows.single['recipeId'], 'legacy-local-recipe');
+      expect(ingredientRows.single['recipeVersionId'], 'legacy-local-version');
+      expect(stepRows.single['recipeVersionId'], 'legacy-local-version');
+      expect(cookingLogRows.single['recipeVersionId'], 'legacy-local-version');
+    });
+
     test('recipe_versions 테이블 스키마가 올바른지 확인', () async {
       final columns = await database.rawQuery(
         'PRAGMA table_info(recipe_versions)',
