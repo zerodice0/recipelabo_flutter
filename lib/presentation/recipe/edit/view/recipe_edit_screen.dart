@@ -14,8 +14,16 @@ import 'package:recipick_flutter/l10n/app_localizations.dart';
 class RecipeEditScreen extends ConsumerWidget {
   final String? recipeId;
   final String? versionId;
+  final String? initialVersionName;
+  final String? initialChangeLog;
 
-  const RecipeEditScreen({super.key, this.recipeId, this.versionId});
+  const RecipeEditScreen({
+    super.key,
+    this.recipeId,
+    this.versionId,
+    this.initialVersionName,
+    this.initialChangeLog,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,6 +36,20 @@ class RecipeEditScreen extends ConsumerWidget {
         viewModel.initialVersionId != versionId) {
       // 다음 프레임에서 실행하여 빌드 중에 상태 변경을 방지
       Future.microtask(() => notifier.setInitialVersionId(versionId!));
+    }
+
+    final normalizedInitialVersionName = initialVersionName?.trim() ?? '';
+    final normalizedInitialChangeLog = initialChangeLog?.trim() ?? '';
+    if ((normalizedInitialVersionName.isNotEmpty ||
+            normalizedInitialChangeLog.isNotEmpty) &&
+        (viewModel.initialVersionName != normalizedInitialVersionName ||
+            viewModel.initialChangeLog != normalizedInitialChangeLog)) {
+      Future.microtask(
+        () => notifier.setInitialNewVersionDraft(
+          versionName: normalizedInitialVersionName,
+          changeLog: normalizedInitialChangeLog,
+        ),
+      );
     }
 
     ref.listen<AsyncValue<void>>(
@@ -530,7 +552,11 @@ class RecipeEditScreen extends ConsumerWidget {
                                   ),
                                   const SizedBox(height: 12),
 
-                                  TextField(
+                                  TextFormField(
+                                    key: ValueKey(
+                                      'version-name-${currentState.initialVersionName}',
+                                    ),
+                                    initialValue: currentState.versionName,
                                     decoration: InputDecoration(
                                       labelText: AppLocalizations.of(
                                         context,
@@ -543,7 +569,11 @@ class RecipeEditScreen extends ConsumerWidget {
                                     onChanged: notifier.updateVersionName,
                                   ),
                                   const SizedBox(height: 16),
-                                  TextField(
+                                  TextFormField(
+                                    key: ValueKey(
+                                      'change-log-${currentState.initialChangeLog}',
+                                    ),
+                                    initialValue: currentState.changeLog,
                                     decoration: InputDecoration(
                                       labelText: AppLocalizations.of(
                                         context,
