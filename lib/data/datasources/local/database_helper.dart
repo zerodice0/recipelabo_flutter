@@ -21,7 +21,7 @@ class DatabaseHelper {
     final path = join(dbPath, 'saucerer.db');
     return await openDatabase(
       path,
-      version: 17,
+      version: 18,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -94,6 +94,9 @@ class DatabaseHelper {
         stepNumber INTEGER NOT NULL,
         description TEXT NOT NULL,
         imageUrl TEXT,
+        timerMinutes INTEGER,
+        timerSeconds INTEGER,
+        timerName TEXT,
         createdAt TEXT NOT NULL,
         updatedAt TEXT NOT NULL,
         isDeleted INTEGER NOT NULL DEFAULT 0,
@@ -499,6 +502,38 @@ class DatabaseHelper {
     if (oldVersion < 17) {
       // Version 17: cooking_logs 테이블 구조 정리 - imageUrl, imageData 제거하고 imageData BLOB로 통합
       await _migrateCookingLogsToBase64EndcodedImageData(db);
+    }
+
+    if (oldVersion < 18) {
+      // Version 18: Add optional step timer fields.
+      await _addColumnIfMissing(db, 'steps', 'timerMinutes', 'INTEGER');
+      await _addColumnIfMissing(db, 'steps', 'timerSeconds', 'INTEGER');
+      await _addColumnIfMissing(db, 'steps', 'timerName', 'TEXT');
+    }
+  }
+
+  @visibleForTesting
+  Future<void> upgradeForTest(
+    Database db,
+    int oldVersion,
+    int newVersion,
+  ) async {
+    await _onUpgrade(db, oldVersion, newVersion);
+  }
+
+  Future<void> _addColumnIfMissing(
+    Database db,
+    String tableName,
+    String columnName,
+    String columnType,
+  ) async {
+    final tableInfo = await db.rawQuery('PRAGMA table_info($tableName)');
+    final columnNames = tableInfo.map((row) => row['name'] as String).toSet();
+
+    if (!columnNames.contains(columnName)) {
+      await db.execute(
+        'ALTER TABLE $tableName ADD COLUMN $columnName $columnType',
+      );
     }
   }
 

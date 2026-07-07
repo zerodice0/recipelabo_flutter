@@ -1,25 +1,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- 알림 권한 -->
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <!-- Alarm package requirements -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    
-    <!-- 정확한 알람 권한 (API 31+) -->
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
-    
-    <!-- 오디오 재생 권한 -->
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
-    
-    <!-- 전체 화면 알림 권한 -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     
     <application
         android:label="RecipeLabo"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="false">
+        <service android:name="com.gdelataillade.alarm.services.NotificationOnKillService" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

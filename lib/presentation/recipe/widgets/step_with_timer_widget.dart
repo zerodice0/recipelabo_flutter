@@ -56,6 +56,8 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
   }
 
   void _updateStep() {
+    final timerName = _timerNameController.text.trim();
+
     if (widget.onStepChanged != null) {
       widget.onStepChanged!(
         widget.step.copyWith(
@@ -68,8 +70,8 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
               _showTimerSettings && (_timerMinutes > 0 || _timerSeconds > 0)
               ? _timerSeconds
               : null,
-          timerName: _showTimerSettings && _timerNameController.text.isNotEmpty
-              ? _timerNameController.text
+          timerName: _showTimerSettings && timerName.isNotEmpty
+              ? timerName
               : null,
         ),
       );
@@ -120,12 +122,34 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
             duration: const Duration(seconds: 2),
           ),
         );
+      } else if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('알림 권한이 없어 타이머를 시작할 수 없습니다.'),
+            backgroundColor: AppColors.primaryOrange,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+        return;
       }
     }
 
-    // 타이머 시작 (권한과 관계없이)
+    // 시스템 알람 예약이 가능할 때만 타이머 시작
     if (mounted) {
-      await _timerService.startTimer(timer, context);
+      try {
+        await _timerService.startTimer(timer, context);
+      } catch (e) {
+        debugPrint('Failed to start step timer alarm: $e');
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('타이머 알람을 예약하지 못했습니다. 알림 설정을 확인해주세요.'),
+            backgroundColor: AppColors.primaryOrange,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+        return;
+      }
     }
 
     if (mounted) {
@@ -255,6 +279,7 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
                       setState(() {
                         _showTimerSettings = !_showTimerSettings;
                       });
+                      _updateStep();
                     },
                     tooltip: _showTimerSettings ? '타이머 제거' : '타이머 추가',
                   ),
@@ -307,6 +332,18 @@ class _StepWithTimerWidgetState extends State<StepWithTimerWidget> {
                   height: 1.5,
                 ),
               ),
+              if (widget.step.imageUrl != null) ...[
+                const SizedBox(height: 8),
+                Container(
+                  height: 120,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: theme.colorScheme.outline),
+                  ),
+                  child: const Center(child: Icon(Icons.image)),
+                ),
+              ],
             ],
 
             // 타이머 설정 (편집 모드)

@@ -43,6 +43,86 @@ void main() {
       expect(tableNames, contains('steps'));
     });
 
+    test('steps 테이블에 타이머 컬럼이 포함되는지 확인', () async {
+      final columns = await database.rawQuery('PRAGMA table_info(steps)');
+      final columnNames = columns.map((col) => col['name'] as String).toList();
+
+      expect(columnNames, contains('timerMinutes'));
+      expect(columnNames, contains('timerSeconds'));
+      expect(columnNames, contains('timerName'));
+    });
+
+    test('v17 steps 데이터가 v18 타이머 컬럼 마이그레이션 후 보존되는지 확인', () async {
+      final legacyDb = await openDatabase(
+        inMemoryDatabasePath,
+        version: 17,
+        onCreate: (db, version) async {
+          await db.execute('''
+            CREATE TABLE steps(
+              id TEXT PRIMARY KEY,
+              recipeVersionId TEXT NOT NULL,
+              stepNumber INTEGER NOT NULL,
+              description TEXT NOT NULL,
+              imageUrl TEXT,
+              createdAt TEXT NOT NULL,
+              updatedAt TEXT NOT NULL,
+              isDeleted INTEGER NOT NULL DEFAULT 0
+            )
+          ''');
+        },
+      );
+      addTearDown(legacyDb.close);
+
+      await legacyDb.insert('steps', const {
+        'id': 'legacy-step-1',
+        'recipeVersionId': 'legacy-version-1',
+        'stepNumber': 1,
+        'description': '기존 조리 단계',
+        'imageUrl': null,
+        'createdAt': '2026-07-07T09:00:00.000Z',
+        'updatedAt': '2026-07-07T09:00:00.000Z',
+        'isDeleted': 0,
+      });
+
+      await databaseHelper.upgradeForTest(legacyDb, 17, 18);
+
+      final columns = await legacyDb.rawQuery('PRAGMA table_info(steps)');
+      final columnNames = columns.map((col) => col['name'] as String).toList();
+
+      expect(columnNames, contains('timerMinutes'));
+      expect(columnNames, contains('timerSeconds'));
+      expect(columnNames, contains('timerName'));
+
+      final rows = await legacyDb.query(
+        'steps',
+        where: 'id = ?',
+        whereArgs: ['legacy-step-1'],
+      );
+
+      expect(rows, hasLength(1));
+      expect(rows.first['description'], '기존 조리 단계');
+      expect(rows.first['timerMinutes'], isNull);
+      expect(rows.first['timerSeconds'], isNull);
+      expect(rows.first['timerName'], isNull);
+
+      await legacyDb.update(
+        'steps',
+        const {'timerMinutes': 5, 'timerSeconds': 30, 'timerName': '중간 점검'},
+        where: 'id = ?',
+        whereArgs: ['legacy-step-1'],
+      );
+
+      final updatedRows = await legacyDb.query(
+        'steps',
+        where: 'id = ?',
+        whereArgs: ['legacy-step-1'],
+      );
+
+      expect(updatedRows.first['timerMinutes'], 5);
+      expect(updatedRows.first['timerSeconds'], 30);
+      expect(updatedRows.first['timerName'], '중간 점검');
+    });
+
     test('recipes 테이블 스키마가 올바른지 확인', () async {
       final columns = await database.rawQuery('PRAGMA table_info(recipes)');
       final columnNames = columns.map((col) => col['name'] as String).toList();

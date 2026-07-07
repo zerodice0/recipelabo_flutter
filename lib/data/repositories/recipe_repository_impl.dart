@@ -194,6 +194,9 @@ class RecipeRepositoryImpl implements RecipeRepository {
       stepNumber: model.stepNumber,
       description: model.description,
       imageUrl: model.imageUrl,
+      timerMinutes: model.timerMinutes,
+      timerSeconds: model.timerSeconds,
+      timerName: model.timerName,
     );
   }
 
@@ -204,6 +207,9 @@ class RecipeRepositoryImpl implements RecipeRepository {
       stepNumber: entity.stepNumber,
       description: entity.description,
       imageUrl: entity.imageUrl,
+      timerMinutes: entity.timerMinutes,
+      timerSeconds: entity.timerSeconds,
+      timerName: entity.timerName,
       createdAt: DateTime.now(), // Should be handled properly
       updatedAt: DateTime.now(), // Should be handled properly
     );

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$StepModel {
 
- String get id; String? get recipeVersionId; int get stepNumber; String get description; String? get imageUrl; DateTime get createdAt; DateTime get updatedAt; bool get isDeleted;
+ String get id; String? get recipeVersionId; int get stepNumber; String get description; String? get imageUrl; int? get timerMinutes; int? get timerSeconds; String? get timerName; DateTime get createdAt; DateTime get updatedAt; bool get isDeleted;
 /// Create a copy of StepModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $StepModelCopyWith<StepModel> get copyWith => _$StepModelCopyWithImpl<StepModel>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StepModel&&(identical(other.id, id) || other.id == id)&&(identical(other.recipeVersionId, recipeVersionId) || other.recipeVersionId == recipeVersionId)&&(identical(other.stepNumber, stepNumber) || other.stepNumber == stepNumber)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StepModel&&(identical(other.id, id) || other.id == id)&&(identical(other.recipeVersionId, recipeVersionId) || other.recipeVersionId == recipeVersionId)&&(identical(other.stepNumber, stepNumber) || other.stepNumber == stepNumber)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.timerMinutes, timerMinutes) || other.timerMinutes == timerMinutes)&&(identical(other.timerSeconds, timerSeconds) || other.timerSeconds == timerSeconds)&&(identical(other.timerName, timerName) || other.timerName == timerName)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,recipeVersionId,stepNumber,description,imageUrl,createdAt,updatedAt,isDeleted);
+int get hashCode => Object.hash(runtimeType,id,recipeVersionId,stepNumber,description,imageUrl,timerMinutes,timerSeconds,timerName,createdAt,updatedAt,isDeleted);
 
 @override
 String toString() {
-  return 'StepModel(id: $id, recipeVersionId: $recipeVersionId, stepNumber: $stepNumber, description: $description, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted)';
+  return 'StepModel(id: $id, recipeVersionId: $recipeVersionId, stepNumber: $stepNumber, description: $description, imageUrl: $imageUrl, timerMinutes: $timerMinutes, timerSeconds: $timerSeconds, timerName: $timerName, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $StepModelCopyWith<$Res>  {
   factory $StepModelCopyWith(StepModel value, $Res Function(StepModel) _then) = _$StepModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String? recipeVersionId, int stepNumber, String description, String? imageUrl, DateTime createdAt, DateTime updatedAt, bool isDeleted
+ String id, String? recipeVersionId, int stepNumber, String description, String? imageUrl, int? timerMinutes, int? timerSeconds, String? timerName, DateTime createdAt, DateTime updatedAt, bool isDeleted
 });
 
 
@@ -65,13 +65,16 @@ class _$StepModelCopyWithImpl<$Res>
 
 /// Create a copy of StepModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? recipeVersionId = freezed,Object? stepNumber = null,Object? description = null,Object? imageUrl = freezed,Object? createdAt = null,Object? updatedAt = null,Object? isDeleted = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? recipeVersionId = freezed,Object? stepNumber = null,Object? description = null,Object? imageUrl = freezed,Object? timerMinutes = freezed,Object? timerSeconds = freezed,Object? timerName = freezed,Object? createdAt = null,Object? updatedAt = null,Object? isDeleted = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,recipeVersionId: freezed == recipeVersionId ? _self.recipeVersionId : recipeVersionId // ignore: cast_nullable_to_non_nullable
 as String?,stepNumber: null == stepNumber ? _self.stepNumber : stepNumber // ignore: cast_nullable_to_non_nullable
 as int,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
+as String?,timerMinutes: freezed == timerMinutes ? _self.timerMinutes : timerMinutes // ignore: cast_nullable_to_non_nullable
+as int?,timerSeconds: freezed == timerSeconds ? _self.timerSeconds : timerSeconds // ignore: cast_nullable_to_non_nullable
+as int?,timerName: freezed == timerName ? _self.timerName : timerName // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,isDeleted: null == isDeleted ? _self.isDeleted : isDeleted // ignore: cast_nullable_to_non_nullable
@@ -160,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? recipeVersionId,  int stepNumber,  String description,  String? imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isDeleted)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? recipeVersionId,  int stepNumber,  String description,  String? imageUrl,  int? timerMinutes,  int? timerSeconds,  String? timerName,  DateTime createdAt,  DateTime updatedAt,  bool isDeleted)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StepModel() when $default != null:
-return $default(_that.id,_that.recipeVersionId,_that.stepNumber,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isDeleted);case _:
+return $default(_that.id,_that.recipeVersionId,_that.stepNumber,_that.description,_that.imageUrl,_that.timerMinutes,_that.timerSeconds,_that.timerName,_that.createdAt,_that.updatedAt,_that.isDeleted);case _:
   return orElse();
 
 }
@@ -181,10 +184,10 @@ return $default(_that.id,_that.recipeVersionId,_that.stepNumber,_that.descriptio
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? recipeVersionId,  int stepNumber,  String description,  String? imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isDeleted)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? recipeVersionId,  int stepNumber,  String description,  String? imageUrl,  int? timerMinutes,  int? timerSeconds,  String? timerName,  DateTime createdAt,  DateTime updatedAt,  bool isDeleted)  $default,) {final _that = this;
 switch (_that) {
 case _StepModel():
-return $default(_that.id,_that.recipeVersionId,_that.stepNumber,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isDeleted);case _:
+return $default(_that.id,_that.recipeVersionId,_that.stepNumber,_that.description,_that.imageUrl,_that.timerMinutes,_that.timerSeconds,_that.timerName,_that.createdAt,_that.updatedAt,_that.isDeleted);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +204,10 @@ return $default(_that.id,_that.recipeVersionId,_that.stepNumber,_that.descriptio
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? recipeVersionId,  int stepNumber,  String description,  String? imageUrl,  DateTime createdAt,  DateTime updatedAt,  bool isDeleted)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? recipeVersionId,  int stepNumber,  String description,  String? imageUrl,  int? timerMinutes,  int? timerSeconds,  String? timerName,  DateTime createdAt,  DateTime updatedAt,  bool isDeleted)?  $default,) {final _that = this;
 switch (_that) {
 case _StepModel() when $default != null:
-return $default(_that.id,_that.recipeVersionId,_that.stepNumber,_that.description,_that.imageUrl,_that.createdAt,_that.updatedAt,_that.isDeleted);case _:
+return $default(_that.id,_that.recipeVersionId,_that.stepNumber,_that.description,_that.imageUrl,_that.timerMinutes,_that.timerSeconds,_that.timerName,_that.createdAt,_that.updatedAt,_that.isDeleted);case _:
   return null;
 
 }
@@ -216,7 +219,7 @@ return $default(_that.id,_that.recipeVersionId,_that.stepNumber,_that.descriptio
 @JsonSerializable()
 
 class _StepModel implements StepModel {
-  const _StepModel({required this.id, this.recipeVersionId, required this.stepNumber, required this.description, this.imageUrl, required this.createdAt, required this.updatedAt, this.isDeleted = false});
+  const _StepModel({required this.id, this.recipeVersionId, required this.stepNumber, required this.description, this.imageUrl, this.timerMinutes, this.timerSeconds, this.timerName, required this.createdAt, required this.updatedAt, this.isDeleted = false});
   factory _StepModel.fromJson(Map<String, dynamic> json) => _$StepModelFromJson(json);
 
 @override final  String id;
@@ -224,6 +227,9 @@ class _StepModel implements StepModel {
 @override final  int stepNumber;
 @override final  String description;
 @override final  String? imageUrl;
+@override final  int? timerMinutes;
+@override final  int? timerSeconds;
+@override final  String? timerName;
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
 @override@JsonKey() final  bool isDeleted;
@@ -241,16 +247,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StepModel&&(identical(other.id, id) || other.id == id)&&(identical(other.recipeVersionId, recipeVersionId) || other.recipeVersionId == recipeVersionId)&&(identical(other.stepNumber, stepNumber) || other.stepNumber == stepNumber)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StepModel&&(identical(other.id, id) || other.id == id)&&(identical(other.recipeVersionId, recipeVersionId) || other.recipeVersionId == recipeVersionId)&&(identical(other.stepNumber, stepNumber) || other.stepNumber == stepNumber)&&(identical(other.description, description) || other.description == description)&&(identical(other.imageUrl, imageUrl) || other.imageUrl == imageUrl)&&(identical(other.timerMinutes, timerMinutes) || other.timerMinutes == timerMinutes)&&(identical(other.timerSeconds, timerSeconds) || other.timerSeconds == timerSeconds)&&(identical(other.timerName, timerName) || other.timerName == timerName)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.isDeleted, isDeleted) || other.isDeleted == isDeleted));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,recipeVersionId,stepNumber,description,imageUrl,createdAt,updatedAt,isDeleted);
+int get hashCode => Object.hash(runtimeType,id,recipeVersionId,stepNumber,description,imageUrl,timerMinutes,timerSeconds,timerName,createdAt,updatedAt,isDeleted);
 
 @override
 String toString() {
-  return 'StepModel(id: $id, recipeVersionId: $recipeVersionId, stepNumber: $stepNumber, description: $description, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted)';
+  return 'StepModel(id: $id, recipeVersionId: $recipeVersionId, stepNumber: $stepNumber, description: $description, imageUrl: $imageUrl, timerMinutes: $timerMinutes, timerSeconds: $timerSeconds, timerName: $timerName, createdAt: $createdAt, updatedAt: $updatedAt, isDeleted: $isDeleted)';
 }
 
 
@@ -261,7 +267,7 @@ abstract mixin class _$StepModelCopyWith<$Res> implements $StepModelCopyWith<$Re
   factory _$StepModelCopyWith(_StepModel value, $Res Function(_StepModel) _then) = __$StepModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String? recipeVersionId, int stepNumber, String description, String? imageUrl, DateTime createdAt, DateTime updatedAt, bool isDeleted
+ String id, String? recipeVersionId, int stepNumber, String description, String? imageUrl, int? timerMinutes, int? timerSeconds, String? timerName, DateTime createdAt, DateTime updatedAt, bool isDeleted
 });
 
 
@@ -278,13 +284,16 @@ class __$StepModelCopyWithImpl<$Res>
 
 /// Create a copy of StepModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? recipeVersionId = freezed,Object? stepNumber = null,Object? description = null,Object? imageUrl = freezed,Object? createdAt = null,Object? updatedAt = null,Object? isDeleted = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? recipeVersionId = freezed,Object? stepNumber = null,Object? description = null,Object? imageUrl = freezed,Object? timerMinutes = freezed,Object? timerSeconds = freezed,Object? timerName = freezed,Object? createdAt = null,Object? updatedAt = null,Object? isDeleted = null,}) {
   return _then(_StepModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,recipeVersionId: freezed == recipeVersionId ? _self.recipeVersionId : recipeVersionId // ignore: cast_nullable_to_non_nullable
 as String?,stepNumber: null == stepNumber ? _self.stepNumber : stepNumber // ignore: cast_nullable_to_non_nullable
 as int,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,imageUrl: freezed == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
+as String?,timerMinutes: freezed == timerMinutes ? _self.timerMinutes : timerMinutes // ignore: cast_nullable_to_non_nullable
+as int?,timerSeconds: freezed == timerSeconds ? _self.timerSeconds : timerSeconds // ignore: cast_nullable_to_non_nullable
+as int?,timerName: freezed == timerName ? _self.timerName : timerName // ignore: cast_nullable_to_non_nullable
 as String?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,isDeleted: null == isDeleted ? _self.isDeleted : isDeleted // ignore: cast_nullable_to_non_nullable

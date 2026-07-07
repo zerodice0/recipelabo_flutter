@@ -11,7 +11,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
+  try {
+    await dotenv.load(fileName: ".env", isOptional: true);
+  } catch (error) {
+    debugPrint('Failed to load .env: $error');
+  }
   await AdService.initialize();
   await AlarmTimerService().initialize();
   runApp(const ProviderScope(child: MyApp()));

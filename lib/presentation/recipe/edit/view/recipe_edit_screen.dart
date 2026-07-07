@@ -6,6 +6,7 @@ import 'package:recipick_flutter/domain/entities/step_entity.dart';
 import 'package:recipick_flutter/presentation/recipe/edit/viewmodel/recipe_edit_viewmodel.dart';
 import 'package:recipick_flutter/presentation/recipe/list/viewmodel/recipe_list_viewmodel.dart';
 import 'package:recipick_flutter/presentation/recipe/widgets/seasoning_selector_widget.dart';
+import 'package:recipick_flutter/presentation/recipe/widgets/step_with_timer_widget.dart';
 import 'package:recipick_flutter/presentation/recipe/widgets/version_name_conflict_dialog.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 
@@ -203,7 +204,7 @@ class RecipeEditScreen extends ConsumerWidget {
                     AppLocalizations.of(context).recipeCookingSteps,
                     notifier.addStep,
                   ),
-                  ..._buildStepFields(context, viewModel.steps, notifier),
+                  ..._buildStepFields(viewModel.steps, notifier),
                 ],
               ),
             ),
@@ -225,33 +226,17 @@ class RecipeEditScreen extends ConsumerWidget {
   }
 
   List<Widget> _buildStepFields(
-    BuildContext context,
     List<StepEntity> steps,
     RecipeEditViewModel notifier,
   ) {
     return List.generate(steps.length, (index) {
       final step = steps[index];
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('${step.stepNumber}.'),
-          const SizedBox(width: 8),
-          Expanded(
-            child: TextFormField(
-              initialValue: step.description,
-              decoration: InputDecoration(
-                labelText: AppLocalizations.of(context).generalDescription,
-              ),
-              onChanged: (desc) =>
-                  notifier.updateStep(index, step.copyWith(description: desc)),
-              maxLines: null,
-            ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.remove_circle_outline),
-            onPressed: () => notifier.removeStep(index),
-          ),
-        ],
+      return StepWithTimerWidget(
+        key: ValueKey(step.id),
+        step: step,
+        isEditing: true,
+        onStepChanged: (updatedStep) => notifier.updateStep(index, updatedStep),
+        onRemove: () => notifier.removeStep(index),
       );
     });
   }
