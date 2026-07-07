@@ -474,8 +474,11 @@ class _BackupSettingsTileState extends ConsumerState<_BackupSettingsTile> {
       );
 
       if (confirmed != true) return;
+      if (!mounted) return;
 
       final jsonString = await file.readAsString();
+      if (!mounted) return;
+
       final service = ref.read(recipeBackupServiceProvider);
       await service.importFromJsonString(jsonString);
 
