@@ -24,6 +24,7 @@ class RecipeDetailScreen extends ConsumerStatefulWidget {
 
 class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
   String? _selectedVersionId;
+  String? _compareVersionId;
 
   String _formatDate(DateTime dateTime) {
     return '${dateTime.year}.${dateTime.month.toString().padLeft(2, '0')}.${dateTime.day.toString().padLeft(2, '0')}';
@@ -40,9 +41,9 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
 
     final launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
     if (!launched && context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('출처 링크를 열 수 없습니다.')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('출처 링크를 열 수 없습니다.')));
     }
   }
 
@@ -375,8 +376,10 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
           _buildVersionSelector(context, versions),
           const SizedBox(height: 16),
           if (versions.isNotEmpty) ...[
-            // _buildVersionInfo(context, selectedVersion, versions),
-            // const SizedBox(height: 24),
+            if (versions.length > 1) ...[
+              _buildVersionDiffCard(context, selectedVersion, versions),
+              const SizedBox(height: 24),
+            ],
             _buildIngredientsList(context, selectedVersion),
             const SizedBox(height: 24),
             _buildStepsList(context, selectedVersion),
@@ -567,6 +570,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                       onTap: () {
                         setState(() {
                           _selectedVersionId = version.id;
+                          _compareVersionId = null;
                         });
                       },
                       child: Container(
@@ -783,6 +787,247 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
         ),
       ),
     );
+  }
+
+  Widget _buildVersionDiffCard(
+    BuildContext context,
+    RecipeVersionEntity selectedVersion,
+    List<RecipeVersionEntity> versions,
+  ) {
+    final candidates = versions
+        .where((version) => version.id != selectedVersion.id)
+        .toList();
+    if (candidates.isEmpty) return const SizedBox.shrink();
+
+    final defaultCompareVersion = _findDefaultCompareVersion(
+      selectedVersion,
+      candidates,
+    );
+    final compareVersion = candidates.firstWhere(
+      (version) => version.id == _compareVersionId,
+      orElse: () => defaultCompareVersion,
+    );
+
+    final ingredientDiffs = _buildIngredientDiffs(
+      context,
+      compareVersion,
+      selectedVersion,
+    );
+    final stepDiffs = _buildStepDiffs(compareVersion, selectedVersion);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.compare_arrows,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    '버전 비교',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            DropdownButtonFormField<String>(
+              key: ValueKey('compare-${selectedVersion.id}'),
+              initialValue: compareVersion.id,
+              decoration: const InputDecoration(
+                labelText: '비교 대상',
+                border: OutlineInputBorder(),
+                isDense: true,
+              ),
+              items: candidates
+                  .map(
+                    (version) => DropdownMenuItem<String>(
+                      value: version.id,
+                      child: Text(version.fullDisplayName),
+                    ),
+                  )
+                  .toList(),
+              onChanged: (value) {
+                if (value == null) return;
+                setState(() {
+                  _compareVersionId = value;
+                });
+              },
+            ),
+            const SizedBox(height: 12),
+            Text(
+              '${compareVersion.fullDisplayName} -> ${selectedVersion.fullDisplayName}',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: 16),
+            _buildDiffSection(context, '재료 변경', ingredientDiffs),
+            const SizedBox(height: 12),
+            _buildDiffSection(context, '조리 단계 변경', stepDiffs),
+          ],
+        ),
+      ),
+    );
+  }
+
+  RecipeVersionEntity _findDefaultCompareVersion(
+    RecipeVersionEntity selectedVersion,
+    List<RecipeVersionEntity> candidates,
+  ) {
+    final baseVersionId = selectedVersion.baseVersionId;
+    if (baseVersionId != null) {
+      for (final version in candidates) {
+        if (version.id == baseVersionId) return version;
+      }
+    }
+    return candidates.first;
+  }
+
+  Widget _buildDiffSection(
+    BuildContext context,
+    String title,
+    List<String> diffs,
+  ) {
+    final lines = diffs.isEmpty ? const ['변경 없음'] : diffs;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 8),
+        ...lines.map(
+          (line) => Padding(
+            padding: const EdgeInsets.only(bottom: 6),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  line == '변경 없음'
+                      ? Icons.check_circle_outline
+                      : Icons.change_circle_outlined,
+                  size: 16,
+                  color: line == '변경 없음'
+                      ? Theme.of(context).colorScheme.onSurfaceVariant
+                      : Theme.of(context).colorScheme.primary,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    line,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  List<String> _buildIngredientDiffs(
+    BuildContext context,
+    RecipeVersionEntity fromVersion,
+    RecipeVersionEntity toVersion,
+  ) {
+    final fromByName = {
+      for (final ingredient in fromVersion.ingredients)
+        ingredient.name.trim().toLowerCase(): ingredient,
+    };
+    final toByName = {
+      for (final ingredient in toVersion.ingredients)
+        ingredient.name.trim().toLowerCase(): ingredient,
+    };
+    final names = {...fromByName.keys, ...toByName.keys}.toList()..sort();
+    final diffs = <String>[];
+
+    for (final name in names) {
+      final before = fromByName[name];
+      final after = toByName[name];
+      if (before == null && after != null) {
+        diffs.add(
+          '+ ${after.name} ${_formatIngredientQuantity(context, after.quantity, after.unit)}',
+        );
+      } else if (before != null && after == null) {
+        diffs.add(
+          '- ${before.name} ${_formatIngredientQuantity(context, before.quantity, before.unit)}',
+        );
+      } else if (before != null && after != null) {
+        final unitChanged = before.unit != after.unit;
+        final quantityChanged = before.quantity != after.quantity;
+        if (unitChanged || quantityChanged) {
+          diffs.add(
+            '${after.name}: ${_formatIngredientQuantity(context, before.quantity, before.unit)} -> ${_formatIngredientQuantity(context, after.quantity, after.unit)}',
+          );
+        }
+      }
+    }
+
+    return diffs;
+  }
+
+  String _formatIngredientQuantity(
+    BuildContext context,
+    double quantity,
+    String unit,
+  ) {
+    final displayQuantity = quantity == quantity.roundToDouble()
+        ? quantity.toInt().toString()
+        : quantity.toString();
+    return '$displayQuantity ${UnitLocalizer.getLocalizedUnitName(unit, context)}';
+  }
+
+  List<String> _buildStepDiffs(
+    RecipeVersionEntity fromVersion,
+    RecipeVersionEntity toVersion,
+  ) {
+    final fromByNumber = {
+      for (final step in fromVersion.steps) step.stepNumber: step,
+    };
+    final toByNumber = {
+      for (final step in toVersion.steps) step.stepNumber: step,
+    };
+    final numbers = {...fromByNumber.keys, ...toByNumber.keys}.toList()..sort();
+    final diffs = <String>[];
+
+    for (final number in numbers) {
+      final before = fromByNumber[number];
+      final after = toByNumber[number];
+      if (before == null && after != null) {
+        diffs.add('+ $number단계: ${after.description}');
+      } else if (before != null && after == null) {
+        diffs.add('- $number단계: ${before.description}');
+      } else if (before != null && after != null) {
+        final changes = <String>[];
+        if (before.description != after.description) {
+          changes.add('내용 변경');
+        }
+        if (before.timerMinutes != after.timerMinutes ||
+            before.timerSeconds != after.timerSeconds ||
+            before.timerName != after.timerName) {
+          changes.add('타이머 변경');
+        }
+        if (changes.isNotEmpty) {
+          diffs.add('$number단계: ${changes.join(', ')}');
+        }
+      }
+    }
+
+    return diffs;
   }
 
   Widget _buildBaseVersionInfo(
