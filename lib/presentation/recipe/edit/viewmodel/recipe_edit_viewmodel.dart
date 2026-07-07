@@ -29,6 +29,8 @@ abstract class RecipeEditState with _$RecipeEditState {
     String? recipeId,
     String? recipeVersionId,
     String? initialVersionId, // 편집할 특정 버전 ID
+    String? initialVersionName,
+    String? initialChangeLog,
     String? error,
     @Default(false) bool showSaveOptions,
     @Default(true) bool createNewVersion,
@@ -230,6 +232,23 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
     }
   }
 
+  void setInitialNewVersionDraft({String? versionName, String? changeLog}) {
+    final normalizedVersionName = versionName?.trim() ?? '';
+    final normalizedChangeLog = changeLog?.trim() ?? '';
+
+    state = state.copyWith(
+      initialVersionName: normalizedVersionName,
+      initialChangeLog: normalizedChangeLog,
+      createNewVersion: true,
+      versionName: state.versionName.isEmpty
+          ? normalizedVersionName
+          : state.versionName,
+      changeLog: state.changeLog.isEmpty
+          ? normalizedChangeLog
+          : state.changeLog,
+    );
+  }
+
   Future<void> saveRecipe() async {
     if (state.isEditMode) {
       // 편집 모드일 때는 저장 옵션 다이얼로그 표시
@@ -370,7 +389,9 @@ class RecipeEditViewModel extends _$RecipeEditViewModel {
           name: state.name,
           description: state.description,
           sourceUrl: hasSource ? normalizedSourceUrl : null,
-          sourceName: normalizedSourceName.isEmpty ? null : normalizedSourceName,
+          sourceName: normalizedSourceName.isEmpty
+              ? null
+              : normalizedSourceName,
           importedAt: importedAt,
           isPublic: true,
           createdAt: now,

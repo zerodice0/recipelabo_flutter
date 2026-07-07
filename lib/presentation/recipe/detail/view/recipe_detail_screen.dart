@@ -296,6 +296,78 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
     }
   }
 
+  Future<void> _createVersionFromCookingLog(
+    BuildContext context,
+    CookingLogEntity cookingLog,
+  ) async {
+    final queryParameters = <String, String>{
+      'versionId': cookingLog.recipeVersionId,
+    };
+    final versionName = _buildVersionNameFromCookingLog(cookingLog);
+    final changeLog = _buildChangeLogFromCookingLog(cookingLog);
+    if (versionName.isNotEmpty) {
+      queryParameters['versionName'] = versionName;
+    }
+    if (changeLog.isNotEmpty) {
+      queryParameters['changeLog'] = changeLog;
+    }
+
+    final uri = Uri(
+      path: '/recipes/${widget.recipeId}/edit',
+      queryParameters: queryParameters,
+    );
+    final result = await context.push<bool>(uri.toString());
+    if (result == true && context.mounted) {
+      ref.invalidate(recipeDetailViewModelProvider(widget.recipeId));
+    }
+  }
+
+  String _buildVersionNameFromCookingLog(CookingLogEntity cookingLog) {
+    final nextAdjustment = cookingLog.nextAdjustment?.trim();
+    final title = cookingLog.title.trim();
+    final source = nextAdjustment?.isNotEmpty == true
+        ? nextAdjustment!
+        : '$title 개선안';
+    return _shortenSingleLine(source, 28);
+  }
+
+  String _buildChangeLogFromCookingLog(CookingLogEntity cookingLog) {
+    final lines = <String>[
+      '요리 기록: ${cookingLog.title} (${_formatDate(cookingLog.cookedAt)})',
+    ];
+
+    final ratings = <String>[
+      if (cookingLog.overallRating != null) '만족도 ${cookingLog.overallRating}/5',
+      if (cookingLog.saltinessRating != null)
+        '짠맛 ${cookingLog.saltinessRating}/5',
+      if (cookingLog.sweetnessRating != null)
+        '단맛 ${cookingLog.sweetnessRating}/5',
+      if (cookingLog.spicinessRating != null)
+        '매운맛 ${cookingLog.spicinessRating}/5',
+      if (cookingLog.umamiRating != null) '감칠맛 ${cookingLog.umamiRating}/5',
+    ];
+    if (ratings.isNotEmpty) {
+      lines.add('맛 평가: ${ratings.join(', ')}');
+    }
+    if (cookingLog.failureReason?.trim().isNotEmpty ?? false) {
+      lines.add('아쉬운 점: ${cookingLog.failureReason!.trim()}');
+    }
+    if (cookingLog.nextAdjustment?.trim().isNotEmpty ?? false) {
+      lines.add('다음 개선: ${cookingLog.nextAdjustment!.trim()}');
+    }
+    if (cookingLog.memo?.trim().isNotEmpty ?? false) {
+      lines.add('메모: ${cookingLog.memo!.trim()}');
+    }
+
+    return lines.join('\n');
+  }
+
+  String _shortenSingleLine(String value, int maxLength) {
+    final normalized = value.replaceAll(RegExp(r'\s+'), ' ').trim();
+    if (normalized.length <= maxLength) return normalized;
+    return '${normalized.substring(0, maxLength - 3)}...';
+  }
+
   @override
   Widget build(BuildContext context) {
     final recipeDetailState = ref.watch(
@@ -1653,12 +1725,24 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                     ],
                   ),
                 ),
-                IconButton(
-                  onPressed: () =>
-                      _showDeleteCookingLogDialog(context, cookingLog),
-                  icon: const Icon(Icons.delete_outline),
-                  color: Theme.of(context).colorScheme.error,
-                  tooltip: AppLocalizations.of(context).actionDelete,
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: () =>
+                          _createVersionFromCookingLog(context, cookingLog),
+                      icon: const Icon(Icons.fork_right),
+                      color: Theme.of(context).colorScheme.primary,
+                      tooltip: '이 기록으로 새 버전 만들기',
+                    ),
+                    IconButton(
+                      onPressed: () =>
+                          _showDeleteCookingLogDialog(context, cookingLog),
+                      icon: const Icon(Icons.delete_outline),
+                      color: Theme.of(context).colorScheme.error,
+                      tooltip: AppLocalizations.of(context).actionDelete,
+                    ),
+                  ],
                 ),
               ],
             ),

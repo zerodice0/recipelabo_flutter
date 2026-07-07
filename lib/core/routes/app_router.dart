@@ -58,7 +58,14 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final recipeId = state.pathParameters['id']!;
         final versionId = state.uri.queryParameters['versionId'];
-        return RecipeEditScreen(recipeId: recipeId, versionId: versionId);
+        final initialVersionName = state.uri.queryParameters['versionName'];
+        final initialChangeLog = state.uri.queryParameters['changeLog'];
+        return RecipeEditScreen(
+          recipeId: recipeId,
+          versionId: versionId,
+          initialVersionName: initialVersionName,
+          initialChangeLog: initialChangeLog,
+        );
       },
     ),
 
