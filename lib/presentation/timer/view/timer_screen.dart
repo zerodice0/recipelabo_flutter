@@ -298,13 +298,42 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
             duration: const Duration(seconds: 3),
           ),
         );
+        return;
       }
     }
 
-    // 타이머 시작 (권한과 관계없이)
+    // 시스템 알람 예약이 가능할 때만 타이머 시작
     final timer = timerFactory();
     if (mounted) {
-      await _timerService.startTimer(timer, context);
+      try {
+        await _timerService.startTimer(timer, context);
+      } catch (e) {
+        debugPrint('Failed to start timer alarm: $e');
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('타이머 알람을 예약하지 못했습니다. 알림 설정을 확인해주세요.'),
+            backgroundColor: AppColors.primaryOrange,
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _runTimerAction(Future<void> Function() action) async {
+    try {
+      await action();
+    } catch (e) {
+      debugPrint('Failed to update timer alarm: $e');
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('타이머 알람을 변경하지 못했습니다. 알림 설정을 확인해주세요.'),
+          backgroundColor: AppColors.primaryOrange,
+          duration: Duration(seconds: 3),
+        ),
+      );
     }
   }
 
@@ -393,13 +422,18 @@ class _TimerScreenState extends ConsumerState<TimerScreen> {
                   final timer = runningTimers[index];
                   return TimerCardWidget(
                     timer: timer,
-                    onPause: () async =>
-                        await _timerService.pauseTimer(timer.id),
-                    onResume: () async =>
-                        await _timerService.resumeTimer(timer.id),
-                    onStop: () async => await _timerService.stopTimer(timer.id),
-                    onRemove: () async =>
-                        await _timerService.removeTimer(timer.id),
+                    onPause: () => _runTimerAction(
+                      () => _timerService.pauseTimer(timer.id),
+                    ),
+                    onResume: () => _runTimerAction(
+                      () => _timerService.resumeTimer(timer.id),
+                    ),
+                    onStop: () => _runTimerAction(
+                      () => _timerService.stopTimer(timer.id),
+                    ),
+                    onRemove: () => _runTimerAction(
+                      () => _timerService.removeTimer(timer.id),
+                    ),
                   );
                 },
               ),

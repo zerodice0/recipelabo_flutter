@@ -94,7 +94,6 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - .env
     - assets/main_image2.jpeg
     - assets/main_image2.png
     - assets/recipe_card_bg.png

@@ -4,14 +4,16 @@ import 'package:go_router/go_router.dart';
 import 'package:recipick_flutter/presentation/recipe/list/view/recipe_list_screen.dart';
 import 'package:recipick_flutter/presentation/search/view/ingredient_search_screen.dart';
 import 'package:recipick_flutter/presentation/timer/view/timer_screen.dart';
+import 'package:recipick_flutter/presentation/timer/widgets/notification_permission_dialog.dart';
 import 'package:recipick_flutter/presentation/main/viewmodel/main_navigation_viewmodel.dart';
-import 'package:recipick_flutter/core/services/timer_service.dart';
+import 'package:recipick_flutter/core/services/alarm_timer_service.dart';
 import 'package:recipick_flutter/core/config/app_colors.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 import 'package:recipick_flutter/core/providers/locale_provider.dart';
 import 'package:recipick_flutter/presentation/settings/widgets/language_selection_dialog.dart';
 import 'package:recipick_flutter/core/widgets/ad_banner_widget.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class MainNavigationScreen extends ConsumerWidget {
   const MainNavigationScreen({super.key});
@@ -274,6 +276,8 @@ class ProfileScreen extends ConsumerWidget {
               children: [
                 _LanguageSettingTile(ref: ref),
                 const Divider(height: 1),
+                _NotificationSettingsTile(),
+                const Divider(height: 1),
                 ListTile(
                   leading: const Icon(Icons.spa),
                   title: Text(
@@ -352,7 +356,7 @@ class _NotificationSettingsTile extends ConsumerStatefulWidget {
 
 class _NotificationSettingsTileState
     extends ConsumerState<_NotificationSettingsTile> {
-  final TimerService _timerService = TimerService();
+  final AlarmTimerService _timerService = AlarmTimerService();
   bool _hasPermission = false;
   bool _isLoading = false;
 
@@ -364,7 +368,13 @@ class _NotificationSettingsTileState
 
   Future<void> _checkPermission() async {
     setState(() => _isLoading = true);
-    final hasPermission = await _timerService.checkNotificationPermission();
+    var hasPermission = false;
+    try {
+      hasPermission = await _timerService.checkNotificationPermission();
+    } catch (e) {
+      debugPrint('Failed to check timer notification permission: $e');
+    }
+    if (!mounted) return;
     setState(() {
       _hasPermission = hasPermission;
       _isLoading = false;
@@ -376,10 +386,20 @@ class _NotificationSettingsTileState
       // 이미 권한이 있는 경우 안내 다이얼로그 표시
       _showPermissionInfoDialog();
     } else {
+      final shouldRequest =
+          await NotificationPermissionDialog.show(context) ?? false;
+      if (!shouldRequest || !mounted) return;
+
       // 권한이 없는 경우 요청
       setState(() => _isLoading = true);
-      final granted = await _timerService.requestNotificationPermission();
+      var granted = false;
+      try {
+        granted = await _timerService.requestNotificationPermission();
+      } catch (e) {
+        debugPrint('Failed to request timer notification permission: $e');
+      }
 
+      if (!mounted) return;
       setState(() {
         _hasPermission = granted;
         _isLoading = false;
@@ -398,6 +418,11 @@ class _NotificationSettingsTileState
             content: const Text('알림 권한이 거부되었습니다. 시스템 설정에서 수동으로 활성화할 수 있습니다'),
             backgroundColor: AppColors.primaryOrange,
             duration: const Duration(seconds: 4),
+            action: SnackBarAction(
+              label: AppLocalizations.of(context).notificationOpenSettings,
+              textColor: AppColors.warmWhite,
+              onPressed: openAppSettings,
+            ),
           ),
         );
       }
@@ -471,8 +496,8 @@ class _NotificationSettingsTileState
             ),
             const SizedBox(height: 8),
             const Text(
-              '1. 아이폰 설정 앱 열기\n'
-              '2. 알림 > Recilab 선택\n'
+              '1. 기기 설정 앱 열기\n'
+              '2. 알림 > RecipeLabo 선택\n'
               '3. 알림 허용 끄기',
               style: TextStyle(color: AppColors.textBrown, height: 1.4),
             ),
@@ -506,6 +531,10 @@ class _NotificationSettingsTileState
           ],
         ),
         actions: [
+          TextButton(
+            onPressed: openAppSettings,
+            child: Text(AppLocalizations.of(context).notificationOpenSettings),
+          ),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop(),
             style: ElevatedButton.styleFrom(
@@ -528,9 +557,11 @@ class _NotificationSettingsTileState
             ? AppColors.supportGreen
             : AppColors.textBrown.withValues(alpha: 0.6),
       ),
-      title: const Text('타이머 알림'),
+      title: Text(AppLocalizations.of(context).notificationTimerTitle),
       subtitle: Text(
-        _hasPermission ? '타이머 완료 시 알림을 받습니다' : '타이머 완료 알림을 받으려면 권한이 필요합니다',
+        _hasPermission
+            ? AppLocalizations.of(context).notificationEnabled
+            : AppLocalizations.of(context).notificationEnableInSettings,
       ),
       trailing: _isLoading
           ? const SizedBox(

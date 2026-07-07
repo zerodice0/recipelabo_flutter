@@ -9,6 +9,7 @@ import 'package:recipick_flutter/domain/entities/unit_localizer.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 import 'package:recipick_flutter/presentation/recipe/detail/viewmodel/recipe_detail_viewmodel.dart';
 import 'package:recipick_flutter/presentation/recipe/detail/viewmodel/cooking_log_viewmodel.dart';
+import 'package:recipick_flutter/presentation/recipe/widgets/step_with_timer_widget.dart';
 import 'package:recipick_flutter/domain/usecases/delete_recipe_version_usecase.dart';
 
 class RecipeDetailScreen extends ConsumerStatefulWidget {
@@ -949,63 +950,10 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: version.steps.length,
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 16),
+                separatorBuilder: (context, index) => const SizedBox.shrink(),
                 itemBuilder: (context, index) {
                   final step = version.steps[index];
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 32,
-                        height: 32,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.primary,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: Text(
-                            '${step.stepNumber}',
-                            style: Theme.of(context).textTheme.bodyMedium
-                                ?.copyWith(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onPrimary,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              step.description,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            if (step.imageUrl != null) ...[
-                              const SizedBox(height: 8),
-                              Container(
-                                height: 120,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.outline,
-                                  ),
-                                ),
-                                child: const Center(child: Icon(Icons.image)),
-                              ),
-                            ],
-                          ],
-                        ),
-                      ),
-                    ],
-                  );
+                  return StepWithTimerWidget(step: step);
                 },
               ),
           ],
