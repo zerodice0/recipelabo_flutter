@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipick_flutter/core/config/app_colors.dart';
+import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
 import 'package:recipick_flutter/presentation/search/viewmodel/ingredient_search_viewmodel.dart';
 import 'package:recipick_flutter/presentation/search/widgets/ingredient_chip.dart';
 import 'package:recipick_flutter/l10n/app_localizations.dart';
 import 'package:recipick_flutter/presentation/search/widgets/recipe_ingredients_widget.dart';
+
+enum _SearchMode { recipes, ingredients }
 
 class IngredientSearchScreen extends ConsumerStatefulWidget {
   final bool showAppBar;
@@ -21,6 +24,7 @@ class _IngredientSearchScreenState
     extends ConsumerState<IngredientSearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
+  _SearchMode _searchMode = _SearchMode.recipes;
 
   @override
   void dispose() {
@@ -38,50 +42,88 @@ class _IngredientSearchScreenState
       child: Scaffold(
         appBar: widget.showAppBar
             ? AppBar(
-                title: Text(
-                  AppLocalizations.of(context).ingredientSearchByIngredients,
-                ),
+                title: const Text('검색'),
                 actions: [
-                  if (state.selectedIngredients.isNotEmpty)
+                  if (state.selectedIngredients.isNotEmpty ||
+                      state.recipeQuery.isNotEmpty)
                     IconButton(
                       icon: const Icon(Icons.clear_all),
-                      onPressed: () => viewModel.resetSearch(),
+                      onPressed: () {
+                        _searchController.clear();
+                        viewModel.resetSearch();
+                      },
                       tooltip: AppLocalizations.of(context).searchReset,
                     ),
-                  PopupMenuButton<String>(
-                    onSelected: (value) {
-                      switch (value) {
-                        case 'show_all':
-                          viewModel.loadAllIngredients();
-                          break;
-                        case 'show_popular':
-                          viewModel.resetSearch();
-                          break;
-                      }
-                    },
-                    itemBuilder: (context) => [
-                      PopupMenuItem(
-                        value: 'show_popular',
-                        child: Text(
-                          AppLocalizations.of(context).ingredientShowPopular,
+                  if (_searchMode == _SearchMode.ingredients)
+                    PopupMenuButton<String>(
+                      onSelected: (value) {
+                        switch (value) {
+                          case 'show_all':
+                            viewModel.loadAllIngredients();
+                            break;
+                          case 'show_popular':
+                            viewModel.resetSearch();
+                            break;
+                        }
+                      },
+                      itemBuilder: (context) => [
+                        PopupMenuItem(
+                          value: 'show_popular',
+                          child: Text(
+                            AppLocalizations.of(context).ingredientShowPopular,
+                          ),
                         ),
-                      ),
-                      PopupMenuItem(
-                        value: 'show_all',
-                        child: Text(
-                          AppLocalizations.of(context).ingredientShowAll,
+                        PopupMenuItem(
+                          value: 'show_all',
+                          child: Text(
+                            AppLocalizations.of(context).ingredientShowAll,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
                 ],
               )
             : null,
         body: Column(
           children: [
+            _buildSearchModeSelector(viewModel),
             _buildSearchBar(viewModel, state),
             Expanded(child: _buildContent(context, state, viewModel)),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSearchModeSelector(IngredientSearchViewModel viewModel) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+      child: SizedBox(
+        width: double.infinity,
+        child: SegmentedButton<_SearchMode>(
+          segments: const [
+            ButtonSegment<_SearchMode>(
+              value: _SearchMode.recipes,
+              icon: Icon(Icons.menu_book_outlined),
+              label: Text('레시피'),
+            ),
+            ButtonSegment<_SearchMode>(
+              value: _SearchMode.ingredients,
+              icon: Icon(Icons.eco_outlined),
+              label: Text('재료'),
+            ),
+          ],
+          selected: {_searchMode},
+          onSelectionChanged: (selection) {
+            final nextMode = selection.first;
+            if (nextMode == _searchMode) return;
+
+            setState(() {
+              _searchMode = nextMode;
+              _searchController.clear();
+            });
+            viewModel.resetSearch();
+          },
         ),
       ),
     );
@@ -96,20 +138,34 @@ class _IngredientSearchScreenState
       child: SearchBar(
         controller: _searchController,
         focusNode: _searchFocusNode,
-        hintText: AppLocalizations.of(context).ingredientSearchHint,
-        leading: const Icon(Icons.search),
+        hintText: _searchMode == _SearchMode.recipes
+            ? '저장된 레시피 검색'
+            : AppLocalizations.of(context).ingredientSearchHint,
+        leading: Icon(
+          _searchMode == _SearchMode.recipes
+              ? Icons.menu_book_outlined
+              : Icons.search,
+        ),
         trailing: [
           if (_searchController.text.isNotEmpty)
             IconButton(
               icon: const Icon(Icons.clear),
               onPressed: () {
                 _searchController.clear();
-                viewModel.searchIngredients('');
+                if (_searchMode == _SearchMode.recipes) {
+                  viewModel.searchRecipesByText('');
+                } else {
+                  viewModel.searchIngredients('');
+                }
               },
             ),
         ],
         onChanged: (query) {
-          viewModel.searchIngredients(query);
+          if (_searchMode == _SearchMode.recipes) {
+            viewModel.searchRecipesByText(query);
+          } else {
+            viewModel.searchIngredients(query);
+          }
         },
         onSubmitted: (query) {
           _searchFocusNode.unfocus();
@@ -157,6 +213,10 @@ class _IngredientSearchScreenState
       );
     }
 
+    if (_searchMode == _SearchMode.recipes) {
+      return _buildRecipeSearchContent(context, state, viewModel);
+    }
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -184,18 +244,48 @@ class _IngredientSearchScreenState
     );
   }
 
-  Widget _buildRecipeResults(
+  Widget _buildRecipeSearchContent(
     BuildContext context,
     IngredientSearchState state,
     IngredientSearchViewModel viewModel,
   ) {
+    final isQueryEmpty = state.recipeQuery.trim().isEmpty;
+    final recipes = isQueryEmpty ? state.savedRecipes : state.filteredRecipes;
+
+    if (isQueryEmpty && state.isLoading && recipes.isEmpty) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: _buildRecipeResults(
+        context,
+        state,
+        viewModel,
+        recipes: recipes,
+        title: isQueryEmpty ? '저장된 레시피' : '레시피 검색 결과',
+        showIngredientMatches: false,
+      ),
+    );
+  }
+
+  Widget _buildRecipeResults(
+    BuildContext context,
+    IngredientSearchState state,
+    IngredientSearchViewModel viewModel, {
+    List<RecipeEntity>? recipes,
+    String? title,
+    bool showIngredientMatches = true,
+  }) {
+    final recipeResults = recipes ?? state.filteredRecipes;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
             Text(
-              AppLocalizations.of(context).searchRecipeResults,
+              title ?? AppLocalizations.of(context).searchRecipeResults,
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
@@ -217,7 +307,7 @@ class _IngredientSearchScreenState
               child: CircularProgressIndicator(),
             ),
           )
-        else if (state.filteredRecipes.isEmpty)
+        else if (recipeResults.isEmpty)
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(24),
@@ -249,7 +339,7 @@ class _IngredientSearchScreenState
               Text(
                 AppLocalizations.of(
                   context,
-                ).searchRecipesFound(state.filteredRecipes.length.toString()),
+                ).searchRecipesFound(recipeResults.length.toString()),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.w500,
@@ -259,11 +349,15 @@ class _IngredientSearchScreenState
               ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: state.filteredRecipes.length,
+                itemCount: recipeResults.length,
                 separatorBuilder: (context, index) => const SizedBox(height: 8),
                 itemBuilder: (context, index) {
-                  final recipe = state.filteredRecipes[index];
-                  return _buildRecipeCard(context, recipe);
+                  final recipe = recipeResults[index];
+                  return _buildRecipeCard(
+                    context,
+                    recipe,
+                    showIngredientMatches: showIngredientMatches,
+                  );
                 },
               ),
             ],
@@ -272,7 +366,11 @@ class _IngredientSearchScreenState
     );
   }
 
-  Widget _buildRecipeCard(BuildContext context, recipe) {
+  Widget _buildRecipeCard(
+    BuildContext context,
+    recipe, {
+    bool showIngredientMatches = true,
+  }) {
     final state = ref.watch(ingredientSearchViewModelProvider);
 
     return Container(
@@ -323,11 +421,12 @@ class _IngredientSearchScreenState
               context.push('/recipes/${recipe.id}');
             },
           ),
-          RecipeIngredientsWidget(
-            recipeId: recipe.id,
-            latestVersionId: recipe.latestVersionId,
-            selectedIngredients: state.selectedIngredients,
-          ),
+          if (showIngredientMatches)
+            RecipeIngredientsWidget(
+              recipeId: recipe.id,
+              latestVersionId: recipe.latestVersionId,
+              selectedIngredients: state.selectedIngredients,
+            ),
         ],
       ),
     );

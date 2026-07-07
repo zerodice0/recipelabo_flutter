@@ -2,9 +2,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:recipick_flutter/domain/entities/recipe_entity.dart';
 import 'package:recipick_flutter/domain/usecases/get_all_ingredients_usecase.dart';
+import 'package:recipick_flutter/domain/usecases/get_recipes_usecase.dart';
 import 'package:recipick_flutter/domain/usecases/search_ingredients_usecase.dart';
 import 'package:recipick_flutter/domain/usecases/get_recipes_by_ingredients_usecase.dart';
 import 'package:recipick_flutter/domain/usecases/get_popular_ingredients_usecase.dart';
+import 'package:recipick_flutter/domain/usecases/search_recipes_usecase.dart';
 
 part 'ingredient_search_viewmodel.freezed.dart';
 part 'ingredient_search_viewmodel.g.dart';
@@ -14,8 +16,10 @@ abstract class IngredientSearchState with _$IngredientSearchState {
   const factory IngredientSearchState({
     @Default([]) List<String> availableIngredients,
     @Default([]) List<String> selectedIngredients,
+    @Default([]) List<RecipeEntity> savedRecipes,
     @Default([]) List<RecipeEntity> filteredRecipes,
     @Default('') String searchQuery,
+    @Default('') String recipeQuery,
     @Default(false) bool isLoading,
     @Default(false) bool isSearchingRecipes,
     String? error,
@@ -38,10 +42,13 @@ class IngredientSearchViewModel extends _$IngredientSearchViewModel {
       final popularIngredientsUseCase = ref.read(
         getPopularIngredientsUseCaseProvider,
       );
+      final recipesUseCase = ref.read(getRecipesUseCaseProvider);
       final popularIngredients = await popularIngredientsUseCase(limit: 30);
+      final savedRecipes = await recipesUseCase();
 
       state = state.copyWith(
         availableIngredients: popularIngredients,
+        savedRecipes: savedRecipes,
         isLoading: false,
       );
     } catch (error) {
@@ -50,7 +57,7 @@ class IngredientSearchViewModel extends _$IngredientSearchViewModel {
   }
 
   Future<void> searchIngredients(String query) async {
-    state = state.copyWith(searchQuery: query);
+    state = state.copyWith(searchQuery: query, recipeQuery: '');
 
     if (query.trim().isEmpty) {
       // 검색어가 비어있으면 자주 사용된 재료들을 다시 로드
@@ -82,7 +89,10 @@ class IngredientSearchViewModel extends _$IngredientSearchViewModel {
       currentSelected.add(ingredient);
     }
 
-    state = state.copyWith(selectedIngredients: currentSelected);
+    state = state.copyWith(
+      selectedIngredients: currentSelected,
+      recipeQuery: '',
+    );
 
     // 선택된 재료가 있으면 자동으로 레시피 검색
     if (currentSelected.isNotEmpty) {
@@ -96,7 +106,10 @@ class IngredientSearchViewModel extends _$IngredientSearchViewModel {
     final currentSelected = List<String>.from(state.selectedIngredients);
     currentSelected.remove(ingredient);
 
-    state = state.copyWith(selectedIngredients: currentSelected);
+    state = state.copyWith(
+      selectedIngredients: currentSelected,
+      recipeQuery: '',
+    );
 
     if (currentSelected.isNotEmpty) {
       _searchRecipesByIngredients();
@@ -106,7 +119,42 @@ class IngredientSearchViewModel extends _$IngredientSearchViewModel {
   }
 
   void clearAllSelectedIngredients() {
-    state = state.copyWith(selectedIngredients: [], filteredRecipes: []);
+    state = state.copyWith(
+      selectedIngredients: [],
+      filteredRecipes: [],
+      recipeQuery: '',
+    );
+  }
+
+  Future<void> searchRecipesByText(String query) async {
+    final normalizedQuery = query.trim();
+    state = state.copyWith(
+      recipeQuery: query,
+      selectedIngredients: [],
+      searchQuery: '',
+    );
+
+    if (normalizedQuery.isEmpty) {
+      state = state.copyWith(filteredRecipes: [], isSearchingRecipes: false);
+      return;
+    }
+
+    state = state.copyWith(isSearchingRecipes: true, error: null);
+
+    try {
+      final searchUseCase = ref.read(searchRecipesUseCaseProvider);
+      final recipes = await searchUseCase(normalizedQuery);
+
+      state = state.copyWith(
+        filteredRecipes: recipes,
+        isSearchingRecipes: false,
+      );
+    } catch (error) {
+      state = state.copyWith(
+        isSearchingRecipes: false,
+        error: error.toString(),
+      );
+    }
   }
 
   Future<void> _searchRecipesByIngredients() async {
@@ -144,6 +192,7 @@ class IngredientSearchViewModel extends _$IngredientSearchViewModel {
         availableIngredients: allIngredients,
         isLoading: false,
         searchQuery: '',
+        recipeQuery: '',
       );
     } catch (error) {
       state = state.copyWith(isLoading: false, error: error.toString());
@@ -153,6 +202,7 @@ class IngredientSearchViewModel extends _$IngredientSearchViewModel {
   void resetSearch() {
     state = state.copyWith(
       searchQuery: '',
+      recipeQuery: '',
       selectedIngredients: [],
       filteredRecipes: [],
     );

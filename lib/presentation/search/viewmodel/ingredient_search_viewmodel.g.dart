@@ -7,7 +7,7 @@ part of 'ingredient_search_viewmodel.dart';
 // **************************************************************************
 
 String _$ingredientSearchViewModelHash() =>
-    r'2a48a8ecbac27c46b47b5fcd04329fcdc32f89fa';
+    r'af5d67949761aec559a0bd6b38437ee08473d1f6';
 
 /// See also [IngredientSearchViewModel].
 @ProviderFor(IngredientSearchViewModel)

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$IngredientSearchState {
 
- List<String> get availableIngredients; List<String> get selectedIngredients; List<RecipeEntity> get filteredRecipes; String get searchQuery; bool get isLoading; bool get isSearchingRecipes; String? get error;
+ List<String> get availableIngredients; List<String> get selectedIngredients; List<RecipeEntity> get savedRecipes; List<RecipeEntity> get filteredRecipes; String get searchQuery; String get recipeQuery; bool get isLoading; bool get isSearchingRecipes; String? get error;
 /// Create a copy of IngredientSearchState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $IngredientSearchStateCopyWith<IngredientSearchState> get copyWith => _$Ingredie
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IngredientSearchState&&const DeepCollectionEquality().equals(other.availableIngredients, availableIngredients)&&const DeepCollectionEquality().equals(other.selectedIngredients, selectedIngredients)&&const DeepCollectionEquality().equals(other.filteredRecipes, filteredRecipes)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isSearchingRecipes, isSearchingRecipes) || other.isSearchingRecipes == isSearchingRecipes)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IngredientSearchState&&const DeepCollectionEquality().equals(other.availableIngredients, availableIngredients)&&const DeepCollectionEquality().equals(other.selectedIngredients, selectedIngredients)&&const DeepCollectionEquality().equals(other.savedRecipes, savedRecipes)&&const DeepCollectionEquality().equals(other.filteredRecipes, filteredRecipes)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&(identical(other.recipeQuery, recipeQuery) || other.recipeQuery == recipeQuery)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isSearchingRecipes, isSearchingRecipes) || other.isSearchingRecipes == isSearchingRecipes)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(availableIngredients),const DeepCollectionEquality().hash(selectedIngredients),const DeepCollectionEquality().hash(filteredRecipes),searchQuery,isLoading,isSearchingRecipes,error);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(availableIngredients),const DeepCollectionEquality().hash(selectedIngredients),const DeepCollectionEquality().hash(savedRecipes),const DeepCollectionEquality().hash(filteredRecipes),searchQuery,recipeQuery,isLoading,isSearchingRecipes,error);
 
 @override
 String toString() {
-  return 'IngredientSearchState(availableIngredients: $availableIngredients, selectedIngredients: $selectedIngredients, filteredRecipes: $filteredRecipes, searchQuery: $searchQuery, isLoading: $isLoading, isSearchingRecipes: $isSearchingRecipes, error: $error)';
+  return 'IngredientSearchState(availableIngredients: $availableIngredients, selectedIngredients: $selectedIngredients, savedRecipes: $savedRecipes, filteredRecipes: $filteredRecipes, searchQuery: $searchQuery, recipeQuery: $recipeQuery, isLoading: $isLoading, isSearchingRecipes: $isSearchingRecipes, error: $error)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $IngredientSearchStateCopyWith<$Res>  {
   factory $IngredientSearchStateCopyWith(IngredientSearchState value, $Res Function(IngredientSearchState) _then) = _$IngredientSearchStateCopyWithImpl;
 @useResult
 $Res call({
- List<String> availableIngredients, List<String> selectedIngredients, List<RecipeEntity> filteredRecipes, String searchQuery, bool isLoading, bool isSearchingRecipes, String? error
+ List<String> availableIngredients, List<String> selectedIngredients, List<RecipeEntity> savedRecipes, List<RecipeEntity> filteredRecipes, String searchQuery, String recipeQuery, bool isLoading, bool isSearchingRecipes, String? error
 });
 
 
@@ -62,12 +62,14 @@ class _$IngredientSearchStateCopyWithImpl<$Res>
 
 /// Create a copy of IngredientSearchState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? availableIngredients = null,Object? selectedIngredients = null,Object? filteredRecipes = null,Object? searchQuery = null,Object? isLoading = null,Object? isSearchingRecipes = null,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? availableIngredients = null,Object? selectedIngredients = null,Object? savedRecipes = null,Object? filteredRecipes = null,Object? searchQuery = null,Object? recipeQuery = null,Object? isLoading = null,Object? isSearchingRecipes = null,Object? error = freezed,}) {
   return _then(_self.copyWith(
 availableIngredients: null == availableIngredients ? _self.availableIngredients : availableIngredients // ignore: cast_nullable_to_non_nullable
 as List<String>,selectedIngredients: null == selectedIngredients ? _self.selectedIngredients : selectedIngredients // ignore: cast_nullable_to_non_nullable
-as List<String>,filteredRecipes: null == filteredRecipes ? _self.filteredRecipes : filteredRecipes // ignore: cast_nullable_to_non_nullable
+as List<String>,savedRecipes: null == savedRecipes ? _self.savedRecipes : savedRecipes // ignore: cast_nullable_to_non_nullable
+as List<RecipeEntity>,filteredRecipes: null == filteredRecipes ? _self.filteredRecipes : filteredRecipes // ignore: cast_nullable_to_non_nullable
 as List<RecipeEntity>,searchQuery: null == searchQuery ? _self.searchQuery : searchQuery // ignore: cast_nullable_to_non_nullable
+as String,recipeQuery: null == recipeQuery ? _self.recipeQuery : recipeQuery // ignore: cast_nullable_to_non_nullable
 as String,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,isSearchingRecipes: null == isSearchingRecipes ? _self.isSearchingRecipes : isSearchingRecipes // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
@@ -156,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<String> availableIngredients,  List<String> selectedIngredients,  List<RecipeEntity> filteredRecipes,  String searchQuery,  bool isLoading,  bool isSearchingRecipes,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<String> availableIngredients,  List<String> selectedIngredients,  List<RecipeEntity> savedRecipes,  List<RecipeEntity> filteredRecipes,  String searchQuery,  String recipeQuery,  bool isLoading,  bool isSearchingRecipes,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _IngredientSearchState() when $default != null:
-return $default(_that.availableIngredients,_that.selectedIngredients,_that.filteredRecipes,_that.searchQuery,_that.isLoading,_that.isSearchingRecipes,_that.error);case _:
+return $default(_that.availableIngredients,_that.selectedIngredients,_that.savedRecipes,_that.filteredRecipes,_that.searchQuery,_that.recipeQuery,_that.isLoading,_that.isSearchingRecipes,_that.error);case _:
   return orElse();
 
 }
@@ -177,10 +179,10 @@ return $default(_that.availableIngredients,_that.selectedIngredients,_that.filte
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<String> availableIngredients,  List<String> selectedIngredients,  List<RecipeEntity> filteredRecipes,  String searchQuery,  bool isLoading,  bool isSearchingRecipes,  String? error)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<String> availableIngredients,  List<String> selectedIngredients,  List<RecipeEntity> savedRecipes,  List<RecipeEntity> filteredRecipes,  String searchQuery,  String recipeQuery,  bool isLoading,  bool isSearchingRecipes,  String? error)  $default,) {final _that = this;
 switch (_that) {
 case _IngredientSearchState():
-return $default(_that.availableIngredients,_that.selectedIngredients,_that.filteredRecipes,_that.searchQuery,_that.isLoading,_that.isSearchingRecipes,_that.error);case _:
+return $default(_that.availableIngredients,_that.selectedIngredients,_that.savedRecipes,_that.filteredRecipes,_that.searchQuery,_that.recipeQuery,_that.isLoading,_that.isSearchingRecipes,_that.error);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +199,10 @@ return $default(_that.availableIngredients,_that.selectedIngredients,_that.filte
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<String> availableIngredients,  List<String> selectedIngredients,  List<RecipeEntity> filteredRecipes,  String searchQuery,  bool isLoading,  bool isSearchingRecipes,  String? error)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<String> availableIngredients,  List<String> selectedIngredients,  List<RecipeEntity> savedRecipes,  List<RecipeEntity> filteredRecipes,  String searchQuery,  String recipeQuery,  bool isLoading,  bool isSearchingRecipes,  String? error)?  $default,) {final _that = this;
 switch (_that) {
 case _IngredientSearchState() when $default != null:
-return $default(_that.availableIngredients,_that.selectedIngredients,_that.filteredRecipes,_that.searchQuery,_that.isLoading,_that.isSearchingRecipes,_that.error);case _:
+return $default(_that.availableIngredients,_that.selectedIngredients,_that.savedRecipes,_that.filteredRecipes,_that.searchQuery,_that.recipeQuery,_that.isLoading,_that.isSearchingRecipes,_that.error);case _:
   return null;
 
 }
@@ -212,7 +214,7 @@ return $default(_that.availableIngredients,_that.selectedIngredients,_that.filte
 
 
 class _IngredientSearchState implements IngredientSearchState {
-  const _IngredientSearchState({final  List<String> availableIngredients = const [], final  List<String> selectedIngredients = const [], final  List<RecipeEntity> filteredRecipes = const [], this.searchQuery = '', this.isLoading = false, this.isSearchingRecipes = false, this.error}): _availableIngredients = availableIngredients,_selectedIngredients = selectedIngredients,_filteredRecipes = filteredRecipes;
+  const _IngredientSearchState({final  List<String> availableIngredients = const [], final  List<String> selectedIngredients = const [], final  List<RecipeEntity> savedRecipes = const [], final  List<RecipeEntity> filteredRecipes = const [], this.searchQuery = '', this.recipeQuery = '', this.isLoading = false, this.isSearchingRecipes = false, this.error}): _availableIngredients = availableIngredients,_selectedIngredients = selectedIngredients,_savedRecipes = savedRecipes,_filteredRecipes = filteredRecipes;
   
 
  final  List<String> _availableIngredients;
@@ -229,6 +231,13 @@ class _IngredientSearchState implements IngredientSearchState {
   return EqualUnmodifiableListView(_selectedIngredients);
 }
 
+ final  List<RecipeEntity> _savedRecipes;
+@override@JsonKey() List<RecipeEntity> get savedRecipes {
+  if (_savedRecipes is EqualUnmodifiableListView) return _savedRecipes;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_savedRecipes);
+}
+
  final  List<RecipeEntity> _filteredRecipes;
 @override@JsonKey() List<RecipeEntity> get filteredRecipes {
   if (_filteredRecipes is EqualUnmodifiableListView) return _filteredRecipes;
@@ -237,6 +246,7 @@ class _IngredientSearchState implements IngredientSearchState {
 }
 
 @override@JsonKey() final  String searchQuery;
+@override@JsonKey() final  String recipeQuery;
 @override@JsonKey() final  bool isLoading;
 @override@JsonKey() final  bool isSearchingRecipes;
 @override final  String? error;
@@ -251,16 +261,16 @@ _$IngredientSearchStateCopyWith<_IngredientSearchState> get copyWith => __$Ingre
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IngredientSearchState&&const DeepCollectionEquality().equals(other._availableIngredients, _availableIngredients)&&const DeepCollectionEquality().equals(other._selectedIngredients, _selectedIngredients)&&const DeepCollectionEquality().equals(other._filteredRecipes, _filteredRecipes)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isSearchingRecipes, isSearchingRecipes) || other.isSearchingRecipes == isSearchingRecipes)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _IngredientSearchState&&const DeepCollectionEquality().equals(other._availableIngredients, _availableIngredients)&&const DeepCollectionEquality().equals(other._selectedIngredients, _selectedIngredients)&&const DeepCollectionEquality().equals(other._savedRecipes, _savedRecipes)&&const DeepCollectionEquality().equals(other._filteredRecipes, _filteredRecipes)&&(identical(other.searchQuery, searchQuery) || other.searchQuery == searchQuery)&&(identical(other.recipeQuery, recipeQuery) || other.recipeQuery == recipeQuery)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isSearchingRecipes, isSearchingRecipes) || other.isSearchingRecipes == isSearchingRecipes)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_availableIngredients),const DeepCollectionEquality().hash(_selectedIngredients),const DeepCollectionEquality().hash(_filteredRecipes),searchQuery,isLoading,isSearchingRecipes,error);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_availableIngredients),const DeepCollectionEquality().hash(_selectedIngredients),const DeepCollectionEquality().hash(_savedRecipes),const DeepCollectionEquality().hash(_filteredRecipes),searchQuery,recipeQuery,isLoading,isSearchingRecipes,error);
 
 @override
 String toString() {
-  return 'IngredientSearchState(availableIngredients: $availableIngredients, selectedIngredients: $selectedIngredients, filteredRecipes: $filteredRecipes, searchQuery: $searchQuery, isLoading: $isLoading, isSearchingRecipes: $isSearchingRecipes, error: $error)';
+  return 'IngredientSearchState(availableIngredients: $availableIngredients, selectedIngredients: $selectedIngredients, savedRecipes: $savedRecipes, filteredRecipes: $filteredRecipes, searchQuery: $searchQuery, recipeQuery: $recipeQuery, isLoading: $isLoading, isSearchingRecipes: $isSearchingRecipes, error: $error)';
 }
 
 
@@ -271,7 +281,7 @@ abstract mixin class _$IngredientSearchStateCopyWith<$Res> implements $Ingredien
   factory _$IngredientSearchStateCopyWith(_IngredientSearchState value, $Res Function(_IngredientSearchState) _then) = __$IngredientSearchStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<String> availableIngredients, List<String> selectedIngredients, List<RecipeEntity> filteredRecipes, String searchQuery, bool isLoading, bool isSearchingRecipes, String? error
+ List<String> availableIngredients, List<String> selectedIngredients, List<RecipeEntity> savedRecipes, List<RecipeEntity> filteredRecipes, String searchQuery, String recipeQuery, bool isLoading, bool isSearchingRecipes, String? error
 });
 
 
@@ -288,12 +298,14 @@ class __$IngredientSearchStateCopyWithImpl<$Res>
 
 /// Create a copy of IngredientSearchState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? availableIngredients = null,Object? selectedIngredients = null,Object? filteredRecipes = null,Object? searchQuery = null,Object? isLoading = null,Object? isSearchingRecipes = null,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? availableIngredients = null,Object? selectedIngredients = null,Object? savedRecipes = null,Object? filteredRecipes = null,Object? searchQuery = null,Object? recipeQuery = null,Object? isLoading = null,Object? isSearchingRecipes = null,Object? error = freezed,}) {
   return _then(_IngredientSearchState(
 availableIngredients: null == availableIngredients ? _self._availableIngredients : availableIngredients // ignore: cast_nullable_to_non_nullable
 as List<String>,selectedIngredients: null == selectedIngredients ? _self._selectedIngredients : selectedIngredients // ignore: cast_nullable_to_non_nullable
-as List<String>,filteredRecipes: null == filteredRecipes ? _self._filteredRecipes : filteredRecipes // ignore: cast_nullable_to_non_nullable
+as List<String>,savedRecipes: null == savedRecipes ? _self._savedRecipes : savedRecipes // ignore: cast_nullable_to_non_nullable
+as List<RecipeEntity>,filteredRecipes: null == filteredRecipes ? _self._filteredRecipes : filteredRecipes // ignore: cast_nullable_to_non_nullable
 as List<RecipeEntity>,searchQuery: null == searchQuery ? _self.searchQuery : searchQuery // ignore: cast_nullable_to_non_nullable
+as String,recipeQuery: null == recipeQuery ? _self.recipeQuery : recipeQuery // ignore: cast_nullable_to_non_nullable
 as String,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,isSearchingRecipes: null == isSearchingRecipes ? _self.isSearchingRecipes : isSearchingRecipes // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable

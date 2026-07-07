@@ -21,6 +21,12 @@ class RecipeRepositoryImpl implements RecipeRepository {
   }
 
   @override
+  Future<List<RecipeEntity>> searchRecipes(String query) async {
+    final recipeModels = await localDataSource.searchRecipes(query);
+    return recipeModels.map((model) => _mapRecipeModelToEntity(model)).toList();
+  }
+
+  @override
   Future<RecipeEntity?> getRecipe(String id) async {
     final recipeModel = await localDataSource.getRecipe(id);
     if (recipeModel != null) {

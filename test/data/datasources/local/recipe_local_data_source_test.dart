@@ -132,4 +132,76 @@ void main() {
       1,
     );
   });
+
+  test('레시피 텍스트 검색은 이름, 출처, 재료, 단계, 변경 로그를 찾는다', () async {
+    final now = DateTime(2026, 7, 7, 12);
+    final recipe = RecipeModel(
+      id: 'recipe-search',
+      authorId: 'user-1',
+      latestVersionId: 'version-search',
+      name: '간장 계란밥',
+      description: '빠르게 만드는 한 끼',
+      sourceName: '집밥 노트',
+      sourceUrl: 'https://example.com/egg-rice',
+      createdAt: now,
+      updatedAt: now,
+    );
+    final version = RecipeVersionModel(
+      id: 'version-search',
+      recipeId: 'recipe-search',
+      versionNumber: 1,
+      name: '간장 계란밥',
+      description: '기본 버전',
+      versionName: '덜 짠 버전',
+      changeLog: '간장 반 스푼 감소',
+      ingredients: [
+        IngredientModel(
+          id: 'ingredient-search',
+          recipeVersionId: 'version-search',
+          name: '참기름',
+          quantity: 1,
+          unit: 'T',
+          createdAt: now,
+          updatedAt: now,
+        ),
+      ],
+      steps: [
+        StepModel(
+          id: 'step-search',
+          recipeVersionId: 'version-search',
+          stepNumber: 1,
+          description: '밥 위에 계란을 올린다',
+          createdAt: now,
+          updatedAt: now,
+        ),
+      ],
+      authorId: 'user-1',
+      createdAt: now,
+      updatedAt: now,
+    );
+
+    await dataSource.saveRecipe(recipe, version);
+
+    expect(
+      (await dataSource.searchRecipes('계란밥')).map((recipe) => recipe.id),
+      contains('recipe-search'),
+    );
+    expect(
+      (await dataSource.searchRecipes('집밥')).map((recipe) => recipe.id),
+      contains('recipe-search'),
+    );
+    expect(
+      (await dataSource.searchRecipes('참기름')).map((recipe) => recipe.id),
+      contains('recipe-search'),
+    );
+    expect(
+      (await dataSource.searchRecipes('계란을 올린다')).map((recipe) => recipe.id),
+      contains('recipe-search'),
+    );
+    expect(
+      (await dataSource.searchRecipes('반 스푼')).map((recipe) => recipe.id),
+      contains('recipe-search'),
+    );
+    expect(await dataSource.searchRecipes('없는 검색어'), isEmpty);
+  });
 }
