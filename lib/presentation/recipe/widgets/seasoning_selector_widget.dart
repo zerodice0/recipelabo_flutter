@@ -11,12 +11,14 @@ import 'package:uuid/uuid.dart';
 
 class IngredientSelectorWidget extends ConsumerStatefulWidget {
   final List<IngredientEntity> selectedIngredients;
+  final List<IngredientEntity>? baselineIngredients;
   final Function(List<IngredientEntity>) onIngredientsChanged;
   final String? label;
 
   const IngredientSelectorWidget({
     super.key,
     required this.selectedIngredients,
+    this.baselineIngredients,
     required this.onIngredientsChanged,
     this.label,
   });
@@ -30,13 +32,33 @@ class _IngredientSelectorWidgetState
     extends ConsumerState<IngredientSelectorWidget> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
+  final Map<String, TextEditingController> _quantityControllers = {};
+  final Map<String, FocusNode> _quantityFocusNodes = {};
   List<IngredientMasterEntity> _filteredSeasonings = [];
   bool _showDropdown = false;
+
+  @override
+  void didUpdateWidget(covariant IngredientSelectorWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _disposeRemovedQuantityFields();
+
+    for (final ingredient in widget.selectedIngredients) {
+      final focusNode = _quantityFocusNodes[ingredient.id];
+      if (focusNode != null && focusNode.hasFocus) continue;
+      _syncQuantityController(ingredient.id, ingredient.quantity);
+    }
+  }
 
   @override
   void dispose() {
     _searchController.dispose();
     _searchFocusNode.dispose();
+    for (final controller in _quantityControllers.values) {
+      controller.dispose();
+    }
+    for (final focusNode in _quantityFocusNodes.values) {
+      focusNode.dispose();
+    }
     super.dispose();
   }
 
@@ -101,6 +123,145 @@ class _IngredientSelectorWidgetState
     }
   }
 
+  double? _parseQuantity(String value) {
+    final trimmed = value.trim();
+    if (trimmed.isEmpty) return null;
+    final directValue = double.tryParse(trimmed);
+    if (directValue != null) return directValue;
+
+    final mixedFraction = RegExp(r'^(\d+)\s+(\d+)\/(\d+)$').firstMatch(trimmed);
+    if (mixedFraction != null) {
+      final whole = double.parse(mixedFraction.group(1)!);
+      final numerator = double.parse(mixedFraction.group(2)!);
+      final denominator = double.parse(mixedFraction.group(3)!);
+      if (denominator == 0) return null;
+      return whole + (numerator / denominator);
+    }
+
+    final fraction = RegExp(r'^(\d+)\/(\d+)$').firstMatch(trimmed);
+    if (fraction != null) {
+      final numerator = double.parse(fraction.group(1)!);
+      final denominator = double.parse(fraction.group(2)!);
+      if (denominator == 0) return null;
+      return numerator / denominator;
+    }
+
+    return switch (trimmed) {
+      '반' => 0.5,
+      '한꼬집' || '한 꼬집' || '꼬집' => 1,
+      '조금' || '약간' => 1,
+      _ => null,
+    };
+  }
+
+  void _adjustIngredientQuantity(IngredientEntity ingredient, double delta) {
+    final nextQuantity = double.parse(
+      (ingredient.quantity + delta).toStringAsFixed(2),
+    );
+    if (nextQuantity < 0) return;
+    _setIngredientQuantity(ingredient, nextQuantity);
+  }
+
+  void _scaleAllQuantities(double scale) {
+    final currentIngredients = widget.selectedIngredients
+        .map(
+          (ingredient) => ingredient.copyWith(
+            quantity: double.parse(
+              (ingredient.quantity * scale).toStringAsFixed(2),
+            ),
+          ),
+        )
+        .toList();
+    for (final ingredient in currentIngredients) {
+      _syncQuantityController(ingredient.id, ingredient.quantity);
+    }
+    widget.onIngredientsChanged(currentIngredients);
+  }
+
+  void _setIngredientQuantity(IngredientEntity ingredient, double quantity) {
+    _syncQuantityController(ingredient.id, quantity);
+    _updateIngredient(ingredient.copyWith(quantity: quantity));
+  }
+
+  TextEditingController _quantityControllerFor(IngredientEntity ingredient) {
+    return _quantityControllers.putIfAbsent(
+      ingredient.id,
+      () => TextEditingController(
+        text: _formatCompactQuantity(ingredient.quantity),
+      ),
+    );
+  }
+
+  FocusNode _quantityFocusNodeFor(String ingredientId) {
+    return _quantityFocusNodes.putIfAbsent(ingredientId, FocusNode.new);
+  }
+
+  void _syncQuantityController(String ingredientId, double quantity) {
+    final controller = _quantityControllers[ingredientId];
+    if (controller == null) return;
+
+    final text = _formatCompactQuantity(quantity);
+    if (controller.text == text) return;
+
+    controller.value = TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
+    );
+  }
+
+  void _disposeRemovedQuantityFields() {
+    final activeIds = widget.selectedIngredients
+        .map((ingredient) => ingredient.id)
+        .toSet();
+
+    for (final ingredientId in _quantityControllers.keys.toList()) {
+      if (activeIds.contains(ingredientId)) continue;
+      _quantityControllers.remove(ingredientId)?.dispose();
+    }
+
+    for (final ingredientId in _quantityFocusNodes.keys.toList()) {
+      if (activeIds.contains(ingredientId)) continue;
+      _quantityFocusNodes.remove(ingredientId)?.dispose();
+    }
+  }
+
+  IngredientEntity? _findBaselineIngredient(IngredientEntity ingredient) {
+    final baselineIngredients = widget.baselineIngredients;
+    if (baselineIngredients == null) return null;
+
+    for (final baseline in baselineIngredients) {
+      if (baseline.name.trim().toLowerCase() ==
+          ingredient.name.trim().toLowerCase()) {
+        return baseline;
+      }
+    }
+    return null;
+  }
+
+  String? _buildDeltaText(IngredientEntity ingredient) {
+    final baseline = _findBaselineIngredient(ingredient);
+    if (baseline == null) return null;
+
+    final quantityChanged = baseline.quantity != ingredient.quantity;
+    final unitChanged = baseline.unit != ingredient.unit;
+    if (!quantityChanged && !unitChanged) return '이전과 동일';
+
+    if (unitChanged) {
+      return '이전 ${_formatCompactQuantity(baseline.quantity)} ${baseline.unit}';
+    }
+
+    final delta = ingredient.quantity - baseline.quantity;
+    final sign = delta > 0 ? '+' : '';
+    return '$sign${_formatCompactQuantity(delta)} ${ingredient.unit}';
+  }
+
+  String _formatCompactQuantity(double quantity) {
+    if (quantity == quantity.roundToDouble()) {
+      return quantity.toInt().toString();
+    }
+    return quantity.toStringAsFixed(2).replaceFirst(RegExp(r'\.?0+$'), '');
+  }
+
   Future<void> _createNewIngredient(String name) async {
     try {
       final createUseCase = ref.read(createIngredientMasterUseCaseProvider);
@@ -160,6 +321,8 @@ class _IngredientSelectorWidgetState
 
         // 선택된 재료들 표시 (양과 단위 포함)
         if (widget.selectedIngredients.isNotEmpty) ...[
+          _buildScaleControls(),
+          const SizedBox(height: 12),
           for (final ingredient in widget.selectedIngredients)
             Container(
               margin: const EdgeInsets.only(bottom: 12),
@@ -173,72 +336,7 @@ class _IngredientSelectorWidgetState
                   context,
                 ).colorScheme.primaryContainer.withValues(alpha: 0.3),
               ),
-              child: Row(
-                children: [
-                  // 재료명
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      ingredient.name,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  // 양 입력
-                  Expanded(
-                    child: TextFormField(
-                      initialValue: ingredient.quantity.toString(),
-                      decoration: InputDecoration(
-                        labelText: AppLocalizations.of(
-                          context,
-                        ).ingredientQuantityLabel,
-                        isDense: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 8,
-                        ),
-                      ),
-                      keyboardType: TextInputType.number,
-                      onChanged: (value) {
-                        final quantity =
-                            double.tryParse(value) ?? ingredient.quantity;
-                        _updateIngredient(
-                          ingredient.copyWith(quantity: quantity),
-                        );
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  // 단위 선택
-                  Expanded(
-                    child: UnitSelectorWidget(
-                      selectedUnit: ingredient.unit,
-                      onUnitChanged: (value) {
-                        _updateIngredient(ingredient.copyWith(unit: value));
-                      },
-                      decoration: InputDecoration(
-                        labelText: AppLocalizations.of(
-                          context,
-                        ).ingredientUnitLabel,
-                        isDense: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 8,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  // 삭제 버튼
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => _removeIngredient(ingredient.name),
-                    visualDensity: VisualDensity.compact,
-                  ),
-                ],
-              ),
+              child: _buildIngredientEditor(context, ingredient),
             ),
           const SizedBox(height: 12),
         ],
@@ -429,6 +527,200 @@ class _IngredientSelectorWidgetState
           ],
         ),
       ],
+    );
+  }
+
+  Widget _buildIngredientEditor(
+    BuildContext context,
+    IngredientEntity ingredient,
+  ) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 560) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(child: _buildIngredientName(context, ingredient)),
+                  _buildRemoveIngredientButton(ingredient),
+                ],
+              ),
+              const SizedBox(height: 12),
+              _buildQuantityControls(context, ingredient),
+              const SizedBox(height: 12),
+              _buildUnitSelector(context, ingredient),
+            ],
+          );
+        }
+
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(flex: 2, child: _buildIngredientName(context, ingredient)),
+            const SizedBox(width: 8),
+            Expanded(
+              flex: 2,
+              child: _buildQuantityControls(context, ingredient),
+            ),
+            const SizedBox(width: 8),
+            Expanded(child: _buildUnitSelector(context, ingredient)),
+            const SizedBox(width: 8),
+            _buildRemoveIngredientButton(ingredient),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildIngredientName(
+    BuildContext context,
+    IngredientEntity ingredient,
+  ) {
+    final deltaText = _buildDeltaText(ingredient);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          ingredient.name,
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+        ),
+        if (deltaText != null) ...[
+          const SizedBox(height: 4),
+          Text(
+            deltaText,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildQuantityControls(
+    BuildContext context,
+    IngredientEntity ingredient,
+  ) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.remove),
+              onPressed: () => _adjustIngredientQuantity(ingredient, -0.5),
+              visualDensity: VisualDensity.compact,
+            ),
+            Expanded(
+              child: TextFormField(
+                key: ValueKey('quantity-${ingredient.id}'),
+                controller: _quantityControllerFor(ingredient),
+                focusNode: _quantityFocusNodeFor(ingredient.id),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(
+                    context,
+                  ).ingredientQuantityLabel,
+                  isDense: true,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 8,
+                  ),
+                ),
+                keyboardType: TextInputType.text,
+                onChanged: (value) {
+                  final quantity = _parseQuantity(value);
+                  if (quantity == null) return;
+                  _updateIngredient(ingredient.copyWith(quantity: quantity));
+                },
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () => _adjustIngredientQuantity(ingredient, 0.5),
+              visualDensity: VisualDensity.compact,
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Wrap(
+          spacing: 4,
+          children: [
+            _buildQuickQuantityChip(ingredient, '1/4', 0.25),
+            _buildQuickQuantityChip(ingredient, '1/2', 0.5),
+            _buildQuickQuantityChip(ingredient, '1', 1),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildUnitSelector(BuildContext context, IngredientEntity ingredient) {
+    return UnitSelectorWidget(
+      selectedUnit: ingredient.unit,
+      onUnitChanged: (value) {
+        _updateIngredient(ingredient.copyWith(unit: value));
+      },
+      decoration: InputDecoration(
+        labelText: AppLocalizations.of(context).ingredientUnitLabel,
+        isDense: true,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      ),
+    );
+  }
+
+  Widget _buildRemoveIngredientButton(IngredientEntity ingredient) {
+    return IconButton(
+      icon: const Icon(Icons.close),
+      onPressed: () => _removeIngredient(ingredient.name),
+      visualDensity: VisualDensity.compact,
+    );
+  }
+
+  Widget _buildScaleControls() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          Text('전체 수량 배율', style: Theme.of(context).textTheme.bodyMedium),
+          OutlinedButton(
+            onPressed: () => _scaleAllQuantities(0.5),
+            child: const Text('0.5배'),
+          ),
+          OutlinedButton(
+            onPressed: () => _scaleAllQuantities(1.5),
+            child: const Text('1.5배'),
+          ),
+          OutlinedButton(
+            onPressed: () => _scaleAllQuantities(2),
+            child: const Text('2배'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildQuickQuantityChip(
+    IngredientEntity ingredient,
+    String label,
+    double quantity,
+  ) {
+    return ActionChip(
+      label: Text(label),
+      visualDensity: VisualDensity.compact,
+      onPressed: () => _setIngredientQuantity(ingredient, quantity),
     );
   }
 }
