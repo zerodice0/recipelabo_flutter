@@ -21,8 +21,15 @@ class RecipeBackupService {
   RecipeBackupService({
     required DatabaseHelper databaseHelper,
     required ImageStorageService imageStorageService,
-  }) : _databaseHelper = databaseHelper,
-       _imageStorageService = imageStorageService;
+  }) : this._(
+         databaseHelper: databaseHelper,
+         imageStorageService: imageStorageService,
+       );
+
+  RecipeBackupService._({
+    required this._databaseHelper,
+    required this._imageStorageService,
+  });
 
   static const String backupFormat = 'recipick.recipe_backup';
   static const int currentFormatVersion = 1;

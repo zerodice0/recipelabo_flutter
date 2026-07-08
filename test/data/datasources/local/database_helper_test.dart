@@ -2,13 +2,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:recipick_flutter/data/datasources/local/database_helper.dart';
 
+import '../../../helpers/test_database_factory.dart';
+
 void main() {
   late DatabaseHelper databaseHelper;
   late Database database;
 
-  setUpAll(() {
-    sqfliteFfiInit();
-    databaseFactory = databaseFactoryFfi;
+  setUpAll(() async {
+    await setUpIsolatedSqfliteFfiDatabaseFactory('database_helper_test');
   });
 
   setUp(() async {

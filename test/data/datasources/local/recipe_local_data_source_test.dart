@@ -7,14 +7,17 @@ import 'package:recipick_flutter/data/models/recipe_version_model.dart';
 import 'package:recipick_flutter/data/models/step_model.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
+import '../../../helpers/test_database_factory.dart';
+
 void main() {
   late DatabaseHelper databaseHelper;
   late Database database;
   late RecipeLocalDataSourceImpl dataSource;
 
-  setUpAll(() {
-    sqfliteFfiInit();
-    databaseFactory = databaseFactoryFfi;
+  setUpAll(() async {
+    await setUpIsolatedSqfliteFfiDatabaseFactory(
+      'recipe_local_data_source_test',
+    );
   });
 
   setUp(() async {

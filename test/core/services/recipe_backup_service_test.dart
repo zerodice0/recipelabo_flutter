@@ -9,15 +9,16 @@ import 'package:recipick_flutter/core/services/recipe_backup_service.dart';
 import 'package:recipick_flutter/data/datasources/local/database_helper.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
+import '../../helpers/test_database_factory.dart';
+
 void main() {
   late DatabaseHelper databaseHelper;
   late Database database;
   late FakeImageStorageService imageStorageService;
   late RecipeBackupService service;
 
-  setUpAll(() {
-    sqfliteFfiInit();
-    databaseFactory = databaseFactoryFfi;
+  setUpAll(() async {
+    await setUpIsolatedSqfliteFfiDatabaseFactory('recipe_backup_service_test');
   });
 
   setUp(() async {
